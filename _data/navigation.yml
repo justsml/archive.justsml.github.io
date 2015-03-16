@@ -1,7 +1,7 @@
 # Menu navigation links
 
-- title: Theme Setup
-  url: /theme-setup/
+- title: Download Resume
+  url: /
 
-- title: External Link
-  url: http://www.danlevy.net
+- title: GitHub
+  url: http://github.com/justsml
