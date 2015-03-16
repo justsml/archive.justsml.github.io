@@ -3,7 +3,7 @@ layout: post
 title:  "Security Notes: RegEx"
 date:   2015-02-24 05:42:21
 categories: security
-tags: security
+tags: [security]
 image:
   feature: abstract-3.jpg
 ---

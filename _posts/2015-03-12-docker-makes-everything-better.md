@@ -31,20 +31,16 @@ There may seem like a huge volume of new stuff to learn, **don't let that stop y
 
 
 ```shell
-# using host-based, shared data volumes (the usage here of -v flag is not possible with the VOLUME Dockerfile cmd)
-docker run -d -p 80:80 \
+# Note: using host-based, shared folders (the behavior here of the -v option is not possible with the VOLUME Dockerfile cmd)
+sudo docker run --name web01 -d -p 8181:80 \
 	-v ${SITES_ENABLED_DIR}:/etc/nginx/sites-enabled \
 	-v ${CERTS_DIR}:/etc/nginx/certs \
 	-v ${LOG_DIR}:/var/log/nginx \
 	-v ${HTML_DIR}:/var/www/html \
 	dockerfile/nginx:latest
 
-docker run -d -p 80:80 \
-	-v ${SITES_ENABLED_DIR}:/etc/nginx/sites-enabled \
-	-v ${CERTS_DIR}:/etc/nginx/certs \
-	-v ${LOG_DIR}:/var/log/nginx \
-	-v ${HTML_DIR}:/var/www/html \
-	dockerfile/nginx:latest
+# Local data, isolated within instance
+sudo docker run --name web01 -d -p 8181:80 dockerfile/nginx:latest
 
 ```
 
