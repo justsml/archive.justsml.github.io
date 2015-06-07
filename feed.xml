@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">www.DanLevy.net</title>
+<generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="/feed.xml" />
+<link rel="alternate" type="text/html" href="" />
+<updated>2015-06-07T06:44:15-06:00</updated>
+<id>/</id>
+<author>
+  <name>Dan Levy</name>
+  <uri>/</uri>
+  <email>Dan@DanLevy.net</email>
+</author>
+
+
+<entry>
+  <title type="html"><![CDATA[Docker Firewall Setup]]></title>
+ <link rel="alternate" type="text/html" href="/docker/2015/06/06/docker-firewall-setup.html" />
+  <id>/docker/2015/06/06/docker-firewall-setup</id>
+  <published>2015-06-06T16:22:22-06:00</published>
+  <updated>2015-06-06T16:22:22-06:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;setup-docker-host-firewall&quot;&gt;Setup Docker Host Firewall&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Debian/Ubuntu Server is assumed&lt;/li&gt;
+  &lt;li&gt;Designed to run on Docker Host Server&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;install-requirements&quot;&gt;Install Requirements&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;
+# Ultimate Firewall Needed
+apt-get update &amp;amp;&amp;amp; apt-get install -y ufw nmap curl
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;get-your-internal--external-ip-addresses&quot;&gt;Get your Internal &amp;amp; External IP Addresses&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;
+# Get your IP Addresses, simple output:
+hostname --all-ip-addresses
+
+# OR use ip tool, example:
+ip addr
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;ufw-config--command-examples&quot;&gt;UFW Config &amp;amp; Command Examples&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;
+export EXTERNAL_IP=123.123.123.123
+export DOCKER_IP=172.17.42.1
+
+# Allow and log all new ssh connections,
+ufw allow log proto tcp from any to any port 22
+ufw limit tcp/22 # Rate limit - basic SSH brute force mitigation
+
+# Forward tcp 8080 traffic to  Dockerized App
+ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;enable--start-firewall&quot;&gt;Enable / Start Firewall&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Be Careful, Don’t Lock out your SSH port (defaults to 22)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;ufw enable
+ufw reset
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;test-firewall&quot;&gt;Test Firewall&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Important: USE A REMOTE IP ADDR/LOCATION&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;# Verify dependency
+apt-get update &amp;amp;&amp;amp; apt-get install -y nmap
+
+# Set scan target
+export TARGET_HOST=123.123.123.123
+
+# Example Scan Commands:
+# Fast open port check
+nmap -p 1-10240,27017 -T5 $TARGET_HOST
+# Thorough scan
+nmap -p 1-10240,27017 --open -v -APN $TARGET_HOST
+# Svc Inspection
+nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;done-now-you-should-see-only-the-ports-you-configured&quot;&gt;DONE! Now you should see ONLY the ports you configured!&lt;/h1&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/docker/2015/06/06/docker-firewall-setup.html&quot;&gt;Docker Firewall Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[JavaScript Magic]]></title>
+ <link rel="alternate" type="text/html" href="/javascript/2015/06/06/javascript-scope-magic.html" />
+  <id>/javascript/2015/06/06/javascript-scope-magic</id>
+  <published>2015-06-06T09:42:21-06:00</published>
+  <updated>2015-06-06T09:42:21-06:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;blockquote&gt;
+  &lt;p&gt;This post is geared to modern browsers and other JavaScript environments.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;imperative-vs-functional&quot;&gt;Imperative vs. Functional&lt;/h1&gt;
+
+&lt;h1 id=&quot;promises-not-scary&quot;&gt;Promises: Not Scary&lt;/h1&gt;
+
+&lt;h1 id=&quot;callbacks-most-common&quot;&gt;Callbacks: Most Common&lt;/h1&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/javascript/2015/06/06/javascript-scope-magic.html&quot;&gt;JavaScript Magic&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Docker server Setup]]></title>
+ <link rel="alternate" type="text/html" href="/devops/2015/04/05/docker-server-setup-notes.html" />
+  <id>/devops/2015/04/05/docker-server-setup-notes</id>
+  <published>2015-04-05T19:00:59-06:00</published>
+  <updated>2015-04-05T19:00:59-06:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;docker-host-server-setup-w-basic-monitoring-tools&quot;&gt;Docker &lt;strong&gt;Host Server&lt;/strong&gt; Setup, w/ Basic Monitoring Tools&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;# Updates
+apt-get update &amp;amp;&amp;amp; apt-get install -y vim-nox git-core ufw curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64
+
+# Host OS Tuning
+sysctl -w vm.max_map_count=262144
+
+# Updates Profile init scripts
+cd ~/
+mkdir ~/backups
+cp ~/.bash* ~/backups/
+
+curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc &amp;gt; .bashrc
+curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases &amp;gt; .bash_aliases
+# Read into current shell (login steps already missed the aliases file)
+source ~/.bashrc
+
+# Install Docker
+curl -sSL https://get.docker.com/ | sh
+
+# Create Shared Folder On HOST for the Docker DB Instances
+mkdir -p /mongodb/db
+mkdir -p /elastic
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Only for SELinux Enabled Systems&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;# SELinux fixes (optional)
+# chcon -Rt svirt_sandbox_file_t /mongodb
+# chcon -Rt svirt_sandbox_file_t /elastic
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;setup-database-services&quot;&gt;Setup Database Services&lt;/h2&gt;
+
+&lt;h4 id=&quot;mongodb-v3-server&quot;&gt;MongoDB v3 Server&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;mkdir -p /mongodb/db
+docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c &#39;mongod --logpath /data/mongodb.log --logappend --dbpath /data/db --storageEngine=wiredTiger&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;elastic-search&quot;&gt;Elastic Search&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;mkdir -p /elastic
+docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c &#39;elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs &#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;package-up-your-nodejsrubypythonetc-app&quot;&gt;Package up your NodeJS/Ruby/Python/Etc App&lt;/h1&gt;
+&lt;hr /&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Add a blank file named &lt;code&gt;Dockerfile&lt;/code&gt; in your project root.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;(Optional)&lt;/em&gt; Add a &lt;code&gt;.dockerignore&lt;/code&gt; using .gitignore rules to exclude large non-essential paths. By default all project files are included.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;dockerfile&quot;&gt;&lt;code&gt;Dockerfile&lt;/code&gt;&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-dockerfile&quot;&gt;# Example for NodeJS
+FROM node:0.12
+EXPOSE [3000]
+COPY . /app/
+WORKDIR /app
+RUN apt-get update \
+	&amp;amp;&amp;amp; apt-get dist-upgrade -y
+RUN [&quot;npm&quot;, &quot;install&quot;]
+# Overridable Command
+CMD [&quot;npm&quot;, &quot;start&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It’s easier to show how to start using the dockerfile and inspect the result via console.&lt;/p&gt;
+
+&lt;p&gt;In terminal, &lt;code&gt;cd&lt;/code&gt; to your project folder and run the following &lt;code&gt;docker build&lt;/code&gt; command &lt;em&gt;&lt;strong&gt;everytime&lt;/strong&gt;&lt;/em&gt; you make a change or want to include OS upgrades)&lt;/p&gt;
+
+&lt;h4 id=&quot;build-docker-image-every-deploychange&quot;&gt;Build Docker Image Every Deploy/Change&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;docker build -t app-name-here .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;createrun-web-app-w-links-to-db-servers&quot;&gt;Create/Run Web App w/ Links to DB Servers&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;or---run-interactively-in-terminal&quot;&gt;OR - Run Interactively (in terminal)&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;important-to-delete-webapp01&quot;&gt;IMPORTANT: To delete webapp01&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;docker rm -f webapp01
+# rerun `docker run...` from ^^^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;to-re-create-the-db-container-instances&quot;&gt;To Re-Create the DB ‘Container’ Instances&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: Data is mounted to host server at /mongodb&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;docker rm -f mongo elastic
+# OR
+docker rm -f elastic
+docker rm -f mongo
+&lt;/code&gt;&lt;/pre&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/devops/2015/04/05/docker-server-setup-notes.html&quot;&gt;Docker server Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on April 05, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Development: #Winning Design Resource]]></title>
+ <link rel="alternate" type="text/html" href="/development/2015/02/26/amazing-resources.html" />
+  <id>/development/2015/02/26/amazing-resources</id>
+  <published>2015-02-26T04:42:21-07:00</published>
+  <updated>2015-02-26T04:42:21-07:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;your-prototype-apps-suck-so-sprinkle-some-awesome-in-there&quot;&gt;Your Prototype Apps Suck: So sprinkle some awesome in there&lt;/h1&gt;
+&lt;p&gt;==========&lt;/p&gt;
+
+&lt;h2 id=&quot;solve-at-least-2-ui-challenges-menu--tooltips&quot;&gt;Solve (at least) 2 UI challenges: Menu + Tooltips&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: Not my code, however I’ve evaluated it and I have to say I &lt;strong&gt;rarely find code at this level&lt;/strong&gt;. Like, &lt;em&gt;never&lt;/em&gt;, folks.&lt;br /&gt;
+The &lt;a href=&quot;author, Mary Lou&quot;&gt;http://tympanus.net/codrops/author/crnacura/&lt;/a&gt; is just incredibly talented.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;menus-amazingly-inspiring-and-useful---still-talking-menus-here-httptympanusnetdevelopmentoffcanvasmenueffectscornerboxnestedhtmlhttptympanusnetdevelopmentoffcanvasmenueffectscornerboxnestedhtml&quot;&gt;Menus (amazingly inspiring AND useful - still talking menus here): &lt;a href=&quot;http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html&quot;&gt;http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html&lt;/a&gt;&lt;/h5&gt;
+
+&lt;h5 id=&quot;fix-your-tooltips-httptympanusnetcodrops20141007tooltip-styles-inspirationhttptympanusnetcodrops20141007tooltip-styles-inspiration&quot;&gt;Fix your tooltips: &lt;a href=&quot;http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/&quot;&gt;http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/&lt;/a&gt;&lt;/h5&gt;
+
+&lt;p&gt;Wow… Right?&lt;/p&gt;
+
+&lt;p&gt;I know I said it, but let me emphasize: All the &lt;strong&gt;code is extraordinarily well done&lt;/strong&gt;…  &lt;em&gt;I never say that, most devs rarely bother to be this meticulous&lt;/em&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Btw, I say ‘prototype apps’ merely because the examples need a few accessability/usability tweaks (which are described in Mary’s articles).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here’s where I found this stuff: &lt;a href=&quot;https://twitter.com/codrops&quot;&gt;follow codrops at https://twitter.com/codrops&lt;/a&gt;&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/development/2015/02/26/amazing-resources.html&quot;&gt;Development: #Winning Design Resource&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[AngularJS Tricks]]></title>
+ <link rel="alternate" type="text/html" href="/angularjs/2015/02/26/stop-the-angularjs-hate.html" />
+  <id>/angularjs/2015/02/26/stop-the-angularjs-hate</id>
+  <published>2015-02-26T04:22:33-07:00</published>
+  <updated>2015-02-26T04:22:33-07:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;angularjs-can-be-fast&quot;&gt;AngularJS CAN BE Fast!&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Lot’s of developers are discovering that their large AngularJS apps are buckling under the weight of all those &lt;code&gt;$watch&#39;s&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;way-data-binding-2-way-sword&quot;&gt;2-way data binding: 2-way Sword&lt;/h2&gt;
+
+&lt;p&gt;2-way binding alone makes coming from other frameworks like Backbone, well, &lt;strong&gt;frickin amazeballs&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The problem is: many sites &lt;strong&gt;chronically overuse&lt;/strong&gt; Angular’s design patterns.&lt;br /&gt;
+This leads to directive sprawl and a &lt;code&gt;$scope/rootScope&lt;/code&gt; which easily clings to huge objects preventing any hope of effective garbage collection.&lt;br /&gt;
+You know where this is going: an exhausted browser! Forever doomed to work at a &lt;strong&gt;frantic pace&lt;/strong&gt; executing endless and redundant UI/DOM re-compiles.&lt;/p&gt;
+
+&lt;p&gt;Does your &lt;code&gt;&amp;lt;current-user-status-label&amp;gt;&lt;/code&gt; directive really need to be, well, a directive at all?&lt;/p&gt;
+
+&lt;h1 id=&quot;alternatives--solutions&quot;&gt;Alternatives &amp;amp; Solutions&lt;/h1&gt;
+
+&lt;h2 id=&quot;reactjs-from-facebook&quot;&gt;ReactJS from Facebook&lt;/h2&gt;
+
+&lt;p&gt;For content that is not going to change often:&lt;br /&gt;
+If you have tons of small UI bits - you might want to evaluate a framework more appropriate:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Add ReactJS to your project
+    &lt;ul&gt;
+      &lt;li&gt;Has a different philosophy to UI/DOM implementation&lt;/li&gt;
+      &lt;li&gt;You can use ReactJS alongside AngularJS, Ember, Backbone - pretty much anything.&lt;/li&gt;
+      &lt;li&gt;NOT built around the $scope/$watch ADHD digest pattern of Angular&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;polymer-projecthttpwwwpolymer-projectorg-from-google&quot;&gt;&lt;a href=&quot;http://www.Polymer-Project.org/&quot;&gt;Polymer Project&lt;/a&gt; from Google&lt;/h2&gt;
+
+&lt;h2 id=&quot;pure-er-js-approach&quot;&gt;Pure-er JS Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I typically try to do ONE-TIME creation of these fragments &lt;strong&gt;in my controller &lt;code&gt;link()&lt;/code&gt; function&lt;/strong&gt;. By the way,  here’s where I try create framework agnostic code (+1 testability, +1 reuse)&lt;br /&gt;
+      1. Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)&lt;br /&gt;
+      1. Use mustache templating to create HTML strings (or DOM directly)&lt;br /&gt;
+      1. Cache rendered content in localStorage if you can&lt;br /&gt;
+      1. (Optional) Now add an event listener to re-render the content. I have standardized on the event name &lt;code&gt;refresh.&amp;lt;class-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/angularjs/2015/02/26/stop-the-angularjs-hate.html&quot;&gt;AngularJS Tricks&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Development: Docker === Love]]></title>
+ <link rel="alternate" type="text/html" href="/development/2015/02/26/docker-makes-everything-better.html" />
+  <id>/development/2015/02/26/docker-makes-everything-better</id>
+  <published>2015-02-26T04:07:59-07:00</published>
+  <updated>2015-02-26T04:07:59-07:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;docker-can-do-everything&quot;&gt;Docker Can Do Everything!*&lt;/h1&gt;
+
+&lt;p&gt;Improve your process for:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Testing Dev Tools &amp;amp; Servers WITH VIRTUALLY ZERO risk of messing up dependencies on your PC&lt;/li&gt;
+  &lt;li&gt;Testing your software&lt;/li&gt;
+  &lt;li&gt;Makes you write more idempotent, modular code… (I’ll write how to actually realize this in a follow up)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;There may seem like a huge volume of new stuff to learn, &lt;strong&gt;don’t let that stop you&lt;/strong&gt; from getting started.&lt;/p&gt;
+
+&lt;h4 id=&quot;notes&quot;&gt;Notes&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If you see a &lt;code&gt;docker run&lt;/code&gt; command with either options &lt;code&gt;-d&lt;/code&gt; or &lt;code&gt;-it&lt;/code&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code&gt;-it&lt;/code&gt; or &lt;code&gt;-i -t&lt;/code&gt; will run the configured command interactively&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;-d&lt;/code&gt; will start the docker container as a ‘daemon’ aka background service.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;examples&quot;&gt;EXAMPLES&lt;/h3&gt;
+
+&lt;h4 id=&quot;nginx&quot;&gt;nginx&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;
+	# Note: using host-based, shared folders
+	#(shared folders are not possible with the VOLUME Dockerfile cmd)
+	sudo docker run --name web01 -d -p 8181:80 \
+		-v ${SITES_ENABLED_DIR}:/etc/nginx/sites-enabled \
+		-v ${CERTS_DIR}:/etc/nginx/certs \
+		-v ${LOG_DIR}:/var/log/nginx \
+		-v ${HTML_DIR}:/var/www/html \
+		dockerfile/nginx:latest
+
+	# Local data, isolated within instance
+	sudo docker run --name web01 -d -p 8181:80 dockerfile/nginx:latest
+
+	# nodejs
+	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 dockerfile/nodejs:latest
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Credits: &lt;a href=&quot;https://dockerfile.github.io/#/nginx&quot;&gt;https://dockerfile.github.io/#/nginx&lt;/a&gt;&lt;br /&gt;
+Docker will make your life easier throughout the &lt;em&gt;entire&lt;/em&gt; SDLC.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Pretty close&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/development/2015/02/26/docker-makes-everything-better.html&quot;&gt;Development: Docker === Love&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Security Notes: RegEx]]></title>
+ <link rel="alternate" type="text/html" href="/security/2015/02/23/security-notes-regex.html" />
+  <id>/security/2015/02/23/security-notes-regex</id>
+  <published>2015-02-23T22:42:21-07:00</published>
+  <updated>2015-02-23T22:42:21-07:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;denial-of-service-details-regex&quot;&gt;Denial-of-Service Details: Regex&lt;/h1&gt;
+
+&lt;p&gt;One of the most common yet hard-to-spot vulnerabilities I find relate to regular expressions, either poorly written or poorly implemented.&lt;/p&gt;
+
+&lt;h3 id=&quot;three-red-flags-are&quot;&gt;Three red-flags are:&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You have multiple capture groups&lt;/li&gt;
+  &lt;li&gt;Global matching&lt;/li&gt;
+  &lt;li&gt;Expression is used with un-checked user input&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;things-to-keep-in-mind&quot;&gt;Things to keep in mind:&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;RegEx is hard
+    &lt;ol&gt;
+      &lt;li&gt;For example, here is how the really smart folks at &lt;a href=&quot;https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository&quot;&gt;OWASP RegEx Validation&lt;/a&gt; advise on testing an IP Address: &lt;code&gt;^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;That’s longer than a tweet, for a 4-byte IP Address!!!&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Make sure user input isn’t unduly long, when I know input data is reliably less than 40 chars, I’ll make sure I prevent anything over 64 - otherwise, an attacker could overwhelm my system with a flood of 4Kb requests.&lt;/li&gt;
+  &lt;li&gt;This affects almost every language and platform .NET/Node/Python/PERL/Java&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;References:&lt;br /&gt;
+&lt;a href=&quot;https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;amp;utm_medium=email&quot;&gt;Regular Expression DoS and Node.js&lt;/a&gt;&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/security/2015/02/23/security-notes-regex.html&quot;&gt;Security Notes: RegEx&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 23, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+</feed>
