@@ -1,5 +1,6 @@
 title: www.DanLevy.net
 email: dan@danlevy.net
+
 description: Devout Developer
 disqus_shortname: danlevy
 reading_time:     true
@@ -19,22 +20,23 @@ owner:
   twitter:        justsml
   facebook:       justsml
   github:         justsml
-  stackexchange:  
+  stackexchange:
   linkedin:       realdanlevy
-  instagram:      
-  flickr:         
-  tumblr:         
+  instagram:
+  flickr:
+  tumblr:
   # google plus id, include the '+', eg +mmistakes
   google_plus:    +justsml
 
 # Background image to be tiled on all pages
 background: abstract-3.jpg
+destination: ./public
 
 # Analytics and webmaster tools stuff goes here
 google_analytics:   	UA-59708923-1
 google_verify:      	aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:  				1A9E3CE623BA981E829FE1023285585D  
+bing_verify:  				1A9E3CE623BA981E829FE1023285585D
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    America/Denver
@@ -48,17 +50,18 @@ sass:
   style: compressed
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title/
+# permalink:   /:categories/:title/
 
 # Amount of post to show on home page
-paginate: 6
+paginate: 5
 
 kramdown:
   auto_ids: true
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..6
-  use_coderay: true
+  input: GFM
+  use_coderay: false
 
   coderay:
     coderay_line_numbers: nil

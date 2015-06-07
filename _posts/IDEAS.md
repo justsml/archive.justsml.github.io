@@ -1,14 +1,30 @@
+
+Parse SDK: The Lost Bits (unofficial)
+- Diverging between Cloud Code
+- Syntax, WTF?
+- Swagger API Wrapper
+- Login flow
+- Browserify
+
+
 Write about JADE template strategies
 	- https://github.com/jossmac/jade-field-mixins
 
+# Competeing platforms
+	https://www.google.com/trends/explore#q=%2Fm%2F02p97%2C%20%2Fm%2F06ff5%2C%20%2Fm%2F09gbxjr%2C%20%2Fm%2F060kv%2C%20%2Fm%2F0chpd&date=1%2F2013%2027m&cmpt=q&tz=
+US Trend:
+<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=/m/02p97,+/m/06ff5,+/m/09gbxjr,+/m/060kv,+/m/0chpd&geo=US&date=9/2011+43m&cmpt=q&tz&tz&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=330"></script>
+
 Code Rot Article
 
-Gulp Grunt Organization Ideas 
+Gulp Grunt Organization Ideas
+
+Learn SmallTalk!
 
 #### OMFG, angular-hint
 	npm install angular-hint
 
-Ask module authors to automatically measure deps size including 
+Ask module authors to automatically measure deps size including
 	- un/minified
 	- un/gziped
 
