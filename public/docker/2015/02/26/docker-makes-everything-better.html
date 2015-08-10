@@ -5,16 +5,17 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Docker server Setup &#8211; www.DanLevy.net</title>
+<title>Docker === Love &#8211; www.DanLevy.net</title>
 <meta name="description" content="Devout Developer">
-<meta name="keywords" content="devops, docker, server, setup, shell script">
+<meta name="keywords" content="development, design, resource, ideas, patterns">
 
 
 	<!-- Twitter Cards -->
-	<meta name="twitter:card" content="summary">
-		<meta name="twitter:image" content="/images/">
 	
-	<meta name="twitter:title" content="Docker server Setup">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:image" content="/images/abstract-6.jpg">
+		
+	<meta name="twitter:title" content="Docker === Love">
 	<meta name="twitter:description" content="Devout Developer">
 	<meta name="twitter:creator" content="@justsml">
 
@@ -42,16 +43,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker server Setup">
+<meta property="og:title" content="Docker === Love">
 <meta property="og:description" content="Devout Developer">
-<meta property="og:url" content="/devops/2015/04/05/docker-server-setup-notes.html">
+<meta property="og:url" content="/docker/2015/02/26/docker-makes-everything-better.html">
 <meta property="og:site_name" content="www.DanLevy.net">
 
 <meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
 <meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
 
 
-<link rel="canonical" href="/devops/2015/04/05/docker-server-setup-notes.html">
+<link rel="canonical" href="/docker/2015/02/26/docker-makes-everything-better.html">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
 
 <!-- http://t.co/dKP3o1e -->
@@ -135,7 +136,7 @@
 
 </head>
 
-<body id="post" >
+<body id="post" class="feature">
 
 <!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
 <nav id="dl-menu" class="dl-menuwrapper" role="navigation">
@@ -148,11 +149,14 @@
 				<li>
 					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
 					<h4>Dan Levy</h4>
-					<p></p>
+					<p>Devout Programmer</p>
 				</li>
 				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				<li>
 					<a href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
@@ -165,9 +169,6 @@
 				</li>
 				<li>
 					<a href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
-				</li>
-				<li>
-					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				
 				
@@ -198,20 +199,27 @@
 
 
 
+<div class="entry-header">
+  
+  <div class="entry-image">
+    <img src="/images/abstract-6.jpg" alt="Docker === Love">
+  </div><!-- /.entry-image -->
+</div><!-- /.entry-header -->
+
 
 <div id="main" role="main">
   <article class="hentry">
     <header class="header-title">
       <div class="header-title-wrap">
         
-          <h1 class="entry-title"><a href="/devops/2015/04/05/docker-server-setup-notes.html" rel="bookmark" title="Docker server Setup">Docker server Setup</a></h1>
+          <h1 class="entry-title"><a href="/docker/2015/02/26/docker-makes-everything-better.html" rel="bookmark" title="Docker === Love">Docker === Love</a></h1>
         
-        <h2><span class="entry-date date published"><time datetime="2015-04-05T19:00:59-06:00">April 05, 2015</time></span></h2>
+        <h2><span class="entry-date date published"><time datetime="2015-02-26T04:07:59-07:00">February 26, 2015</time></span></h2>
         
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~2 minutes
+          Reading time ~4 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
@@ -227,158 +235,89 @@
                </div>
                <ul>
                   <li class="toc_level-1 toc_section-1">
-                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Docker Host Server Setup, w/ Basic Monitoring Tools</span></a>
+                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Docker Can Do Everything!*</span></a>
+                  </li>
+                  <li class="toc_level-1 toc_section-2">
+                     <a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">EXAMPLES</span></a>
                      <ul>
-                        <li class="toc_level-2 toc_section-2">
-                           <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">Setup Database Services</span></a>
+                        <li class="toc_level-2 toc_section-3">
+                           <a href="#tocAnchor-1-2-1"><span class="tocnumber">2.1</span> <span class="toctext">nginx</span></a>
                         </li>
                      </ul>
-                  </li>
-                  <li class="toc_level-1 toc_section-3">
-                     <a href="#tocAnchor-1-3"><span class="tocnumber">2</span> <span class="toctext">Package up your NodeJS/Ruby/Python/Etc App</span></a>
                   </li>
                </ul>
             </td>
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">Docker <strong>Host Server</strong> Setup, w/ Basic Monitoring Tools</h1>
+</div><h1 id="tocAnchor-1-1">Docker Can Do Everything!*</h1>
 
-<pre>
-   <code class="language-sh"># Updates
-apt-get update &amp;&amp; apt-get install -y vim-nox git-core ufw curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64
-
-# Host OS Tuning
-sysctl -w vm.max_map_count=262144
-
-# Updates Profile init scripts
-cd ~/
-mkdir ~/backups
-cp ~/.bash* ~/backups/
-
-curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc &gt; .bashrc
-curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases &gt; .bash_aliases
-# Read into current shell (login steps already missed the aliases file)
-source ~/.bashrc
-
-# Install Docker
-curl -sSL https://get.docker.com/ | sh
-
-# Create Shared Folder On HOST for the Docker DB Instances
-mkdir -p /mongodb/db
-mkdir -p /elastic
-</code>
-</pre>
-
-<blockquote>
-  <p>Only for SELinux Enabled Systems</p>
-</blockquote>
-
-<pre>
-   <code class="language-sh"># SELinux fixes (optional)
-# chcon -Rt svirt_sandbox_file_t /mongodb
-# chcon -Rt svirt_sandbox_file_t /elastic
-</code>
-</pre>
-
-<h2 id="tocAnchor-1-1-1">Setup Database Services</h2>
-
-<h4 id="mongodb-v3-server">MongoDB v3 Server</h4>
-
-<pre>
-   <code class="language-sh">mkdir -p /mongodb/db
-docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c 'mongod --logpath /data/mongodb.log --logappend --dbpath /data/db --storageEngine=wiredTiger'
-</code>
-</pre>
-
-<h4 id="elastic-search">Elastic Search</h4>
-
-<pre>
-   <code class="language-sh">mkdir -p /elastic
-docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
-</code>
-</pre>
-
-<h1 id="tocAnchor-1-3">Package up your NodeJS/Ruby/Python/Etc App</h1>
-<hr />
+<p>Improve your process for:</p>
 
 <ol>
-  <li>Add a blank file named <code>Dockerfile</code> in your project root.</li>
-  <li><em>(Optional)</em> Add a <code>.dockerignore</code> using .gitignore rules to exclude large non-essential paths. By default all project files are included.</li>
+  <li>Testing Dev Tools &amp; Servers WITH VIRTUALLY ZERO risk of messing up dependencies on your PC</li>
+  <li>Testing your software</li>
+  <li>Makes you write more idempotent, modular code… (I’ll write how to actually realize this in a follow up)</li>
 </ol>
 
-<h4 id="dockerfile">
-   <code>Dockerfile</code>
-</h4>
+<p>There may seem like a huge volume of new stuff to learn, <strong>don’t let that stop you</strong> from getting started.</p>
+
+<h4 id="notes">Notes</h4>
+
+<ul>
+  <li>If you see a <code>docker run</code> command with either options <code>-d</code> or <code>-it</code>:
+    <ul>
+      <li><code>-it</code> or <code>-i -t</code> will run the configured command interactively</li>
+      <li><code>-d</code> will start the docker container as a ‘daemon’ aka background service.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h1 id="tocAnchor-1-2">EXAMPLES</h1>
+
+<h2 id="tocAnchor-1-2-1">nginx</h2>
 
 <pre>
-   <code class="language-dockerfile"># Example for NodeJS
-FROM node:0.12
-EXPOSE [3000]
-COPY . /app/
-WORKDIR /app
-RUN apt-get update \
-	&amp;&amp; apt-get dist-upgrade -y
-RUN ["npm", "install"]
-# Overridable Command
-CMD ["npm", "start"]
+   <code class="language-bash">
+	# Note: using host-based, shared folders
+	#(shared folders are not possible with the VOLUME Dockerfile cmd)
+	sudo docker run --name web01 -d -p 8181:80 \
+		-v $(NGINX_DIR)/etc:/etc/nginx \
+		-v $(NGINX_DIR)/log:/var/log/nginx \
+		-v $(NGINX_DIR)/www:/var/www/html \
+		nginx:latest
+
+	# Local data, isolated within instance
+	sudo docker run --name web01 -d -p 8181:80 nginx:latest
+
+	# nodejs
+	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
+
 </code>
 </pre>
-
-<p>It’s easier to show how to start using the dockerfile and inspect the result via console.</p>
-
-<p>In terminal, <code>cd</code> to your project folder and run the following <code>docker build</code> command <em><strong>everytime</strong></em> you make a change or want to include OS upgrades)</p>
-
-<h4 id="build-docker-image-every-deploychange">Build Docker Image Every Deploy/Change</h4>
-<pre>
-   <code class="language-sh">docker build -t app-name-here .
-</code>
-</pre>
-
-<h4 id="createrun-web-app-w-links-to-db-servers">Create/Run Web App w/ Links to DB Servers</h4>
-
-<pre>
-   <code class="language-sh">docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
-</code>
-</pre>
-
-<h4 id="or---run-interactively-in-terminal">OR - Run Interactively (in terminal)</h4>
-
-<pre>
-   <code class="language-sh">docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
-</code>
-</pre>
-
-<h4 id="important-to-delete-webapp01">IMPORTANT: To delete webapp01</h4>
-<pre>
-   <code class="language-sh">docker rm -f webapp01
-# rerun `docker run...` from ^^^
-</code>
-</pre>
-
-<h4 id="to-re-create-the-db-container-instances">To Re-Create the DB ‘Container’ Instances</h4>
 
 <blockquote>
-  <p>Note: Data is mounted to host server at /mongodb</p>
+  <p>Credits: <a href="https://dockerfile.github.io/#/nginx">https://dockerfile.github.io/#/nginx</a><br />
+Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
 </blockquote>
 
-<pre>
-   <code class="language-sh">docker rm -f mongo elastic
-# OR
-docker rm -f elastic
-docker rm -f mongo
-</code>
-</pre>
+<blockquote>
+  <ul>
+    <li>Pretty close</li>
+  </ul>
+</blockquote>
 
 
       <footer class="entry-meta">
-        <span class="entry-tags"><a href="/tags/#devops" title="Pages tagged devops" class="tag"><span class="term">devops</span></a><a href="/tags/#docker" title="Pages tagged docker" class="tag"><span class="term">docker</span></a><a href="/tags/#server" title="Pages tagged server" class="tag"><span class="term">server</span></a><a href="/tags/#setup" title="Pages tagged setup" class="tag"><span class="term">setup</span></a><a href="/tags/#shell script" title="Pages tagged shell script" class="tag"><span class="term">shell script</span></a></span>
+        <span class="entry-tags"><a href="/tags/#development" title="Pages tagged development" class="tag"><span class="term">development</span></a><a href="/tags/#design" title="Pages tagged design" class="tag"><span class="term">design</span></a><a href="/tags/#resource" title="Pages tagged resource" class="tag"><span class="term">resource</span></a><a href="/tags/#ideas" title="Pages tagged ideas" class="tag"><span class="term">ideas</span></a><a href="/tags/#patterns" title="Pages tagged patterns" class="tag"><span class="term">patterns</span></a></span>
         
         <div class="social-share">
   <ul class="socialcount socialcount-small inline-list">
-    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/devops/2015/04/05/docker-server-setup-notes.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
-    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/devops/2015/04/05/docker-server-setup-notes.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
-    <li class="googleplus"><a href="https://plus.google.com/share?url=/devops/2015/04/05/docker-server-setup-notes.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
+    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/docker/2015/02/26/docker-makes-everything-better.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
+    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/docker/2015/02/26/docker-makes-everything-better.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
+    <li class="googleplus"><a href="https://plus.google.com/share?url=/docker/2015/02/26/docker-makes-everything-better.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
   </ul>
 </div><!-- /.social-share -->
       </footer>
@@ -387,23 +326,23 @@ docker rm -f mongo
     <div class="read-more">
   
     <div class="read-more-header">
-      <a href="/development/2015/02/26/amazing-resources.html" class="read-more-btn">Read More</a>
+      <a href="/security/2015/02/23/security-notes-regex.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup">Docker Firewall Setup</a></h3>
-      <p># Setup Docker Host Firewall1. Debian/Ubuntu Server is assumed1. Designed to run on Docker Host Server### Install Requirements~~~sh# Ulti...&hellip; <a href="/docker/2015/06/06/docker-firewall-setup.html">Continue reading</a></p>
+      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
+      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/javascript/2015/06/06/javascript-scope-magic.html" title="JavaScript Magic">JavaScript Magic</a></h4>
-        <span>Published on June 06, 2015</span>
+        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
+        <span>Published on June 16, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/development/2015/02/26/amazing-resources.html" title="Development: #Winning Design Resource">Development: #Winning Design Resource</a></h4>
-        <span>Published on February 26, 2015</span>
+        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->

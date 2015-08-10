@@ -6,8 +6,8 @@
 <head>
 <meta charset="utf-8">
 <title>Latest Posts &#8211; www.DanLevy.net</title>
-<meta name="description" content="Describe this nonsense.">
-<meta name="keywords" content="Jekyll, theme, themes, responsive, blog, modern">
+<meta name="description" content="Dan Levy's Website & Blog Musings">
+<meta name="keywords" content="programming, languages, javascript, angularjs, devops, docker, security">
 
 
 	<!-- Twitter Cards -->
@@ -16,7 +16,7 @@
 		<meta name="twitter:image" content="/images/abstract-1.jpg">
 		
 	<meta name="twitter:title" content="Latest Posts">
-	<meta name="twitter:description" content="Describe this nonsense.">
+	<meta name="twitter:description" content="Dan Levy's Website & Blog Musings">
 	<meta name="twitter:creator" content="@justsml">
 
 	<script>window.twttr = (function(d, s, id) {
@@ -44,7 +44,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Latest Posts">
-<meta property="og:description" content="Describe this nonsense.">
+<meta property="og:description" content="Dan Levy's Website & Blog Musings">
 <meta property="og:url" content="/page2/index.html">
 <meta property="og:site_name" content="www.DanLevy.net">
 
@@ -149,11 +149,14 @@
 				<li>
 					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
 					<h4>Dan Levy</h4>
-					<p></p>
+					<p>Devout Programmer</p>
 				</li>
 				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				<li>
 					<a href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
@@ -166,9 +169,6 @@
 				</li>
 				<li>
 					<a href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
-				</li>
-				<li>
-					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				
 				
@@ -199,7 +199,7 @@
 
 
 <div class="entry-header">
-  <div class="image-credit">Image source: <a href="http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/">dargadgetz</a></div><!-- /.image-credit -->
+  <div class="image-credit">Image source: <a href="">dargadgetz</a></div><!-- /.image-credit -->
   
     <div class="entry-image">
       <img src="/images/abstract-1.jpg" alt="Latest Posts">
@@ -218,18 +218,420 @@
 <article class="hentry">
   <header>
     
+      <div class="entry-image-index">
+        <a href="/javascript/2015/06/06/javascript-scope-magic.html" title="JavaScript Magic"><img src="/images/abstract-7.jpg" alt="JavaScript Magic"></a>
+      </div><!-- /.entry-image -->
+    
     <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-02-26T04:07:59-07:00"><a href="/development/2015/02/26/docker-makes-everything-better.html">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      <span class="entry-date date published updated"><time datetime="2015-06-06T09:42:21-06:00"><a href="/javascript/2015/06/06/javascript-scope-magic.html">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
       
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
         
-        Reading time ~1 minute
+        Reading time ~8 minutes
       </span><!-- /.entry-reading-time -->
       
     </div><!-- /.entry-meta -->
     
-      <h1 class="entry-title"><a href="/development/2015/02/26/docker-makes-everything-better.html" rel="bookmark" title="Development: Docker === Love" itemprop="url">Development: Docker === Love</a></h1>
+      <h1 class="entry-title"><a href="/javascript/2015/06/06/javascript-scope-magic.html" rel="bookmark" title="JavaScript Magic" itemprop="url">JavaScript Magic</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h3 id="work-in-progress-includes-future-javascript-article-ideas-">[ Work-in-progress, Includes Future JavaScript Article Ideas ]</h3>
+
+<blockquote>
+  <p>This post is geared to modern browsers and Node.JS/iojs.</p>
+</blockquote>
+
+<h1 id="imperative-vs-recursive-vs-functional">Imperative vs. Recursive vs. Functional</h1>
+
+<p>Work-in-progress</p>
+
+<pre><code class="language-javascript">
+// Imperative: The Fastest ( + very simple, no new pointers or excess allocs ):
+function fib(n) {
+  var a = 1, b = 1, c = 0;
+  for(var i = 1; i &lt; n-1; ++i) {
+    c = a + b;
+    a = b;
+    b = c;
+  }
+  return b;
+}
+
+// Recursive: (FIREFOX or BABELJS Only) ES6 function definition with
+//  parameter defaults used to set initial (internal/recursive) values
+function fib(n, current=0, a=1, b=1, c=0) {
+  current++;
+  c = a + b;
+  a = b;
+  b = c;
+  return current &gt;= n ? b : fib(n, current, a, b, c);
+}
+
+// Text-book-Bad Example - poor function scope w/ multiple mutable external values
+function fib(n) {
+  if (!arr) { var arr = [1,1]; n=n-2; };// Bad
+  if (n===-1) {return [arr[0]];}
+  if (n===0) {return arr;}
+  var proc = function() {
+    --n;
+    arr.push(arr[arr.length-1] + arr[arr.length-2]);
+    return (n===0 ? arr : proc());
+    // Bad: inner recursive function not needed, hint: variables used are from parent function scope
+  };
+  var ans = proc();
+  return ans[ans.length-1];
+}
+</code></pre>
+
+<h1 id="promises-awesome">Promises: Awesome!</h1>
+<pre><code class="language-js">
+// Example Using bluebird Promises and it's
+var Promise = require('bluebird'),
+    fs = Promise.promisifyAll(require('fs')),
+    less = Promise.promisifyAll(require('less'));
+
+function writeFileData(data) {
+  return fs.writeFileAsync('/tmp/output.css', data);
+}
+// Bluebird makes something like this perhaps uncomfortably simple and succinct:
+fs.readFileAsync('./style.less') // Call promisified readFile()
+  .then(less.renderAsync)         // Hand off to less.render
+  .then(writeFileData);      // Function to recieve the css contents (1st parameter)
+
+</code></pre>
+<ol>
+  <li>While, native ES6 Promises are great, I prefer the robust <a href="https://github.com/petkaantonov/bluebird/blob/master/API.md">Bluebird Promise Library</a>.</li>
+  <li>Library or not, modern browsers have supported Promise for years.</li>
+  <li>Promises can be utilized without crazy patterns - implicit <code>deferred</code> is preferable.</li>
+  <li><strong>$q just sucks</strong> just use bluebird, see above.</li>
+  <li>Worth mentioning: Bluebirds Benchmarks are best-case tests, so take note if doing crazy fancy promise chains</li>
+</ol>
+
+<h1 id="java-vs-javascript">Java vs JavaScript</h1>
+
+<h2 id="rate-limiting--debouncing--throttling">Rate Limiting / Debouncing / Throttling</h2>
+
+<ol>
+  <li>In JavaScript <a href="http://davidwalsh.name/essential-javascript-functions">David Walsh implemented debounce</a> in less than 20 lines!</li>
+  <li>In Java, JDebounce, an library which is a lot more complicated, at ~500+ lines.</li>
+  <li>_ Comparing the two: _</li>
+  <li>The JavaScript is fast &amp; uses first-class functions to achieve brilliant simplicity.</li>
+  <li>Whereas the Java has many more moving parts, annotations are used to apply behaviour at compile-time, and there’s a ton of XML, just for funsies!</li>
+</ol>
+
+<h1 id="inversion-of-control-techniques">Inversion of Control Techniques</h1>
+
+<p>Work-in-progress</p>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/docker/2015/04/05/docker-server-setup-notes.html" title="Docker server Setup"><img src="/images/abstract-7.jpg" alt="Docker server Setup"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-04-05T19:00:59-06:00"><a href="/docker/2015/04/05/docker-server-setup-notes.html">April 05, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~9 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/docker/2015/04/05/docker-server-setup-notes.html" rel="bookmark" title="Docker server Setup" itemprop="url">Docker server Setup</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="docker-host-server-setup">Docker <strong>Host Server</strong> Setup</h1>
+
+<h2 id="basic-monitoring-tools">Basic Monitoring Tools</h2>
+
+<pre><code class="language-sh"># Debian/BSD Requirements / Updates + monitoring tools: atop &amp; htop
+apt-get update &amp;&amp; apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64
+
+# OSX, Debian &amp; RHEL: Host OS Tuning
+sysctl -w vm.max_map_count=262144
+
+# Updates Profile init scripts before appending new scripts below
+mkdir ~/backups
+cp ~/.bash* ~/backups/
+
+# Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors
+curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc &gt;&gt; ~/.bashrc
+curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases &gt;&gt; ~/.bash_aliases
+# Read into current shell (login steps already missed the aliases file)
+source ~/.bashrc
+
+# Install Docker, straight from the horses mouth
+curl -sSL https://get.docker.com/ | sh
+
+</code></pre>
+
+<blockquote>
+  <p>Only for SELinux Enabled Systems</p>
+</blockquote>
+
+<pre><code class="language-sh"># SELinux fixes (optional)
+# chcon -Rt svirt_sandbox_file_t /mongodb
+# chcon -Rt svirt_sandbox_file_t /elastic
+</code></pre>
+
+<h1 id="simple-database-setupstartup">Simple Database Setup/Startup</h1>
+
+<h2 id="mongodb-v3-server">MongoDB v3 Server</h2>
+
+<pre><code class="language-sh">mkdir /mongodb
+docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c 'mongod --logpath /data/mongodb.log --logappend --dbpath /data/data --storageEngine=wiredTiger'
+</code></pre>
+
+<h2 id="elastic-search">Elastic Search</h2>
+
+<pre><code class="language-sh">mkdir /elastic
+docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
+</code></pre>
+
+<blockquote>
+  <p>You just lit up 2 database docker instances!!!<br />
+If it were any easier, I’m pretty sure you couldn’t invoice for it.</p>
+</blockquote>
+
+<h1 id="package-up-your-nodejsrubypythonweb-app">Package up your NodeJS/Ruby/Python/Web App</h1>
+
+<ol>
+  <li>Add a blank file named <code>Dockerfile</code> in your project root.</li>
+  <li><em>(Optional, Recommended)</em> Add a <code>.dockerignore</code> using .gitignore rules to exclude large non-essential paths. By default all project files are included.</li>
+</ol>
+
+<h2 id="create-a-dockerfile">Create a <code>Dockerfile</code></h2>
+
+<pre><code class="language-dockerfile"># Example for NodeJS
+FROM node:0.12
+EXPOSE [3000]
+COPY . /app/
+WORKDIR /app
+RUN apt-get update \
+	&amp;&amp; apt-get dist-upgrade -y
+RUN ["npm", "install"]
+# Overridable Command
+CMD ["npm", "start"]
+</code></pre>
+
+<p>It’s easier to show how to start using the Dockerfile and demonstrate the results via console (see commands below).</p>
+
+<p>In terminal, <code>cd</code> to your project folder and run the following <code>build</code> command <em>everytime</em> you deploy changes - or want to change/upgrade OS or Env config)</p>
+
+<p><code>docker build -t app-name-here .</code></p>
+
+<h1 id="docker-commands-to-learn">Docker Commands to Learn</h1>
+
+<h2 id="build-docker-image-every-deploychange">Build Docker Image Every Deploy/Change</h2>
+
+<pre><code class="language-sh">docker build -t app-name-here .
+</code></pre>
+
+<h2 id="createrun-web-app-w-links-to-db-servers">Create/Run Web App w/ Links to DB Servers</h2>
+
+<pre><code class="language-sh">docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
+</code></pre>
+
+<h2 id="run-interactively-non-daemon-in-terminal">Run Interactively (non-daemon, in terminal)</h2>
+
+<pre><code class="language-sh">docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here bash
+</code></pre>
+
+<h2 id="delete-container-instance-or-image">Delete Container Instance or Image</h2>
+
+<blockquote>
+  <p>Important: Any data not stored on the mounted volume path will be lost!!</p>
+</blockquote>
+
+<pre><code class="language-sh"># Delete Image
+docker rmi -f app-name-here
+docker rm -f webapp01
+# now re-run your `docker run...` from ^^^
+# So for example, let's kill your db instances above, run: ( start with something like `docker stop {mongo,elastic}` )
+docker rm -f mongo elastic
+</code></pre>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/design/2015/02/26/amazing-resources.html" title="Winning Design Resource"><img src="/images/abstract-3.jpg" alt="Winning Design Resource"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-26T04:42:21-07:00"><a href="/design/2015/02/26/amazing-resources.html">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~2 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/design/2015/02/26/amazing-resources.html" rel="bookmark" title="Winning Design Resource" itemprop="url">Winning Design Resource</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="solve-2-ui-challenges">Solve 2 UI challenges</h1>
+
+<blockquote>
+  <p>Your Prototype Apps Suck: So sprinkle some awesome in there</p>
+</blockquote>
+
+<h2 id="beautiful-sliding-menus">Beautiful Sliding Menus</h2>
+<p><a href="http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html">Side-Menu Demo</a></p>
+
+<blockquote>
+  <p>Note: Not my code, however I’ve evaluated it and I have to say I <strong>rarely find code at this level</strong>. Like, <em>never</em>, folks.<br />
+The <a href="http://tympanus.net/codrops/author/crnacura/">author, Mary Lou</a> is just incredibly talented.</p>
+</blockquote>
+
+<h2 id="impressive-tooltips">Impressive Tooltips</h2>
+<p><a href="http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/">View demo</a></p>
+
+<p>Wow! … Am I Right?</p>
+
+<h3 id="misc">Misc</h3>
+
+<p>I know I said it, but let me emphasize: All the <strong>code is extraordinarily well done</strong>…  <em>I never say that, most devs rarely bother to be this meticulous</em></p>
+
+<blockquote>
+  <p>Btw, I say ‘prototype apps’ merely because the examples need a few accessability/usability tweaks (which are described in Mary’s articles).</p>
+</blockquote>
+
+<p>Here’s where I found this stuff: <a href="https://twitter.com/codrops">follow codrops at https://twitter.com/codrops</a></p>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/angularjs/2015/02/26/stop-the-angularjs-hate.html" title="AngularJS Tricks"><img src="/images/abstract-5.jpg" alt="AngularJS Tricks"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-26T04:22:33-07:00"><a href="/angularjs/2015/02/26/stop-the-angularjs-hate.html">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~8 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/angularjs/2015/02/26/stop-the-angularjs-hate.html" rel="bookmark" title="AngularJS Tricks" itemprop="url">AngularJS Tricks</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="angularjs-can-be-fast">AngularJS CAN BE Fast!</h1>
+
+<blockquote>
+  <p>Lot’s of developers are discovering that their large AngularJS apps are buckling under the weight of all those <code>$watch's</code>.</p>
+</blockquote>
+
+<h2 id="way-data-binding-2-way-sword">2-way data binding: 2-way Sword</h2>
+
+<p>2-way binding alone makes coming from other frameworks like Backbone, well, <strong>frickin amazeballs</strong>.</p>
+
+<p>The problem is: many sites <strong>chronically overuse</strong> Angular’s design patterns.<br />
+This leads to directive sprawl and a <code>$scope/rootScope</code> which easily has 1000’s of instances, and can cling to huge objects preventing any hope of effective garbage collection.</p>
+
+<p>You know where this is going: an exhausted browser! Forever doomed to work at a <strong>frantic pace</strong> executing endless and redundant UI/DOM re-compiles.</p>
+
+<p>Does your <code>&lt;current-user-status-label&gt;</code> directive really need to be, well, a directive at all?</p>
+
+<h1 id="solutions">Solutions</h1>
+
+<h2 id="angular-tips">Angular Tips</h2>
+
+<ol>
+  <li>Use 1-way binding ( e.g. <code>{ :: title }</code> )</li>
+  <li>Limit recursive nesting of directives</li>
+  <li>And if you must nest directives, <em>NEVER</em> do so inside an <code>ng-repeat</code> - Performance will start to inversely mirror something like <code>O(n^2)^3</code> ;)<br />
+I. Use native JS/DOM code in a factory pattern to create basic DOM/UI fragments, examples: Modal msg box, status bar. Call UI factories from either directives or controllers.</li>
+  <li><em>Bonus:</em> Understand cost and triggers of <a href="https://developers.google.com/web/fundamentals/performance/rendering/index?hl=en">browser render lifecycle</a>: animation, composite rendering, reflows</li>
+</ol>
+
+<h2 id="use-browserify-to-organize-project">Use Browserify to Organize Project</h2>
+
+<p>Not specifically for Angular per-se, but essential for simple dependency resolution.</p>
+
+<p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Browserify</a> makes JS projects managable with virtually no added code overhead (ok, a few 100 chars).</p>
+
+<p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Just read this section</a> of the <a href="https://github.com/substack/browserify-handbook/">Browserify Handbook</a>.</p>
+
+<h1 id="alternatives">Alternatives</h1>
+
+<h2 id="reactjshttpsfacebookgithubioreact-from-facebook"><a href="https://facebook.github.io/react/">ReactJS</a> from Facebook</h2>
+
+<p>For views which need minimal description:<br />
+If you have tons of small reusable UI components - ReactJS might be a better choice:</p>
+
+<ul>
+  <li>If your project…?:
+    <ul>
+      <li>Has a different philosophy to UI/DOM implementation than Angular</li>
+      <li>Already has some kind of ‘framework’ - You can <strong>use ReactJS alongside</strong> AngularJS, Ember, Backbone.</li>
+      <li>Handles frequent data model changes in it’s own code, you’ll benefit by avoiding the ADHD digest/loop pattern of Angular</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="polymer-projecthttpwwwpolymer-projectorg-from-google"><a href="http://www.Polymer-Project.org/">Polymer Project</a> from Google</h2>
+
+<h2 id="pure-er-js-approach">Pure-er JS Approach</h2>
+
+<ul>
+  <li>By the way, here’s where I try create framework agnostic code (+1 testability, +1 reuse)<br />
+      1. Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)<br />
+      1. Use mustache templating to create HTML strings (or DOM directly)<br />
+      1. Cache rendered content in localStorage if you can<br />
+      1. (Optional) Now add an event listener to re-render the content. I have standardized on the event name <code>refresh.&lt;class-name&gt;</code></li>
+</ul>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/docker/2015/02/26/docker-makes-everything-better.html" title="Docker === Love"><img src="/images/abstract-6.jpg" alt="Docker === Love"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-26T04:07:59-07:00"><a href="/docker/2015/02/26/docker-makes-everything-better.html">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~4 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/docker/2015/02/26/docker-makes-everything-better.html" rel="bookmark" title="Docker === Love" itemprop="url">Docker === Love</a></h1>
     
   </header>
   <div class="entry-content">
@@ -258,25 +660,24 @@
 
 <hr />
 
-<h3 id="examples">EXAMPLES</h3>
+<h1 id="examples">EXAMPLES</h1>
 
-<h4 id="nginx">nginx</h4>
+<h2 id="nginx">nginx</h2>
 
 <pre><code class="language-bash">
 	# Note: using host-based, shared folders
 	#(shared folders are not possible with the VOLUME Dockerfile cmd)
 	sudo docker run --name web01 -d -p 8181:80 \
-		-v ${SITES_ENABLED_DIR}:/etc/nginx/sites-enabled \
-		-v ${CERTS_DIR}:/etc/nginx/certs \
-		-v ${LOG_DIR}:/var/log/nginx \
-		-v ${HTML_DIR}:/var/www/html \
-		dockerfile/nginx:latest
+		-v $(NGINX_DIR)/etc:/etc/nginx \
+		-v $(NGINX_DIR)/log:/var/log/nginx \
+		-v $(NGINX_DIR)/www:/var/www/html \
+		nginx:latest
 
 	# Local data, isolated within instance
-	sudo docker run --name web01 -d -p 8181:80 dockerfile/nginx:latest
+	sudo docker run --name web01 -d -p 8181:80 nginx:latest
 
 	# nodejs
-	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 dockerfile/nodejs:latest
+	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
 
 </code></pre>
 
@@ -290,56 +691,6 @@ Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
     <li>Pretty close</li>
   </ul>
 </blockquote>
-
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-02-23T22:42:21-07:00"><a href="/security/2015/02/23/security-notes-regex.html">February 23, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~1 minute
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/security/2015/02/23/security-notes-regex.html" rel="bookmark" title="Security Notes: RegEx" itemprop="url">Security Notes: RegEx</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h1 id="denial-of-service-details-regex">Denial-of-Service Details: Regex</h1>
-
-<p>One of the most common yet hard-to-spot vulnerabilities I find relate to regular expressions, either poorly written or poorly implemented.</p>
-
-<h3 id="three-red-flags-are">Three red-flags are:</h3>
-
-<ol>
-  <li>You have multiple capture groups</li>
-  <li>Global matching</li>
-  <li>Expression is used with un-checked user input</li>
-</ol>
-
-<h3 id="things-to-keep-in-mind">Things to keep in mind:</h3>
-
-<ol>
-  <li>RegEx is hard
-    <ol>
-      <li>For example, here is how the really smart folks at <a href="https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository">OWASP RegEx Validation</a> advise on testing an IP Address: <code>^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</code></li>
-      <li>That’s longer than a tweet, for a 4-byte IP Address!!!</li>
-    </ol>
-  </li>
-  <li>Make sure user input isn’t unduly long, when I know input data is reliably less than 40 chars, I’ll make sure I prevent anything over 64 - otherwise, an attacker could overwhelm my system with a flood of 4Kb requests.</li>
-  <li>This affects almost every language and platform .NET/Node/Python/PERL/Java</li>
-</ol>
-
-<p>References:<br />
-<a href="https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;utm_medium=email">Regular Expression DoS and Node.js</a></p>
 
 
   </div><!-- /.entry-content -->
@@ -365,9 +716,15 @@ Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
         
       </li>
     
+      <li>
+        
+          <a href="/page3">3</a>
+        
+      </li>
+    
   </ul>
   
-    Next
+    <a href="/page3" class="btn">Next</a>
   
 </div><!-- /.pagination -->
 </div><!-- /#main -->

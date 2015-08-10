@@ -4,7 +4,7 @@ email: dan@danlevy.net
 description: Devout Developer
 disqus_shortname: danlevy
 reading_time:     true
-words_per_minute: 200
+words_per_minute: 50 #was 200, 50 is better for code
 # Your site's domain goes here (eg: //mmistakes.github.io, http://mademistakes.com, etc)
 # When testing locally leave blank or use http://localhost:4000
 url:
@@ -14,7 +14,7 @@ url:
 owner:
   name:           Dan Levy
   avatar:         avatar.jpg
-  bio:            ""
+  bio:            "Devout Programmer"
   email:          Dan@DanLevy.net
   # Social networking links used in footer. Update and remove as you like.
   twitter:        justsml
@@ -41,6 +41,7 @@ bing_verify:  				1A9E3CE623BA981E829FE1023285585D
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    America/Denver
 future:      true
+pygments:    true
 highlighter: pygments
 markdown:    kramdown
 gems:
@@ -61,12 +62,12 @@ kramdown:
   entity_output: as_char
   toc_levels: 1..6
   input: GFM
-  use_coderay: false
+  use_coderay: true
 
   coderay:
     coderay_line_numbers: nil
     coderay_line_numbers_start: 1
-    coderay_tab_width: 4
+    coderay_tab_width: 2
     coderay_bold_every: 10
     coderay_css: class
 

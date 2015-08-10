@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html</loc>
+    <lastmod>2015-06-16T00:00:00-06:00</lastmod>
+  </url>
+  <url>
+    <loc>/docker/2015/06/16/docker-deployment-thoughts.html</loc>
+    <lastmod>2015-06-16T00:00:00-06:00</lastmod>
+  </url>
+  <url>
+    <loc>/languages/2015/06/12/polyglot-redux.html</loc>
+    <lastmod>2015-06-12T03:21:12-06:00</lastmod>
+  </url>
+  <url>
+    <loc>/docker/2015/06/10/docker-great-though-boot2docker-sucks.html</loc>
+    <lastmod>2015-06-10T23:00:12-06:00</lastmod>
+  </url>
+  <url>
     <loc>/docker/2015/06/06/docker-firewall-setup.html</loc>
     <lastmod>2015-06-06T16:22:22-06:00</lastmod>
   </url>
@@ -9,11 +25,11 @@
     <lastmod>2015-06-06T09:42:21-06:00</lastmod>
   </url>
   <url>
-    <loc>/devops/2015/04/05/docker-server-setup-notes.html</loc>
+    <loc>/docker/2015/04/05/docker-server-setup-notes.html</loc>
     <lastmod>2015-04-05T19:00:59-06:00</lastmod>
   </url>
   <url>
-    <loc>/development/2015/02/26/amazing-resources.html</loc>
+    <loc>/design/2015/02/26/amazing-resources.html</loc>
     <lastmod>2015-02-26T04:42:21-07:00</lastmod>
   </url>
   <url>
@@ -21,7 +37,7 @@
     <lastmod>2015-02-26T04:22:33-07:00</lastmod>
   </url>
   <url>
-    <loc>/development/2015/02/26/docker-makes-everything-better.html</loc>
+    <loc>/docker/2015/02/26/docker-makes-everything-better.html</loc>
     <lastmod>2015-02-26T04:07:59-07:00</lastmod>
   </url>
   <url>
@@ -30,27 +46,23 @@
   </url>
   <url>
     <loc>/404.html</loc>
-    <lastmod>2015-06-07T06:44:15-06:00</lastmod>
-  </url>
-  <url>
-    <loc>/about/</loc>
-    <lastmod>2015-06-07T06:44:15-06:00</lastmod>
+    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/</loc>
-    <lastmod>2015-06-07T06:44:15-06:00</lastmod>
+    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/posts/</loc>
-    <lastmod>2015-06-07T06:44:15-06:00</lastmod>
-  </url>
-  <url>
-    <loc>/theme-setup/</loc>
-    <lastmod>2015-06-07T06:44:15-06:00</lastmod>
+    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/about/</loc>
-    <lastmod>2015-06-07T06:44:15-06:00</lastmod>
+    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
+  </url>
+  <url>
+    <loc>/theme-setup/</loc>
+    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/cv/resume-full.html</loc>

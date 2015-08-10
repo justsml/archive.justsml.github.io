@@ -1,26 +1,34 @@
 ---
 layout: post
-title:  "Development: #Winning Design Resource"
+title:  "Winning Design Resource"
 date:   2015-02-26 11:42:21
-categories: development
+modified:   2015-06-13 01:00:01
+categories: design
 tags: [development, design, resource, ideas, patterns]
+image:
+  feature: abstract-3.jpg
+  credit:
 ---
 
-# Your Prototype Apps Suck: So sprinkle some awesome in there
-==========
+# Solve 2 UI challenges
 
+> Your Prototype Apps Suck: So sprinkle some awesome in there
 
-## Solve (at least) 2 UI challenges: Menu + Tooltips
+## Beautiful Sliding Menus
+[Side-Menu Demo](http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html)
 
 > Note: Not my code, however I've evaluated it and I have to say I **rarely find code at this level**. Like, _never_, folks.
-> The [http://tympanus.net/codrops/author/crnacura/](author, Mary Lou) is just incredibly talented.
+> The [author, Mary Lou](http://tympanus.net/codrops/author/crnacura/) is just incredibly talented.
 
-##### Menus (amazingly inspiring AND useful - still talking menus here): [http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html](http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html)
 
-##### Fix your tooltips: [http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/](http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/)
+## Impressive Tooltips
+[View demo](http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/)
 
-Wow... Right?
+Wow! ... Am I Right?
 
+
+
+### Misc
 
 I know I said it, but let me emphasize: All the **code is extraordinarily well done**...  _I never say that, most devs rarely bother to be this meticulous_
 

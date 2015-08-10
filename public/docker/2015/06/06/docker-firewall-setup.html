@@ -11,9 +11,10 @@
 
 
 	<!-- Twitter Cards -->
-	<meta name="twitter:card" content="summary">
-		<meta name="twitter:image" content="/images/">
 	
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:image" content="/images/abstract-8.jpg">
+		
 	<meta name="twitter:title" content="Docker Firewall Setup">
 	<meta name="twitter:description" content="Devout Developer">
 	<meta name="twitter:creator" content="@justsml">
@@ -135,7 +136,7 @@
 
 </head>
 
-<body id="post" >
+<body id="post" class="feature">
 
 <!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
 <nav id="dl-menu" class="dl-menuwrapper" role="navigation">
@@ -148,11 +149,14 @@
 				<li>
 					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
 					<h4>Dan Levy</h4>
-					<p></p>
+					<p>Devout Programmer</p>
 				</li>
 				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				<li>
 					<a href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
@@ -165,9 +169,6 @@
 				</li>
 				<li>
 					<a href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
-				</li>
-				<li>
-					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				
 				
@@ -198,6 +199,13 @@
 
 
 
+<div class="entry-header">
+  
+  <div class="entry-image">
+    <img src="/images/abstract-8.jpg" alt="Docker Firewall Setup">
+  </div><!-- /.entry-image -->
+</div><!-- /.entry-header -->
+
 
 <div id="main" role="main">
   <article class="hentry">
@@ -211,7 +219,7 @@
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~1 minute
+          Reading time ~5 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
@@ -228,9 +236,23 @@
                <ul>
                   <li class="toc_level-1 toc_section-1">
                      <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Setup Docker Host Firewall</span></a>
-                  </li>
-                  <li class="toc_level-1 toc_section-2">
-                     <a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">DONE! Now you should see ONLY the ports you configured!</span></a>
+                     <ul>
+                        <li class="toc_level-2 toc_section-2">
+                           <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">Install Requirements</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-3">
+                           <a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">Get your Internal &amp; External IP Addresses</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-4">
+                           <a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">Firtewall (UFW) Setup - Example Cmds</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-5">
+                           <a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">Enable / Start Firewall</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-6">
+                           <a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">Test Your Firewall</span></a>
+                        </li>
+                     </ul>
                   </li>
                </ul>
             </td>
@@ -244,50 +266,47 @@
   <li>Designed to run on Docker Host Server</li>
 </ol>
 
-<h3 id="install-requirements">Install Requirements</h3>
+<h2 id="tocAnchor-1-1-1">Install Requirements</h2>
 
 <pre>
-   <code class="language-sh">
-# Ultimate Firewall Needed
+   <code class="language-sh"># Ultimate Firewall Needed
 apt-get update &amp;&amp; apt-get install -y ufw nmap curl
-
 </code>
 </pre>
 
-<h3 id="get-your-internal--external-ip-addresses">Get your Internal &amp; External IP Addresses</h3>
+<h2 id="tocAnchor-1-1-2">Get your Internal &amp; External IP Addresses</h2>
 
 <pre>
-   <code class="language-sh">
-# Get your IP Addresses, simple output:
+   <code class="language-sh"># Get your IP Addresses, simple output:
 hostname --all-ip-addresses
 
 # OR use ip tool, example:
 ip addr
-
 </code>
 </pre>
 
-<h3 id="ufw-config--command-examples">UFW Config &amp; Command Examples</h3>
+<h2 id="tocAnchor-1-1-3">Firtewall (UFW) Setup - Example Cmds</h2>
 
 <pre>
-   <code class="language-sh">
-export EXTERNAL_IP=123.123.123.123
-export DOCKER_IP=172.17.42.1
-
-# Allow and log all new ssh connections,
+   <code class="language-sh"># Allow and log all new ssh connections,
 ufw allow log proto tcp from any to any port 22
-ufw limit tcp/22 # Rate limit - basic SSH brute force mitigation
+## Allow http traffic (w/o explicit logging)
+ufw allow proto tcp from any to any port 80
+ufw limit tcp/22 # Basic Rate limit 4 SSH brute force mitigation
 
+# Dummy ext IP
+export EXTERNAL_IP=123.123.123.123
+# Note, default docker IP
+export DOCKER_IP=172.17.42.1
 # Forward tcp 8080 traffic to  Dockerized App
 ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
-
 </code>
 </pre>
 
-<h3 id="enable--start-firewall">Enable / Start Firewall</h3>
+<h2 id="tocAnchor-1-1-4">Enable / Start Firewall</h2>
 
 <blockquote>
-  <p>Be Careful, Don’t Lock out your SSH port (defaults to 22)</p>
+  <p>Be Careful, Don’t Lock out your SSH port (sshd defaults to 22)</p>
 </blockquote>
 
 <pre>
@@ -298,7 +317,7 @@ ufw reset
 
 <hr />
 
-<h3 id="test-firewall">Test Firewall</h3>
+<h2 id="tocAnchor-1-1-5">Test Your Firewall</h2>
 
 <blockquote>
   <p>Important: USE A REMOTE IP ADDR/LOCATION</p>
@@ -321,12 +340,13 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
 </code>
 </pre>
 
-<h1 id="tocAnchor-1-2">DONE! Now you should see ONLY the ports you configured!</h1>
+<h4 id="done-now-you-should-see-only-the-ports-you-configured">DONE! Now you should see ONLY the ports you configured!</h4>
 
 
       <footer class="entry-meta">
         <span class="entry-tags"><a href="/tags/#docker" title="Pages tagged docker" class="tag"><span class="term">docker</span></a><a href="/tags/#firewall" title="Pages tagged firewall" class="tag"><span class="term">firewall</span></a><a href="/tags/#iptables" title="Pages tagged iptables" class="tag"><span class="term">iptables</span></a><a href="/tags/#ultimate firewall" title="Pages tagged ultimate firewall" class="tag"><span class="term">ultimate firewall</span></a><a href="/tags/#ufw" title="Pages tagged ufw" class="tag"><span class="term">ufw</span></a></span>
-        
+        <span>Updated on <span class="entry-date date updated"><time datetime="2015-06-15 04:50:00 -0600">June 15, 2015</time></span></span>
+        <span class="author vcard"><span class="fn">Dan Levy</span></span>
         <div class="social-share">
   <ul class="socialcount socialcount-small inline-list">
     <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/docker/2015/06/06/docker-firewall-setup.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
@@ -343,20 +363,20 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
       <a href="/javascript/2015/06/06/javascript-scope-magic.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/javascript/2015/06/06/javascript-scope-magic.html" title="JavaScript Magic">JavaScript Magic</a></h3>
-      <p>  This post is geared to modern browsers and other JavaScript environments.Imperative vs. FunctionalPromises: Not ScaryCallbacks: Most Co...&hellip; <a href="/javascript/2015/06/06/javascript-scope-magic.html">Continue reading</a></p>
+      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
+      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/devops/2015/04/05/docker-server-setup-notes.html" title="Docker server Setup">Docker server Setup</a></h4>
-        <span>Published on April 05, 2015</span>
+        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
+        <span>Published on June 16, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/development/2015/02/26/amazing-resources.html" title="Development: #Winning Design Resource">Development: #Winning Design Resource</a></h4>
-        <span>Published on February 26, 2015</span>
+        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->

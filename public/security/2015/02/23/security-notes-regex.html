@@ -11,9 +11,10 @@
 
 
 	<!-- Twitter Cards -->
-	<meta name="twitter:card" content="summary">
-		<meta name="twitter:image" content="/images/">
 	
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:image" content="/images/abstract-2.jpg">
+		
 	<meta name="twitter:title" content="Security Notes: RegEx">
 	<meta name="twitter:description" content="Devout Developer">
 	<meta name="twitter:creator" content="@justsml">
@@ -135,7 +136,7 @@
 
 </head>
 
-<body id="post" >
+<body id="post" class="feature">
 
 <!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
 <nav id="dl-menu" class="dl-menuwrapper" role="navigation">
@@ -148,11 +149,14 @@
 				<li>
 					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
 					<h4>Dan Levy</h4>
-					<p></p>
+					<p>Devout Programmer</p>
 				</li>
 				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				<li>
 					<a href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
@@ -165,9 +169,6 @@
 				</li>
 				<li>
 					<a href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
-				</li>
-				<li>
-					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				
 				
@@ -198,6 +199,13 @@
 
 
 
+<div class="entry-header">
+  
+  <div class="entry-image">
+    <img src="/images/abstract-2.jpg" alt="Security Notes: RegEx">
+  </div><!-- /.entry-image -->
+</div><!-- /.entry-header -->
+
 
 <div id="main" role="main">
   <article class="hentry">
@@ -211,7 +219,7 @@
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~1 minute
+          Reading time ~2 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
@@ -227,18 +235,30 @@
                </div>
                <ul>
                   <li class="toc_level-1 toc_section-1">
-                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Denial-of-Service Details: Regex</span></a>
+                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Denial-of-Service Regex Vulnerability</span></a>
+                     <ul>
+                        <li class="toc_level-2 toc_section-2">
+                           <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">Warning Signs</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-3">
+                           <a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">Mitigation / Resolution</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-4">
+                           <a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">Reference</span></a>
+                        </li>
+                     </ul>
                   </li>
                </ul>
             </td>
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">Denial-of-Service Details: Regex</h1>
+</div><h1 id="tocAnchor-1-1">Denial-of-Service Regex Vulnerability</h1>
 
-<p>One of the most common yet hard-to-spot vulnerabilities I find relate to regular expressions, either poorly written or poorly implemented.</p>
+<p>One of the most common, and yet hard-to-spot vulnerabilities I encounter relate to regular expressions.<br />
+Either poorly written or poorly implemented.</p>
 
-<h3 id="three-red-flags-are">Three red-flags are:</h3>
+<h2 id="tocAnchor-1-1-1">Warning Signs</h2>
 
 <ol>
   <li>You have multiple capture groups</li>
@@ -246,12 +266,12 @@
   <li>Expression is used with un-checked user input</li>
 </ol>
 
-<h3 id="things-to-keep-in-mind">Things to keep in mind:</h3>
+<h2 id="tocAnchor-1-1-2">Mitigation / Resolution</h2>
 
 <ol>
   <li>RegEx is hard
     <ol>
-      <li>For example, here is how the really smart folks at <a href="https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository">OWASP RegEx Validation</a> advise on testing an IP Address: <code>^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</code></li>
+      <li>For example, here is how the really smart folks at <a href="https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository">OWASP recommend handling IP validation</a>: <code>^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</code></li>
       <li>That’s longer than a tweet, for a 4-byte IP Address!!!</li>
     </ol>
   </li>
@@ -259,8 +279,11 @@
   <li>This affects almost every language and platform .NET/Node/Python/PERL/Java</li>
 </ol>
 
-<p>References:<br />
-<a href="https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;utm_medium=email">Regular Expression DoS and Node.js</a></p>
+<h2 id="tocAnchor-1-1-3">Reference</h2>
+
+<p>
+   <a href="https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;utm_medium=email">Regular Expression DoS and Node.js</a>
+</p>
 
 
       <footer class="entry-meta">
@@ -282,20 +305,20 @@
       <a href="" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup">Docker Firewall Setup</a></h3>
-      <p># Setup Docker Host Firewall1. Debian/Ubuntu Server is assumed1. Designed to run on Docker Host Server### Install Requirements~~~sh# Ulti...&hellip; <a href="/docker/2015/06/06/docker-firewall-setup.html">Continue reading</a></p>
+      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
+      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/javascript/2015/06/06/javascript-scope-magic.html" title="JavaScript Magic">JavaScript Magic</a></h4>
-        <span>Published on June 06, 2015</span>
+        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
+        <span>Published on June 16, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/devops/2015/04/05/docker-server-setup-notes.html" title="Docker server Setup">Docker server Setup</a></h4>
-        <span>Published on April 05, 2015</span>
+        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->

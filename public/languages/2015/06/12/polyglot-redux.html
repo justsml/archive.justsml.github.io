@@ -5,17 +5,17 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>AngularJS Tricks &#8211; www.DanLevy.net</title>
+<title>Polyglot Redux &#8211; www.DanLevy.net</title>
 <meta name="description" content="Devout Developer">
-<meta name="keywords" content="angularjs, development, performance, tuning">
+<meta name="keywords" content="programming, languages, lua, haskell, scala, rust, smalltalk, go, javascript, python">
 
 
 	<!-- Twitter Cards -->
 	
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:image" content="/images/abstract-5.jpg">
+		<meta name="twitter:image" content="/images/abstract-11.jpg">
 		
-	<meta name="twitter:title" content="AngularJS Tricks">
+	<meta name="twitter:title" content="Polyglot Redux">
 	<meta name="twitter:description" content="Devout Developer">
 	<meta name="twitter:creator" content="@justsml">
 
@@ -43,16 +43,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AngularJS Tricks">
+<meta property="og:title" content="Polyglot Redux">
 <meta property="og:description" content="Devout Developer">
-<meta property="og:url" content="/angularjs/2015/02/26/stop-the-angularjs-hate.html">
+<meta property="og:url" content="/languages/2015/06/12/polyglot-redux.html">
 <meta property="og:site_name" content="www.DanLevy.net">
 
 <meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
 <meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
 
 
-<link rel="canonical" href="/angularjs/2015/02/26/stop-the-angularjs-hate.html">
+<link rel="canonical" href="/languages/2015/06/12/polyglot-redux.html">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
 
 <!-- http://t.co/dKP3o1e -->
@@ -202,7 +202,7 @@
 <div class="entry-header">
   
   <div class="entry-image">
-    <img src="/images/abstract-5.jpg" alt="AngularJS Tricks">
+    <img src="/images/abstract-11.jpg" alt="Polyglot Redux">
   </div><!-- /.entry-image -->
 </div><!-- /.entry-header -->
 
@@ -212,14 +212,14 @@
     <header class="header-title">
       <div class="header-title-wrap">
         
-          <h1 class="entry-title"><a href="/angularjs/2015/02/26/stop-the-angularjs-hate.html" rel="bookmark" title="AngularJS Tricks">AngularJS Tricks</a></h1>
+          <h1 class="entry-title"><a href="/languages/2015/06/12/polyglot-redux.html" rel="bookmark" title="Polyglot Redux">Polyglot Redux</a></h1>
         
-        <h2><span class="entry-date date published"><time datetime="2015-02-26T04:22:33-07:00">February 26, 2015</time></span></h2>
+        <h2><span class="entry-date date published"><time datetime="2015-06-12T03:21:12-06:00">June 12, 2015</time></span></h2>
         
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~8 minutes
+          Reading time ~10 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
@@ -235,35 +235,22 @@
                </div>
                <ul>
                   <li class="toc_level-1 toc_section-1">
-                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">AngularJS CAN BE Fast!</span></a>
+                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Programming Languages Notes</span></a>
                      <ul>
                         <li class="toc_level-2 toc_section-2">
-                           <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">2-way data binding: 2-way Sword</span></a>
+                           <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">JavaScript</span></a>
                         </li>
-                     </ul>
-                  </li>
-                  <li class="toc_level-1 toc_section-3">
-                     <a href="#tocAnchor-1-3"><span class="tocnumber">2</span> <span class="toctext">Solutions</span></a>
-                     <ul>
+                        <li class="toc_level-2 toc_section-3">
+                           <a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">Rust</span></a>
+                        </li>
                         <li class="toc_level-2 toc_section-4">
-                           <a href="#tocAnchor-1-3-1"><span class="tocnumber">2.1</span> <span class="toctext">Angular Tips</span></a>
+                           <a href="#tocAnchor-1-1-3"><span class="tocnumber">1.3</span> <span class="toctext">Python</span></a>
                         </li>
                         <li class="toc_level-2 toc_section-5">
-                           <a href="#tocAnchor-1-3-2"><span class="tocnumber">2.2</span> <span class="toctext">Use Browserify to Organize Project</span></a>
+                           <a href="#tocAnchor-1-1-4"><span class="tocnumber">1.4</span> <span class="toctext">Haskell</span></a>
                         </li>
-                     </ul>
-                  </li>
-                  <li class="toc_level-1 toc_section-6">
-                     <a href="#tocAnchor-1-6"><span class="tocnumber">3</span> <span class="toctext">Alternatives</span></a>
-                     <ul>
-                        <li class="toc_level-2 toc_section-7">
-                           <a href="#tocAnchor-1-6-1"><span class="tocnumber">3.1</span> <span class="toctext">ReactJS from Facebook</span></a>
-                        </li>
-                        <li class="toc_level-2 toc_section-8">
-                           <a href="#tocAnchor-1-6-2"><span class="tocnumber">3.2</span> <span class="toctext">Polymer Project from Google</span></a>
-                        </li>
-                        <li class="toc_level-2 toc_section-9">
-                           <a href="#tocAnchor-1-6-3"><span class="tocnumber">3.3</span> <span class="toctext">Pure-er JS Approach</span></a>
+                        <li class="toc_level-2 toc_section-6">
+                           <a href="#tocAnchor-1-1-5"><span class="tocnumber">1.5</span> <span class="toctext">SmallTalk-80</span></a>
                         </li>
                      </ul>
                   </li>
@@ -272,81 +259,134 @@
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">AngularJS CAN BE Fast!</h1>
+</div><h1 id="tocAnchor-1-1">Programming Languages Notes</h1>
 
-<blockquote>
-  <p>Lot’s of developers are discovering that their large AngularJS apps are buckling under the weight of all those <code>$watch's</code>.</p>
-</blockquote>
+<h3 id="work-in-progress-updated-june-15th-2015">
+   <em>Work-in-progress (updated June 15th 2015)</em>
+</h3>
 
-<h2 id="tocAnchor-1-1-1">2-way data binding: 2-way Sword</h2>
+<h3 id="im-sure-my-miscellaneous-observations-have-been-made-before-but-here-is-my-list-of-most-interesting-languages">I’m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:</h3>
 
-<p>2-way binding alone makes coming from other frameworks like Backbone, well, <strong>frickin amazeballs</strong>.</p>
+<h2 id="tocAnchor-1-1-1">JavaScript</h2>
 
-<p>The problem is: many sites <strong>chronically overuse</strong> Angular’s design patterns.<br />
-This leads to directive sprawl and a <code>$scope/rootScope</code> which easily has 1000’s of instances, and can cling to huge objects preventing any hope of effective garbage collection.</p>
+<h4 id="iojshttpiojsorg">
+   <a href="http://iojs.org/">io.js</a>
+</h4>
+<p>#### <a href="http://nodejs.org/">Node.JS</a></p>
 
-<p>You know where this is going: an exhausted browser! Forever doomed to work at a <strong>frantic pace</strong> executing endless and redundant UI/DOM re-compiles.</p>
+<h2 id="tocAnchor-1-1-2">Rust</h2>
 
-<p>Does your <code>&lt;current-user-status-label&gt;</code> directive really need to be, well, a directive at all?</p>
-
-<h1 id="tocAnchor-1-3">Solutions</h1>
-
-<h2 id="tocAnchor-1-3-1">Angular Tips</h2>
-
-<ol>
-  <li>Use 1-way binding ( e.g. <code>{ :: title }</code> )</li>
-  <li>Limit recursive nesting of directives</li>
-  <li>And if you must nest directives, <em>NEVER</em> do so inside an <code>ng-repeat</code> - Performance will start to inversely mirror something like <code>O(n^2)^3</code> ;)<br />
-I. Use native JS/DOM code in a factory pattern to create basic DOM/UI fragments, examples: Modal msg box, status bar. Call UI factories from either directives or controllers.</li>
-  <li><em>Bonus:</em> Understand cost and triggers of <a href="https://developers.google.com/web/fundamentals/performance/rendering/index?hl=en">browser render lifecycle</a>: animation, composite rendering, reflows</li>
-</ol>
-
-<h2 id="tocAnchor-1-3-2">Use Browserify to Organize Project</h2>
-
-<p>Not specifically for Angular per-se, but essential for simple dependency resolution.</p>
-
-<p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Browserify</a> makes JS projects managable with virtually no added code overhead (ok, a few 100 chars).</p>
-
-<p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Just read this section</a> of the <a href="https://github.com/substack/browserify-handbook/">Browserify Handbook</a>.</p>
-
-<h1 id="tocAnchor-1-6">Alternatives</h1>
-
-<h2 id="tocAnchor-1-6-1"><a href="https://facebook.github.io/react/">ReactJS</a> from Facebook</h2>
-
-<p>For views which need minimal description:<br />
-If you have tons of small reusable UI components - ReactJS might be a better choice:</p>
+<h4 id="official-sitehttpwwwrust-langorg">
+   <a href="http://www.rust-lang.org/">Official Site</a>
+</h4>
 
 <ul>
-  <li>If your project…?:
+  <li><strong>Pros</strong>
     <ul>
-      <li>Has a different philosophy to UI/DOM implementation than Angular</li>
-      <li>Already has some kind of ‘framework’ - You can <strong>use ReactJS alongside</strong> AngularJS, Ember, Backbone.</li>
-      <li>Handles frequent data model changes in it’s own code, you’ll benefit by avoiding the ADHD digest/loop pattern of Angular</li>
+      <li>Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
+      <li>In fact I’d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
+        <ol>
+          <li>Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
+          <li>Including <strong>__all the best practices__</strong> in C you would probably screw up on, I ~~eventually~~ always do.
+            <ul>
+              <li>Automatically you get:</li>
+              <li>Auto Memory management (no need for a slow garbage collector!)</li>
+              <li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
+              <li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
+              <li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can’t overlook a code-path)</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+      <li>Oh yeah, it throws in true language extensibility with a sensible ‘macro’ feature.
+        <ul>
+          <li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.
+            <ol>
+              <li>Too good to be true? Nah, It gets better:
+                <ul>
+                  <li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google’s hot-newish language)</li>
+                  <li>About 4K More Stars than Go (currently around 12,200)</li>
+                  <li>More total Contributors ( 2x! - 1,071 vs. Go’s 479 )</li>
+                  <li>More forks ( 3X! - 2,343 vs. 765 )</li>
+                  <li>Number of Open Issues, Loses by a hair ( 2,000 vs 1,730 from Go )</li>
+                  <li>Pull Requests (Rust 70+ vs. Go’s 1)</li>
+                  <li>I had to triple check the numbers too.</li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </li>
+      <li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
+      <li>Threading model usable by mere mortals</li>
+    </ul>
+  </li>
+  <li><strong>Cons</strong>
+    <ul>
+      <li>Decent <strong>web frameworks</strong> are relatively new, untested, and usually undocumented (though they are <strong>getting</strong> very impressive - as of March 2015).</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="tocAnchor-1-6-2"><a href="http://www.Polymer-Project.org/">Polymer Project</a> from Google</h2>
-
-<h2 id="tocAnchor-1-6-3">Pure-er JS Approach</h2>
+<h2 id="tocAnchor-1-1-3">Python</h2>
 
 <ul>
-  <li>By the way, here’s where I try create framework agnostic code (+1 testability, +1 reuse)<br />
-      1. Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)<br />
-      1. Use mustache templating to create HTML strings (or DOM directly)<br />
-      1. Cache rendered content in localStorage if you can<br />
-      1. (Optional) Now add an event listener to re-render the content. I have standardized on the event name <code>refresh.&lt;class-name&gt;</code></li>
+  <li><strong>Pros</strong>
+    <ul>
+      <li>Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )</li>
+      <li>Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just weak!</li>
+    </ul>
+  </li>
+  <li><strong>Cons</strong>
+    <ul>
+      <li>Annoyingly, Python 2.x and 3.x are incompatible.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="tocAnchor-1-1-4">Haskell</h2>
+
+<ul>
+  <li><strong>Pros</strong>
+    <ul>
+      <li>Very rewarding when you finally memorize enough syntax to whip up comprehensions-based expressive patterns</li>
+      <li>You will learn mind-bending code patterns - often somewhat applicable to other languages.</li>
+    </ul>
+  </li>
+  <li><strong>Cons</strong>
+    <ul>
+      <li>Syntax &amp; Patterns can be hard to get used to.<br />
+  -</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="tocAnchor-1-1-5">SmallTalk-80</h2>
+
+<ul>
+  <li><strong>Pros</strong>
+    <ul>
+      <li>Incredibly simple compilers (original especially)</li>
+      <li>Great resources: <a href="http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript">Smalltalk MVC Translated to JavaScript</a></li>
+    </ul>
+  </li>
+  <li><strong>Cons</strong>
+    <ul>
+      <li>You will likely never use this language for anything. Zero projects. However it will have more of an impact on your coding style, faster than other functional languages… This should be in the pros list)</li>
+    </ul>
+  </li>
 </ul>
 
 
       <footer class="entry-meta">
-        <span class="entry-tags"><a href="/tags/#angularjs" title="Pages tagged angularjs" class="tag"><span class="term">angularjs</span></a><a href="/tags/#development" title="Pages tagged development" class="tag"><span class="term">development</span></a><a href="/tags/#performance" title="Pages tagged performance" class="tag"><span class="term">performance</span></a><a href="/tags/#tuning" title="Pages tagged tuning" class="tag"><span class="term">tuning</span></a></span>
-        
+        <span class="entry-tags"><a href="/tags/#programming" title="Pages tagged programming" class="tag"><span class="term">programming</span></a><a href="/tags/#languages" title="Pages tagged languages" class="tag"><span class="term">languages</span></a><a href="/tags/#lua" title="Pages tagged lua" class="tag"><span class="term">lua</span></a><a href="/tags/#haskell" title="Pages tagged haskell" class="tag"><span class="term">haskell</span></a><a href="/tags/#scala" title="Pages tagged scala" class="tag"><span class="term">scala</span></a><a href="/tags/#rust" title="Pages tagged rust" class="tag"><span class="term">rust</span></a><a href="/tags/#smalltalk" title="Pages tagged smalltalk" class="tag"><span class="term">smalltalk</span></a><a href="/tags/#go" title="Pages tagged go" class="tag"><span class="term">go</span></a><a href="/tags/#javascript" title="Pages tagged javascript" class="tag"><span class="term">javascript</span></a><a href="/tags/#python" title="Pages tagged python" class="tag"><span class="term">python</span></a></span>
+        <span>Updated on <span class="entry-date date updated"><time datetime="2015-06-13 19:00:01 -0600">June 13, 2015</time></span></span>
+        <span class="author vcard"><span class="fn">Dan Levy</span></span>
         <div class="social-share">
   <ul class="socialcount socialcount-small inline-list">
-    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/angularjs/2015/02/26/stop-the-angularjs-hate.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
-    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/angularjs/2015/02/26/stop-the-angularjs-hate.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
-    <li class="googleplus"><a href="https://plus.google.com/share?url=/angularjs/2015/02/26/stop-the-angularjs-hate.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
+    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/languages/2015/06/12/polyglot-redux.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
+    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/languages/2015/06/12/polyglot-redux.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
+    <li class="googleplus"><a href="https://plus.google.com/share?url=/languages/2015/06/12/polyglot-redux.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
   </ul>
 </div><!-- /.social-share -->
       </footer>
@@ -355,7 +395,7 @@ If you have tons of small reusable UI components - ReactJS might be a better cho
     <div class="read-more">
   
     <div class="read-more-header">
-      <a href="/docker/2015/02/26/docker-makes-everything-better.html" class="read-more-btn">Read More</a>
+      <a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
       <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
@@ -370,8 +410,8 @@ If you have tons of small reusable UI components - ReactJS might be a better cho
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
-        <span>Published on June 12, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->

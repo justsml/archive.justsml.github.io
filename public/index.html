@@ -6,8 +6,8 @@
 <head>
 <meta charset="utf-8">
 <title>Latest Posts &#8211; www.DanLevy.net</title>
-<meta name="description" content="Describe this nonsense.">
-<meta name="keywords" content="Jekyll, theme, themes, responsive, blog, modern">
+<meta name="description" content="Dan Levy's Website & Blog Musings">
+<meta name="keywords" content="programming, languages, javascript, angularjs, devops, docker, security">
 
 
 	<!-- Twitter Cards -->
@@ -16,7 +16,7 @@
 		<meta name="twitter:image" content="/images/abstract-1.jpg">
 		
 	<meta name="twitter:title" content="Latest Posts">
-	<meta name="twitter:description" content="Describe this nonsense.">
+	<meta name="twitter:description" content="Dan Levy's Website & Blog Musings">
 	<meta name="twitter:creator" content="@justsml">
 
 	<script>window.twttr = (function(d, s, id) {
@@ -44,7 +44,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Latest Posts">
-<meta property="og:description" content="Describe this nonsense.">
+<meta property="og:description" content="Dan Levy's Website & Blog Musings">
 <meta property="og:url" content="/index.html">
 <meta property="og:site_name" content="www.DanLevy.net">
 
@@ -149,11 +149,14 @@
 				<li>
 					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
 					<h4>Dan Levy</h4>
-					<p></p>
+					<p>Devout Programmer</p>
 				</li>
 				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				<li>
 					<a href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
@@ -166,9 +169,6 @@
 				</li>
 				<li>
 					<a href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
-				</li>
-				<li>
-					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				
 				
@@ -199,7 +199,7 @@
 
 
 <div class="entry-header">
-  <div class="image-credit">Image source: <a href="http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/">dargadgetz</a></div><!-- /.image-credit -->
+  <div class="image-credit">Image source: <a href="">dargadgetz</a></div><!-- /.image-credit -->
   
     <div class="entry-image">
       <img src="/images/abstract-1.jpg" alt="Latest Posts">
@@ -218,13 +218,320 @@
 <article class="hentry">
   <header>
     
+      <div class="entry-image-index">
+        <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough"><img src="/images/abstract-12.jpg" alt="Docker Cluster Walkthrough"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-16T00:00:00-06:00"><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">June 16, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~1 minute
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" rel="bookmark" title="Docker Cluster Walkthrough" itemprop="url">Docker Cluster Walkthrough</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="overview">Overview</h1>
+
+<h1 id="setup-database-servers">Setup Database Servers</h1>
+
+<h2 id="mongodb">MongoDB</h2>
+<p>```<br />
+docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:latest bash -c ‘mongod –logpath /data/logs/mongodb.log –logappend –dbpath /data/collections –storageEngine=wiredTiger –replSet “rs0”’</p>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough"><img src="/images/abstract-12.jpg" alt="Docker Cluster Walkthrough"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-16T00:00:00-06:00"><a href="/docker/2015/06/16/docker-deployment-thoughts.html">June 16, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~1 minute
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/docker/2015/06/16/docker-deployment-thoughts.html" rel="bookmark" title="Docker Cluster Walkthrough" itemprop="url">Docker Cluster Walkthrough</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="docker-images---storage--updating">Docker Images - Storage &amp; Updating</h1>
+
+<p>Store on S3?<br />
+	- Pros?<br />
+		1. AWS/S3<br />
+		2. Tool:	https://github.com/dogestry/dogestry<br />
+	- Cons: Tool, HTTPS,<br />
+Store on SSH Image Server<br />
+	- Pro:<br />
+		1. Standard, ubiquitous CLI tools, ssh or scp<br />
+		2. Any Existing CA/KI (Key Infrastructure) could be used</p>
+
+<h1 id="setup-database-servers">Setup Database Servers</h1>
+
+<h2 id="mongodb">MongoDB</h2>
+<p>```<br />
+docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:latest bash -c ‘mongod –logpath /data/logs/mongodb.log –logappend –dbpath /data/collections –storageEngine=wiredTiger –replSet “rs0”’</p>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux"><img src="/images/abstract-11.jpg" alt="Polyglot Redux"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-12T03:21:12-06:00"><a href="/languages/2015/06/12/polyglot-redux.html">June 12, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~10 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/languages/2015/06/12/polyglot-redux.html" rel="bookmark" title="Polyglot Redux" itemprop="url">Polyglot Redux</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="programming-languages-notes">Programming Languages Notes</h1>
+
+<h3 id="work-in-progress-updated-june-15th-2015"><em>Work-in-progress (updated June 15th 2015)</em></h3>
+
+<h3 id="im-sure-my-miscellaneous-observations-have-been-made-before-but-here-is-my-list-of-most-interesting-languages">I’m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:</h3>
+
+<h2 id="javascript">JavaScript</h2>
+
+<h4 id="iojshttpiojsorg"><a href="http://iojs.org/">io.js</a></h4>
+<p>#### <a href="http://nodejs.org/">Node.JS</a></p>
+
+<h2 id="rust">Rust</h2>
+
+<h4 id="official-sitehttpwwwrust-langorg"><a href="http://www.rust-lang.org/">Official Site</a></h4>
+
+<ul>
+  <li><strong>Pros</strong>
+    <ul>
+      <li>Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
+      <li>In fact I’d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
+        <ol>
+          <li>Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
+          <li>Including <strong>__all the best practices__</strong> in C you would probably screw up on, I ~~eventually~~ always do.
+            <ul>
+              <li>Automatically you get:</li>
+              <li>Auto Memory management (no need for a slow garbage collector!)</li>
+              <li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
+              <li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
+              <li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can’t overlook a code-path)</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+      <li>Oh yeah, it throws in true language extensibility with a sensible ‘macro’ feature.
+        <ul>
+          <li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.
+            <ol>
+              <li>Too good to be true? Nah, It gets better:
+                <ul>
+                  <li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google’s hot-newish language)</li>
+                  <li>About 4K More Stars than Go (currently around 12,200)</li>
+                  <li>More total Contributors ( 2x! - 1,071 vs. Go’s 479 )</li>
+                  <li>More forks ( 3X! - 2,343 vs. 765 )</li>
+                  <li>Number of Open Issues, Loses by a hair ( 2,000 vs 1,730 from Go )</li>
+                  <li>Pull Requests (Rust 70+ vs. Go’s 1)</li>
+                  <li>I had to triple check the numbers too.</li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </li>
+      <li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
+      <li>Threading model usable by mere mortals</li>
+    </ul>
+  </li>
+  <li><strong>Cons</strong>
+    <ul>
+      <li>Decent <strong>web frameworks</strong> are relatively new, untested, and usually undocumented (though they are <strong>getting</strong> very impressive - as of March 2015).</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="python">Python</h2>
+
+<ul>
+  <li><strong>Pros</strong>
+    <ul>
+      <li>Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )</li>
+      <li>Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just weak!</li>
+    </ul>
+  </li>
+  <li><strong>Cons</strong>
+    <ul>
+      <li>Annoyingly, Python 2.x and 3.x are incompatible.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="haskell">Haskell</h2>
+
+<ul>
+  <li><strong>Pros</strong>
+    <ul>
+      <li>Very rewarding when you finally memorize enough syntax to whip up comprehensions-based expressive patterns</li>
+      <li>You will learn mind-bending code patterns - often somewhat applicable to other languages.</li>
+    </ul>
+  </li>
+  <li><strong>Cons</strong>
+    <ul>
+      <li>Syntax &amp; Patterns can be hard to get used to.<br />
+  -</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="smalltalk-80">SmallTalk-80</h2>
+
+<ul>
+  <li><strong>Pros</strong>
+    <ul>
+      <li>Incredibly simple compilers (original especially)</li>
+      <li>Great resources: <a href="http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript">Smalltalk MVC Translated to JavaScript</a></li>
+    </ul>
+  </li>
+  <li><strong>Cons</strong>
+    <ul>
+      <li>You will likely never use this language for anything. Zero projects. However it will have more of an impact on your coding style, faster than other functional languages… This should be in the pros list)</li>
+    </ul>
+  </li>
+</ul>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks."><img src="/images/abstract-10.jpg" alt="Docker rocks. Boot2docker just sucks."></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-10T23:00:12-06:00"><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html">June 10, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~5 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" rel="bookmark" title="Docker rocks. Boot2docker just sucks." itemprop="url">Docker rocks. Boot2docker just sucks.</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="overview">Overview</h1>
+
+<h4 id="to-everyone-on-osx-or-windows-dont-let-boot2docker-leave-you-with-the-impression-that-docker-sucks-its-really-just-your-antique-os">To everyone on OSX or Windows: Don’t let Boot2docker leave you with the impression that Docker sucks! It’s really just your antique OS.</h4>
+
+<ol>
+  <li>Docker is amazing, period.</li>
+  <li>However it’s rough-around-the-edges, hackey utility, boot2docker - for OS X, Windows and old Linux Kernels - leaves a <strong>lot</strong> to be desired.</li>
+</ol>
+
+<h1 id="issues">Issues</h1>
+
+<blockquote>
+  <p>Boot2docker causes 99/100 headaches compared with using a native docker install locally.<br />
+I should concede that it wraps several other complicated/flakey technologies:<br />
+VirtualBox, x-platform Folder Sharing, and also the docker cli command runs in a network-client mode so,<br />
+file copying, builds etc take a long time  vs. running a native docker server.<br />
+=============<br />
+Docker can currently only run natively on a Linux Kernel 3.4+ - and the current boot2docker vm actually runs v4.<br />
+Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box,<br />
+… c’mon those games aren’t helping your code…</p>
+</blockquote>
+
+<h1 id="boot2docker-key-commands">Boot2docker Key Commands</h1>
+
+<h2 id="when-you-get-error-fata0000">When you get error: ‘FATA[0000]’</h2>
+
+<ul>
+  <li>Full error message:
+    <ul>
+      <li>FATA[0000] Get http:///var/run/docker.sock/v1.18/info: dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?</li>
+    </ul>
+  </li>
+  <li>Solution: You need some info from boot2docker
+    <ul>
+      <li>Run this to get the 3 needed shell environment variables:</li>
+    </ul>
+  </li>
+</ul>
+
+<pre><code class="language-sh">boot2docker shellinit
+# Copy &amp; paste the exports into the current shell, &amp; retry $(docker info)
+</code></pre>
+
+<h2 id="get-docker-server-ip-address">Get Docker Server IP Address</h2>
+<pre><code class="language-sh">boot2docker ip
+</code></pre>
+<blockquote>
+  <p>Now your app on port 3000 is available at something like: http://$(boot2docker ip):3000/</p>
+</blockquote>
+
+<h1 id="boot2docker-quick-start-for-os-x">Boot2Docker Quick Start for OS X</h1>
+
+<ol>
+  <li>In a terminal on your <code>brew</code> able Mac:</li>
+</ol>
+
+<pre><code class="language-sh">brew install boot2docker
+boot2docker init
+boot2docker up
+</code></pre>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup"><img src="/images/abstract-8.jpg" alt="Docker Firewall Setup"></a>
+      </div><!-- /.entry-image -->
+    
     <div class="entry-meta">
       <span class="entry-date date published updated"><time datetime="2015-06-06T16:22:22-06:00"><a href="/docker/2015/06/06/docker-firewall-setup.html">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
       
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
         
-        Reading time ~1 minute
+        Reading time ~5 minutes
       </span><!-- /.entry-reading-time -->
       
     </div><!-- /.entry-meta -->
@@ -240,44 +547,41 @@
   <li>Designed to run on Docker Host Server</li>
 </ol>
 
-<h3 id="install-requirements">Install Requirements</h3>
+<h2 id="install-requirements">Install Requirements</h2>
 
-<pre><code class="language-sh">
-# Ultimate Firewall Needed
+<pre><code class="language-sh"># Ultimate Firewall Needed
 apt-get update &amp;&amp; apt-get install -y ufw nmap curl
-
 </code></pre>
 
-<h3 id="get-your-internal--external-ip-addresses">Get your Internal &amp; External IP Addresses</h3>
+<h2 id="get-your-internal--external-ip-addresses">Get your Internal &amp; External IP Addresses</h2>
 
-<pre><code class="language-sh">
-# Get your IP Addresses, simple output:
+<pre><code class="language-sh"># Get your IP Addresses, simple output:
 hostname --all-ip-addresses
 
 # OR use ip tool, example:
 ip addr
-
 </code></pre>
 
-<h3 id="ufw-config--command-examples">UFW Config &amp; Command Examples</h3>
+<h2 id="firtewall-ufw-setup---example-cmds">Firtewall (UFW) Setup - Example Cmds</h2>
 
-<pre><code class="language-sh">
-export EXTERNAL_IP=123.123.123.123
-export DOCKER_IP=172.17.42.1
-
-# Allow and log all new ssh connections,
+<pre><code class="language-sh"># Allow and log all new ssh connections,
 ufw allow log proto tcp from any to any port 22
-ufw limit tcp/22 # Rate limit - basic SSH brute force mitigation
+## Allow http traffic (w/o explicit logging)
+ufw allow proto tcp from any to any port 80
+ufw limit tcp/22 # Basic Rate limit 4 SSH brute force mitigation
 
+# Dummy ext IP
+export EXTERNAL_IP=123.123.123.123
+# Note, default docker IP
+export DOCKER_IP=172.17.42.1
 # Forward tcp 8080 traffic to  Dockerized App
 ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
-
 </code></pre>
 
-<h3 id="enable--start-firewall">Enable / Start Firewall</h3>
+<h2 id="enable--start-firewall">Enable / Start Firewall</h2>
 
 <blockquote>
-  <p>Be Careful, Don’t Lock out your SSH port (defaults to 22)</p>
+  <p>Be Careful, Don’t Lock out your SSH port (sshd defaults to 22)</p>
 </blockquote>
 
 <pre><code class="language-sh">ufw enable
@@ -286,7 +590,7 @@ ufw reset
 
 <hr />
 
-<h3 id="test-firewall">Test Firewall</h3>
+<h2 id="test-your-firewall">Test Your Firewall</h2>
 
 <blockquote>
   <p>Important: USE A REMOTE IP ADDR/LOCATION</p>
@@ -307,280 +611,7 @@ nmap -p 1-10240,27017 --open -v -APN $TARGET_HOST
 nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
 </code></pre>
 
-<h1 id="done-now-you-should-see-only-the-ports-you-configured">DONE! Now you should see ONLY the ports you configured!</h1>
-
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-06T09:42:21-06:00"><a href="/javascript/2015/06/06/javascript-scope-magic.html">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~1 minute
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/javascript/2015/06/06/javascript-scope-magic.html" rel="bookmark" title="JavaScript Magic" itemprop="url">JavaScript Magic</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <blockquote>
-  <p>This post is geared to modern browsers and other JavaScript environments.</p>
-</blockquote>
-
-<h1 id="imperative-vs-functional">Imperative vs. Functional</h1>
-
-<h1 id="promises-not-scary">Promises: Not Scary</h1>
-
-<h1 id="callbacks-most-common">Callbacks: Most Common</h1>
-
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-04-05T19:00:59-06:00"><a href="/devops/2015/04/05/docker-server-setup-notes.html">April 05, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~2 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/devops/2015/04/05/docker-server-setup-notes.html" rel="bookmark" title="Docker server Setup" itemprop="url">Docker server Setup</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h1 id="docker-host-server-setup-w-basic-monitoring-tools">Docker <strong>Host Server</strong> Setup, w/ Basic Monitoring Tools</h1>
-
-<pre><code class="language-sh"># Updates
-apt-get update &amp;&amp; apt-get install -y vim-nox git-core ufw curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64
-
-# Host OS Tuning
-sysctl -w vm.max_map_count=262144
-
-# Updates Profile init scripts
-cd ~/
-mkdir ~/backups
-cp ~/.bash* ~/backups/
-
-curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc &gt; .bashrc
-curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases &gt; .bash_aliases
-# Read into current shell (login steps already missed the aliases file)
-source ~/.bashrc
-
-# Install Docker
-curl -sSL https://get.docker.com/ | sh
-
-# Create Shared Folder On HOST for the Docker DB Instances
-mkdir -p /mongodb/db
-mkdir -p /elastic
-</code></pre>
-
-<blockquote>
-  <p>Only for SELinux Enabled Systems</p>
-</blockquote>
-
-<pre><code class="language-sh"># SELinux fixes (optional)
-# chcon -Rt svirt_sandbox_file_t /mongodb
-# chcon -Rt svirt_sandbox_file_t /elastic
-</code></pre>
-
-<h2 id="setup-database-services">Setup Database Services</h2>
-
-<h4 id="mongodb-v3-server">MongoDB v3 Server</h4>
-
-<pre><code class="language-sh">mkdir -p /mongodb/db
-docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c 'mongod --logpath /data/mongodb.log --logappend --dbpath /data/db --storageEngine=wiredTiger'
-</code></pre>
-
-<h4 id="elastic-search">Elastic Search</h4>
-
-<pre><code class="language-sh">mkdir -p /elastic
-docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
-</code></pre>
-
-<h1 id="package-up-your-nodejsrubypythonetc-app">Package up your NodeJS/Ruby/Python/Etc App</h1>
-<hr />
-
-<ol>
-  <li>Add a blank file named <code>Dockerfile</code> in your project root.</li>
-  <li><em>(Optional)</em> Add a <code>.dockerignore</code> using .gitignore rules to exclude large non-essential paths. By default all project files are included.</li>
-</ol>
-
-<h4 id="dockerfile"><code>Dockerfile</code></h4>
-
-<pre><code class="language-dockerfile"># Example for NodeJS
-FROM node:0.12
-EXPOSE [3000]
-COPY . /app/
-WORKDIR /app
-RUN apt-get update \
-	&amp;&amp; apt-get dist-upgrade -y
-RUN ["npm", "install"]
-# Overridable Command
-CMD ["npm", "start"]
-</code></pre>
-
-<p>It’s easier to show how to start using the dockerfile and inspect the result via console.</p>
-
-<p>In terminal, <code>cd</code> to your project folder and run the following <code>docker build</code> command <em><strong>everytime</strong></em> you make a change or want to include OS upgrades)</p>
-
-<h4 id="build-docker-image-every-deploychange">Build Docker Image Every Deploy/Change</h4>
-<pre><code class="language-sh">docker build -t app-name-here .
-</code></pre>
-
-<h4 id="createrun-web-app-w-links-to-db-servers">Create/Run Web App w/ Links to DB Servers</h4>
-
-<pre><code class="language-sh">docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
-</code></pre>
-
-<h4 id="or---run-interactively-in-terminal">OR - Run Interactively (in terminal)</h4>
-
-<pre><code class="language-sh">docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
-</code></pre>
-
-<h4 id="important-to-delete-webapp01">IMPORTANT: To delete webapp01</h4>
-<pre><code class="language-sh">docker rm -f webapp01
-# rerun `docker run...` from ^^^
-</code></pre>
-
-<h4 id="to-re-create-the-db-container-instances">To Re-Create the DB ‘Container’ Instances</h4>
-
-<blockquote>
-  <p>Note: Data is mounted to host server at /mongodb</p>
-</blockquote>
-
-<pre><code class="language-sh">docker rm -f mongo elastic
-# OR
-docker rm -f elastic
-docker rm -f mongo
-</code></pre>
-
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-02-26T04:42:21-07:00"><a href="/development/2015/02/26/amazing-resources.html">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~1 minute
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/development/2015/02/26/amazing-resources.html" rel="bookmark" title="Development: #Winning Design Resource" itemprop="url">Development: #Winning Design Resource</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h1 id="your-prototype-apps-suck-so-sprinkle-some-awesome-in-there">Your Prototype Apps Suck: So sprinkle some awesome in there</h1>
-<p>==========</p>
-
-<h2 id="solve-at-least-2-ui-challenges-menu--tooltips">Solve (at least) 2 UI challenges: Menu + Tooltips</h2>
-
-<blockquote>
-  <p>Note: Not my code, however I’ve evaluated it and I have to say I <strong>rarely find code at this level</strong>. Like, <em>never</em>, folks.<br />
-The <a href="author, Mary Lou">http://tympanus.net/codrops/author/crnacura/</a> is just incredibly talented.</p>
-</blockquote>
-
-<h5 id="menus-amazingly-inspiring-and-useful---still-talking-menus-here-httptympanusnetdevelopmentoffcanvasmenueffectscornerboxnestedhtmlhttptympanusnetdevelopmentoffcanvasmenueffectscornerboxnestedhtml">Menus (amazingly inspiring AND useful - still talking menus here): <a href="http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html">http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html</a></h5>
-
-<h5 id="fix-your-tooltips-httptympanusnetcodrops20141007tooltip-styles-inspirationhttptympanusnetcodrops20141007tooltip-styles-inspiration">Fix your tooltips: <a href="http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/">http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/</a></h5>
-
-<p>Wow… Right?</p>
-
-<p>I know I said it, but let me emphasize: All the <strong>code is extraordinarily well done</strong>…  <em>I never say that, most devs rarely bother to be this meticulous</em></p>
-
-<blockquote>
-  <p>Btw, I say ‘prototype apps’ merely because the examples need a few accessability/usability tweaks (which are described in Mary’s articles).</p>
-</blockquote>
-
-<p>Here’s where I found this stuff: <a href="https://twitter.com/codrops">follow codrops at https://twitter.com/codrops</a></p>
-
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-02-26T04:22:33-07:00"><a href="/angularjs/2015/02/26/stop-the-angularjs-hate.html">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~1 minute
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/angularjs/2015/02/26/stop-the-angularjs-hate.html" rel="bookmark" title="AngularJS Tricks" itemprop="url">AngularJS Tricks</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h1 id="angularjs-can-be-fast">AngularJS CAN BE Fast!</h1>
-
-<blockquote>
-  <p>Lot’s of developers are discovering that their large AngularJS apps are buckling under the weight of all those <code>$watch's</code>.</p>
-</blockquote>
-
-<h2 id="way-data-binding-2-way-sword">2-way data binding: 2-way Sword</h2>
-
-<p>2-way binding alone makes coming from other frameworks like Backbone, well, <strong>frickin amazeballs</strong>.</p>
-
-<p>The problem is: many sites <strong>chronically overuse</strong> Angular’s design patterns.<br />
-This leads to directive sprawl and a <code>$scope/rootScope</code> which easily clings to huge objects preventing any hope of effective garbage collection.<br />
-You know where this is going: an exhausted browser! Forever doomed to work at a <strong>frantic pace</strong> executing endless and redundant UI/DOM re-compiles.</p>
-
-<p>Does your <code>&lt;current-user-status-label&gt;</code> directive really need to be, well, a directive at all?</p>
-
-<h1 id="alternatives--solutions">Alternatives &amp; Solutions</h1>
-
-<h2 id="reactjs-from-facebook">ReactJS from Facebook</h2>
-
-<p>For content that is not going to change often:<br />
-If you have tons of small UI bits - you might want to evaluate a framework more appropriate:</p>
-
-<ul>
-  <li>Add ReactJS to your project
-    <ul>
-      <li>Has a different philosophy to UI/DOM implementation</li>
-      <li>You can use ReactJS alongside AngularJS, Ember, Backbone - pretty much anything.</li>
-      <li>NOT built around the $scope/$watch ADHD digest pattern of Angular</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="polymer-projecthttpwwwpolymer-projectorg-from-google"><a href="http://www.Polymer-Project.org/">Polymer Project</a> from Google</h2>
-
-<h2 id="pure-er-js-approach">Pure-er JS Approach</h2>
-
-<ul>
-  <li>I typically try to do ONE-TIME creation of these fragments <strong>in my controller <code>link()</code> function</strong>. By the way,  here’s where I try create framework agnostic code (+1 testability, +1 reuse)<br />
-      1. Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)<br />
-      1. Use mustache templating to create HTML strings (or DOM directly)<br />
-      1. Cache rendered content in localStorage if you can<br />
-      1. (Optional) Now add an event listener to re-render the content. I have standardized on the event name <code>refresh.&lt;class-name&gt;</code></li>
-</ul>
+<h4 id="done-now-you-should-see-only-the-ports-you-configured">DONE! Now you should see ONLY the ports you configured!</h4>
 
 
   </div><!-- /.entry-content -->
@@ -601,6 +632,12 @@ If you have tons of small UI bits - you might want to evaluate a framework more 
       <li>
         
           <a href="/page2">2</a>
+        
+      </li>
+    
+      <li>
+        
+          <a href="/page3">3</a>
         
       </li>
     

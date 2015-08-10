@@ -5,17 +5,17 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>AngularJS Tricks &#8211; www.DanLevy.net</title>
+<title>Docker server Setup &#8211; www.DanLevy.net</title>
 <meta name="description" content="Devout Developer">
-<meta name="keywords" content="angularjs, development, performance, tuning">
+<meta name="keywords" content="devops, docker, server, setup, shell script">
 
 
 	<!-- Twitter Cards -->
 	
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:image" content="/images/abstract-5.jpg">
+		<meta name="twitter:image" content="/images/abstract-7.jpg">
 		
-	<meta name="twitter:title" content="AngularJS Tricks">
+	<meta name="twitter:title" content="Docker server Setup">
 	<meta name="twitter:description" content="Devout Developer">
 	<meta name="twitter:creator" content="@justsml">
 
@@ -43,16 +43,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AngularJS Tricks">
+<meta property="og:title" content="Docker server Setup">
 <meta property="og:description" content="Devout Developer">
-<meta property="og:url" content="/angularjs/2015/02/26/stop-the-angularjs-hate.html">
+<meta property="og:url" content="/docker/2015/04/05/docker-server-setup-notes.html">
 <meta property="og:site_name" content="www.DanLevy.net">
 
 <meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
 <meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
 
 
-<link rel="canonical" href="/angularjs/2015/02/26/stop-the-angularjs-hate.html">
+<link rel="canonical" href="/docker/2015/04/05/docker-server-setup-notes.html">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
 
 <!-- http://t.co/dKP3o1e -->
@@ -202,7 +202,7 @@
 <div class="entry-header">
   
   <div class="entry-image">
-    <img src="/images/abstract-5.jpg" alt="AngularJS Tricks">
+    <img src="/images/abstract-7.jpg" alt="Docker server Setup">
   </div><!-- /.entry-image -->
 </div><!-- /.entry-header -->
 
@@ -212,14 +212,14 @@
     <header class="header-title">
       <div class="header-title-wrap">
         
-          <h1 class="entry-title"><a href="/angularjs/2015/02/26/stop-the-angularjs-hate.html" rel="bookmark" title="AngularJS Tricks">AngularJS Tricks</a></h1>
+          <h1 class="entry-title"><a href="/docker/2015/04/05/docker-server-setup-notes.html" rel="bookmark" title="Docker server Setup">Docker server Setup</a></h1>
         
-        <h2><span class="entry-date date published"><time datetime="2015-02-26T04:22:33-07:00">February 26, 2015</time></span></h2>
+        <h2><span class="entry-date date published"><time datetime="2015-04-05T19:00:59-06:00">April 05, 2015</time></span></h2>
         
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~8 minutes
+          Reading time ~9 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
@@ -235,35 +235,46 @@
                </div>
                <ul>
                   <li class="toc_level-1 toc_section-1">
-                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">AngularJS CAN BE Fast!</span></a>
+                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Docker Host Server Setup</span></a>
                      <ul>
                         <li class="toc_level-2 toc_section-2">
-                           <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">2-way data binding: 2-way Sword</span></a>
+                           <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">Basic Monitoring Tools</span></a>
                         </li>
                      </ul>
                   </li>
                   <li class="toc_level-1 toc_section-3">
-                     <a href="#tocAnchor-1-3"><span class="tocnumber">2</span> <span class="toctext">Solutions</span></a>
+                     <a href="#tocAnchor-1-3"><span class="tocnumber">2</span> <span class="toctext">Simple Database Setup/Startup</span></a>
                      <ul>
                         <li class="toc_level-2 toc_section-4">
-                           <a href="#tocAnchor-1-3-1"><span class="tocnumber">2.1</span> <span class="toctext">Angular Tips</span></a>
+                           <a href="#tocAnchor-1-3-1"><span class="tocnumber">2.1</span> <span class="toctext">MongoDB v3 Server</span></a>
                         </li>
                         <li class="toc_level-2 toc_section-5">
-                           <a href="#tocAnchor-1-3-2"><span class="tocnumber">2.2</span> <span class="toctext">Use Browserify to Organize Project</span></a>
+                           <a href="#tocAnchor-1-3-2"><span class="tocnumber">2.2</span> <span class="toctext">Elastic Search</span></a>
                         </li>
                      </ul>
                   </li>
                   <li class="toc_level-1 toc_section-6">
-                     <a href="#tocAnchor-1-6"><span class="tocnumber">3</span> <span class="toctext">Alternatives</span></a>
+                     <a href="#tocAnchor-1-6"><span class="tocnumber">3</span> <span class="toctext">Package up your NodeJS/Ruby/Python/Web App</span></a>
                      <ul>
                         <li class="toc_level-2 toc_section-7">
-                           <a href="#tocAnchor-1-6-1"><span class="tocnumber">3.1</span> <span class="toctext">ReactJS from Facebook</span></a>
+                           <a href="#tocAnchor-1-6-1"><span class="tocnumber">3.1</span> <span class="toctext">Create a Dockerfile</span></a>
                         </li>
-                        <li class="toc_level-2 toc_section-8">
-                           <a href="#tocAnchor-1-6-2"><span class="tocnumber">3.2</span> <span class="toctext">Polymer Project from Google</span></a>
-                        </li>
+                     </ul>
+                  </li>
+                  <li class="toc_level-1 toc_section-8">
+                     <a href="#tocAnchor-1-8"><span class="tocnumber">4</span> <span class="toctext">Docker Commands to Learn</span></a>
+                     <ul>
                         <li class="toc_level-2 toc_section-9">
-                           <a href="#tocAnchor-1-6-3"><span class="tocnumber">3.3</span> <span class="toctext">Pure-er JS Approach</span></a>
+                           <a href="#tocAnchor-1-8-1"><span class="tocnumber">4.1</span> <span class="toctext">Build Docker Image Every Deploy/Change</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-10">
+                           <a href="#tocAnchor-1-8-2"><span class="tocnumber">4.2</span> <span class="toctext">Create/Run Web App w/ Links to DB Servers</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-11">
+                           <a href="#tocAnchor-1-8-3"><span class="tocnumber">4.3</span> <span class="toctext">Run Interactively (non-daemon, in terminal)</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-12">
+                           <a href="#tocAnchor-1-8-4"><span class="tocnumber">4.4</span> <span class="toctext">Delete Container Instance or Image</span></a>
                         </li>
                      </ul>
                   </li>
@@ -272,81 +283,146 @@
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">AngularJS CAN BE Fast!</h1>
+</div><h1 id="tocAnchor-1-1">Docker <strong>Host Server</strong> Setup</h1>
+
+<h2 id="tocAnchor-1-1-1">Basic Monitoring Tools</h2>
+
+<pre>
+   <code class="language-sh"># Debian/BSD Requirements / Updates + monitoring tools: atop &amp; htop
+apt-get update &amp;&amp; apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64
+
+# OSX, Debian &amp; RHEL: Host OS Tuning
+sysctl -w vm.max_map_count=262144
+
+# Updates Profile init scripts before appending new scripts below
+mkdir ~/backups
+cp ~/.bash* ~/backups/
+
+# Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors
+curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc &gt;&gt; ~/.bashrc
+curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases &gt;&gt; ~/.bash_aliases
+# Read into current shell (login steps already missed the aliases file)
+source ~/.bashrc
+
+# Install Docker, straight from the horses mouth
+curl -sSL https://get.docker.com/ | sh
+
+</code>
+</pre>
 
 <blockquote>
-  <p>Lot’s of developers are discovering that their large AngularJS apps are buckling under the weight of all those <code>$watch's</code>.</p>
+  <p>Only for SELinux Enabled Systems</p>
 </blockquote>
 
-<h2 id="tocAnchor-1-1-1">2-way data binding: 2-way Sword</h2>
+<pre>
+   <code class="language-sh"># SELinux fixes (optional)
+# chcon -Rt svirt_sandbox_file_t /mongodb
+# chcon -Rt svirt_sandbox_file_t /elastic
+</code>
+</pre>
 
-<p>2-way binding alone makes coming from other frameworks like Backbone, well, <strong>frickin amazeballs</strong>.</p>
+<h1 id="tocAnchor-1-3">Simple Database Setup/Startup</h1>
 
-<p>The problem is: many sites <strong>chronically overuse</strong> Angular’s design patterns.<br />
-This leads to directive sprawl and a <code>$scope/rootScope</code> which easily has 1000’s of instances, and can cling to huge objects preventing any hope of effective garbage collection.</p>
+<h2 id="tocAnchor-1-3-1">MongoDB v3 Server</h2>
 
-<p>You know where this is going: an exhausted browser! Forever doomed to work at a <strong>frantic pace</strong> executing endless and redundant UI/DOM re-compiles.</p>
+<pre>
+   <code class="language-sh">mkdir /mongodb
+docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c 'mongod --logpath /data/mongodb.log --logappend --dbpath /data/data --storageEngine=wiredTiger'
+</code>
+</pre>
 
-<p>Does your <code>&lt;current-user-status-label&gt;</code> directive really need to be, well, a directive at all?</p>
+<h2 id="tocAnchor-1-3-2">Elastic Search</h2>
 
-<h1 id="tocAnchor-1-3">Solutions</h1>
+<pre>
+   <code class="language-sh">mkdir /elastic
+docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
+</code>
+</pre>
 
-<h2 id="tocAnchor-1-3-1">Angular Tips</h2>
+<blockquote>
+  <p>You just lit up 2 database docker instances!!!<br />
+If it were any easier, I’m pretty sure you couldn’t invoice for it.</p>
+</blockquote>
+
+<h1 id="tocAnchor-1-6">Package up your NodeJS/Ruby/Python/Web App</h1>
 
 <ol>
-  <li>Use 1-way binding ( e.g. <code>{ :: title }</code> )</li>
-  <li>Limit recursive nesting of directives</li>
-  <li>And if you must nest directives, <em>NEVER</em> do so inside an <code>ng-repeat</code> - Performance will start to inversely mirror something like <code>O(n^2)^3</code> ;)<br />
-I. Use native JS/DOM code in a factory pattern to create basic DOM/UI fragments, examples: Modal msg box, status bar. Call UI factories from either directives or controllers.</li>
-  <li><em>Bonus:</em> Understand cost and triggers of <a href="https://developers.google.com/web/fundamentals/performance/rendering/index?hl=en">browser render lifecycle</a>: animation, composite rendering, reflows</li>
+  <li>Add a blank file named <code>Dockerfile</code> in your project root.</li>
+  <li><em>(Optional, Recommended)</em> Add a <code>.dockerignore</code> using .gitignore rules to exclude large non-essential paths. By default all project files are included.</li>
 </ol>
 
-<h2 id="tocAnchor-1-3-2">Use Browserify to Organize Project</h2>
+<h2 id="tocAnchor-1-6-1">Create a <code>Dockerfile</code></h2>
 
-<p>Not specifically for Angular per-se, but essential for simple dependency resolution.</p>
+<pre>
+   <code class="language-dockerfile"># Example for NodeJS
+FROM node:0.12
+EXPOSE [3000]
+COPY . /app/
+WORKDIR /app
+RUN apt-get update \
+	&amp;&amp; apt-get dist-upgrade -y
+RUN ["npm", "install"]
+# Overridable Command
+CMD ["npm", "start"]
+</code>
+</pre>
 
-<p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Browserify</a> makes JS projects managable with virtually no added code overhead (ok, a few 100 chars).</p>
+<p>It’s easier to show how to start using the Dockerfile and demonstrate the results via console (see commands below).</p>
 
-<p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Just read this section</a> of the <a href="https://github.com/substack/browserify-handbook/">Browserify Handbook</a>.</p>
+<p>In terminal, <code>cd</code> to your project folder and run the following <code>build</code> command <em>everytime</em> you deploy changes - or want to change/upgrade OS or Env config)</p>
 
-<h1 id="tocAnchor-1-6">Alternatives</h1>
+<p>
+   <code>docker build -t app-name-here .</code>
+</p>
 
-<h2 id="tocAnchor-1-6-1"><a href="https://facebook.github.io/react/">ReactJS</a> from Facebook</h2>
+<h1 id="tocAnchor-1-8">Docker Commands to Learn</h1>
 
-<p>For views which need minimal description:<br />
-If you have tons of small reusable UI components - ReactJS might be a better choice:</p>
+<h2 id="tocAnchor-1-8-1">Build Docker Image Every Deploy/Change</h2>
 
-<ul>
-  <li>If your project…?:
-    <ul>
-      <li>Has a different philosophy to UI/DOM implementation than Angular</li>
-      <li>Already has some kind of ‘framework’ - You can <strong>use ReactJS alongside</strong> AngularJS, Ember, Backbone.</li>
-      <li>Handles frequent data model changes in it’s own code, you’ll benefit by avoiding the ADHD digest/loop pattern of Angular</li>
-    </ul>
-  </li>
-</ul>
+<pre>
+   <code class="language-sh">docker build -t app-name-here .
+</code>
+</pre>
 
-<h2 id="tocAnchor-1-6-2"><a href="http://www.Polymer-Project.org/">Polymer Project</a> from Google</h2>
+<h2 id="tocAnchor-1-8-2">Create/Run Web App w/ Links to DB Servers</h2>
 
-<h2 id="tocAnchor-1-6-3">Pure-er JS Approach</h2>
+<pre>
+   <code class="language-sh">docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
+</code>
+</pre>
 
-<ul>
-  <li>By the way, here’s where I try create framework agnostic code (+1 testability, +1 reuse)<br />
-      1. Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)<br />
-      1. Use mustache templating to create HTML strings (or DOM directly)<br />
-      1. Cache rendered content in localStorage if you can<br />
-      1. (Optional) Now add an event listener to re-render the content. I have standardized on the event name <code>refresh.&lt;class-name&gt;</code></li>
-</ul>
+<h2 id="tocAnchor-1-8-3">Run Interactively (non-daemon, in terminal)</h2>
+
+<pre>
+   <code class="language-sh">docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here bash
+</code>
+</pre>
+
+<h2 id="tocAnchor-1-8-4">Delete Container Instance or Image</h2>
+
+<blockquote>
+  <p>Important: Any data not stored on the mounted volume path will be lost!!</p>
+</blockquote>
+
+<pre>
+   <code class="language-sh"># Delete Image
+docker rmi -f app-name-here
+docker rm -f webapp01
+# now re-run your `docker run...` from ^^^
+# So for example, let's kill your db instances above, run: ( start with something like `docker stop {mongo,elastic}` )
+docker rm -f mongo elastic
+</code>
+</pre>
 
 
       <footer class="entry-meta">
-        <span class="entry-tags"><a href="/tags/#angularjs" title="Pages tagged angularjs" class="tag"><span class="term">angularjs</span></a><a href="/tags/#development" title="Pages tagged development" class="tag"><span class="term">development</span></a><a href="/tags/#performance" title="Pages tagged performance" class="tag"><span class="term">performance</span></a><a href="/tags/#tuning" title="Pages tagged tuning" class="tag"><span class="term">tuning</span></a></span>
+        <span class="entry-tags"><a href="/tags/#devops" title="Pages tagged devops" class="tag"><span class="term">devops</span></a><a href="/tags/#docker" title="Pages tagged docker" class="tag"><span class="term">docker</span></a><a href="/tags/#server" title="Pages tagged server" class="tag"><span class="term">server</span></a><a href="/tags/#setup" title="Pages tagged setup" class="tag"><span class="term">setup</span></a><a href="/tags/#shell script" title="Pages tagged shell script" class="tag"><span class="term">shell script</span></a></span>
         
         <div class="social-share">
   <ul class="socialcount socialcount-small inline-list">
-    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/angularjs/2015/02/26/stop-the-angularjs-hate.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
-    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/angularjs/2015/02/26/stop-the-angularjs-hate.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
-    <li class="googleplus"><a href="https://plus.google.com/share?url=/angularjs/2015/02/26/stop-the-angularjs-hate.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
+    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/docker/2015/04/05/docker-server-setup-notes.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
+    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/docker/2015/04/05/docker-server-setup-notes.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
+    <li class="googleplus"><a href="https://plus.google.com/share?url=/docker/2015/04/05/docker-server-setup-notes.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
   </ul>
 </div><!-- /.social-share -->
       </footer>
@@ -355,7 +431,7 @@ If you have tons of small reusable UI components - ReactJS might be a better cho
     <div class="read-more">
   
     <div class="read-more-header">
-      <a href="/docker/2015/02/26/docker-makes-everything-better.html" class="read-more-btn">Read More</a>
+      <a href="/design/2015/02/26/amazing-resources.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
       <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>

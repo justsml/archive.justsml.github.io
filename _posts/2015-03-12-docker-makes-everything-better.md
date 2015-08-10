@@ -1,9 +1,12 @@
 ---
 layout: post
-title:  "Development: Docker === Love"
+title:  "Docker === Love"
 date:   2015-02-26 11:07:59
-categories: development
+categories: docker
 tags: [development, design, resource, ideas, patterns]
+image:
+  feature: abstract-6.jpg
+  credit:
 ---
 
 # Docker Can Do Everything!*
@@ -25,30 +28,27 @@ There may seem like a huge volume of new stuff to learn, **don't let that stop y
 -------
 
 
-### EXAMPLES
+# EXAMPLES
 
-#### nginx
-
+## nginx
 
 ~~~bash
 
 	# Note: using host-based, shared folders
 	#(shared folders are not possible with the VOLUME Dockerfile cmd)
 	sudo docker run --name web01 -d -p 8181:80 \
-		-v ${SITES_ENABLED_DIR}:/etc/nginx/sites-enabled \
-		-v ${CERTS_DIR}:/etc/nginx/certs \
-		-v ${LOG_DIR}:/var/log/nginx \
-		-v ${HTML_DIR}:/var/www/html \
-		dockerfile/nginx:latest
+		-v $(NGINX_DIR)/etc:/etc/nginx \
+		-v $(NGINX_DIR)/log:/var/log/nginx \
+		-v $(NGINX_DIR)/www:/var/www/html \
+		nginx:latest
 
 	# Local data, isolated within instance
-	sudo docker run --name web01 -d -p 8181:80 dockerfile/nginx:latest
+	sudo docker run --name web01 -d -p 8181:80 nginx:latest
 
 	# nodejs
-	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 dockerfile/nodejs:latest
+	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
 
 ~~~
-
 
 
 

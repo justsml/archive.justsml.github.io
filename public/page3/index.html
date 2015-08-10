@@ -5,18 +5,18 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>All Posts &#8211; www.DanLevy.net</title>
-<meta name="description" content="An archive of posts.">
-
+<title>Latest Posts &#8211; www.DanLevy.net</title>
+<meta name="description" content="Dan Levy's Website & Blog Musings">
+<meta name="keywords" content="programming, languages, javascript, angularjs, devops, docker, security">
 
 
 	<!-- Twitter Cards -->
 	
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:image" content="/images/abstract-6.jpg">
+		<meta name="twitter:image" content="/images/abstract-1.jpg">
 		
-	<meta name="twitter:title" content="All Posts">
-	<meta name="twitter:description" content="An archive of posts.">
+	<meta name="twitter:title" content="Latest Posts">
+	<meta name="twitter:description" content="Dan Levy's Website & Blog Musings">
 	<meta name="twitter:creator" content="@justsml">
 
 	<script>window.twttr = (function(d, s, id) {
@@ -43,16 +43,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="All Posts">
-<meta property="og:description" content="An archive of posts.">
-<meta property="og:url" content="/posts/index.html">
+<meta property="og:title" content="Latest Posts">
+<meta property="og:description" content="Dan Levy's Website & Blog Musings">
+<meta property="og:url" content="/page3/index.html">
 <meta property="og:site_name" content="www.DanLevy.net">
 
 <meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
 <meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
 
 
-<link rel="canonical" href="/posts/">
+<link rel="canonical" href="/page3/">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
 
 <!-- http://t.co/dKP3o1e -->
@@ -199,148 +199,109 @@
 
 
 <div class="entry-header">
-  
+  <div class="image-credit">Image source: <a href="">dargadgetz</a></div><!-- /.image-credit -->
   
     <div class="entry-image">
-      <img src="/images/abstract-6.jpg" alt="All Posts">
+      <img src="/images/abstract-1.jpg" alt="Latest Posts">
     </div><!-- /.entry-image -->
   
   <div class="header-title">
     <div class="header-title-wrap">
       <h1>www.DanLevy.net</h1>
-      <h2>All Posts</h2>
+      <h2>Latest Posts</h2>
     </div><!-- /.header-title-wrap -->
   </div><!-- /.header-title -->
 </div><!-- /.entry-header -->
 
 <div id="main" role="main">
   
+<article class="hentry">
+  <header>
     
+      <div class="entry-image-index">
+        <a href="/security/2015/02/23/security-notes-regex.html" title="Security Notes: RegEx"><img src="/images/abstract-2.jpg" alt="Security Notes: RegEx"></a>
+      </div><!-- /.entry-image -->
     
-
-    
-    <article>
-      <h2 id="2015-ref">2015</h2>
-      <ul>
-    
-
-        <li class="entry-title"><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></li>
-
-    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-23T22:42:21-07:00"><a href="/security/2015/02/23/security-notes-regex.html">February 23, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
         
+        Reading time ~2 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
     
+      <h1 class="entry-title"><a href="/security/2015/02/23/security-notes-regex.html" rel="bookmark" title="Security Notes: RegEx" itemprop="url">Security Notes: RegEx</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="denial-of-service-regex-vulnerability">Denial-of-Service Regex Vulnerability</h1>
 
-    
-    
+<p>One of the most common, and yet hard-to-spot vulnerabilities I encounter relate to regular expressions.<br />
+Either poorly written or poorly implemented.</p>
 
-    
+<h2 id="warning-signs">Warning Signs</h2>
 
-        <li class="entry-title"><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></li>
+<ol>
+  <li>You have multiple capture groups</li>
+  <li>Global matching</li>
+  <li>Expression is used with un-checked user input</li>
+</ol>
 
+<h2 id="mitigation--resolution">Mitigation / Resolution</h2>
+
+<ol>
+  <li>RegEx is hard
+    <ol>
+      <li>For example, here is how the really smart folks at <a href="https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository">OWASP recommend handling IP validation</a>: <code>^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</code></li>
+      <li>That’s longer than a tweet, for a 4-byte IP Address!!!</li>
+    </ol>
+  </li>
+  <li>Make sure user input isn’t unduly long, when I know input data is reliably less than 40 chars, I’ll make sure I prevent anything over 64 - otherwise, an attacker could overwhelm my system with a flood of 4Kb requests.</li>
+  <li>This affects almost every language and platform .NET/Node/Python/PERL/Java</li>
+</ol>
+
+<h2 id="reference">Reference</h2>
+
+<p><a href="https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;utm_medium=email">Regular Expression DoS and Node.js</a></p>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+
+<div class="pagination">
+  
     
+      <a href="/page2" class="btn">Previous</a>
+    
+  
+  <ul class="inline-list">
+    <li>
+      
+        <a href="">1</a>
+      
+    </li>
+    
+      <li>
         
-    
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></li>
-
-    
+          <a href="/page2">2</a>
         
+      </li>
     
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></li>
-
-    
+      <li>
         
-    
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup">Docker Firewall Setup</a></li>
-
-    
+          <span class="current-page">3</span>
         
+      </li>
     
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/javascript/2015/06/06/javascript-scope-magic.html" title="JavaScript Magic">JavaScript Magic</a></li>
-
-    
-        
-    
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/docker/2015/04/05/docker-server-setup-notes.html" title="Docker server Setup">Docker server Setup</a></li>
-
-    
-        
-    
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/design/2015/02/26/amazing-resources.html" title="Winning Design Resource">Winning Design Resource</a></li>
-
-    
-        
-    
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/angularjs/2015/02/26/stop-the-angularjs-hate.html" title="AngularJS Tricks">AngularJS Tricks</a></li>
-
-    
-        
-    
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/docker/2015/02/26/docker-makes-everything-better.html" title="Docker === Love">Docker === Love</a></li>
-
-    
-        
-    
-
-    
-    
-
-    
-
-        <li class="entry-title"><a href="/security/2015/02/23/security-notes-regex.html" title="Security Notes: RegEx">Security Notes: RegEx</a></li>
-
-    
-      </ul>
-    </article>
-    
-
+  </ul>
+  
+    Next
+  
+</div><!-- /.pagination -->
 </div><!-- /#main -->
 
 <div class="footer-wrapper">
