@@ -70,6 +70,16 @@
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
 <!-- Icons -->
 <!-- 16x16 -->
 <link rel="shortcut icon" href="/favicon.ico">
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -224,30 +235,36 @@
     <div class="entry-content">
       <p>General notes and suggestions for customizing <strong>HPSTR</strong>.</p>
 
-<h2 id="basic-setup-for-a-new-jekyll-site">Basic Setup for a new Jekyll site</h2>
+<a name="Basic.Setup.for.a.new.Jekyll.site"></a>
+<h2>Basic Setup for a new Jekyll site</h2>
 
 <ol>
-  <li><a href="http://bundler.io">Install Bundler</a> <code>gem install bundler</code> and then install <a href="http://jekyllrb.com">Jekyll</a> and all dependencies <code>bundle install</code>.</li>
-  <li>Fork the <a href="https://github.com/mmistakes/hpstr-jekyll-theme/fork">HPSTR Jekyll Theme repo</a>.</li>
-  <li>Clone the repo you just forked and rename it.</li>
-  <li>Edit <code>_config.yml</code> to personalize your site.</li>
-  <li>Check out the sample posts in <code>_posts</code> to see examples for pulling in large feature images, assigning categories and tags, and other YAML data.</li>
-  <li>Read the documentation below for further customization pointers and documentation.</li>
+<li><a href="http://bundler.io">Install Bundler</a> <code>gem install bundler</code> and then install <a href="http://jekyllrb.com">Jekyll</a> and all dependencies <code>bundle install</code>.</li>
+<li>Fork the <a href="https://github.com/mmistakes/hpstr-jekyll-theme/fork">HPSTR Jekyll Theme repo</a>.</li>
+<li>Clone the repo you just forked and rename it.</li>
+<li>Edit <code>_config.yml</code> to personalize your site.</li>
+<li>Check out the sample posts in <code>_posts</code> to see examples for pulling in large feature images, assigning categories and tags, and other YAML data.</li>
+<li>Read the documentation below for further customization pointers and documentation.</li>
 </ol>
 
-<div><a href="https://github.com/mmistakes/hpstr-jekyll-theme/archive/master.zip" class="btn">Download the Theme</a></div>
 
-<p class="notice"><strong>Pro-tip:</strong> Delete the <code>gh-pages</code> branch after cloning and start fresh by branching off <code>master</code>. There is a bunch of garbage in <code>gh-pages</code> used for the theme’s demo site that I’m guessing you don’t want on your site.</p>
+<div markdown="0"><a href="https://github.com/mmistakes/hpstr-jekyll-theme/archive/master.zip" class="btn">Download the Theme</a></div>
+
+
+<p><strong>Pro-tip:</strong> Delete the <code>gh-pages</code> branch after cloning and start fresh by branching off <code>master</code>. There is a bunch of garbage in <code>gh-pages</code> used for the theme&rsquo;s demo site that I&rsquo;m guessing you don&rsquo;t want on your site.
+{: .notice}</p>
 
 <hr />
 
-<h2 id="setup-for-an-existing-jekyll-site">Setup for an Existing Jekyll site</h2>
+<a name="Setup.for.an.Existing.Jekyll.site"></a>
+<h2>Setup for an Existing Jekyll site</h2>
 
 <ol>
-  <li>Clone the following folders: <code>_includes</code>, <code>_layouts</code>, ‘_sass’, <code>assets</code>, and <code>images</code>.</li>
-  <li>Clone the following folders/files and personalize content as need: <code>about/</code>, <code>posts/</code>, <code>tags/</code>, <code>feed.xml</code>. and ‘index.html’.</li>
-  <li>Set the following variables in your <code>config.yml</code> file:</li>
+<li>Clone the following folders: <code>_includes</code>, <code>_layouts</code>, &lsquo;_sass&rsquo;, <code>assets</code>, and <code>images</code>.</li>
+<li>Clone the following folders/files and personalize content as need: <code>about/</code>, <code>posts/</code>, <code>tags/</code>, <code>feed.xml</code>. and &lsquo;index.html&rsquo;.</li>
+<li>Set the following variables in your <code>config.yml</code> file:</li>
 </ol>
+
 
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span>            <span class="l-Scalar-Plain">Site Title</span>
 <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span>      <span class="l-Scalar-Plain">Describe your website here.</span>
@@ -289,25 +306,27 @@
 <span class="c1"># Amount of posts to show on home page</span>
 <span class="l-Scalar-Plain">paginate</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span></code></pre></div>
 
+
 <hr />
 
-<h2 id="running-jekyll">Running Jekyll</h2>
+<a name="Running.Jekyll"></a>
+<h2>Running Jekyll</h2>
 
 <p>If <code>jekyll build</code> and <code>jekyll serve</code> throw errors you may have to run Jekyll with <code>bundled exec</code> instead.</p>
 
-<blockquote>
-  <p>In some cases, running executables without bundle exec may work, if the executable happens to be installed in your system and does not pull in any gems that conflict with your bundle.</p>
+<blockquote><p>In some cases, running executables without bundle exec may work, if the executable happens to be installed in your system and does not pull in any gems that conflict with your bundle.</p>
 
-  <p>However, this is unreliable and is the source of considerable pain. Even if it looks like it works, it may not work in the future or on another machine.</p>
-</blockquote>
+<p>However, this is unreliable and is the source of considerable pain. Even if it looks like it works, it may not work in the future or on another machine.</p></blockquote>
 
 <div class="highlight"><pre><code class="language-text" data-lang="text">bundle exec jekyll build
 
 bundle exec jekyll serve</code></pre></div>
 
+
 <hr />
 
-<h2 id="folder-structure">Folder Structure</h2>
+<a name="Folder.Structure"></a>
+<h2>Folder Structure</h2>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">hpstr-jekyll-theme/
 ├── _includes
@@ -336,35 +355,44 @@ bundle exec jekyll serve</code></pre></div>
 ├── tags/                           <span class="c"># all posts grouped by tag</span>
 └── index.html                      <span class="c"># home page with pagination</span></code></pre></div>
 
+
 <hr />
 
-<h2 id="customization">Customization</h2>
+<a name="Customization"></a>
+<h2>Customization</h2>
 
-<p>Most of the variables found here are used in the .html files found in <code>_includes</code> if you need to add or remove anything. A good place to start would be to add the <code>title</code>, <code>description</code>, and <code>url</code> for your site. Links are absolute and prefixed with <code>{{ site.url }}</code> in the various <code>_includes</code> and <code>_layouts</code>, so remember to properly set <code>url</code><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> to <code>http://localhost:4000</code> when developing locally.</p>
+<p>Most of the variables found here are used in the .html files found in <code>_includes</code> if you need to add or remove anything. A good place to start would be to add the <code>title</code>, <code>description</code>, and <code>url</code> for your site. Links are absolute and prefixed with <code>{{ site.url }}</code> in the various <code>_includes</code> and <code>_layouts</code>, so remember to properly set <code>url</code><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> to <code>http://localhost:4000</code> when developing locally.</p>
 
-<h3 id="disqus-comments">Disqus Comments</h3>
+<a name="Disqus.Comments"></a>
+<h3>Disqus Comments</h3>
 
 <p>Create a <a href="http://disqus.com">Disqus</a> account and change <code>disqus_shortname</code> in <code>_config.yml</code> to the Disqus <em>shortname</em> you just setup. By default comments appear on all post and pages if you assigned a shortname. To disable commenting on a post or page, add the following to its YAML Front Matter:</p>
 
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">comments</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span></code></pre></div>
 
-<h3 id="social-share-links">Social Share Links</h3>
+
+<a name="Social.Share.Links"></a>
+<h3>Social Share Links</h3>
 
 <p>To enable Facebook, Twitter, and Google+ share links on a post or page, add the following to its front matter:</p>
 
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span></code></pre></div>
 
-<h3 id="ownerauthor-information">Owner/Author Information</h3>
 
-<p>Change your name, and avatar photo (200x200 pixels or larger), email, and social networking URLs. If you want to link to an external image on Gravatar or something similar you’ll need to edit the path in <code>head.html</code> since it assumes it is located in <code>/images</code>.</p>
+<a name="Owner.Author.Information"></a>
+<h3>Owner/Author Information</h3>
 
-<h3 id="google-analytics-and-webmaster-tools">Google Analytics and Webmaster Tools</h3>
+<p>Change your name, and avatar photo (200x200 pixels or larger), email, and social networking URLs. If you want to link to an external image on Gravatar or something similar you&rsquo;ll need to edit the path in <code>head.html</code> since it assumes it is located in <code>/images</code>.</p>
+
+<a name="Google.Analytics.and.Webmaster.Tools"></a>
+<h3>Google Analytics and Webmaster Tools</h3>
 
 <p>Your Google Analytics ID goes here along with meta tags for <a href="http://support.google.com/webmasters/bin/answer.py?hl=en&amp;answer=35179">Google Webmaster Tools</a> and <a href="https://ssl.bing.com/webmaster/configure/verify/ownershi">Bing Webmaster Tools</a> site verification.</p>
 
-<h3 id="navigation-links">Navigation Links</h3>
+<a name="Navigation.Links"></a>
+<h3>Navigation Links</h3>
 
-<p>To add additional links in the drop down menu edit <code>_data/navigation.yml</code>. Use the following format to set the URL and title for as many links as you’d like. <em>External links will open in a new window.</em></p>
+<p>To add additional links in the drop down menu edit <code>_data/navigation.yml</code>. Use the following format to set the URL and title for as many links as you&rsquo;d like. <em>External links will open in a new window.</em></p>
 
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Portfolio</span>
   <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/portfolio/</span>
@@ -372,49 +400,61 @@ bundle exec jekyll serve</code></pre></div>
 <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Made Mistakes</span>
   <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://mademistakes.com</span></code></pre></div>
 
+
 <hr />
 
-<h2 id="adding-new-content-with-octopress">Adding New Content with Octopress</h2>
+<a name="Adding.New.Content.with.Octopress"></a>
+<h2>Adding New Content with Octopress</h2>
 
-<p>While completely optional, I’ve included Octopress and some starter templates to automate the creation of new posts and pages. To take advantage of it start by installing the <a href="https://github.com/octopress/octopress">Octopress</a> gem if it isn’t already.</p>
+<p>While completely optional, I&rsquo;ve included Octopress and some starter templates to automate the creation of new posts and pages. To take advantage of it start by installing the <a href="https://github.com/octopress/octopress">Octopress</a> gem if it isn&rsquo;t already.</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gem install octopress --pre</code></pre></div>
 
-<h3 id="new-post">New Post</h3>
+
+<a name="New.Post"></a>
+<h3>New Post</h3>
 
 <p>Default command</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>octopress new post <span class="s2">&quot;Post Title&quot;</span></code></pre></div>
 
-<p>Default works great if you want all your posts in one directory, but if you’re like me and want to group them into subfolders like <code>/posts</code>, <code>/portfolio</code>, etc. Then this is the command for you. By specifying the DIR it will create a new post in that folder and populate the <code>categories:</code> YAML with the same value.</p>
+
+<p>Default works great if you want all your posts in one directory, but if you&rsquo;re like me and want to group them into subfolders like <code>/posts</code>, <code>/portfolio</code>, etc. Then this is the command for you. By specifying the DIR it will create a new post in that folder and populate the <code>categories:</code> YAML with the same value.</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>octopress new post <span class="s2">&quot;New Post Title&quot;</span> --dir posts</code></pre></div>
 
-<h3 id="new-page">New Page</h3>
+
+<a name="New.Page"></a>
+<h3>New Page</h3>
 
 <p>To create a new page use the following command.</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>octopress new page new-page/</code></pre></div>
 
+
 <hr />
 
-<h3 id="jekyll-includes">Jekyll _includes</h3>
+<a name="Jekyll._includes"></a>
+<h3>Jekyll _includes</h3>
 
-<p>For the most part you can leave these as is since the author/owner details are pulled from <code>_config.yml</code>. That said you’ll probably want to customize the copyright stuff in <code>footer.html</code> to your liking.</p>
+<p>For the most part you can leave these as is since the author/owner details are pulled from <code>_config.yml</code>. That said you&rsquo;ll probably want to customize the copyright stuff in <code>footer.html</code> to your liking.</p>
 
-<h3 id="reading-time">Reading Time</h3>
+<a name="Reading.Time"></a>
+<h3>Reading Time</h3>
 
-<p>On by default. To turn off remove <code>reading_time</code> from <code>_config.yml. Default words per minute is set at 200 and can changed by updating </code>words_per_minute<code> in </code>_config.yml`.</p>
+<p>On by default. To turn off remove <code>reading_time</code> from <code>_config.yml. Default words per minute is set at 200 and can changed by updating</code>words_per_minute<code>in</code>_config.yml`.</p>
 
-<h3 id="feature-images">Feature Images</h3>
+<a name="Feature.Images"></a>
+<h3>Feature Images</h3>
 
-<p>A good rule of thumb is to keep feature images nice and wide so you don’t push the body text too far down. An image cropped around around 1024 x 256 pixels will keep file size down with an acceptable resolution for most devices. If you want to serve these images responsively I’d suggest looking at the <a href="https://github.com/scottjehl/picturefill">Jekyll Picture Tag</a><sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> plugin.</p>
+<p>A good rule of thumb is to keep feature images nice and wide so you don&rsquo;t push the body text too far down. An image cropped around around 1024 x 256 pixels will keep file size down with an acceptable resolution for most devices. If you want to serve these images responsively I&rsquo;d suggest looking at the <a href="https://github.com/scottjehl/picturefill">Jekyll Picture Tag</a><sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> plugin.</p>
 
 <p>The two layouts make the assumption that the feature images live in the <em>images</em> folder. To add a feature image to a post or page just include the filename in the front matter like so.</p>
 
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span>
   <span class="l-Scalar-Plain">feature</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">feature-image-filename.jpg</span>
   <span class="l-Scalar-Plain">thumb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">thumbnail-image.jpg</span> <span class="c1">#keep it square 200x200 px is good</span></code></pre></div>
+
 
 <p>If you want to apply attribution to a feature image use the following YAML front matter on posts or pages. Image credits appear directly below the feature image with a link back to the original source.</p>
 
@@ -423,68 +463,77 @@ bundle exec jekyll serve</code></pre></div>
   <span class="l-Scalar-Plain">credit</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Michael Rose</span> <span class="c1">#name of the person or site you want to credit</span>
   <span class="l-Scalar-Plain">creditlink</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://mademistakes.com</span> <span class="c1">#url to their site or licensing</span></code></pre></div>
 
-<h4 id="postpage-thumbnails-for-og-and-twitter-cards">Post/Page Thumbnails for OG and Twitter Cards</h4>
 
-<p>Post and page thumbnails work the same way. These are used by <a href="https://developers.facebook.com/docs/opengraph/">Open Graph</a> and <a href="https://dev.twitter.com/docs/cards">Twitter Cards</a> meta tags found in <code>head.html</code>. If you don’t assign a thumbnail the image you assigned to <code>site.owner.avatar</code> in <code>_config.yml</code> will be used.</p>
+<a name="Post.Page.Thumbnails.for.OG.and.Twitter.Cards"></a>
+<h4>Post/Page Thumbnails for OG and Twitter Cards</h4>
 
-<p>Here’s an example of what a tweet to your site could look like if you activate Twitter Cards and include all the metas in your post’s YAML.</p>
+<p>Post and page thumbnails work the same way. These are used by <a href="https://developers.facebook.com/docs/opengraph/">Open Graph</a> and <a href="https://dev.twitter.com/docs/cards">Twitter Cards</a> meta tags found in <code>head.html</code>. If you don&rsquo;t assign a thumbnail the image you assigned to <code>site.owner.avatar</code> in <code>_config.yml</code> will be used.</p>
+
+<p>Here&rsquo;s an example of what a tweet to your site could look like if you activate Twitter Cards and include all the metas in your post&rsquo;s YAML.</p>
 
 <p><img src="/images/twitter-card-summary-large-image.jpg" alt="Twitter Card summary large image screenshot" /></p>
 
-<h3 id="videos">Videos</h3>
+<a name="Videos"></a>
+<h3>Videos</h3>
 
 <p>Video embeds are responsive and scale with the width of the main content block with the help of <a href="http://fitvidsjs.com/">FitVids</a>.</p>
 
-<p>Not sure if this only effects Kramdown or if it’s an issue with Markdown in general. But adding YouTube video embeds causes errors when building your Jekyll site. To fix add a space between the <code>&lt;iframe&gt;</code> tags and remove <code>allowfullscreen</code>. Example below:</p>
+<p>Not sure if this only effects Kramdown or if it&rsquo;s an issue with Markdown in general. But adding YouTube video embeds causes errors when building your Jekyll site. To fix add a space between the <code>&lt;iframe&gt;</code> tags and remove <code>allowfullscreen</code>. Example below:</p>
 
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;iframe</span> <span class="na">width=</span><span class="s">&quot;560&quot;</span> <span class="na">height=</span><span class="s">&quot;315&quot;</span> <span class="na">src=</span><span class="s">&quot;http://www.youtube.com/embed/PWf4WUoMXwg&quot;</span> <span class="na">frameborder=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/iframe&gt;</span></code></pre></div>
 
-<h3 id="twitter-cards">Twitter Cards</h3>
+
+<a name="Twitter.Cards"></a>
+<h3>Twitter Cards</h3>
 
 <p>Twitter cards make it possible to attach images and post summaries to Tweets that link to your content. Summary Card meta tags have been added to <code>head.html</code> to support this, you just need to <a href="https://dev.twitter.com/docs/cards">validate and apply your domain</a> to turn it on.</p>
 
-<h3 id="link-post-type">Link Post Type</h3>
+<a name="Link.Post.Type"></a>
+<h3>Link Post Type</h3>
 
-<p>Link blog like a champ by adding <code>link: http://url-you-want-linked</code> to a post’s YAML front matter. Arrow glyph links to the post’s permalink and the the <code>post-title</code> links to the source URL. Here’s an <a href="/sample-link-post/">example of a link post</a> if you need a visual.</p>
+<p>Link blog like a champ by adding <code>link: http://url-you-want-linked</code> to a post&rsquo;s YAML front matter. Arrow glyph links to the post&rsquo;s permalink and the the <code>post-title</code> links to the source URL. Here&rsquo;s an <a href="/sample-link-post/">example of a link post</a> if you need a visual.</p>
 
 <hr />
 
-<h2 id="further-customization">Further Customization</h2>
+<a name="Further.Customization"></a>
+<h2>Further Customization</h2>
 
-<p>Jekyll 2.x added support for Sass files making it much easier to modify a theme’s fonts and colors. By editing values found in <code>_sass/variables.scss</code> you can fine tune the site’s colors and typography.</p>
+<p>Jekyll 2.x added support for Sass files making it much easier to modify a theme&rsquo;s fonts and colors. By editing values found in <code>_sass/variables.scss</code> you can fine tune the site&rsquo;s colors and typography.</p>
 
-<p>For example if you wanted a red background instead of white you’d change <code>$bodycolor: #fff;</code> to <code>$bodycolor: $cc0033;</code>.</p>
+<p>For example if you wanted a red background instead of white you&rsquo;d change <code>$bodycolor: #fff;</code> to <code>$bodycolor: $cc0033;</code>.</p>
 
-<p>To modify the site’s JavaScript files I setup a Grunt build script to lint/concatenate/minify all scripts into <code>scripts.min.js</code>. <a href="http://nodejs.org/">Install Node.js</a>, then <a href="http://gruntjs.com/getting-started">install Grunt</a>, and then finally install the dependencies for the theme contained in <code>package.json</code>:</p>
+<p>To modify the site&rsquo;s JavaScript files I setup a Grunt build script to lint/concatenate/minify all scripts into <code>scripts.min.js</code>. <a href="http://nodejs.org/">Install Node.js</a>, then <a href="http://gruntjs.com/getting-started">install Grunt</a>, and then finally install the dependencies for the theme contained in <code>package.json</code>:</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install</code></pre></div>
 
-<p>From the theme’s root, use <code>grunt</code> concatenate JavaScript files, and optimize .jpg, .png, and .svg files in the <code>images/</code> folder. You can also use <code>grunt dev</code> in combination with <code>jekyll build --watch</code> to watch for updates JS files that Grunt will then automatically re-build as you write your code which will in turn auto-generate your Jekyll site when developing locally.</p>
+
+<p>From the theme&rsquo;s root, use <code>grunt</code> concatenate JavaScript files, and optimize .jpg, .png, and .svg files in the <code>images/</code> folder. You can also use <code>grunt dev</code> in combination with <code>jekyll build --watch</code> to watch for updates JS files that Grunt will then automatically re-build as you write your code which will in turn auto-generate your Jekyll site when developing locally.</p>
 
 <hr />
 
-<h2 id="questions">Questions?</h2>
+<a name="Questions."></a>
+<h2>Questions?</h2>
 
 <p>Having a problem getting something to work or want to know why I setup something in a certain way? Ping me on Twitter <a href="http://twitter.com/mmistakes">@mmistakes</a> or <a href="https://github.com/mmistakes/hpstr-jekyll-theme/issues/new">file a GitHub Issue</a>. And if you make something cool with this theme feel free to let me know.</p>
 
 <hr />
 
-<h2 id="license">License</h2>
+<a name="License"></a>
+<h2>License</h2>
 
 <p>This theme is free and open source software, distributed under the <a href="/LICENSE">MIT License</a> version 2 or later. So feel free to to modify this theme to suit your needs.</p>
 
 <hr />
-
 <div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>Used to generate absolute URLs in <code>feed.xml</code>, and for canonical URLs in <code>head.html</code>. Don’t include a trailing <code>/</code> in your base url ie: http://mademistakes.com. When developing locally I suggest using http://localhost:4000 or whatever localhost you’re using to properly load all theme stylesheets, scripts, and image assets. If you leave this variable blank all links will resolve correctly except those pointing to home. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:2">
-      <p>If you’re using GitHub Pages to host your site be aware that plugins are disabled. So you’ll need to build your site locally and then manually deploy if you want to use this sweet plugin. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
+<hr/>
+<ol>
+<li id="fn:1">
+<p>Used to generate absolute URLs in <code>feed.xml</code>, and for canonical URLs in <code>head.html</code>. Don&rsquo;t include a trailing <code>/</code> in your base url ie: http://mademistakes.com. When developing locally I suggest using http://localhost:4000 or whatever localhost you&rsquo;re using to properly load all theme stylesheets, scripts, and image assets. If you leave this variable blank all links will resolve correctly except those pointing to home.<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p>If you&rsquo;re using GitHub Pages to host your site be aware that plugins are disabled. So you&rsquo;ll need to build your site locally and then manually deploy if you want to use this sweet plugin.<a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+</ol>
 </div>
+
 
       <footer class="entry-meta">
         
@@ -504,6 +553,22 @@ bundle exec jekyll serve</code></pre></div>
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 

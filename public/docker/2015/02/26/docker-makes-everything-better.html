@@ -70,6 +70,16 @@
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
 <!-- Icons -->
 <!-- 16x16 -->
 <link rel="shortcut icon" href="/favicon.ico">
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -250,65 +261,67 @@
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">Docker Can Do Everything!*</h1>
+</div><a name="Docker.Can.Do.Everything.." id="Docker.Can.Do.Everything.."></a>
+<h1 id="tocAnchor-1-1">Docker Can Do Everything!*</h1>
 
 <p>Improve your process for:</p>
 
 <ol>
-  <li>Testing Dev Tools &amp; Servers WITH VIRTUALLY ZERO risk of messing up dependencies on your PC</li>
-  <li>Testing your software</li>
-  <li>Makes you write more idempotent, modular code… (I’ll write how to actually realize this in a follow up)</li>
+<li>Testing Dev Tools &amp; Servers WITH VIRTUALLY ZERO risk of messing up dependencies on your PC</li>
+<li>Testing your software</li>
+<li>Makes you write more idempotent, modular code… (I’ll write how to actually realize this in a follow up)</li>
 </ol>
+
 
 <p>There may seem like a huge volume of new stuff to learn, <strong>don’t let that stop you</strong> from getting started.</p>
 
-<h4 id="notes">Notes</h4>
+<a name="Notes" id="Notes"></a>
+<h4>Notes</h4>
 
 <ul>
-  <li>If you see a <code>docker run</code> command with either options <code>-d</code> or <code>-it</code>:
-    <ul>
-      <li><code>-it</code> or <code>-i -t</code> will run the configured command interactively</li>
-      <li><code>-d</code> will start the docker container as a ‘daemon’ aka background service.</li>
-    </ul>
-  </li>
+<li>If you see a <code>docker run</code> command with either options <code>-d</code> or <code>-it</code>:
+
+<ul>
+<li><code>-it</code> or <code>-i -t</code> will run the configured command interactively</li>
+<li><code>-d</code> will start the docker container as a ‘daemon’ aka background service.</li>
 </ul>
+</li>
+</ul>
+
 
 <hr />
 
+<a name="EXAMPLES" id="EXAMPLES"></a>
 <h1 id="tocAnchor-1-2">EXAMPLES</h1>
 
+<a name="nginx" id="nginx"></a>
 <h2 id="tocAnchor-1-2-1">nginx</h2>
 
 <pre>
-   <code class="language-bash">
-	# Note: using host-based, shared folders
-	#(shared folders are not possible with the VOLUME Dockerfile cmd)
-	sudo docker run --name web01 -d -p 8181:80 \
-		-v $(NGINX_DIR)/etc:/etc/nginx \
-		-v $(NGINX_DIR)/log:/var/log/nginx \
-		-v $(NGINX_DIR)/www:/var/www/html \
-		nginx:latest
+   <code class="bash">
+    # Note: using host-based, shared folders
+    #(shared folders are not possible with the VOLUME Dockerfile cmd)
+    sudo docker run --name web01 -d -p 8181:80 \
+        -v $(NGINX_DIR)/etc:/etc/nginx \
+        -v $(NGINX_DIR)/log:/var/log/nginx \
+        -v $(NGINX_DIR)/www:/var/www/html \
+        nginx:latest
 
-	# Local data, isolated within instance
-	sudo docker run --name web01 -d -p 8181:80 nginx:latest
+    # Local data, isolated within instance
+    sudo docker run --name web01 -d -p 8181:80 nginx:latest
 
-	# nodejs
-	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
-
+    # nodejs
+    sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
 </code>
 </pre>
 
-<blockquote>
-  <p>Credits: <a href="https://dockerfile.github.io/#/nginx">https://dockerfile.github.io/#/nginx</a><br />
+<blockquote><p>Credits: <a href="https://dockerfile.github.io/#/nginx">https://dockerfile.github.io/#/nginx</a>
 Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
-</blockquote>
 
-<blockquote>
-  <ul>
-    <li>Pretty close</li>
-  </ul>
+<ul>
+<li>Pretty close</li>
+</ul>
 </blockquote>
-
 
       <footer class="entry-meta">
         <span class="entry-tags"><a href="/tags/#development" title="Pages tagged development" class="tag"><span class="term">development</span></a><a href="/tags/#design" title="Pages tagged design" class="tag"><span class="term">design</span></a><a href="/tags/#resource" title="Pages tagged resource" class="tag"><span class="term">resource</span></a><a href="/tags/#ideas" title="Pages tagged ideas" class="tag"><span class="term">ideas</span></a><a href="/tags/#patterns" title="Pages tagged patterns" class="tag"><span class="term">patterns</span></a></span>
@@ -329,20 +342,20 @@ Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
       <a href="/security/2015/02/23/security-notes-regex.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
-      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
+      <h3><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h3>
+      <p># Programming Languages Notes### _Work-in-progress (updated June 15th 2015)_### I'm sure my Miscellaneous Observations have been made bef...&hellip; <a href="/languages/2015/06/12/polyglot-redux.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
-        <span>Published on June 16, 2015</span>
+        <h4><a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships">Graphs and Relationships</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
-        <span>Published on June 12, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->
@@ -353,6 +366,22 @@ Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 

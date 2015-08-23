@@ -70,6 +70,16 @@
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
 <!-- Icons -->
 <!-- 16x16 -->
 <link rel="shortcut icon" href="/favicon.ico">
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -259,25 +270,29 @@
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">Setup Docker Host Firewall</h1>
+</div><a name="Setup.Docker.Host.Firewall" id="Setup.Docker.Host.Firewall"></a>
+<h1 id="tocAnchor-1-1">Setup Docker Host Firewall</h1>
 
 <ol>
-  <li>Debian/Ubuntu Server is assumed</li>
-  <li>Designed to run on Docker Host Server</li>
+<li>Debian/Ubuntu Server is assumed</li>
+<li>Designed to run on Docker Host Server</li>
 </ol>
 
+
+<a name="Install.Requirements" id="Install.Requirements"></a>
 <h2 id="tocAnchor-1-1-1">Install Requirements</h2>
 
 <pre>
-   <code class="language-sh"># Ultimate Firewall Needed
+   <code class="sh"># Ultimate Firewall Needed
 apt-get update &amp;&amp; apt-get install -y ufw nmap curl
 </code>
 </pre>
 
+<a name="Get.your.Internal..amp..External.IP.Addresses" id="Get.your.Internal..amp..External.IP.Addresses"></a>
 <h2 id="tocAnchor-1-1-2">Get your Internal &amp; External IP Addresses</h2>
 
 <pre>
-   <code class="language-sh"># Get your IP Addresses, simple output:
+   <code class="sh"># Get your IP Addresses, simple output:
 hostname --all-ip-addresses
 
 # OR use ip tool, example:
@@ -285,46 +300,49 @@ ip addr
 </code>
 </pre>
 
+<a name="Firtewall..UFW..Setup.-.Example.Cmds" id="Firtewall..UFW..Setup.-.Example.Cmds"></a>
 <h2 id="tocAnchor-1-1-3">Firtewall (UFW) Setup - Example Cmds</h2>
 
 <pre>
-   <code class="language-sh"># Allow and log all new ssh connections,
+   <code class="sh"># Allow and log all new ssh connections,
 ufw allow log proto tcp from any to any port 22
 ## Allow http traffic (w/o explicit logging)
 ufw allow proto tcp from any to any port 80
 ufw limit tcp/22 # Basic Rate limit 4 SSH brute force mitigation
 
-# Dummy ext IP
+# Set your ext IP
 export EXTERNAL_IP=123.123.123.123
-# Note, default docker IP
+# Update docker IP if needed
 export DOCKER_IP=172.17.42.1
 # Forward tcp 8080 traffic to  Dockerized App
 ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
 </code>
 </pre>
 
+<a name="Enable...Start.Firewall" id="Enable...Start.Firewall"></a>
 <h2 id="tocAnchor-1-1-4">Enable / Start Firewall</h2>
 
 <blockquote>
-  <p>Be Careful, Don’t Lock out your SSH port (sshd defaults to 22)</p>
+   <p>Be Careful, Don’t Lock out your SSH port (sshd defaults to 22)</p>
 </blockquote>
 
 <pre>
-   <code class="language-sh">ufw enable
+   <code class="sh">ufw enable
 ufw reset
 </code>
 </pre>
 
 <hr />
 
+<a name="Test.Your.Firewall" id="Test.Your.Firewall"></a>
 <h2 id="tocAnchor-1-1-5">Test Your Firewall</h2>
 
 <blockquote>
-  <p>Important: USE A REMOTE IP ADDR/LOCATION</p>
+   <p>Important: USE A REMOTE IP ADDR/LOCATION</p>
 </blockquote>
 
 <pre>
-   <code class="language-sh"># Verify dependency
+   <code class="sh"># Verify dependency
 apt-get update &amp;&amp; apt-get install -y nmap
 
 # Set scan target
@@ -340,8 +358,8 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
 </code>
 </pre>
 
-<h4 id="done-now-you-should-see-only-the-ports-you-configured">DONE! Now you should see ONLY the ports you configured!</h4>
-
+<a name="DONE..Now.you.should.see.ONLY.the.ports.you.configured." id="DONE..Now.you.should.see.ONLY.the.ports.you.configured."></a>
+<h4>DONE! Now you should see ONLY the ports you configured!</h4>
 
       <footer class="entry-meta">
         <span class="entry-tags"><a href="/tags/#docker" title="Pages tagged docker" class="tag"><span class="term">docker</span></a><a href="/tags/#firewall" title="Pages tagged firewall" class="tag"><span class="term">firewall</span></a><a href="/tags/#iptables" title="Pages tagged iptables" class="tag"><span class="term">iptables</span></a><a href="/tags/#ultimate firewall" title="Pages tagged ultimate firewall" class="tag"><span class="term">ultimate firewall</span></a><a href="/tags/#ufw" title="Pages tagged ufw" class="tag"><span class="term">ufw</span></a></span>
@@ -363,20 +381,20 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
       <a href="/javascript/2015/06/06/javascript-scope-magic.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
-      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
+      <h3><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h3>
+      <p># Programming Languages Notes### _Work-in-progress (updated June 15th 2015)_### I'm sure my Miscellaneous Observations have been made bef...&hellip; <a href="/languages/2015/06/12/polyglot-redux.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
-        <span>Published on June 16, 2015</span>
+        <h4><a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships">Graphs and Relationships</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
-        <span>Published on June 12, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->
@@ -387,6 +405,22 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 

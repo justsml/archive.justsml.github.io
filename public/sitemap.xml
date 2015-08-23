@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html</loc>
-    <lastmod>2015-06-16T00:00:00-06:00</lastmod>
-  </url>
-  <url>
-    <loc>/docker/2015/06/16/docker-deployment-thoughts.html</loc>
-    <lastmod>2015-06-16T00:00:00-06:00</lastmod>
-  </url>
-  <url>
     <loc>/languages/2015/06/12/polyglot-redux.html</loc>
+    <lastmod>2015-06-12T03:21:12-06:00</lastmod>
+  </url>
+  <url>
+    <loc>/languages/2015/06/12/graphs-and-relationships.html</loc>
     <lastmod>2015-06-12T03:21:12-06:00</lastmod>
   </url>
   <url>
@@ -46,26 +42,21 @@
   </url>
   <url>
     <loc>/404.html</loc>
-    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/</loc>
-    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/posts/</loc>
-    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/about/</loc>
-    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/theme-setup/</loc>
-    <lastmod>2015-06-19T21:49:48-06:00</lastmod>
   </url>
   <url>
     <loc>/cv/resume-full.html</loc>
-    <lastmod>2015-03-28T15:48:17-06:00</lastmod>
+    <lastmod>2015-08-10T00:49:52-06:00</lastmod>
   </url>
 </urlset>

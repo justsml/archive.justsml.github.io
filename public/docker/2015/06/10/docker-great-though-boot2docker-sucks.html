@@ -70,6 +70,16 @@
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
 <!-- Icons -->
 <!-- 16x16 -->
 <link rel="shortcut icon" href="/favicon.ico">
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -241,91 +252,107 @@
                      <a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">Issues</span></a>
                   </li>
                   <li class="toc_level-1 toc_section-3">
-                     <a href="#tocAnchor-1-3"><span class="tocnumber">3</span> <span class="toctext">Boot2docker Key Commands</span></a>
+                     <a href="#tocAnchor-1-3"><span class="tocnumber">3</span> <span class="toctext">file copying, builds etc take a long time  vs. running a native docker server.</span></a>
+                  </li>
+                  <li class="toc_level-1 toc_section-4">
+                     <a href="#tocAnchor-1-4"><span class="tocnumber">4</span> <span class="toctext">Boot2docker Key Commands</span></a>
                      <ul>
-                        <li class="toc_level-2 toc_section-4">
-                           <a href="#tocAnchor-1-3-1"><span class="tocnumber">3.1</span> <span class="toctext">When you get error: ‘FATA[0000]’</span></a>
-                        </li>
                         <li class="toc_level-2 toc_section-5">
-                           <a href="#tocAnchor-1-3-2"><span class="tocnumber">3.2</span> <span class="toctext">Get Docker Server IP Address</span></a>
+                           <a href="#tocAnchor-1-4-1"><span class="tocnumber">4.1</span> <span class="toctext">When you get error: ‘FATA[0000]’</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-6">
+                           <a href="#tocAnchor-1-4-2"><span class="tocnumber">4.2</span> <span class="toctext">Get Docker Server IP Address</span></a>
                         </li>
                      </ul>
                   </li>
-                  <li class="toc_level-1 toc_section-6">
-                     <a href="#tocAnchor-1-6"><span class="tocnumber">4</span> <span class="toctext">Boot2Docker Quick Start for OS X</span></a>
+                  <li class="toc_level-1 toc_section-7">
+                     <a href="#tocAnchor-1-7"><span class="tocnumber">5</span> <span class="toctext">Boot2Docker Quick Start for OS X</span></a>
                   </li>
                </ul>
             </td>
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">Overview</h1>
+</div><a name="Overview" id="Overview"></a>
+<h1 id="tocAnchor-1-1">Overview</h1>
 
-<h4 id="to-everyone-on-osx-or-windows-dont-let-boot2docker-leave-you-with-the-impression-that-docker-sucks-its-really-just-your-antique-os">To everyone on OSX or Windows: Don’t let Boot2docker leave you with the impression that Docker sucks! It’s really just your antique OS.</h4>
+<a name="To.everyone.on.OSX.or.Windows:.Don.t.let.Boot2docker.leave.you.with.the.impression.that.Docker.sucks..It.s.really.just.your.antique.OS." id="To.everyone.on.OSX.or.Windows:.Don.t.let.Boot2docker.leave.you.with.the.impression.that.Docker.sucks..It.s.really.just.your.antique.OS."></a>
+<h4>To everyone on OSX or Windows: Don’t let Boot2docker leave you with the impression that Docker sucks! It’s really just your antique OS.</h4>
 
 <ol>
-  <li>Docker is amazing, period.</li>
-  <li>However it’s rough-around-the-edges, hackey utility, boot2docker - for OS X, Windows and old Linux Kernels - leaves a <strong>lot</strong> to be desired.</li>
+<li>Docker is amazing, period.</li>
+<li>However it’s rough-around-the-edges, hackey utility, boot2docker - for OS X, Windows and old Linux Kernels - leaves a <strong>lot</strong> to be desired.</li>
 </ol>
 
+
+<a name="Issues" id="Issues"></a>
 <h1 id="tocAnchor-1-2">Issues</h1>
 
-<blockquote>
-  <p>Boot2docker causes 99/100 headaches compared with using a native docker install locally.<br />
-I should concede that it wraps several other complicated/flakey technologies:<br />
-VirtualBox, x-platform Folder Sharing, and also the docker cli command runs in a network-client mode so,<br />
-file copying, builds etc take a long time  vs. running a native docker server.<br />
-=============<br />
-Docker can currently only run natively on a Linux Kernel 3.4+ - and the current boot2docker vm actually runs v4.<br />
-Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box,<br />
-… c’mon those games aren’t helping your code…</p>
-</blockquote>
+<blockquote><p>Boot2docker causes 99/100 headaches compared with using a native docker install locally.
+I should concede that it wraps several other complicated/flakey technologies:
+VirtualBox, x-platform Folder Sharing, and also the docker cli command runs in a network-client mode so,</p>
 
-<h1 id="tocAnchor-1-3">Boot2docker Key Commands</h1>
+<a name="file.copying..builds.etc.take.a.long.time..vs..running.a.native.docker.server." id="file.copying..builds.etc.take.a.long.time..vs..running.a.native.docker.server."></a>
+<h1 id="tocAnchor-1-3">file copying, builds etc take a long time  vs. running a native docker server.</h1>
 
-<h2 id="tocAnchor-1-3-1">When you get error: ‘FATA[0000]’</h2>
+<p>Docker can currently only run natively on a Linux Kernel 3.4+ - and the current boot2docker vm actually runs v4.
+Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box,
+… c'mon those games aren’t helping your code…</p></blockquote>
+
+<a name="Boot2docker.Key.Commands" id="Boot2docker.Key.Commands"></a>
+<h1 id="tocAnchor-1-4">Boot2docker Key Commands</h1>
+
+<a name="When.you.get.error:..FATA.0000.." id="When.you.get.error:..FATA.0000.."></a>
+<h2 id="tocAnchor-1-4-1">When you get error: ‘FATA[0000]’</h2>
 
 <ul>
-  <li>Full error message:
-    <ul>
-      <li>FATA[0000] Get http:///var/run/docker.sock/v1.18/info: dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?</li>
-    </ul>
-  </li>
-  <li>Solution: You need some info from boot2docker
-    <ul>
-      <li>Run this to get the 3 needed shell environment variables:</li>
-    </ul>
-  </li>
+<li>Full error message:
+
+<ul>
+<li>FATA[0000] Get <a href="http:///var/run/docker.sock/v1.18/info:">http:///var/run/docker.sock/v1.18/info:</a> dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?</li>
+</ul>
+</li>
+<li>Solution: You need some info from boot2docker
+
+<ul>
+<li>Run this to get the 3 needed shell environment variables:</li>
+</ul>
+</li>
 </ul>
 
+
 <pre>
-   <code class="language-sh">boot2docker shellinit
+   <code class="sh">boot2docker shellinit
 # Copy &amp; paste the exports into the current shell, &amp; retry $(docker info)
 </code>
 </pre>
 
-<h2 id="tocAnchor-1-3-2">Get Docker Server IP Address</h2>
+<a name="Get.Docker.Server.IP.Address" id="Get.Docker.Server.IP.Address"></a>
+<h2 id="tocAnchor-1-4-2">Get Docker Server IP Address</h2>
+
 <pre>
-   <code class="language-sh">boot2docker ip
+   <code class="sh">boot2docker ip
 </code>
 </pre>
+
 <blockquote>
-  <p>Now your app on port 3000 is available at something like: http://$(boot2docker ip):3000/</p>
+   <p>Now your app on port 3000 is available at something like: <a href="http://$">http://$</a>(boot2docker ip):3000/</p>
 </blockquote>
 
-<h1 id="tocAnchor-1-6">Boot2Docker Quick Start for OS X</h1>
+<a name="Boot2Docker.Quick.Start.for.OS.X" id="Boot2Docker.Quick.Start.for.OS.X"></a>
+<h1 id="tocAnchor-1-7">Boot2Docker Quick Start for OS X</h1>
 
 <ol>
-  <li>In a terminal on your <code>brew</code> able Mac:</li>
+<li>In a terminal on your <code>brew</code> able Mac:</li>
 </ol>
 
+
 <pre>
-   <code class="language-sh">brew install boot2docker
+   <code class="sh">brew install boot2docker
 boot2docker init
 boot2docker up
 </code>
 </pre>
-
 
       <footer class="entry-meta">
         <span class="entry-tags"><a href="/tags/#docker" title="Pages tagged docker" class="tag"><span class="term">docker</span></a><a href="/tags/#boot2docker" title="Pages tagged boot2docker" class="tag"><span class="term">boot2docker</span></a><a href="/tags/#docker cli" title="Pages tagged docker cli" class="tag"><span class="term">docker cli</span></a></span>
@@ -347,20 +374,20 @@ boot2docker up
       <a href="/docker/2015/06/06/docker-firewall-setup.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
-      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
+      <h3><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h3>
+      <p># Programming Languages Notes### _Work-in-progress (updated June 15th 2015)_### I'm sure my Miscellaneous Observations have been made bef...&hellip; <a href="/languages/2015/06/12/polyglot-redux.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
-        <span>Published on June 16, 2015</span>
+        <h4><a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships">Graphs and Relationships</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
-        <span>Published on June 12, 2015</span>
+        <h4><a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup">Docker Firewall Setup</a></h4>
+        <span>Published on June 06, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->
@@ -371,6 +398,22 @@ boot2docker up
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 

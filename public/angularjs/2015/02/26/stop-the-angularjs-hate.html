@@ -70,6 +70,16 @@
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
 <!-- Icons -->
 <!-- 16x16 -->
 <link rel="shortcut icon" href="/favicon.ico">
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -219,7 +230,7 @@
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~8 minutes
+          Reading time ~10 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
@@ -240,30 +251,33 @@
                         <li class="toc_level-2 toc_section-2">
                            <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">2-way data binding: 2-way Sword</span></a>
                         </li>
+                        <li class="toc_level-2 toc_section-3">
+                           <a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">Stop OVER-Angular.JSification</span></a>
+                        </li>
                      </ul>
                   </li>
-                  <li class="toc_level-1 toc_section-3">
-                     <a href="#tocAnchor-1-3"><span class="tocnumber">2</span> <span class="toctext">Solutions</span></a>
+                  <li class="toc_level-1 toc_section-4">
+                     <a href="#tocAnchor-1-4"><span class="tocnumber">2</span> <span class="toctext">Solutions</span></a>
                      <ul>
-                        <li class="toc_level-2 toc_section-4">
-                           <a href="#tocAnchor-1-3-1"><span class="tocnumber">2.1</span> <span class="toctext">Angular Tips</span></a>
-                        </li>
                         <li class="toc_level-2 toc_section-5">
-                           <a href="#tocAnchor-1-3-2"><span class="tocnumber">2.2</span> <span class="toctext">Use Browserify to Organize Project</span></a>
+                           <a href="#tocAnchor-1-4-1"><span class="tocnumber">2.1</span> <span class="toctext">Angular Tips</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-6">
+                           <a href="#tocAnchor-1-4-2"><span class="tocnumber">2.2</span> <span class="toctext">Use Browserify to Organize Project</span></a>
                         </li>
                      </ul>
                   </li>
-                  <li class="toc_level-1 toc_section-6">
-                     <a href="#tocAnchor-1-6"><span class="tocnumber">3</span> <span class="toctext">Alternatives</span></a>
+                  <li class="toc_level-1 toc_section-7">
+                     <a href="#tocAnchor-1-7"><span class="tocnumber">3</span> <span class="toctext">Alternatives</span></a>
                      <ul>
-                        <li class="toc_level-2 toc_section-7">
-                           <a href="#tocAnchor-1-6-1"><span class="tocnumber">3.1</span> <span class="toctext">ReactJS from Facebook</span></a>
-                        </li>
                         <li class="toc_level-2 toc_section-8">
-                           <a href="#tocAnchor-1-6-2"><span class="tocnumber">3.2</span> <span class="toctext">Polymer Project from Google</span></a>
+                           <a href="#tocAnchor-1-7-1"><span class="tocnumber">3.1</span> <span class="toctext">ReactJS from Facebook</span></a>
                         </li>
                         <li class="toc_level-2 toc_section-9">
-                           <a href="#tocAnchor-1-6-3"><span class="tocnumber">3.3</span> <span class="toctext">Pure-er JS Approach</span></a>
+                           <a href="#tocAnchor-1-7-2"><span class="tocnumber">3.2</span> <span class="toctext">Polymer Project from Google</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-10">
+                           <a href="#tocAnchor-1-7-3"><span class="tocnumber">3.3</span> <span class="toctext">Pure-er JS Approach</span></a>
                         </li>
                      </ul>
                   </li>
@@ -272,36 +286,95 @@
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">AngularJS CAN BE Fast!</h1>
+</div><a name="AngularJS.CAN.BE.Fast." id="AngularJS.CAN.BE.Fast."></a>
+<h1 id="tocAnchor-1-1">AngularJS CAN BE Fast!</h1>
 
-<blockquote>
-  <p>Lot’s of developers are discovering that their large AngularJS apps are buckling under the weight of all those <code>$watch's</code>.</p>
-</blockquote>
+<ol>
+<li>AngularJS Developers quickly discover that their med-large apps are buckling under the weight of scattered <code>$watch's</code> and the often bloated crutch known as <code>$scope</code>.</li>
+<li>Keep your <code>$scope</code> free of excess UI state, try limit the size &amp; depth of your overall hierarchy.</li>
+</ol>
 
+
+<a name="L2-way.data.binding:.2-way.Sword" id="L2-way.data.binding:.2-way.Sword"></a>
 <h2 id="tocAnchor-1-1-1">2-way data binding: 2-way Sword</h2>
 
 <p>2-way binding alone makes coming from other frameworks like Backbone, well, <strong>frickin amazeballs</strong>.</p>
 
-<p>The problem is: many sites <strong>chronically overuse</strong> Angular’s design patterns.<br />
+<p>The problem is: many sites <strong>chronically overuse</strong> Angular’s design patterns.
 This leads to directive sprawl and a <code>$scope/rootScope</code> which easily has 1000’s of instances, and can cling to huge objects preventing any hope of effective garbage collection.</p>
 
 <p>You know where this is going: an exhausted browser! Forever doomed to work at a <strong>frantic pace</strong> executing endless and redundant UI/DOM re-compiles.</p>
 
-<p>Does your <code>&lt;current-user-status-label&gt;</code> directive really need to be, well, a directive at all?</p>
+<a name="Stop.OVER-Angular.JSification" id="Stop.OVER-Angular.JSification"></a>
+<h2 id="tocAnchor-1-1-2">Stop OVER-Angular.JSification</h2>
 
-<h1 id="tocAnchor-1-3">Solutions</h1>
+<blockquote>
+   <p>“If your only tool is a hammer, then every problem looks like a nail.”
+- old adage</p>
+</blockquote>
 
-<h2 id="tocAnchor-1-3-1">Angular Tips</h2>
+<p>Does your app have a problem with directives?</p>
+
+<pre>
+   <code class="jade">current-user-status-label
+  div(ng-if='loggedIn')
+    view-user-surplusage(ng-if='!editMode')
+      .head: contact-details(user='user')
+      .tool: contact-buttons(loggedIn='loggedIn')
+      a.edit-icon(ng-click='editMode = true')
+    edit-user-surplusage(ng-if='editMode')
+      .head: avatar-edit(user='user')
+      .body: edit-contact-details(user='user')
+      a.save-icon(ng-click='editMode = false')
+</code>
+</pre>
+
+<p>Let’s design a flexible user-widget which helps:</p>
 
 <ol>
-  <li>Use 1-way binding ( e.g. <code>{ :: title }</code> )</li>
-  <li>Limit recursive nesting of directives</li>
-  <li>And if you must nest directives, <em>NEVER</em> do so inside an <code>ng-repeat</code> - Performance will start to inversely mirror something like <code>O(n^2)^3</code> ;)<br />
-I. Use native JS/DOM code in a factory pattern to create basic DOM/UI fragments, examples: Modal msg box, status bar. Call UI factories from either directives or controllers.</li>
-  <li><em>Bonus:</em> Understand cost and triggers of <a href="https://developers.google.com/web/fundamentals/performance/rendering/index?hl=en">browser render lifecycle</a>: animation, composite rendering, reflows</li>
+<li>Versatile componentization w/ DRY Angular code</li>
+<li>Understandable directives, with minimal directive size/depth (mind your ng-repeats)</li>
+<li>Simple Service Layer</li>
+<li>Little actual coding to implement - just HTML/View Code</li>
 </ol>
 
-<h2 id="tocAnchor-1-3-2">Use Browserify to Organize Project</h2>
+
+<pre>
+   <code class="jade">// jade
+user-widget
+  div(ng-if='loggedIn')
+    div.edit(ng-if='editMode')
+      h4.email-icon: input(type='email', ng-model='user.email')
+      h4.phone-icon: input(type='email', ng-model='user.phone')
+      a.save-icon(ng-click='editMode = false')
+    div.show(ng-if='!editMode')
+      h1.users-icon 
+      h4.email-icon 
+      h4.phone-icon 
+      a.edit-icon(ng-click='editMode = true')
+  div(ng-if='!loggedIn')
+    h5: i Welcome User
+    a.btn(href='/login') Login
+</code>
+</pre>
+
+<a name="Solutions" id="Solutions"></a>
+<h1 id="tocAnchor-1-4">Solutions</h1>
+
+<a name="Angular.Tips" id="Angular.Tips"></a>
+<h2 id="tocAnchor-1-4-1">Angular Tips</h2>
+
+<ol>
+<li>Use 1-way binding ( e.g. <code>{ :: title }</code> )</li>
+<li>Limit recursive nesting of directives</li>
+<li>And if you must nest directives, <em>NEVER</em> do so inside an <code>ng-repeat</code> - Performance will start to inversely mirror something like <code>O(n^2)^3</code> ;)</li>
+<li>Use native JS/DOM code in a factory pattern to create basic DOM/UI fragments, examples: Modal msg box, status bar. Call UI factories from either directives or controllers.</li>
+<li><em>Bonus:</em> Understand cost and triggers of <a href="https://developers.google.com/web/fundamentals/performance/rendering/index?hl=en">browser render lifecycle</a>: animation, composite rendering, reflows</li>
+</ol>
+
+
+<a name="Use.Browserify.to.Organize.Project" id="Use.Browserify.to.Organize.Project"></a>
+<h2 id="tocAnchor-1-4-2">Use Browserify to Organize Project</h2>
 
 <p>Not specifically for Angular per-se, but essential for simple dependency resolution.</p>
 
@@ -309,33 +382,43 @@ I. Use native JS/DOM code in a factory pattern to create basic DOM/UI fragments,
 
 <p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Just read this section</a> of the <a href="https://github.com/substack/browserify-handbook/">Browserify Handbook</a>.</p>
 
-<h1 id="tocAnchor-1-6">Alternatives</h1>
+<a name="Alternatives" id="Alternatives"></a>
+<h1 id="tocAnchor-1-7">Alternatives</h1>
 
-<h2 id="tocAnchor-1-6-1"><a href="https://facebook.github.io/react/">ReactJS</a> from Facebook</h2>
+<a name="ReactJS.from.Facebook" id="ReactJS.from.Facebook"></a>
+<h2 id="tocAnchor-1-7-1"><a href="https://facebook.github.io/react/">ReactJS</a> from Facebook</h2>
 
-<p>For views which need minimal description:<br />
+<p>For views which need minimal description:
 If you have tons of small reusable UI components - ReactJS might be a better choice:</p>
 
 <ul>
-  <li>If your project…?:
-    <ul>
-      <li>Has a different philosophy to UI/DOM implementation than Angular</li>
-      <li>Already has some kind of ‘framework’ - You can <strong>use ReactJS alongside</strong> AngularJS, Ember, Backbone.</li>
-      <li>Handles frequent data model changes in it’s own code, you’ll benefit by avoiding the ADHD digest/loop pattern of Angular</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="tocAnchor-1-6-2"><a href="http://www.Polymer-Project.org/">Polymer Project</a> from Google</h2>
-
-<h2 id="tocAnchor-1-6-3">Pure-er JS Approach</h2>
+<li>If your project…?:
 
 <ul>
-  <li>By the way, here’s where I try create framework agnostic code (+1 testability, +1 reuse)<br />
-      1. Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)<br />
-      1. Use mustache templating to create HTML strings (or DOM directly)<br />
-      1. Cache rendered content in localStorage if you can<br />
-      1. (Optional) Now add an event listener to re-render the content. I have standardized on the event name <code>refresh.&lt;class-name&gt;</code></li>
+<li>Has a different philosophy to UI/DOM implementation than Angular</li>
+<li>Already has some kind of ‘framework’ - You can <strong>use ReactJS alongside</strong> AngularJS, Ember, Backbone.</li>
+<li>Handles frequent data model changes in it’s own code, you’ll benefit by avoiding the ADHD digest/loop pattern of Angular</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="Polymer.Project.from.Google" id="Polymer.Project.from.Google"></a>
+<h2 id="tocAnchor-1-7-2"><a href="http://www.Polymer-Project.org/">Polymer Project</a> from Google</h2>
+
+<a name="Pure-er.JS.Approach" id="Pure-er.JS.Approach"></a>
+<h2 id="tocAnchor-1-7-3">Pure-er JS Approach</h2>
+
+<ul>
+<li>By the way, here’s where I try create framework agnostic code (+1 testability, +1 reuse)
+
+<ol>
+<li> Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)</li>
+<li> Use mustache templating to create HTML strings (or DOM directly)</li>
+<li> Cache rendered content in localStorage if you can</li>
+<li> (Optional) Now add an event listener to re-render the content. I have standardized on the event name <code>refresh.&lt;class-name&gt;</code></li>
+</ol>
+</li>
 </ul>
 
 
@@ -358,20 +441,20 @@ If you have tons of small reusable UI components - ReactJS might be a better cho
       <a href="/docker/2015/02/26/docker-makes-everything-better.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
-      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
+      <h3><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h3>
+      <p># Programming Languages Notes### _Work-in-progress (updated June 15th 2015)_### I'm sure my Miscellaneous Observations have been made bef...&hellip; <a href="/languages/2015/06/12/polyglot-redux.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
-        <span>Published on June 16, 2015</span>
+        <h4><a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships">Graphs and Relationships</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
-        <span>Published on June 12, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->
@@ -382,6 +465,22 @@ If you have tons of small reusable UI components - ReactJS might be a better cho
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 

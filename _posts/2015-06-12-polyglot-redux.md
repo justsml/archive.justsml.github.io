@@ -35,8 +35,9 @@ ES5 may be old, and ES6 is brand new, but it's officially a real standard now!
 #### [Official Site](http://www.rust-lang.org/)
 
 * __Pros__
-	- Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.
-	- In fact I'd guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
+	- Imagine if there was a language as fast as C and as powerful as Python/C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.
+	- In fact I'd guess Rust is roughly as complex as the ES6 spec.
+	- It includes a ton of extras:
 		1. Essentially Rust transpiles from semi-dynamic syntax into __pure C code__!
 		1. Including **__all the best practices__** in C you would probably screw up on, I ~~eventually~~ always do.
 			* Automatically you get:

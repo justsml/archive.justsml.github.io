@@ -70,6 +70,16 @@
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
 <!-- Icons -->
 <!-- 16x16 -->
 <link rel="shortcut icon" href="/favicon.ico">
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -219,7 +230,7 @@
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~10 minutes
+          Reading time ~12 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
@@ -259,122 +270,172 @@
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">Programming Languages Notes</h1>
+</div><a name="Programming.Languages.Notes" id="Programming.Languages.Notes"></a>
+<h1 id="tocAnchor-1-1">Programming Languages Notes</h1>
 
-<h3 id="work-in-progress-updated-june-15th-2015">
+<a name="L.em.Work-in-progress..updated.June.15th.2015...em." id="L.em.Work-in-progress..updated.June.15th.2015...em."></a>
+<h3>
    <em>Work-in-progress (updated June 15th 2015)</em>
 </h3>
 
-<h3 id="im-sure-my-miscellaneous-observations-have-been-made-before-but-here-is-my-list-of-most-interesting-languages">I’m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:</h3>
+<a name="I.m.sure.my.Miscellaneous.Observations.have.been.made.before..but.here.is.my.list.of.most.interesting.languages:" id="I.m.sure.my.Miscellaneous.Observations.have.been.made.before..but.here.is.my.list.of.most.interesting.languages:"></a>
+<h3>I’m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:</h3>
 
+<a name="JavaScript" id="JavaScript"></a>
 <h2 id="tocAnchor-1-1-1">JavaScript</h2>
 
-<h4 id="iojshttpiojsorg">
+<p>For years I foolishly had nothing but scorn, derision and hatred for what is now, <strong>easily my favorite language</strong>.</p>
+
+<p>ES5 may be old, and ES6 is brand new, but it’s officially a real standard now!</p>
+
+<a name="io.js" id="io.js"></a>
+<h4>
    <a href="http://iojs.org/">io.js</a>
 </h4>
-<p>#### <a href="http://nodejs.org/">Node.JS</a></p>
 
+<a name="Node.JS" id="Node.JS"></a>
+<h4>
+   <a href="http://nodejs.org/">Node.JS</a>
+</h4>
+
+<a name="Rust" id="Rust"></a>
 <h2 id="tocAnchor-1-1-2">Rust</h2>
 
-<h4 id="official-sitehttpwwwrust-langorg">
+<a name="Official.Site" id="Official.Site"></a>
+<h4>
    <a href="http://www.rust-lang.org/">Official Site</a>
 </h4>
 
 <ul>
-  <li><strong>Pros</strong>
-    <ul>
-      <li>Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
-      <li>In fact I’d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
-        <ol>
-          <li>Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
-          <li>Including <strong>__all the best practices__</strong> in C you would probably screw up on, I ~~eventually~~ always do.
-            <ul>
-              <li>Automatically you get:</li>
-              <li>Auto Memory management (no need for a slow garbage collector!)</li>
-              <li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
-              <li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
-              <li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can’t overlook a code-path)</li>
-            </ul>
-          </li>
-        </ol>
-      </li>
-      <li>Oh yeah, it throws in true language extensibility with a sensible ‘macro’ feature.
-        <ul>
-          <li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.
-            <ol>
-              <li>Too good to be true? Nah, It gets better:
-                <ul>
-                  <li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google’s hot-newish language)</li>
-                  <li>About 4K More Stars than Go (currently around 12,200)</li>
-                  <li>More total Contributors ( 2x! - 1,071 vs. Go’s 479 )</li>
-                  <li>More forks ( 3X! - 2,343 vs. 765 )</li>
-                  <li>Number of Open Issues, Loses by a hair ( 2,000 vs 1,730 from Go )</li>
-                  <li>Pull Requests (Rust 70+ vs. Go’s 1)</li>
-                  <li>I had to triple check the numbers too.</li>
-                </ul>
-              </li>
-            </ol>
-          </li>
-        </ul>
-      </li>
-      <li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
-      <li>Threading model usable by mere mortals</li>
-    </ul>
-  </li>
-  <li><strong>Cons</strong>
-    <ul>
-      <li>Decent <strong>web frameworks</strong> are relatively new, untested, and usually undocumented (though they are <strong>getting</strong> very impressive - as of March 2015).</li>
-    </ul>
-  </li>
+<li><p><strong>Pros</strong></p>
+
+<ul>
+<li>Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
+<li>In fact I’d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
+
+<ol>
+<li> Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
+<li> Including <strong><strong>all the best practices</strong></strong> in C you would probably screw up on, I <del>eventually</del> always do.
+
+<ul>
+<li>Automatically you get:</li>
+<li>Auto Memory management (no need for a slow garbage collector!)</li>
+<li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
+<li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
+<li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can’t overlook a code-path)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Oh yeah, it throws in true language extensibility with a sensible ‘macro’ feature.
+
+<ul>
+<li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.</li>
+<li> Too good to be true? Nah, It gets better:
+
+<ul>
+<li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google’s hot-newish language)
+
+<ul>
+<li>About 4K More Stars than Go (currently around 12,200)</li>
+<li>More total Contributors ( 2x! - 1,071 vs. Go’s 479 )</li>
+<li>More forks ( 3X! - 2,343 vs. 765 )</li>
+<li>Number of Open Issues, Loses by a hair ( 2,000 vs 1,730 from Go )</li>
+<li>Pull Requests (Rust 70+ vs. Go’s 1)</li>
+</ul>
+</li>
+<li>I had to triple check the numbers too.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
+<li>Threading model usable by mere mortals</li>
+</ul>
+</li>
+<li><p><strong>Cons</strong></p>
+
+<ul>
+<li>Decent <strong>web frameworks</strong> are relatively new, untested, and usually undocumented (though they are <strong>getting</strong> very impressive - as of March 2015).</li>
+<li>Lots of early pre-1.0 breaking changes</li>
+</ul>
+</li>
 </ul>
 
+
+<a name="Python" id="Python"></a>
 <h2 id="tocAnchor-1-1-3">Python</h2>
 
 <ul>
-  <li><strong>Pros</strong>
-    <ul>
-      <li>Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )</li>
-      <li>Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just weak!</li>
-    </ul>
-  </li>
-  <li><strong>Cons</strong>
-    <ul>
-      <li>Annoyingly, Python 2.x and 3.x are incompatible.</li>
-    </ul>
-  </li>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )</li>
+<li>Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just bloated!</li>
+</ul>
+</li>
 </ul>
 
+
+<pre>
+   <code class="python"># dummy code: defines a color + pixel-coord -
+def pixel(x, y, r, g, b): return dict(x=x, y=y, r=r, g=g, b=b)
+# Create a new pixel object and apply to set of vars
+x, y, r, g, b = pixel(10, 20, 255, 255, 255)
+# Now we can call pixel
+</code>
+</pre>
+
+<pre>
+   <code>- Tuples and arbitrary sets are so easy
+</code>
+</pre>
+
+<ul>
+<li><strong>Cons</strong>
+
+<ul>
+<li>Annoyingly, Python 2.x and 3.x are incompatible. The Great Schism continues, so many years later.</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="Haskell" id="Haskell"></a>
 <h2 id="tocAnchor-1-1-4">Haskell</h2>
 
 <ul>
-  <li><strong>Pros</strong>
-    <ul>
-      <li>Very rewarding when you finally memorize enough syntax to whip up comprehensions-based expressive patterns</li>
-      <li>You will learn mind-bending code patterns - often somewhat applicable to other languages.</li>
-    </ul>
-  </li>
-  <li><strong>Cons</strong>
-    <ul>
-      <li>Syntax &amp; Patterns can be hard to get used to.<br />
-  -</li>
-    </ul>
-  </li>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Very rewarding when you finally memorize enough syntax to whip up comprehensions-based expressive patterns</li>
+<li>You will learn mind-bending code patterns - often somewhat applicable to other languages.</li>
+</ul>
+</li>
+<li><strong>Cons</strong>
+
+<a name="L..-.Syntax..amp..Patterns.can.be.hard.to.get.used.to." id="L..-.Syntax..amp..Patterns.can.be.hard.to.get.used.to."></a>
+<h2>  - Syntax &amp; Patterns can be hard to get used to.</h2></li>
 </ul>
 
+
+<a name="SmallTalk-80" id="SmallTalk-80"></a>
 <h2 id="tocAnchor-1-1-5">SmallTalk-80</h2>
 
 <ul>
-  <li><strong>Pros</strong>
-    <ul>
-      <li>Incredibly simple compilers (original especially)</li>
-      <li>Great resources: <a href="http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript">Smalltalk MVC Translated to JavaScript</a></li>
-    </ul>
-  </li>
-  <li><strong>Cons</strong>
-    <ul>
-      <li>You will likely never use this language for anything. Zero projects. However it will have more of an impact on your coding style, faster than other functional languages… This should be in the pros list)</li>
-    </ul>
-  </li>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Incredibly simple compilers (original especially)</li>
+<li>Great resources: <a href="http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript">Smalltalk MVC Translated to JavaScript</a></li>
+</ul>
+</li>
+<li><strong>Cons</strong>
+
+<ul>
+<li>You will likely never use this language for anything. Zero projects. However it will have more of an impact on your coding style, faster than other functional languages… This should be in the pros list)</li>
+</ul>
+</li>
 </ul>
 
 
@@ -395,23 +456,23 @@
     <div class="read-more">
   
     <div class="read-more-header">
-      <a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" class="read-more-btn">Read More</a>
+      <a href="/languages/2015/06/12/graphs-and-relationships.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
-      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
+      <h3><a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships">Graphs and Relationships</a></h3>
+      <p>Programming Languages NotesWork-in-progress (updated August 2015)&hellip; <a href="/languages/2015/06/12/graphs-and-relationships.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
-        <span>Published on June 16, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
-        <span>Published on June 10, 2015</span>
+        <h4><a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup">Docker Firewall Setup</a></h4>
+        <span>Published on June 06, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->
@@ -422,6 +483,22 @@
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 

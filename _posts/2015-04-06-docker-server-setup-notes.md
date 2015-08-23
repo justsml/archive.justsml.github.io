@@ -56,7 +56,7 @@ docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c
 
 ~~~sh
 mkdir /elastic
-docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
+docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
 ~~~
 
 > You just lit up 2 database docker instances!!!
@@ -87,7 +87,9 @@ It's easier to show how to start using the Dockerfile and demonstrate the result
 
 In terminal, `cd` to your project folder and run the following `build` command _everytime_ you deploy changes - or want to change/upgrade OS or Env config)
 
-```docker build -t app-name-here .```
+```sh
+docker build -t app-name-here .
+```
 
 
 # Docker Commands to Learn

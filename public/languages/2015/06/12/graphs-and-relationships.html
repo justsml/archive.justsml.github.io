@@ -5,17 +5,17 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Docker Cluster Walkthrough &#8211; www.DanLevy.net</title>
+<title>Graphs and Relationships &#8211; www.DanLevy.net</title>
 <meta name="description" content="Devout Developer">
-<meta name="keywords" content="docker, boot2docker, docker cli">
+<meta name="keywords" content="programming, languages, lua, haskell, scala, rust, smalltalk, go, javascript, python">
 
 
 	<!-- Twitter Cards -->
 	
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:image" content="/images/abstract-12.jpg">
+		<meta name="twitter:image" content="/images/abstract-11.jpg">
 		
-	<meta name="twitter:title" content="Docker Cluster Walkthrough">
+	<meta name="twitter:title" content="Graphs and Relationships">
 	<meta name="twitter:description" content="Devout Developer">
 	<meta name="twitter:creator" content="@justsml">
 
@@ -43,16 +43,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker Cluster Walkthrough">
+<meta property="og:title" content="Graphs and Relationships">
 <meta property="og:description" content="Devout Developer">
-<meta property="og:url" content="/docker/2015/06/16/docker-deployment-thoughts.html">
+<meta property="og:url" content="/languages/2015/06/12/graphs-and-relationships.html">
 <meta property="og:site_name" content="www.DanLevy.net">
 
 <meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
 <meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
 
 
-<link rel="canonical" href="/docker/2015/06/16/docker-deployment-thoughts.html">
+<link rel="canonical" href="/languages/2015/06/12/graphs-and-relationships.html">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
 
 <!-- http://t.co/dKP3o1e -->
@@ -69,6 +69,16 @@
 
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
 
 <!-- Icons -->
 <!-- 16x16 -->
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -202,7 +213,7 @@
 <div class="entry-header">
   
   <div class="entry-image">
-    <img src="/images/abstract-12.jpg" alt="Docker Cluster Walkthrough">
+    <img src="/images/abstract-11.jpg" alt="Graphs and Relationships">
   </div><!-- /.entry-image -->
 </div><!-- /.entry-header -->
 
@@ -212,9 +223,9 @@
     <header class="header-title">
       <div class="header-title-wrap">
         
-          <h1 class="entry-title"><a href="/docker/2015/06/16/docker-deployment-thoughts.html" rel="bookmark" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h1>
+          <h1 class="entry-title"><a href="/languages/2015/06/12/graphs-and-relationships.html" rel="bookmark" title="Graphs and Relationships">Graphs and Relationships</a></h1>
         
-        <h2><span class="entry-date date published"><time datetime="2015-06-16T00:00:00-06:00">June 16, 2015</time></span></h2>
+        <h2><span class="entry-date date published"><time datetime="2015-06-12T03:21:12-06:00">June 12, 2015</time></span></h2>
         
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
@@ -235,49 +246,30 @@
                </div>
                <ul>
                   <li class="toc_level-1 toc_section-1">
-                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Docker Images - Storage &amp; Updating</span></a>
-                  </li>
-                  <li class="toc_level-1 toc_section-2">
-                     <a href="#tocAnchor-1-2"><span class="tocnumber">2</span> <span class="toctext">Setup Database Servers</span></a>
-                     <ul>
-                        <li class="toc_level-2 toc_section-3">
-                           <a href="#tocAnchor-1-2-1"><span class="tocnumber">2.1</span> <span class="toctext">MongoDB</span></a>
-                        </li>
-                     </ul>
+                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Programming Languages Notes</span></a>
                   </li>
                </ul>
             </td>
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">Docker Images - Storage &amp; Updating</h1>
+</div><a name="Programming.Languages.Notes" id="Programming.Languages.Notes"></a>
+<h1 id="tocAnchor-1-1">Programming Languages Notes</h1>
 
-<p>Store on S3?<br />
-	- Pros?<br />
-		1. AWS/S3<br />
-		2. Tool:	https://github.com/dogestry/dogestry<br />
-	- Cons: Tool, HTTPS,<br />
-Store on SSH Image Server<br />
-	- Pro:<br />
-		1. Standard, ubiquitous CLI tools, ssh or scp<br />
-		2. Any Existing CA/KI (Key Infrastructure) could be used</p>
-
-<h1 id="tocAnchor-1-2">Setup Database Servers</h1>
-
-<h2 id="tocAnchor-1-2-1">MongoDB</h2>
-<p>```<br />
-docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:latest bash -c ‘mongod –logpath /data/logs/mongodb.log –logappend –dbpath /data/collections –storageEngine=wiredTiger –replSet “rs0”’</p>
-
+<a name="L.em.Work-in-progress..updated.August.2015...em." id="L.em.Work-in-progress..updated.August.2015...em."></a>
+<h3>
+   <em>Work-in-progress (updated August 2015)</em>
+</h3>
 
       <footer class="entry-meta">
-        <span class="entry-tags"><a href="/tags/#docker" title="Pages tagged docker" class="tag"><span class="term">docker</span></a><a href="/tags/#boot2docker" title="Pages tagged boot2docker" class="tag"><span class="term">boot2docker</span></a><a href="/tags/#docker cli" title="Pages tagged docker cli" class="tag"><span class="term">docker cli</span></a></span>
-        <span>Updated on <span class="entry-date date updated"><time datetime="2015-06-17">June 17, 2015</time></span></span>
+        <span class="entry-tags"><a href="/tags/#programming" title="Pages tagged programming" class="tag"><span class="term">programming</span></a><a href="/tags/#languages" title="Pages tagged languages" class="tag"><span class="term">languages</span></a><a href="/tags/#lua" title="Pages tagged lua" class="tag"><span class="term">lua</span></a><a href="/tags/#haskell" title="Pages tagged haskell" class="tag"><span class="term">haskell</span></a><a href="/tags/#scala" title="Pages tagged scala" class="tag"><span class="term">scala</span></a><a href="/tags/#rust" title="Pages tagged rust" class="tag"><span class="term">rust</span></a><a href="/tags/#smalltalk" title="Pages tagged smalltalk" class="tag"><span class="term">smalltalk</span></a><a href="/tags/#go" title="Pages tagged go" class="tag"><span class="term">go</span></a><a href="/tags/#javascript" title="Pages tagged javascript" class="tag"><span class="term">javascript</span></a><a href="/tags/#python" title="Pages tagged python" class="tag"><span class="term">python</span></a></span>
+        <span>Updated on <span class="entry-date date updated"><time datetime="2015-06-13 19:00:01 -0600">June 13, 2015</time></span></span>
         <span class="author vcard"><span class="fn">Dan Levy</span></span>
         <div class="social-share">
   <ul class="socialcount socialcount-small inline-list">
-    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/docker/2015/06/16/docker-deployment-thoughts.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
-    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/docker/2015/06/16/docker-deployment-thoughts.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
-    <li class="googleplus"><a href="https://plus.google.com/share?url=/docker/2015/06/16/docker-deployment-thoughts.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
+    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/languages/2015/06/12/graphs-and-relationships.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
+    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/languages/2015/06/12/graphs-and-relationships.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
+    <li class="googleplus"><a href="https://plus.google.com/share?url=/languages/2015/06/12/graphs-and-relationships.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
   </ul>
 </div><!-- /.social-share -->
       </footer>
@@ -286,23 +278,23 @@ docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/dat
     <div class="read-more">
   
     <div class="read-more-header">
-      <a href="/languages/2015/06/12/polyglot-redux.html" class="read-more-btn">Read More</a>
+      <a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
-      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
+      <h3><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h3>
+      <p># Programming Languages Notes### _Work-in-progress (updated June 15th 2015)_### I'm sure my Miscellaneous Observations have been made bef...&hellip; <a href="/languages/2015/06/12/polyglot-redux.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
-        <span>Published on June 12, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
-        <span>Published on June 10, 2015</span>
+        <h4><a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup">Docker Firewall Setup</a></h4>
+        <span>Published on June 06, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->
@@ -313,6 +305,22 @@ docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/dat
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 

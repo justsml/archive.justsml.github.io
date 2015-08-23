@@ -70,6 +70,16 @@
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
 <!-- Icons -->
 <!-- 16x16 -->
 <link rel="shortcut icon" href="/favicon.ico">
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -283,12 +294,14 @@
          </tr>
       </tbody>
    </table>
-</div><h1 id="tocAnchor-1-1">Docker <strong>Host Server</strong> Setup</h1>
+</div><a name="Docker..strong.Host.Server..strong..Setup" id="Docker..strong.Host.Server..strong..Setup"></a>
+<h1 id="tocAnchor-1-1">Docker <strong>Host Server</strong> Setup</h1>
 
+<a name="Basic.Monitoring.Tools" id="Basic.Monitoring.Tools"></a>
 <h2 id="tocAnchor-1-1-1">Basic Monitoring Tools</h2>
 
 <pre>
-   <code class="language-sh"># Debian/BSD Requirements / Updates + monitoring tools: atop &amp; htop
+   <code class="sh"># Debian/BSD Requirements / Updates + monitoring tools: atop &amp; htop
 apt-get update &amp;&amp; apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64
 
 # OSX, Debian &amp; RHEL: Host OS Tuning
@@ -306,61 +319,66 @@ source ~/.bashrc
 
 # Install Docker, straight from the horses mouth
 curl -sSL https://get.docker.com/ | sh
-
 </code>
 </pre>
 
 <blockquote>
-  <p>Only for SELinux Enabled Systems</p>
+   <p>Only for SELinux Enabled Systems</p>
 </blockquote>
 
 <pre>
-   <code class="language-sh"># SELinux fixes (optional)
+   <code class="sh"># SELinux fixes (optional)
 # chcon -Rt svirt_sandbox_file_t /mongodb
 # chcon -Rt svirt_sandbox_file_t /elastic
 </code>
 </pre>
 
+<a name="Simple.Database.Setup.Startup" id="Simple.Database.Setup.Startup"></a>
 <h1 id="tocAnchor-1-3">Simple Database Setup/Startup</h1>
 
+<a name="MongoDB.v3.Server" id="MongoDB.v3.Server"></a>
 <h2 id="tocAnchor-1-3-1">MongoDB v3 Server</h2>
 
 <pre>
-   <code class="language-sh">mkdir /mongodb
+   <code class="sh">mkdir /mongodb
 docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c 'mongod --logpath /data/mongodb.log --logappend --dbpath /data/data --storageEngine=wiredTiger'
 </code>
 </pre>
 
+<a name="Elastic.Search" id="Elastic.Search"></a>
 <h2 id="tocAnchor-1-3-2">Elastic Search</h2>
 
 <pre>
-   <code class="language-sh">mkdir /elastic
+   <code class="sh">mkdir /elastic
 docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
 </code>
 </pre>
 
 <blockquote>
-  <p>You just lit up 2 database docker instances!!!<br />
+   <p>You just lit up 2 database docker instances!!!
 If it were any easier, I’m pretty sure you couldn’t invoice for it.</p>
 </blockquote>
 
+<a name="Package.up.your.NodeJS.Ruby.Python.Web.App" id="Package.up.your.NodeJS.Ruby.Python.Web.App"></a>
 <h1 id="tocAnchor-1-6">Package up your NodeJS/Ruby/Python/Web App</h1>
 
 <ol>
-  <li>Add a blank file named <code>Dockerfile</code> in your project root.</li>
-  <li><em>(Optional, Recommended)</em> Add a <code>.dockerignore</code> using .gitignore rules to exclude large non-essential paths. By default all project files are included.</li>
+<li>Add a blank file named <code>Dockerfile</code> in your project root.</li>
+<li><em>(Optional, Recommended)</em> Add a <code>.dockerignore</code> using .gitignore rules to exclude large non-essential paths. By default all project files are included.</li>
 </ol>
 
+
+<a name="Create.a..code.Dockerfile..code." id="Create.a..code.Dockerfile..code."></a>
 <h2 id="tocAnchor-1-6-1">Create a <code>Dockerfile</code></h2>
 
 <pre>
-   <code class="language-dockerfile"># Example for NodeJS
+   <code class="dockerfile"># Example for NodeJS
 FROM node:0.12
 EXPOSE [3000]
 COPY . /app/
 WORKDIR /app
 RUN apt-get update \
-	&amp;&amp; apt-get dist-upgrade -y
+    &amp;&amp; apt-get dist-upgrade -y
 RUN ["npm", "install"]
 # Overridable Command
 CMD ["npm", "start"]
@@ -375,37 +393,42 @@ CMD ["npm", "start"]
    <code>docker build -t app-name-here .</code>
 </p>
 
+<a name="Docker.Commands.to.Learn" id="Docker.Commands.to.Learn"></a>
 <h1 id="tocAnchor-1-8">Docker Commands to Learn</h1>
 
+<a name="Build.Docker.Image.Every.Deploy.Change" id="Build.Docker.Image.Every.Deploy.Change"></a>
 <h2 id="tocAnchor-1-8-1">Build Docker Image Every Deploy/Change</h2>
 
 <pre>
-   <code class="language-sh">docker build -t app-name-here .
+   <code class="sh">docker build -t app-name-here .
 </code>
 </pre>
 
+<a name="Create.Run.Web.App.w..Links.to.DB.Servers" id="Create.Run.Web.App.w..Links.to.DB.Servers"></a>
 <h2 id="tocAnchor-1-8-2">Create/Run Web App w/ Links to DB Servers</h2>
 
 <pre>
-   <code class="language-sh">docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
+   <code class="sh">docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
 </code>
 </pre>
 
+<a name="Run.Interactively..non-daemon..in.terminal." id="Run.Interactively..non-daemon..in.terminal."></a>
 <h2 id="tocAnchor-1-8-3">Run Interactively (non-daemon, in terminal)</h2>
 
 <pre>
-   <code class="language-sh">docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here bash
+   <code class="sh">docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here bash
 </code>
 </pre>
 
+<a name="Delete.Container.Instance.or.Image" id="Delete.Container.Instance.or.Image"></a>
 <h2 id="tocAnchor-1-8-4">Delete Container Instance or Image</h2>
 
 <blockquote>
-  <p>Important: Any data not stored on the mounted volume path will be lost!!</p>
+   <p>Important: Any data not stored on the mounted volume path will be lost!!</p>
 </blockquote>
 
 <pre>
-   <code class="language-sh"># Delete Image
+   <code class="sh"># Delete Image
 docker rmi -f app-name-here
 docker rm -f webapp01
 # now re-run your `docker run...` from ^^^
@@ -413,7 +436,6 @@ docker rm -f webapp01
 docker rm -f mongo elastic
 </code>
 </pre>
-
 
       <footer class="entry-meta">
         <span class="entry-tags"><a href="/tags/#devops" title="Pages tagged devops" class="tag"><span class="term">devops</span></a><a href="/tags/#docker" title="Pages tagged docker" class="tag"><span class="term">docker</span></a><a href="/tags/#server" title="Pages tagged server" class="tag"><span class="term">server</span></a><a href="/tags/#setup" title="Pages tagged setup" class="tag"><span class="term">setup</span></a><a href="/tags/#shell script" title="Pages tagged shell script" class="tag"><span class="term">shell script</span></a></span>
@@ -434,20 +456,20 @@ docker rm -f mongo elastic
       <a href="/design/2015/02/26/amazing-resources.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h3>
-      <p># Overview# Setup Database Servers## MongoDB```docker run --hostname mongo2 -d --name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:late...&hellip; <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">Continue reading</a></p>
+      <h3><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h3>
+      <p># Programming Languages Notes### _Work-in-progress (updated June 15th 2015)_### I'm sure my Miscellaneous Observations have been made bef...&hellip; <a href="/languages/2015/06/12/polyglot-redux.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough">Docker Cluster Walkthrough</a></h4>
-        <span>Published on June 16, 2015</span>
+        <h4><a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships">Graphs and Relationships</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
-        <span>Published on June 12, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->
@@ -458,6 +480,22 @@ docker rm -f mongo elastic
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 

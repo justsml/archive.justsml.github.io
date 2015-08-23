@@ -21,35 +21,58 @@ owner:
   facebook:       justsml
   github:         justsml
   stackexchange:
-  linkedin:       realdanlevy
+  linkedin: realdanlevy
   instagram:
   flickr:
   tumblr:
   # google plus id, include the '+', eg +mmistakes
-  google_plus:    +justsml
+  google_plus: +justsml
 
 # Background image to be tiled on all pages
 background: abstract-3.jpg
 destination: ./public
 
 # Analytics and webmaster tools stuff goes here
-google_analytics:   	UA-59708923-1
-google_verify:      	aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes
+google_analytics: UA-59708923-1
+google_verify: aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:  				1A9E3CE623BA981E829FE1023285585D
+bing_verify: 1A9E3CE623BA981E829FE1023285585D
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    America/Denver
 future:      true
-pygments:    true
+# pygments:    true
+
+
+markdown: rdiscount
 highlighter: pygments
-markdown:    kramdown
+
+# markdown:    kramdown
+# highlighter: redcarpet
+
+# highlighter: pygments
+# markdown:    rdiscount
+
 gems:
   - jekyll-sitemap
 sass:
   sass_dir: _sass
   style: compressed
 
+redcarpet:
+  extensions:
+    - tables
+    - autolink
+    - no_intra_emphasis
+    - lax_spacing
+    -
+
+rdiscount:
+  extensions:
+    - autolink      # greedily urlify links
+    - footnotes     # footnotes
+    - smart         # typographic substitutions with SmartyPants
+    - generate_toc
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 # permalink:   /:categories/:title/
 
@@ -62,7 +85,7 @@ kramdown:
   entity_output: as_char
   toc_levels: 1..6
   input: GFM
-  use_coderay: true
+  use_coderay: false
 
   coderay:
     coderay_line_numbers: nil

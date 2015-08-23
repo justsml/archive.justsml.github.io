@@ -70,6 +70,16 @@
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
+
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
 <!-- Icons -->
 <!-- 16x16 -->
 <link rel="shortcut icon" href="/favicon.ico">
@@ -91,6 +101,11 @@
 
 -->
 
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
 <style type='text/css'>
 #toc, .toc, .mw-warning {
     background-color: #F9F9F9;
@@ -177,11 +192,7 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="#">Posts</a>
-			<ul class="dl-submenu">
-				<li><a href="/posts/">All Posts</a></li>
-				<li><a href="/tags/">All Tags</a></li>
-			</ul>
+			<a href="/posts/">Posts</a>
 		</li>
 		
 	    
@@ -219,84 +230,6 @@
   <header>
     
       <div class="entry-image-index">
-        <a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" title="Docker Cluster Walkthrough"><img src="/images/abstract-12.jpg" alt="Docker Cluster Walkthrough"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-16T00:00:00-06:00"><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html">June 16, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~1 minute
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/docker/2015/06/16/docker-example-mongodb-elastic-redis-nodejs-with-nginx-proxy.html" rel="bookmark" title="Docker Cluster Walkthrough" itemprop="url">Docker Cluster Walkthrough</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h1 id="overview">Overview</h1>
-
-<h1 id="setup-database-servers">Setup Database Servers</h1>
-
-<h2 id="mongodb">MongoDB</h2>
-<p>```<br />
-docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:latest bash -c ‘mongod –logpath /data/logs/mongodb.log –logappend –dbpath /data/collections –storageEngine=wiredTiger –replSet “rs0”’</p>
-
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/docker/2015/06/16/docker-deployment-thoughts.html" title="Docker Cluster Walkthrough"><img src="/images/abstract-12.jpg" alt="Docker Cluster Walkthrough"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-16T00:00:00-06:00"><a href="/docker/2015/06/16/docker-deployment-thoughts.html">June 16, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~1 minute
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/docker/2015/06/16/docker-deployment-thoughts.html" rel="bookmark" title="Docker Cluster Walkthrough" itemprop="url">Docker Cluster Walkthrough</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h1 id="docker-images---storage--updating">Docker Images - Storage &amp; Updating</h1>
-
-<p>Store on S3?<br />
-	- Pros?<br />
-		1. AWS/S3<br />
-		2. Tool:	https://github.com/dogestry/dogestry<br />
-	- Cons: Tool, HTTPS,<br />
-Store on SSH Image Server<br />
-	- Pro:<br />
-		1. Standard, ubiquitous CLI tools, ssh or scp<br />
-		2. Any Existing CA/KI (Key Infrastructure) could be used</p>
-
-<h1 id="setup-database-servers">Setup Database Servers</h1>
-
-<h2 id="mongodb">MongoDB</h2>
-<p>```<br />
-docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/data mongo:latest bash -c ‘mongod –logpath /data/logs/mongodb.log –logappend –dbpath /data/collections –storageEngine=wiredTiger –replSet “rs0”’</p>
-
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
         <a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux"><img src="/images/abstract-11.jpg" alt="Polyglot Redux"></a>
       </div><!-- /.entry-image -->
     
@@ -306,7 +239,7 @@ docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/dat
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
         
-        Reading time ~10 minutes
+        Reading time ~12 minutes
       </span><!-- /.entry-reading-time -->
       
     </div><!-- /.entry-meta -->
@@ -315,118 +248,193 @@ docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/dat
     
   </header>
   <div class="entry-content">
-    <h1 id="programming-languages-notes">Programming Languages Notes</h1>
+    <a name="Programming.Languages.Notes"></a>
+<h1>Programming Languages Notes</h1>
 
-<h3 id="work-in-progress-updated-june-15th-2015"><em>Work-in-progress (updated June 15th 2015)</em></h3>
+<a name="L.em.Work-in-progress..updated.June.15th.2015...em."></a>
+<h3><em>Work-in-progress (updated June 15th 2015)</em></h3>
 
-<h3 id="im-sure-my-miscellaneous-observations-have-been-made-before-but-here-is-my-list-of-most-interesting-languages">I’m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:</h3>
+<a name="I.m.sure.my.Miscellaneous.Observations.have.been.made.before..but.here.is.my.list.of.most.interesting.languages:"></a>
+<h3>I&rsquo;m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:</h3>
 
-<h2 id="javascript">JavaScript</h2>
+<a name="JavaScript"></a>
+<h2>JavaScript</h2>
 
-<h4 id="iojshttpiojsorg"><a href="http://iojs.org/">io.js</a></h4>
-<p>#### <a href="http://nodejs.org/">Node.JS</a></p>
+<p>For years I foolishly had nothing but scorn, derision and hatred for what is now, <strong>easily my favorite language</strong>.</p>
 
-<h2 id="rust">Rust</h2>
+<p>ES5 may be old, and ES6 is brand new, but it&rsquo;s officially a real standard now!</p>
 
-<h4 id="official-sitehttpwwwrust-langorg"><a href="http://www.rust-lang.org/">Official Site</a></h4>
+<a name="io.js"></a>
+<h4><a href="http://iojs.org/">io.js</a></h4>
 
-<ul>
-  <li><strong>Pros</strong>
-    <ul>
-      <li>Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
-      <li>In fact I’d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
-        <ol>
-          <li>Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
-          <li>Including <strong>__all the best practices__</strong> in C you would probably screw up on, I ~~eventually~~ always do.
-            <ul>
-              <li>Automatically you get:</li>
-              <li>Auto Memory management (no need for a slow garbage collector!)</li>
-              <li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
-              <li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
-              <li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can’t overlook a code-path)</li>
-            </ul>
-          </li>
-        </ol>
-      </li>
-      <li>Oh yeah, it throws in true language extensibility with a sensible ‘macro’ feature.
-        <ul>
-          <li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.
-            <ol>
-              <li>Too good to be true? Nah, It gets better:
-                <ul>
-                  <li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google’s hot-newish language)</li>
-                  <li>About 4K More Stars than Go (currently around 12,200)</li>
-                  <li>More total Contributors ( 2x! - 1,071 vs. Go’s 479 )</li>
-                  <li>More forks ( 3X! - 2,343 vs. 765 )</li>
-                  <li>Number of Open Issues, Loses by a hair ( 2,000 vs 1,730 from Go )</li>
-                  <li>Pull Requests (Rust 70+ vs. Go’s 1)</li>
-                  <li>I had to triple check the numbers too.</li>
-                </ul>
-              </li>
-            </ol>
-          </li>
-        </ul>
-      </li>
-      <li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
-      <li>Threading model usable by mere mortals</li>
-    </ul>
-  </li>
-  <li><strong>Cons</strong>
-    <ul>
-      <li>Decent <strong>web frameworks</strong> are relatively new, untested, and usually undocumented (though they are <strong>getting</strong> very impressive - as of March 2015).</li>
-    </ul>
-  </li>
-</ul>
+<a name="Node.JS"></a>
+<h4><a href="http://nodejs.org/">Node.JS</a></h4>
 
-<h2 id="python">Python</h2>
+<a name="Rust"></a>
+<h2>Rust</h2>
+
+<a name="Official.Site"></a>
+<h4><a href="http://www.rust-lang.org/">Official Site</a></h4>
 
 <ul>
-  <li><strong>Pros</strong>
-    <ul>
-      <li>Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )</li>
-      <li>Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just weak!</li>
-    </ul>
-  </li>
-  <li><strong>Cons</strong>
-    <ul>
-      <li>Annoyingly, Python 2.x and 3.x are incompatible.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="haskell">Haskell</h2>
+<li><p><strong>Pros</strong></p>
 
 <ul>
-  <li><strong>Pros</strong>
-    <ul>
-      <li>Very rewarding when you finally memorize enough syntax to whip up comprehensions-based expressive patterns</li>
-      <li>You will learn mind-bending code patterns - often somewhat applicable to other languages.</li>
-    </ul>
-  </li>
-  <li><strong>Cons</strong>
-    <ul>
-      <li>Syntax &amp; Patterns can be hard to get used to.<br />
-  -</li>
-    </ul>
-  </li>
-</ul>
+<li>Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
+<li>In fact I&rsquo;d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
 
-<h2 id="smalltalk-80">SmallTalk-80</h2>
+<ol>
+<li> Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
+<li> Including <strong><strong>all the best practices</strong></strong> in C you would probably screw up on, I <del>eventually</del> always do.
 
 <ul>
-  <li><strong>Pros</strong>
-    <ul>
-      <li>Incredibly simple compilers (original especially)</li>
-      <li>Great resources: <a href="http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript">Smalltalk MVC Translated to JavaScript</a></li>
-    </ul>
-  </li>
-  <li><strong>Cons</strong>
-    <ul>
-      <li>You will likely never use this language for anything. Zero projects. However it will have more of an impact on your coding style, faster than other functional languages… This should be in the pros list)</li>
-    </ul>
-  </li>
+<li>Automatically you get:</li>
+<li>Auto Memory management (no need for a slow garbage collector!)</li>
+<li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
+<li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
+<li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can&rsquo;t overlook a code-path)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Oh yeah, it throws in true language extensibility with a sensible &lsquo;macro&rsquo; feature.
+
+<ul>
+<li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.</li>
+<li> Too good to be true? Nah, It gets better:
+
+<ul>
+<li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google&rsquo;s hot-newish language)
+
+<ul>
+<li>About 4K More Stars than Go (currently around 12,200)</li>
+<li>More total Contributors ( 2x! - 1,071 vs. Go&rsquo;s 479 )</li>
+<li>More forks ( 3X! - 2,343 vs. 765 )</li>
+<li>Number of Open Issues, Loses by a hair ( 2,000 vs 1,730 from Go )</li>
+<li>Pull Requests (Rust 70+ vs. Go&rsquo;s 1)</li>
+</ul>
+</li>
+<li>I had to triple check the numbers too.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
+<li>Threading model usable by mere mortals</li>
+</ul>
+</li>
+<li><p><strong>Cons</strong></p>
+
+<ul>
+<li>Decent <strong>web frameworks</strong> are relatively new, untested, and usually undocumented (though they are <strong>getting</strong> very impressive - as of March 2015).</li>
+<li>Lots of early pre-1.0 breaking changes</li>
+</ul>
+</li>
 </ul>
 
+
+<a name="Python"></a>
+<h2>Python</h2>
+
+<ul>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )</li>
+<li>Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just bloated!</li>
+</ul>
+</li>
+</ul>
+
+
+<pre><code class="python"># dummy code: defines a color + pixel-coord -
+def pixel(x, y, r, g, b): return dict(x=x, y=y, r=r, g=g, b=b)
+# Create a new pixel object and apply to set of vars
+x, y, r, g, b = pixel(10, 20, 255, 255, 255)
+# Now we can call pixel
+</code></pre>
+
+<pre><code>- Tuples and arbitrary sets are so easy
+</code></pre>
+
+<ul>
+<li><strong>Cons</strong>
+
+<ul>
+<li>Annoyingly, Python 2.x and 3.x are incompatible. The Great Schism continues, so many years later.</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="Haskell"></a>
+<h2>Haskell</h2>
+
+<ul>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Very rewarding when you finally memorize enough syntax to whip up comprehensions-based expressive patterns</li>
+<li>You will learn mind-bending code patterns - often somewhat applicable to other languages.</li>
+</ul>
+</li>
+<li><strong>Cons</strong>
+
+<a name="L..-.Syntax..amp..Patterns.can.be.hard.to.get.used.to."></a>
+<h2>  - Syntax &amp; Patterns can be hard to get used to.</h2></li>
+</ul>
+
+
+<a name="SmallTalk-80"></a>
+<h2>SmallTalk-80</h2>
+
+<ul>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Incredibly simple compilers (original especially)</li>
+<li>Great resources: <a href="http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript">Smalltalk MVC Translated to JavaScript</a></li>
+</ul>
+</li>
+<li><strong>Cons</strong>
+
+<ul>
+<li>You will likely never use this language for anything. Zero projects. However it will have more of an impact on your coding style, faster than other functional languages&hellip; This should be in the pros list)</li>
+</ul>
+</li>
+</ul>
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships"><img src="/images/abstract-11.jpg" alt="Graphs and Relationships"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-12T03:21:12-06:00"><a href="/languages/2015/06/12/graphs-and-relationships.html">June 12, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~1 minute
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/languages/2015/06/12/graphs-and-relationships.html" rel="bookmark" title="Graphs and Relationships" itemprop="url">Graphs and Relationships</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="Programming.Languages.Notes"></a>
+<h1>Programming Languages Notes</h1>
+
+<a name="L.em.Work-in-progress..updated.August.2015...em."></a>
+<h3><em>Work-in-progress (updated August 2015)</em></h3>
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
@@ -453,67 +461,78 @@ docker run –hostname mongo2 -d –name mongo2 -p 47017:27017 -v /mongodb2:/dat
     
   </header>
   <div class="entry-content">
-    <h1 id="overview">Overview</h1>
+    <a name="Overview"></a>
+<h1>Overview</h1>
 
-<h4 id="to-everyone-on-osx-or-windows-dont-let-boot2docker-leave-you-with-the-impression-that-docker-sucks-its-really-just-your-antique-os">To everyone on OSX or Windows: Don’t let Boot2docker leave you with the impression that Docker sucks! It’s really just your antique OS.</h4>
+<a name="To.everyone.on.OSX.or.Windows:.Don.t.let.Boot2docker.leave.you.with.the.impression.that.Docker.sucks..It.s.really.just.your.antique.OS."></a>
+<h4>To everyone on OSX or Windows: Don&rsquo;t let Boot2docker leave you with the impression that Docker sucks! It&rsquo;s really just your antique OS.</h4>
 
 <ol>
-  <li>Docker is amazing, period.</li>
-  <li>However it’s rough-around-the-edges, hackey utility, boot2docker - for OS X, Windows and old Linux Kernels - leaves a <strong>lot</strong> to be desired.</li>
+<li>Docker is amazing, period.</li>
+<li>However it&rsquo;s rough-around-the-edges, hackey utility, boot2docker - for OS X, Windows and old Linux Kernels - leaves a <strong>lot</strong> to be desired.</li>
 </ol>
 
-<h1 id="issues">Issues</h1>
 
-<blockquote>
-  <p>Boot2docker causes 99/100 headaches compared with using a native docker install locally.<br />
-I should concede that it wraps several other complicated/flakey technologies:<br />
-VirtualBox, x-platform Folder Sharing, and also the docker cli command runs in a network-client mode so,<br />
-file copying, builds etc take a long time  vs. running a native docker server.<br />
-=============<br />
-Docker can currently only run natively on a Linux Kernel 3.4+ - and the current boot2docker vm actually runs v4.<br />
-Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box,<br />
-… c’mon those games aren’t helping your code…</p>
-</blockquote>
+<a name="Issues"></a>
+<h1>Issues</h1>
 
-<h1 id="boot2docker-key-commands">Boot2docker Key Commands</h1>
+<blockquote><p>Boot2docker causes 99/100 headaches compared with using a native docker install locally.
+I should concede that it wraps several other complicated/flakey technologies:
+VirtualBox, x-platform Folder Sharing, and also the docker cli command runs in a network-client mode so,</p>
 
-<h2 id="when-you-get-error-fata0000">When you get error: ‘FATA[0000]’</h2>
+<a name="file.copying..builds.etc.take.a.long.time..vs..running.a.native.docker.server."></a>
+<h1>file copying, builds etc take a long time  vs. running a native docker server.</h1>
+
+<p>Docker can currently only run natively on a Linux Kernel 3.4+ - and the current boot2docker vm actually runs v4.
+Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box,
+&hellip; c'mon those games aren&rsquo;t helping your code&hellip;</p></blockquote>
+
+<a name="Boot2docker.Key.Commands"></a>
+<h1>Boot2docker Key Commands</h1>
+
+<a name="When.you.get.error:..FATA.0000.."></a>
+<h2>When you get error: &lsquo;FATA[0000]&rsquo;</h2>
 
 <ul>
-  <li>Full error message:
-    <ul>
-      <li>FATA[0000] Get http:///var/run/docker.sock/v1.18/info: dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?</li>
-    </ul>
-  </li>
-  <li>Solution: You need some info from boot2docker
-    <ul>
-      <li>Run this to get the 3 needed shell environment variables:</li>
-    </ul>
-  </li>
+<li>Full error message:
+
+<ul>
+<li>FATA[0000] Get <a href="http:///var/run/docker.sock/v1.18/info:">http:///var/run/docker.sock/v1.18/info:</a> dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?</li>
+</ul>
+</li>
+<li>Solution: You need some info from boot2docker
+
+<ul>
+<li>Run this to get the 3 needed shell environment variables:</li>
+</ul>
+</li>
 </ul>
 
-<pre><code class="language-sh">boot2docker shellinit
+
+<pre><code class="sh">boot2docker shellinit
 # Copy &amp; paste the exports into the current shell, &amp; retry $(docker info)
 </code></pre>
 
-<h2 id="get-docker-server-ip-address">Get Docker Server IP Address</h2>
-<pre><code class="language-sh">boot2docker ip
-</code></pre>
-<blockquote>
-  <p>Now your app on port 3000 is available at something like: http://$(boot2docker ip):3000/</p>
-</blockquote>
+<a name="Get.Docker.Server.IP.Address"></a>
+<h2>Get Docker Server IP Address</h2>
 
-<h1 id="boot2docker-quick-start-for-os-x">Boot2Docker Quick Start for OS X</h1>
+<pre><code class="sh">boot2docker ip
+</code></pre>
+
+<blockquote><p>Now your app on port 3000 is available at something like: <a href="http://$">http://$</a>(boot2docker ip):3000/</p></blockquote>
+
+<a name="Boot2Docker.Quick.Start.for.OS.X"></a>
+<h1>Boot2Docker Quick Start for OS X</h1>
 
 <ol>
-  <li>In a terminal on your <code>brew</code> able Mac:</li>
+<li>In a terminal on your <code>brew</code> able Mac:</li>
 </ol>
 
-<pre><code class="language-sh">brew install boot2docker
+
+<pre><code class="sh">brew install boot2docker
 boot2docker init
 boot2docker up
 </code></pre>
-
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
@@ -540,63 +559,66 @@ boot2docker up
     
   </header>
   <div class="entry-content">
-    <h1 id="setup-docker-host-firewall">Setup Docker Host Firewall</h1>
+    <a name="Setup.Docker.Host.Firewall"></a>
+<h1>Setup Docker Host Firewall</h1>
 
 <ol>
-  <li>Debian/Ubuntu Server is assumed</li>
-  <li>Designed to run on Docker Host Server</li>
+<li>Debian/Ubuntu Server is assumed</li>
+<li>Designed to run on Docker Host Server</li>
 </ol>
 
-<h2 id="install-requirements">Install Requirements</h2>
 
-<pre><code class="language-sh"># Ultimate Firewall Needed
+<a name="Install.Requirements"></a>
+<h2>Install Requirements</h2>
+
+<pre><code class="sh"># Ultimate Firewall Needed
 apt-get update &amp;&amp; apt-get install -y ufw nmap curl
 </code></pre>
 
-<h2 id="get-your-internal--external-ip-addresses">Get your Internal &amp; External IP Addresses</h2>
+<a name="Get.your.Internal..amp..External.IP.Addresses"></a>
+<h2>Get your Internal &amp; External IP Addresses</h2>
 
-<pre><code class="language-sh"># Get your IP Addresses, simple output:
+<pre><code class="sh"># Get your IP Addresses, simple output:
 hostname --all-ip-addresses
 
 # OR use ip tool, example:
 ip addr
 </code></pre>
 
-<h2 id="firtewall-ufw-setup---example-cmds">Firtewall (UFW) Setup - Example Cmds</h2>
+<a name="Firtewall..UFW..Setup.-.Example.Cmds"></a>
+<h2>Firtewall (UFW) Setup - Example Cmds</h2>
 
-<pre><code class="language-sh"># Allow and log all new ssh connections,
+<pre><code class="sh"># Allow and log all new ssh connections,
 ufw allow log proto tcp from any to any port 22
 ## Allow http traffic (w/o explicit logging)
 ufw allow proto tcp from any to any port 80
 ufw limit tcp/22 # Basic Rate limit 4 SSH brute force mitigation
 
-# Dummy ext IP
+# Set your ext IP
 export EXTERNAL_IP=123.123.123.123
-# Note, default docker IP
+# Update docker IP if needed
 export DOCKER_IP=172.17.42.1
 # Forward tcp 8080 traffic to  Dockerized App
 ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
 </code></pre>
 
-<h2 id="enable--start-firewall">Enable / Start Firewall</h2>
+<a name="Enable...Start.Firewall"></a>
+<h2>Enable / Start Firewall</h2>
 
-<blockquote>
-  <p>Be Careful, Don’t Lock out your SSH port (sshd defaults to 22)</p>
-</blockquote>
+<blockquote><p>Be Careful, Don&rsquo;t Lock out your SSH port (sshd defaults to 22)</p></blockquote>
 
-<pre><code class="language-sh">ufw enable
+<pre><code class="sh">ufw enable
 ufw reset
 </code></pre>
 
 <hr />
 
-<h2 id="test-your-firewall">Test Your Firewall</h2>
+<a name="Test.Your.Firewall"></a>
+<h2>Test Your Firewall</h2>
 
-<blockquote>
-  <p>Important: USE A REMOTE IP ADDR/LOCATION</p>
-</blockquote>
+<blockquote><p>Important: USE A REMOTE IP ADDR/LOCATION</p></blockquote>
 
-<pre><code class="language-sh"># Verify dependency
+<pre><code class="sh"># Verify dependency
 apt-get update &amp;&amp; apt-get install -y nmap
 
 # Set scan target
@@ -611,8 +633,128 @@ nmap -p 1-10240,27017 --open -v -APN $TARGET_HOST
 nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
 </code></pre>
 
-<h4 id="done-now-you-should-see-only-the-ports-you-configured">DONE! Now you should see ONLY the ports you configured!</h4>
+<a name="DONE..Now.you.should.see.ONLY.the.ports.you.configured."></a>
+<h4>DONE! Now you should see ONLY the ports you configured!</h4>
 
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/javascript/2015/06/06/javascript-scope-magic.html" title="JavaScript Magic"><img src="/images/abstract-7.jpg" alt="JavaScript Magic"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-06T09:42:21-06:00"><a href="/javascript/2015/06/06/javascript-scope-magic.html">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~8 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/javascript/2015/06/06/javascript-scope-magic.html" rel="bookmark" title="JavaScript Magic" itemprop="url">JavaScript Magic</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="L..Work-in-progress..Includes.Future.JavaScript.Article.Ideas.."></a>
+<h3>[ Work-in-progress, Includes Future JavaScript Article Ideas ]</h3>
+
+<blockquote><p>This post is geared to modern browsers and Node.JS/iojs.</p></blockquote>
+
+<a name="Imperative.vs..Recursive.vs..Functional"></a>
+<h1>Imperative vs. Recursive vs. Functional</h1>
+
+<p>Work-in-progress</p>
+
+<pre><code class="javascript">
+// Imperative: The Fastest ( + very simple, no new pointers or excess allocs ):
+function fib(n) {
+  var a = 1, b = 1, c = 0;
+  for(var i = 1; i &lt; n-1; ++i) {
+    c = a + b;
+    a = b;
+    b = c;
+  }
+  return b;
+}
+
+// Recursive: (FIREFOX or BABELJS Only) ES6 function definition with
+//  parameter defaults used to set initial (internal/recursive) values
+function fib(n, current=0, a=1, b=1, c=0) {
+  current++;
+  c = a + b;
+  a = b;
+  b = c;
+  return current &gt;= n ? b : fib(n, current, a, b, c);
+}
+
+// Text-book-Bad Example - poor function scope w/ multiple mutable external values
+function fib(n) {
+  if (!arr) { var arr = [1,1]; n=n-2; };// Bad
+  if (n===-1) {return [arr[0]];}
+  if (n===0) {return arr;}
+  var proc = function() {
+    --n;
+    arr.push(arr[arr.length-1] + arr[arr.length-2]);
+    return (n===0 ? arr : proc());
+    // Bad: inner recursive function not needed, hint: variables used are from parent function scope
+  };
+  var ans = proc();
+  return ans[ans.length-1];
+}
+</code></pre>
+
+<a name="Promises:.Awesome."></a>
+<h1>Promises: Awesome!</h1>
+
+<pre><code class="js">
+// Example Using bluebird Promises and it's
+var Promise = require('bluebird'),
+    fs = Promise.promisifyAll(require('fs')),
+    less = Promise.promisifyAll(require('less'));
+
+function writeFileData(data) {
+  return fs.writeFileAsync('/tmp/output.css', data);
+}
+// Bluebird makes something like this perhaps uncomfortably simple and succinct:
+fs.readFileAsync('./style.less') // Call promisified readFile()
+  .then(less.renderAsync)         // Hand off to less.render
+  .then(writeFileData);      // Function to recieve the css contents (1st parameter)
+</code></pre>
+
+<ol>
+<li>While, native ES6 Promises are great, I prefer the robust <a href="https://github.com/petkaantonov/bluebird/blob/master/API.md">Bluebird Promise Library</a>.</li>
+<li>Library or not, modern browsers have supported Promise for years.</li>
+<li>Promises can be utilized without crazy patterns - implicit <code>deferred</code> is preferable.</li>
+<li><strong>$q just sucks</strong> just use bluebird, see above.</li>
+<li>Worth mentioning: Bluebirds Benchmarks are best-case tests, so take note if doing crazy fancy promise chains</li>
+</ol>
+
+
+<a name="Java.vs.JavaScript"></a>
+<h1>Java vs JavaScript</h1>
+
+<a name="Rate.Limiting...Debouncing...Throttling"></a>
+<h2>Rate Limiting / Debouncing / Throttling</h2>
+
+<ol>
+<li>In JavaScript <a href="http://davidwalsh.name/essential-javascript-functions">David Walsh implemented debounce</a> in less than 20 lines!</li>
+<li>In Java, JDebounce, an library which is a lot more complicated, at ~500+ lines.</li>
+<li>_ Comparing the two: _</li>
+<li> The JavaScript is fast &amp; uses first-class functions to achieve brilliant simplicity.</li>
+<li> Whereas the Java has many more moving parts, annotations are used to apply behaviour at compile-time, and there&rsquo;s a ton of XML, just for funsies!</li>
+</ol>
+
+
+<a name="Inversion.of.Control.Techniques"></a>
+<h1>Inversion of Control Techniques</h1>
+
+<p>Work-in-progress</p>
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
@@ -635,12 +777,6 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
         
       </li>
     
-      <li>
-        
-          <a href="/page3">3</a>
-        
-      </li>
-    
   </ul>
   
     <a href="/page2" class="btn">Next</a>
@@ -651,6 +787,22 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
 <div class="footer-wrapper">
   <footer role="contentinfo">
     <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
   </footer>
 </div><!-- /.footer-wrapper -->
 
