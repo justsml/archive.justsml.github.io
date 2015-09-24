@@ -62,15 +62,17 @@
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/custom.css">
+
 <!-- Webfonts -->
-<link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+<link async defer href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
 
 <meta http-equiv="cleartype" content="on">
 
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
-
+<script async defer src="/assets/js/hacks.js"></script>
 
 <!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
 <script async defer src="/assets/js/vendor/prism.js"></script>
@@ -166,7 +168,7 @@
 					<h4>Dan Levy</h4>
 					<p>Devout Programmer</p>
 				</li>
-				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
+				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
@@ -192,13 +194,17 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="/posts/">Posts</a>
+			<a href="#">Articles</a>
+			<ul class="dl-submenu article-list">
+				<li><a href="/posts/">All Articles</a></li>
+				
+			</ul>
 		</li>
 		
 	    
 	        
 	    
-	    <li><a href="/cv/resume-full.html" >Download Resume</a></li>
+	    <li><a href="/cv/resume-dan-levy-2015-07.pdf" >Download Resume</a></li>
 	  
 	    
 	        
@@ -226,6 +232,126 @@
 
 <div id="main" role="main">
   
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/javascript/2015/06/06/javascript-scope-magic.html" title="JavaScript Magic"><img src="/images/abstract-7.jpg" alt="JavaScript Magic"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-06T09:42:21-06:00"><a href="/javascript/2015/06/06/javascript-scope-magic.html">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~8 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/javascript/2015/06/06/javascript-scope-magic.html" rel="bookmark" title="JavaScript Magic" itemprop="url">JavaScript Magic</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="L..Work-in-progress..Includes.Future.JavaScript.Article.Ideas.."></a>
+<h3>[ Work-in-progress, Includes Future JavaScript Article Ideas ]</h3>
+
+<blockquote><p>This post is geared to modern browsers and Node.JS/iojs.</p></blockquote>
+
+<a name="Imperative.vs..Recursive.vs..Functional"></a>
+<h1>Imperative vs. Recursive vs. Functional</h1>
+
+<p>Work-in-progress</p>
+
+<pre><code class="javascript">
+// Imperative: The Fastest ( + very simple, no new pointers or excess allocs ):
+function fib(n) {
+  var a = 1, b = 1, c = 0;
+  for(var i = 1; i &lt; n-1; ++i) {
+    c = a + b;
+    a = b;
+    b = c;
+  }
+  return b;
+}
+
+// Recursive: (FIREFOX or BABELJS Only) ES6 function definition with
+//  parameter defaults used to set initial (internal/recursive) values
+function fib(n, current=0, a=1, b=1, c=0) {
+  current++;
+  c = a + b;
+  a = b;
+  b = c;
+  return current &gt;= n ? b : fib(n, current, a, b, c);
+}
+
+// Text-book-Bad Example - poor function scope w/ multiple mutable external values
+function fib(n) {
+  if (!arr) { var arr = [1,1]; n=n-2; };// Bad
+  if (n===-1) {return [arr[0]];}
+  if (n===0) {return arr;}
+  var proc = function() {
+    --n;
+    arr.push(arr[arr.length-1] + arr[arr.length-2]);
+    return (n===0 ? arr : proc());
+    // Bad: inner recursive function not needed, hint: variables used are from parent function scope
+  };
+  var ans = proc();
+  return ans[ans.length-1];
+}
+</code></pre>
+
+<a name="Promises:.Awesome."></a>
+<h1>Promises: Awesome!</h1>
+
+<pre><code class="js">
+// Example Using bluebird Promises and it's
+var Promise = require('bluebird'),
+    fs = Promise.promisifyAll(require('fs')),
+    less = Promise.promisifyAll(require('less'));
+
+function writeFileData(data) {
+  return fs.writeFileAsync('/tmp/output.css', data);
+}
+// Bluebird makes something like this perhaps uncomfortably simple and succinct:
+fs.readFileAsync('./style.less') // Call promisified readFile()
+  .then(less.renderAsync)         // Hand off to less.render
+  .then(writeFileData);      // Function to recieve the css contents (1st parameter)
+</code></pre>
+
+<ol>
+<li>While, native ES6 Promises are great, I prefer the robust <a href="https://github.com/petkaantonov/bluebird/blob/master/API.md">Bluebird Promise Library</a>.</li>
+<li>Library or not, modern browsers have supported Promise for years.</li>
+<li>Promises can be utilized without crazy patterns - implicit <code>deferred</code> is preferable.</li>
+<li><strong>$q just sucks</strong> just use bluebird, see above.</li>
+<li>Worth mentioning: Bluebirds Benchmarks are best-case tests, so take note if doing crazy fancy promise chains</li>
+</ol>
+
+
+<a name="Java.vs.JavaScript"></a>
+<h1>Java vs JavaScript</h1>
+
+<a name="Rate.Limiting...Debouncing...Throttling"></a>
+<h2>Rate Limiting / Debouncing / Throttling</h2>
+
+<ol>
+<li>In JavaScript <a href="http://davidwalsh.name/essential-javascript-functions">David Walsh implemented debounce</a> in less than 20 lines!</li>
+<li>In Java, JDebounce, an library which is a lot more complicated, at ~500+ lines.</li>
+<li>_ Comparing the two: _</li>
+<li> The JavaScript is fast &amp; uses first-class functions to achieve brilliant simplicity.</li>
+<li> Whereas the Java has many more moving parts, annotations are used to apply behaviour at compile-time, and there&rsquo;s a ton of XML, just for funsies!</li>
+</ol>
+
+
+<a name="Inversion.of.Control.Techniques"></a>
+<h1>Inversion of Control Techniques</h1>
+
+<p>Work-in-progress</p>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
 <article class="hentry">
   <header>
     
@@ -295,7 +421,7 @@ docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c
 <h2>Elastic Search</h2>
 
 <pre><code class="sh">mkdir /elastic
-docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
+docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c 'elasticsearch --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '
 </code></pre>
 
 <blockquote><p>You just lit up 2 database docker instances!!!
@@ -329,7 +455,8 @@ CMD ["npm", "start"]
 
 <p>In terminal, <code>cd</code> to your project folder and run the following <code>build</code> command <em>everytime</em> you deploy changes - or want to change/upgrade OS or Env config)</p>
 
-<p><code>docker build -t app-name-here .</code></p>
+<pre><code class="sh">docker build -t app-name-here .
+</code></pre>
 
 <a name="Docker.Commands.to.Learn"></a>
 <h1>Docker Commands to Learn</h1>
@@ -662,68 +789,6 @@ Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
 
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/security/2015/02/23/security-notes-regex.html" title="Security Notes: RegEx"><img src="/images/abstract-2.jpg" alt="Security Notes: RegEx"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-02-23T22:42:21-07:00"><a href="/security/2015/02/23/security-notes-regex.html">February 23, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~2 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/security/2015/02/23/security-notes-regex.html" rel="bookmark" title="Security Notes: RegEx" itemprop="url">Security Notes: RegEx</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <a name="Denial-of-Service.Regex.Vulnerability"></a>
-<h1>Denial-of-Service Regex Vulnerability</h1>
-
-<p>One of the most common, and yet hard-to-spot vulnerabilities I encounter relate to regular expressions.
-Either poorly written or poorly implemented.</p>
-
-<a name="Warning.Signs"></a>
-<h2>Warning Signs</h2>
-
-<ol>
-<li>You have multiple capture groups</li>
-<li>Global matching</li>
-<li>Expression is used with un-checked user input</li>
-</ol>
-
-
-<a name="Mitigation...Resolution"></a>
-<h2>Mitigation / Resolution</h2>
-
-<ol>
-<li>RegEx is hard
-
-<ol>
-<li> For example, here is how the really smart folks at <a href="https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository">OWASP recommend handling IP validation</a>: <code>^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</code></li>
-<li> That&rsquo;s longer than a tweet, for a 4-byte IP Address!!!</li>
-</ol>
-</li>
-<li>Make sure user input isn&rsquo;t unduly long, when I know input data is reliably less than 40 chars, I&rsquo;ll make sure I prevent anything over 64 - otherwise, an attacker could overwhelm my system with a flood of 4Kb requests.</li>
-<li>This affects almost every language and platform .NET/Node/Python/PERL/Java</li>
-</ol>
-
-
-<a name="Reference"></a>
-<h2>Reference</h2>
-
-<p><a href="https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;utm_medium=email">Regular Expression DoS and Node.js</a></p>
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
 
 <div class="pagination">
   
@@ -744,11 +809,19 @@ Either poorly written or poorly implemented.</p>
         
       </li>
     
+      <li>
+        
+          <a href="/page3">3</a>
+        
+      </li>
+    
   </ul>
   
-    Next
+    <a href="/page3" class="btn">Next</a>
   
 </div><!-- /.pagination -->
+
+
 </div><!-- /#main -->
 
 <div class="footer-wrapper">

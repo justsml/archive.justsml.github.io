@@ -1,20 +1,50 @@
 ---
 layout: post
-title:  "AngularJS v2.0 and the impending schism"
-date:   2015-06-12 09:21:12
-modified:   2015-06-14 01:00:01
-categories: languages
-tags: [programming, languages, lua, haskell, scala, rust, smalltalk, go, javascript, python]
+title:  "AngularJS v2.0 and the Impending Schism"
+date:   2015-08-05
+modified:   2015-09-01
+categories: angularjs
+tags: [programming, angularjs, javascript, python]
 image:
   feature: abstract-11.jpg
   credit:
 ---
 
-### _Work-in-progress (updated August 2015)_
+I think we are witnessing the Python 2->3 'Conversion' all over again.
+AngularJS v2.0 introduces too many changes. **Not least of which is TypeScript**, which is a big ask amidst the finalization of JS's latest version: ES6.
 
-# AngularJS v2.0 and the impending schism
+> Let me say clearly: I love TypeScript. I seccretly wish the TC-39 meetings had produced it... They didn't.
+> However, They came up with another (totally different), also-awesome spec...
 
-## Python 2->3 Conversion: The Sequel
+While TypeScript compiles to JavaScript, it doesn't mean you blindly copy & paste 'compiled' TypeScript. It effectively becomes required learning, as to understand annotated AngularJS 2.0 TypeScript.
 
-While I'm pretty sure this isn't going to be *[apple-maps-bad](Apple Maps Launch Bad)*
+Now, newbies must climb 'Mount TypeScript' before they can even start assembling an Angular app (with some level of understanding).
+
+<div class="anigif end">
+![not_a_fan][not_a_fan]
+</div>
+
+
+Oh well, I'll add it to the Newbie training list: somewhere between `Basic Shell Usage` and `Gulp or Grunt? Godsend+Misery!`
+
+<p>
+Anyway, I hope this works out...
+</p>
+
+<div class="anigif top end">
+![drinking][drinking]
+</div>
+
+
+[schema_refactor]: https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif
+[not_a_fan]: https://res.cloudinary.com/ddd/image/upload/timeout-expired.gif
+[teamwork]: https://res.cloudinary.com/ddd/image/upload/teamwork__tumblr_n2df80cPZa1s373hwo1_400_ghv4xn.gif
+[fuck_this]: https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif
+[new_feature]: https://res.cloudinary.com/ddd/image/upload/simba-toss-error.gif
+[drinking]: http://res.cloudinary.com/ddd/image/upload/v1442175801/system-maint-anon.gif
+[cat_outfit]: http://res.cloudinary.com/ddd/image/upload/v1441143858/cat-bee-fail.gif
+[cat_loops]: http://res.cloudinary.com/ddd/image/upload/v1441143869/cat-loops.gif
+[cat_bowl]: http://res.cloudinary.com/ddd/image/upload/v1441143883/kitten_bowl.gif
+[cat_wtf]: http://res.cloudinary.com/ddd/image/upload/v1441143878/cat-wtf.gif
+[endless_loop]: http://res.cloudinary.com/ddd/image/upload/v1441143881/endless-loop.gif
 

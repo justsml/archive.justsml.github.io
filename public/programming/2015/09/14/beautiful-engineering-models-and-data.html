@@ -5,17 +5,17 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Graphs and Relationships &#8211; www.DanLevy.net</title>
+<title>Beautiful Engineering: Models & Data &#8211; www.DanLevy.net</title>
 <meta name="description" content="Devout Developer">
-<meta name="keywords" content="programming, languages, lua, haskell, scala, rust, smalltalk, go, javascript, python">
+<meta name="keywords" content="programming, basics, class design, field naming, source code, organization">
 
 
 	<!-- Twitter Cards -->
 	
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:image" content="/images/abstract-11.jpg">
+		<meta name="twitter:image" content="/images/abstract-5.jpg">
 		
-	<meta name="twitter:title" content="Graphs and Relationships">
+	<meta name="twitter:title" content="Beautiful Engineering: Models & Data">
 	<meta name="twitter:description" content="Devout Developer">
 	<meta name="twitter:creator" content="@justsml">
 
@@ -43,16 +43,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Graphs and Relationships">
+<meta property="og:title" content="Beautiful Engineering: Models & Data">
 <meta property="og:description" content="Devout Developer">
-<meta property="og:url" content="/languages/2015/06/12/graphs-and-relationships.html">
+<meta property="og:url" content="/programming/2015/09/14/beautiful-engineering-models-and-data.html">
 <meta property="og:site_name" content="www.DanLevy.net">
 
 <meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
 <meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
 
 
-<link rel="canonical" href="/languages/2015/06/12/graphs-and-relationships.html">
+<link rel="canonical" href="/programming/2015/09/14/beautiful-engineering-models-and-data.html">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
 
 <!-- http://t.co/dKP3o1e -->
@@ -62,15 +62,17 @@
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/custom.css">
+
 <!-- Webfonts -->
-<link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+<link async defer href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
 
 <meta http-equiv="cleartype" content="on">
 
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
-
+<script async defer src="/assets/js/hacks.js"></script>
 
 <!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
 <script async defer src="/assets/js/vendor/prism.js"></script>
@@ -166,7 +168,7 @@
 					<h4>Dan Levy</h4>
 					<p>Devout Programmer</p>
 				</li>
-				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
+				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
@@ -192,13 +194,17 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="/posts/">Posts</a>
+			<a href="#">Articles</a>
+			<ul class="dl-submenu article-list">
+				<li><a href="/posts/">All Articles</a></li>
+				
+			</ul>
 		</li>
 		
 	    
 	        
 	    
-	    <li><a href="/cv/resume-full.html" >Download Resume</a></li>
+	    <li><a href="/cv/resume-dan-levy-2015-07.pdf" >Download Resume</a></li>
 	  
 	    
 	        
@@ -213,7 +219,7 @@
 <div class="entry-header">
   
   <div class="entry-image">
-    <img src="/images/abstract-11.jpg" alt="Graphs and Relationships">
+    <img src="/images/abstract-5.jpg" alt="Beautiful Engineering: Models & Data">
   </div><!-- /.entry-image -->
 </div><!-- /.entry-header -->
 
@@ -223,53 +229,148 @@
     <header class="header-title">
       <div class="header-title-wrap">
         
-          <h1 class="entry-title"><a href="/languages/2015/06/12/graphs-and-relationships.html" rel="bookmark" title="Graphs and Relationships">Graphs and Relationships</a></h1>
+          <h1 class="entry-title"><a href="/programming/2015/09/14/beautiful-engineering-models-and-data.html" rel="bookmark" title="Beautiful Engineering: Models & Data">Beautiful Engineering: Models & Data</a></h1>
         
-        <h2><span class="entry-date date published"><time datetime="2015-06-12T03:21:12-06:00">June 12, 2015</time></span></h2>
+        <h2><span class="entry-date date published"><time datetime="2015-09-14T00:00:00-06:00">September 14, 2015</time></span></h2>
         
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~1 minute
+          Reading time ~10 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
     </header>
     <div class="entry-content">
-      <div id="toc-container">
-   <table class="toc" id="toc">
-      <tbody>
-         <tr>
-            <td>
-               <div id="toctitle">
-                  <h2>Contents</h2>
-               </div>
-               <ul>
-                  <li class="toc_level-1 toc_section-1">
-                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Programming Languages Notes</span></a>
-                  </li>
-               </ul>
-            </td>
-         </tr>
-      </tbody>
-   </table>
-</div><a name="Programming.Languages.Notes" id="Programming.Languages.Notes"></a>
-<h1 id="tocAnchor-1-1">Programming Languages Notes</h1>
+      <a name="L.em.Work-in-progress..updated.Sep..2015...em."></a>
+<h4><em>Work-in-progress (updated Sep. 2015)</em></h4>
 
-<a name="L.em.Work-in-progress..updated.August.2015...em." id="L.em.Work-in-progress..updated.August.2015...em."></a>
-<h3>
-   <em>Work-in-progress (updated August 2015)</em>
-</h3>
+<a name="The.issue.at.hand.is.deceptively.simple..amp..subtle:..strong.Naming..strong."></a>
+<h3>The issue at hand is deceptively simple &amp; subtle: <strong>Naming</strong></h3>
+
+<blockquote><p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
+
+<p>While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don&rsquo;t need to read this if the following makes sense: <code>No-Sql denormalization strategy</code>, or <code>Boyce Codd Normal Forms</code></p>
+
+<p>Recommended reading includes:</p>
+
+<ol>
+<li>Book: Code Complete</li>
+<li><a href="http://phlonx.com/resources/nf3/">http://phlonx.com/resources/nf3/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Database_normalization">https://en.wikipedia.org/wiki/Database_normalization</a></li>
+</ol>
+</blockquote>
+
+<a name="The.Problem.-.by.Example"></a>
+<h2>The Problem - by Example</h2>
+
+<p>Have you ever designed a <code>data model</code> (in code, Sql, or excel worksheets)?
+Does the following look familiar?</p>
+
+<pre><code>*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+</code></pre>
+
+<p>If this is familiar to you, I&rsquo;ll bet you:</p>
+
+<ol>
+<li>Feel any change to your app will necessitate hours of arduous debugging.</li>
+<li>Fear ANY Changing Requirements
+<img src="https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif" alt="schema refactor" /></li>
+</ol>
+
+
+<a name="The.Cost.of.Bad..Naming..Habits"></a>
+<h2>The Cost of Bad (Naming) Habits</h2>
+
+<p>Let&rsquo;s examine some of the subtle issues (probably familiar):</p>
+
+<hr />
+
+<p>Why is naming a field <code>agentEmailPrimary</code> the worst?
+For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
+
+<ol>
+<li>&lsquo;Locked&rsquo; into highly specific name, means <code>agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
+
+<ul>
+<li>Data not syncing between tables (not obvious if <code>user.email</code> needs to propagate to <code>agent.agentEmail</code> or vice-versa - nevermind complexity of manually implementing where &amp; how to enforce this &lsquo;logic&rsquo; &hellip;)</li>
+<li>Validation rules/logic are likely duplicated &amp; inconsitent.</li>
+<li>Increasingly, your project will resemble a shaky Jenga tower.</li>
+<li>Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes</li>
+</ul>
+</li>
+</ol>
+
+
+<p>I know, you probably feel something like&hellip;</p>
+
+<p><img src="https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif" alt="fuck this" /></p>
+
+<a name="A.Solution"></a>
+<h2>A Solution</h2>
+
+<pre><code>// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+</code></pre>
+
+<p>I removed the <code>Agent</code> table, as it didn&rsquo;t contain fields which were uniquely related to Agents.</p>
+
+<p>All changes were made with these general ideas in mind:</p>
+
+<ol>
+<li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
+<li> Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong></li>
+<li> Delete redundant data collection (e.g. remove <code>ActivityLogs</code> table if replaced by Google Analytics)</li>
+<li>Try keep <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
+<li> There is <strong>no such thing</strong> as <code>Agent.agentEmail</code> or <code>Agent.agentPhonePrimary</code>. Period.</li>
+<li> By using Highly Specific Names, you cast-in-stone a specific level of <code>code-reusability</code> and <code>durability</code>, well, specifically <strong>ZERO %</strong>.</li>
+<li> Don&rsquo;t think you are doing yourself any favors with crap like this <code>User.profileSummaryEmail</code> (where &lsquo;profile&rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code>Profiles</code> which includes <code>Profiles.email</code>.</li>
+</ol>
+
+
+<!-- ![schema refactor][schema_refactor] -->
+
+
+
 
       <footer class="entry-meta">
-        <span class="entry-tags"><a href="/tags/#programming" title="Pages tagged programming" class="tag"><span class="term">programming</span></a><a href="/tags/#languages" title="Pages tagged languages" class="tag"><span class="term">languages</span></a><a href="/tags/#lua" title="Pages tagged lua" class="tag"><span class="term">lua</span></a><a href="/tags/#haskell" title="Pages tagged haskell" class="tag"><span class="term">haskell</span></a><a href="/tags/#scala" title="Pages tagged scala" class="tag"><span class="term">scala</span></a><a href="/tags/#rust" title="Pages tagged rust" class="tag"><span class="term">rust</span></a><a href="/tags/#smalltalk" title="Pages tagged smalltalk" class="tag"><span class="term">smalltalk</span></a><a href="/tags/#go" title="Pages tagged go" class="tag"><span class="term">go</span></a><a href="/tags/#javascript" title="Pages tagged javascript" class="tag"><span class="term">javascript</span></a><a href="/tags/#python" title="Pages tagged python" class="tag"><span class="term">python</span></a></span>
-        <span>Updated on <span class="entry-date date updated"><time datetime="2015-06-13 19:00:01 -0600">June 13, 2015</time></span></span>
+        <span class="entry-tags"><a href="/tags/#programming" title="Pages tagged programming" class="tag"><span class="term">programming</span></a><a href="/tags/#basics" title="Pages tagged basics" class="tag"><span class="term">basics</span></a><a href="/tags/#class design" title="Pages tagged class design" class="tag"><span class="term">class design</span></a><a href="/tags/#field naming" title="Pages tagged field naming" class="tag"><span class="term">field naming</span></a><a href="/tags/#source code" title="Pages tagged source code" class="tag"><span class="term">source code</span></a><a href="/tags/#organization" title="Pages tagged organization" class="tag"><span class="term">organization</span></a></span>
+        <span>Updated on <span class="entry-date date updated"><time datetime="2015-09-26">September 26, 2015</time></span></span>
         <span class="author vcard"><span class="fn">Dan Levy</span></span>
         <div class="social-share">
   <ul class="socialcount socialcount-small inline-list">
-    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/languages/2015/06/12/graphs-and-relationships.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
-    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/languages/2015/06/12/graphs-and-relationships.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
-    <li class="googleplus"><a href="https://plus.google.com/share?url=/languages/2015/06/12/graphs-and-relationships.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
+    <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=/programming/2015/09/14/beautiful-engineering-models-and-data.html" title="Share on Facebook"><span class="count"><i class="fa fa-facebook-square"></i> Like</span></a></li>
+    <li class="twitter"><a href="https://twitter.com/intent/tweet?text=/programming/2015/09/14/beautiful-engineering-models-and-data.html" title="Share on Twitter"><span class="count"><i class="fa fa-twitter-square"></i> Tweet</span></a></li>
+    <li class="googleplus"><a href="https://plus.google.com/share?url=/programming/2015/09/14/beautiful-engineering-models-and-data.html" title="Share on Google Plus"><span class="count"><i class="fa fa-google-plus-square"></i> +1</span></a></li>
   </ul>
 </div><!-- /.social-share -->
       </footer>
@@ -278,23 +379,23 @@
     <div class="read-more">
   
     <div class="read-more-header">
-      <a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" class="read-more-btn">Read More</a>
+      <a href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h3>
-      <p># Programming Languages Notes### _Work-in-progress (updated June 15th 2015)_### I'm sure my Miscellaneous Observations have been made bef...&hellip; <a href="/languages/2015/06/12/polyglot-redux.html">Continue reading</a></p>
+      <h3><a href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html" title="AngularJS v2.0 and the Impending Schism">AngularJS v2.0 and the Impending Schism</a></h3>
+      <p>I think we are witnessing the Python 2->3 &lsquo;Conversion&rsquo; all over again.AngularJS v2.0 introduces too many changes. Not least o...&hellip; <a href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
-        <span>Published on June 10, 2015</span>
+        <h4><a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux">Polyglot Redux</a></h4>
+        <span>Published on June 12, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup">Docker Firewall Setup</a></h4>
-        <span>Published on June 06, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->

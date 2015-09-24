@@ -62,15 +62,17 @@
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/custom.css">
+
 <!-- Webfonts -->
-<link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+<link async defer href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
 
 <meta http-equiv="cleartype" content="on">
 
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
-
+<script async defer src="/assets/js/hacks.js"></script>
 
 <!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
 <script async defer src="/assets/js/vendor/prism.js"></script>
@@ -166,7 +168,7 @@
 					<h4>Dan Levy</h4>
 					<p>Devout Programmer</p>
 				</li>
-				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
+				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
@@ -192,13 +194,17 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="/posts/">Posts</a>
+			<a href="#">Articles</a>
+			<ul class="dl-submenu article-list">
+				<li><a href="/posts/">All Articles</a></li>
+				
+			</ul>
 		</li>
 		
 	    
 	        
 	    
-	    <li><a href="/cv/resume-full.html" >Download Resume</a></li>
+	    <li><a href="/cv/resume-dan-levy-2015-07.pdf" >Download Resume</a></li>
 	  
 	    
 	        
@@ -230,7 +236,7 @@
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~12 minutes
+          Reading time ~18 minutes
         </p><!-- /.entry-reading-time -->
         
       </div><!-- /.header-title-wrap -->
@@ -284,9 +290,70 @@
 <a name="JavaScript" id="JavaScript"></a>
 <h2 id="tocAnchor-1-1-1">JavaScript</h2>
 
-<p>For years I foolishly had nothing but scorn, derision and hatred for what is now, <strong>easily my favorite language</strong>.</p>
+<p>My One True Love, supremely versatile &amp; ubiquitous - the all-around, amazingly-powerful champ!
+It’s the #1 Most Active/Popular Language on GitHub.com for <em>years</em> running.</p>
 
-<p>ES5 may be old, and ES6 is brand new, but it’s officially a real standard now!</p>
+<p>I hate to admit it, but for years I foolishly had nothing but scorn and derision for what is now, <strong>my favorite language</strong>.</p>
+
+<p><strong>ES6</strong> has only increased my <del>addiction</del> love. While pure ES5 will always hold a special place in my heart, each time I use some <strong>ES6</strong>, I feel that radioactive spider-bite…</p>
+
+<p>There were 4 factors which pushed me into the <strong>ES6 Camp</strong>:</p>
+
+<ol>
+<li>It’s fun. Seriously. There are tangible gains in beauty, clarity &amp; productivity.</li>
+<li>Subjective claims, you say? Let me show you a bit of ES6:</li>
+<li><code>let expired = users.filter(u =&gt; Date.now() &gt; u.trialDate)</code></li>
+<li>Now you don’t have to pretend you know how to use <code>Object.create</code> or <code>Object.defineProperty</code></li>
+<li>See examples below</li>
+<li>As of July 2015,  ES6 is an officially finalized standard now!</li>
+<li>Support is Effectively 100%*! … Ok, BabelJS is needed to patch your code so it’s ES5 compatible. Historically JS transpilers have been frowned upon. However, as of late (2014-15) things have changed as BabelJS has become a key enabler/driver of language advancement. Tons of companies including Microsoft &amp; Facebook use it on some of the largest sites around.</li>
+<li><a href="https://nodejs.org/en/blog/release/v4.0.0/">Latest versions of Node</a> include the same V8 JS engine as Chrome v45, it’s v4.5</li>
+</ol>
+
+
+<a name="Examples" id="Examples"></a>
+<h3>Examples</h3>
+
+<pre>
+   <code class="js">// /services/users.js
+class Users {
+  constructor(data) {
+    this.users = data || [];
+  }
+  expired() {
+    return this.users
+      .filter(u =&gt; Date.now() &gt; u.trialDate)
+  }
+}
+</code>
+</pre>
+
+<ul>
+<li>No more tedious code to ‘extract’ and ‘check’ fields passed to a function. Cut to example <code>add()</code>:</li>
+</ul>
+
+
+<pre>
+   <code class="js">// /services/users.js
+class Users {
+  constructor(data) { this.users = data || []; }
+  add({name, email, password}) {
+    // Store pwd hash, We only need to define 1 explicit `var/let` - the other vars are 'defined' with the `{fields}` wizardry above ^^^
+    let hash = getSha256(password);
+    return http.post('/users', {
+      'name': name,
+      'email': email,
+      'passwordHash': hash
+    })
+    .then(usr =&gt; this.users.push(usr)); // append user upon service response
+  }
+}
+</code>
+</pre>
+
+<p>I know. It feels like this:</p>
+
+<p>It gets better: auto <code>this</code> binding more-sane inheritance</p>
 
 <a name="io.js" id="io.js"></a>
 <h4>
@@ -310,30 +377,25 @@
 <li><p><strong>Pros</strong></p>
 
 <ul>
-<li>Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
-<li>In fact I’d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
+<li>Imagine if there was a language as fast as C and as powerful as Python/C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
+<li>In fact I’d guess Rust is roughly as complex as the ES6 spec.</li>
+<li>It includes a ton of extras:
 
 <ol>
-<li> Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
-<li> Including <strong><strong>all the best practices</strong></strong> in C you would probably screw up on, I <del>eventually</del> always do.
-
-<ul>
+<li>Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
+<li>Including <strong><strong>all the best practices</strong></strong> in C you would probably screw up on, I <del>eventually</del> always do.</li>
 <li>Automatically you get:</li>
 <li>Auto Memory management (no need for a slow garbage collector!)</li>
 <li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
 <li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
 <li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can’t overlook a code-path)</li>
-</ul>
-</li>
 </ol>
 </li>
 <li>Oh yeah, it throws in true language extensibility with a sensible ‘macro’ feature.
 
 <ul>
 <li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.</li>
-<li> Too good to be true? Nah, It gets better:
-
-<ul>
+<li>Too good to be true? Nah, It gets better:</li>
 <li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google’s hot-newish language)
 
 <ul>
@@ -345,8 +407,6 @@
 </ul>
 </li>
 <li>I had to triple check the numbers too.</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
@@ -386,13 +446,9 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 </code>
 </pre>
 
-<pre>
-   <code>- Tuples and arbitrary sets are so easy
-</code>
-</pre>
-
 <ul>
-<li><strong>Cons</strong>
+<li><p>Tuples and arbitrary sets are so easy</p></li>
+<li><p><strong>Cons</strong></p>
 
 <ul>
 <li>Annoyingly, Python 2.x and 3.x are incompatible. The Great Schism continues, so many years later.</li>
@@ -414,9 +470,16 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 </li>
 <li><strong>Cons</strong>
 
-<a name="L..-.Syntax..amp..Patterns.can.be.hard.to.get.used.to." id="L..-.Syntax..amp..Patterns.can.be.hard.to.get.used.to."></a>
-<h2>  - Syntax &amp; Patterns can be hard to get used to.</h2></li>
+<ul>
+<li>Syntax &amp; Patterns can be hard to get used to.</li>
 </ul>
+</li>
+</ul>
+
+
+<div align="center" class="anigif">
+![endless_loop][endless_loop]
+</div>
 
 
 <a name="SmallTalk-80" id="SmallTalk-80"></a>
@@ -456,23 +519,23 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
     <div class="read-more">
   
     <div class="read-more-header">
-      <a href="/languages/2015/06/12/graphs-and-relationships.html" class="read-more-btn">Read More</a>
+      <a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" class="read-more-btn">Read More</a>
     </div><!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships">Graphs and Relationships</a></h3>
-      <p>Programming Languages NotesWork-in-progress (updated August 2015)&hellip; <a href="/languages/2015/06/12/graphs-and-relationships.html">Continue reading</a></p>
+      <h3><a href="/programming/2015/09/14/beautiful-engineering-models-and-data.html" title="Beautiful Engineering: Models & Data">Beautiful Engineering: Models & Data</a></h3>
+      <p>#### _Work-in-progress (updated Sep. 2015)_### The issue at hand is deceptively simple & subtle: **Naming**> I want to avoid the super-fa...&hellip; <a href="/programming/2015/09/14/beautiful-engineering-models-and-data.html">Continue reading</a></p>
     </div><!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
-        <span>Published on June 10, 2015</span>
+        <h4><a href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html" title="AngularJS v2.0 and the Impending Schism">AngularJS v2.0 and the Impending Schism</a></h4>
+        <span>Published on August 05, 2015</span>
       </div><!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/docker/2015/06/06/docker-firewall-setup.html" title="Docker Firewall Setup">Docker Firewall Setup</a></h4>
-        <span>Published on June 06, 2015</span>
+        <h4><a href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" title="Docker rocks. Boot2docker just sucks.">Docker rocks. Boot2docker just sucks.</a></h4>
+        <span>Published on June 10, 2015</span>
       </div><!-- /.list-item -->
     
   </div><!-- /.read-more-list -->

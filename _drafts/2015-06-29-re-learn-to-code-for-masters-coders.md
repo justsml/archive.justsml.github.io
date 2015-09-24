@@ -35,7 +35,7 @@ Apps featuring little heirarchy (2 or 3 folder depth should cover all projects, 
  are flat, composed of single-purpose functions which work in isolation, other than their option parameters
 
 
-1. Make EVERYTHING [Immutable][**Immutable**]: 'Variables', Functions, Classes + their members, Config.
+1. Make EVERYTHING [Immutable][**Immutable**]: 'Variables', Functions, Classes & Config.
   1. The point is to get as close as possible to this as possible.
   1. This is not some arbitrary ~~constraint~~ *challenge* I endure 'ya know, for fun-sies'
     1. You will benefit from simpler implementations of complex business logic:

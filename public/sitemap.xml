@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/languages/2015/06/12/polyglot-redux.html</loc>
-    <lastmod>2015-06-12T03:21:12-06:00</lastmod>
+    <loc>/programming/2015/09/14/beautiful-engineering-models-and-data.html</loc>
+    <lastmod>2015-09-14T00:00:00-06:00</lastmod>
   </url>
   <url>
-    <loc>/languages/2015/06/12/graphs-and-relationships.html</loc>
+    <loc>/angularjs/2015/08/05/angularjs-v2-impending-schism.html</loc>
+    <lastmod>2015-08-05T00:00:00-06:00</lastmod>
+  </url>
+  <url>
+    <loc>/languages/2015/06/12/polyglot-redux.html</loc>
     <lastmod>2015-06-12T03:21:12-06:00</lastmod>
   </url>
   <url>
@@ -44,16 +48,16 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/</loc>
-  </url>
-  <url>
     <loc>/posts/</loc>
   </url>
   <url>
-    <loc>/about/</loc>
+    <loc>/</loc>
   </url>
   <url>
-    <loc>/theme-setup/</loc>
+    <loc>/tags/</loc>
+  </url>
+  <url>
+    <loc>/about/</loc>
   </url>
   <url>
     <loc>/cv/resume-full.html</loc>

@@ -4,13 +4,200 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-08-10T00:49:52-06:00</updated>
+<updated>2015-09-24T13:31:35-06:00</updated>
 <id>/</id>
 <author>
   <name>Dan Levy</name>
   <uri>/</uri>
   <email>Dan@DanLevy.net</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Beautiful Engineering: Models & Data]]></title>
+ <link rel="alternate" type="text/html" href="/programming/2015/09/14/beautiful-engineering-models-and-data.html" />
+  <id>/programming/2015/09/14/beautiful-engineering-models-and-data</id>
+  <updated>2015-09-26T00:00:00-00:00</updated>
+  <published>2015-09-14T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;a name=&quot;L.em.Work-in-progress..updated.Sep..2015...em.&quot;&gt;&lt;/a&gt;
+&lt;h4&gt;&lt;em&gt;Work-in-progress (updated Sep. 2015)&lt;/em&gt;&lt;/h4&gt;
+
+&lt;a name=&quot;The.issue.at.hand.is.deceptively.simple..amp..subtle:..strong.Naming..strong.&quot;&gt;&lt;/a&gt;
+&lt;h3&gt;The issue at hand is deceptively simple &amp;amp; subtle: &lt;strong&gt;Naming&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;blockquote&gt;&lt;p&gt;I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.&lt;/p&gt;
+
+&lt;p&gt;While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don&amp;rsquo;t need to read this if the following makes sense: &lt;code&gt;No-Sql denormalization strategy&lt;/code&gt;, or &lt;code&gt;Boyce Codd Normal Forms&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Recommended reading includes:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Book: Code Complete&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://phlonx.com/resources/nf3/&quot;&gt;http://phlonx.com/resources/nf3/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Database_normalization&quot;&gt;https://en.wikipedia.org/wiki/Database_normalization&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;a name=&quot;The.Problem.-.by.Example&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;The Problem - by Example&lt;/h2&gt;
+
+&lt;p&gt;Have you ever designed a &lt;code&gt;data model&lt;/code&gt; (in code, Sql, or excel worksheets)?
+Does the following look familiar?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;*** anti-pattern - don&#39;t copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - &#39;Pointer&#39; to User table ^^^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If this is familiar to you, I&amp;rsquo;ll bet you:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Feel any change to your app will necessitate hours of arduous debugging.&lt;/li&gt;
+&lt;li&gt;Fear ANY Changing Requirements
+&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif&quot; alt=&quot;schema refactor&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;a name=&quot;The.Cost.of.Bad..Naming..Habits&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;The Cost of Bad (Naming) Habits&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s examine some of the subtle issues (probably familiar):&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Why is naming a field &lt;code&gt;agentEmailPrimary&lt;/code&gt; the worst?
+For starters, you are &lt;strong&gt;not&lt;/strong&gt; creating an entirely new object unto the universe. Over-specificity has some traps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&amp;lsquo;Locked&amp;rsquo; into highly specific name, means &lt;code&gt;agentEmailPrimary&lt;/code&gt; probably make your views and related code &lt;strong&gt;0% reusable&lt;/strong&gt;, and featuring annoyingly recurring bugs like:
+
+&lt;ul&gt;
+&lt;li&gt;Data not syncing between tables (not obvious if &lt;code&gt;user.email&lt;/code&gt; needs to propagate to &lt;code&gt;agent.agentEmail&lt;/code&gt; or vice-versa - nevermind complexity of manually implementing where &amp;amp; how to enforce this &amp;lsquo;logic&amp;rsquo; &amp;hellip;)&lt;/li&gt;
+&lt;li&gt;Validation rules/logic are likely duplicated &amp;amp; inconsitent.&lt;/li&gt;
+&lt;li&gt;Increasingly, your project will resemble a shaky Jenga tower.&lt;/li&gt;
+&lt;li&gt;Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;I know, you probably feel something like&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif&quot; alt=&quot;fuck this&quot; /&gt;&lt;/p&gt;
+
+&lt;a name=&quot;A.Solution&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;A Solution&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;// Dan&#39;s Recommended Schema Consolidation:
+
+User
+  - id
+  - role: [&#39;agent&#39;, &#39;lead&#39;, &#39;admin&#39;]
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I removed the &lt;code&gt;Agent&lt;/code&gt; table, as it didn&amp;rsquo;t contain fields which were uniquely related to Agents.&lt;/p&gt;
+
+&lt;p&gt;All changes were made with these general ideas in mind:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.&lt;/li&gt;
+&lt;li&gt; Try merge related tables. &lt;strong&gt;Important if you are coming from a SQL background to No-SQL&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt; Delete redundant data collection (e.g. remove &lt;code&gt;ActivityLogs&lt;/code&gt; table if replaced by Google Analytics)&lt;/li&gt;
+&lt;li&gt;Try keep &lt;strong&gt;all field names&lt;/strong&gt; to a &lt;strong&gt;single word/noun/pro-noun&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt; There is &lt;strong&gt;no such thing&lt;/strong&gt; as &lt;code&gt;Agent.agentEmail&lt;/code&gt; or &lt;code&gt;Agent.agentPhonePrimary&lt;/code&gt;. Period.&lt;/li&gt;
+&lt;li&gt; By using Highly Specific Names, you cast-in-stone a specific level of &lt;code&gt;code-reusability&lt;/code&gt; and &lt;code&gt;durability&lt;/code&gt;, well, specifically &lt;strong&gt;ZERO %&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt; Don&amp;rsquo;t think you are doing yourself any favors with crap like this &lt;code&gt;User.profileSummaryEmail&lt;/code&gt; (where &amp;lsquo;profile&amp;rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say &lt;code&gt;Profiles&lt;/code&gt; which includes &lt;code&gt;Profiles.email&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;!-- ![schema refactor][schema_refactor] --&gt;
+
+
+
+
+    &lt;p&gt;&lt;a href=&quot;/programming/2015/09/14/beautiful-engineering-models-and-data.html&quot;&gt;Beautiful Engineering: Models &amp; Data&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on September 14, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[AngularJS v2.0 and the Impending Schism]]></title>
+ <link rel="alternate" type="text/html" href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html" />
+  <id>/angularjs/2015/08/05/angularjs-v2-impending-schism</id>
+  <updated>2015-09-01T00:00:00-00:00</updated>
+  <published>2015-08-05T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I think we are witnessing the Python 2-&gt;3 &amp;lsquo;Conversion&amp;rsquo; all over again.
+AngularJS v2.0 introduces too many changes. &lt;strong&gt;Not least of which is TypeScript&lt;/strong&gt;, which is a big ask amidst the finalization of JS&amp;rsquo;s latest version: ES6.&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Let me say clearly: I love TypeScript. I seccretly wish the TC-39 meetings had produced it&amp;hellip; They didn&amp;rsquo;t.
+However, They came up with another (totally different), also-awesome spec&amp;hellip;&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;While TypeScript compiles to JavaScript, it doesn&amp;rsquo;t mean you blindly copy &amp;amp; paste &amp;lsquo;compiled&amp;rsquo; TypeScript. It effectively becomes required learning, as to understand annotated AngularJS 2.0 TypeScript.&lt;/p&gt;
+
+&lt;p&gt;Now, newbies must climb &amp;lsquo;Mount TypeScript&amp;rsquo; before they can even start assembling an Angular app (with some level of understanding).&lt;/p&gt;
+
+&lt;div class=&quot;anigif end&quot;&gt;
+![not_a_fan][not_a_fan]
+&lt;/div&gt;
+
+
+&lt;p&gt;Oh well, I&amp;rsquo;ll add it to the Newbie training list: somewhere between &lt;code&gt;Basic Shell Usage&lt;/code&gt; and &lt;code&gt;Gulp or Grunt? Godsend+Misery!&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;
+Anyway, I hope this works out...
+&lt;/p&gt;
+
+
+
+
+&lt;div class=&quot;anigif top end&quot;&gt;
+![drinking][drinking]
+&lt;/div&gt;
+
+
+
+
+    &lt;p&gt;&lt;a href=&quot;/angularjs/2015/08/05/angularjs-v2-impending-schism.html&quot;&gt;AngularJS v2.0 and the Impending Schism&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on August 05, 2015.&lt;/p&gt;
+  </content>
+</entry>
 
 
 <entry>
@@ -38,9 +225,66 @@
 &lt;a name=&quot;JavaScript&quot;&gt;&lt;/a&gt;
 &lt;h2&gt;JavaScript&lt;/h2&gt;
 
-&lt;p&gt;For years I foolishly had nothing but scorn, derision and hatred for what is now, &lt;strong&gt;easily my favorite language&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;My One True Love, supremely versatile &amp;amp; ubiquitous - the all-around, amazingly-powerful champ!
+It&amp;rsquo;s the #1 Most Active/Popular Language on GitHub.com for &lt;em&gt;years&lt;/em&gt; running.&lt;/p&gt;
 
-&lt;p&gt;ES5 may be old, and ES6 is brand new, but it&amp;rsquo;s officially a real standard now!&lt;/p&gt;
+&lt;p&gt;I hate to admit it, but for years I foolishly had nothing but scorn and derision for what is now, &lt;strong&gt;my favorite language&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ES6&lt;/strong&gt; has only increased my &lt;del&gt;addiction&lt;/del&gt; love. While pure ES5 will always hold a special place in my heart, each time I use some &lt;strong&gt;ES6&lt;/strong&gt;, I feel that radioactive spider-bite&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;There were 4 factors which pushed me into the &lt;strong&gt;ES6 Camp&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;It&amp;rsquo;s fun. Seriously. There are tangible gains in beauty, clarity &amp;amp; productivity.&lt;/li&gt;
+&lt;li&gt;Subjective claims, you say? Let me show you a bit of ES6:&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;let expired = users.filter(u =&amp;gt; Date.now() &amp;gt; u.trialDate)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Now you don&amp;rsquo;t have to pretend you know how to use &lt;code&gt;Object.create&lt;/code&gt; or &lt;code&gt;Object.defineProperty&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;See examples below&lt;/li&gt;
+&lt;li&gt;As of July 2015,  ES6 is an officially finalized standard now!&lt;/li&gt;
+&lt;li&gt;Support is Effectively 100%*! &amp;hellip; Ok, BabelJS is needed to patch your code so it&amp;rsquo;s ES5 compatible. Historically JS transpilers have been frowned upon. However, as of late (2014-15) things have changed as BabelJS has become a key enabler/driver of language advancement. Tons of companies including Microsoft &amp;amp; Facebook use it on some of the largest sites around.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://nodejs.org/en/blog/release/v4.0.0/&quot;&gt;Latest versions of Node&lt;/a&gt; include the same V8 JS engine as Chrome v45, it&amp;rsquo;s v4.5&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;a name=&quot;Examples&quot;&gt;&lt;/a&gt;
+&lt;h3&gt;Examples&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;// /services/users.js
+class Users {
+  constructor(data) {
+    this.users = data || [];
+  }
+  expired() {
+    return this.users
+      .filter(u =&amp;gt; Date.now() &amp;gt; u.trialDate)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;No more tedious code to &amp;lsquo;extract&amp;rsquo; and &amp;lsquo;check&amp;rsquo; fields passed to a function. Cut to example &lt;code&gt;add()&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;// /services/users.js
+class Users {
+  constructor(data) { this.users = data || []; }
+  add({name, email, password}) {
+    // Store pwd hash, We only need to define 1 explicit `var/let` - the other vars are &#39;defined&#39; with the `{fields}` wizardry above ^^^
+    let hash = getSha256(password);
+    return http.post(&#39;/users&#39;, {
+      &#39;name&#39;: name,
+      &#39;email&#39;: email,
+      &#39;passwordHash&#39;: hash
+    })
+    .then(usr =&amp;gt; this.users.push(usr)); // append user upon service response
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I know. It feels like this:&lt;/p&gt;
+
+&lt;p&gt;It gets better: auto &lt;code&gt;this&lt;/code&gt; binding more-sane inheritance&lt;/p&gt;
 
 &lt;a name=&quot;io.js&quot;&gt;&lt;/a&gt;
 &lt;h4&gt;&lt;a href=&quot;http://iojs.org/&quot;&gt;io.js&lt;/a&gt;&lt;/h4&gt;
@@ -58,30 +302,25 @@
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Pros&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.&lt;/li&gt;
-&lt;li&gt;In fact I&amp;rsquo;d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
+&lt;li&gt;Imagine if there was a language as fast as C and as powerful as Python/C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.&lt;/li&gt;
+&lt;li&gt;In fact I&amp;rsquo;d guess Rust is roughly as complex as the ES6 spec.&lt;/li&gt;
+&lt;li&gt;It includes a ton of extras:
 
 &lt;ol&gt;
-&lt;li&gt; Essentially Rust transpiles from semi-dynamic syntax into &lt;strong&gt;pure C code&lt;/strong&gt;!&lt;/li&gt;
-&lt;li&gt; Including &lt;strong&gt;&lt;strong&gt;all the best practices&lt;/strong&gt;&lt;/strong&gt; in C you would probably screw up on, I &lt;del&gt;eventually&lt;/del&gt; always do.
-
-&lt;ul&gt;
+&lt;li&gt;Essentially Rust transpiles from semi-dynamic syntax into &lt;strong&gt;pure C code&lt;/strong&gt;!&lt;/li&gt;
+&lt;li&gt;Including &lt;strong&gt;&lt;strong&gt;all the best practices&lt;/strong&gt;&lt;/strong&gt; in C you would probably screw up on, I &lt;del&gt;eventually&lt;/del&gt; always do.&lt;/li&gt;
 &lt;li&gt;Automatically you get:&lt;/li&gt;
 &lt;li&gt;Auto Memory management (no need for a slow garbage collector!)&lt;/li&gt;
 &lt;li&gt;Perfectly scoped Object ownership/locking (mutexting &amp;amp; context switching minimized)&lt;/li&gt;
 &lt;li&gt;Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)&lt;/li&gt;
 &lt;li&gt;Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can&amp;rsquo;t overlook a code-path)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;Oh yeah, it throws in true language extensibility with a sensible &amp;lsquo;macro&amp;rsquo; feature.
 
 &lt;ul&gt;
 &lt;li&gt;Need Comprehensions? &lt;a href=&quot;https://gist.github.com/hanny24/5749688&quot;&gt;Scala style? Done&lt;/a&gt;, and &lt;a href=&quot;https://gist.github.com/JeffBelgum/5e762761cd63c796e803&quot;&gt;Like Python? Done&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt; Too good to be true? Nah, It gets better:
-
-&lt;ul&gt;
+&lt;li&gt;Too good to be true? Nah, It gets better:&lt;/li&gt;
 &lt;li&gt;Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google&amp;rsquo;s hot-newish language)
 
 &lt;ul&gt;
@@ -93,8 +332,6 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;I had to triple check the numbers too.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Other libraries are very stable due to the constructs &amp;amp; rules of rust.&lt;/li&gt;
@@ -132,11 +369,9 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 # Now we can call pixel
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code&gt;- Tuples and arbitrary sets are so easy
-&lt;/code&gt;&lt;/pre&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Cons&lt;/strong&gt;
+&lt;li&gt;&lt;p&gt;Tuples and arbitrary sets are so easy&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Cons&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Annoyingly, Python 2.x and 3.x are incompatible. The Great Schism continues, so many years later.&lt;/li&gt;
@@ -158,9 +393,16 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Cons&lt;/strong&gt;
 
-&lt;a name=&quot;L..-.Syntax..amp..Patterns.can.be.hard.to.get.used.to.&quot;&gt;&lt;/a&gt;
-&lt;h2&gt;  - Syntax &amp;amp; Patterns can be hard to get used to.&lt;/h2&gt;&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;Syntax &amp;amp; Patterns can be hard to get used to.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div align=&quot;center&quot; class=&quot;anigif&quot;&gt;
+![endless_loop][endless_loop]
+&lt;/div&gt;
 
 
 &lt;a name=&quot;SmallTalk-80&quot;&gt;&lt;/a&gt;
@@ -184,30 +426,6 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 
 
     &lt;p&gt;&lt;a href=&quot;/languages/2015/06/12/polyglot-redux.html&quot;&gt;Polyglot Redux&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 12, 2015.&lt;/p&gt;
-  </content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Graphs and Relationships]]></title>
- <link rel="alternate" type="text/html" href="/languages/2015/06/12/graphs-and-relationships.html" />
-  <id>/languages/2015/06/12/graphs-and-relationships</id>
-  <updated>2015-06-13 19:00:01 -0600T00:00:00-00:00</updated>
-  <published>2015-06-12T03:21:12-06:00</published>
-  
-  <author>
-    <name>Dan Levy</name>
-    <uri></uri>
-    <email>Dan@DanLevy.net</email>
-  </author>
-  <content type="html">
-    &lt;a name=&quot;Programming.Languages.Notes&quot;&gt;&lt;/a&gt;
-&lt;h1&gt;Programming Languages Notes&lt;/h1&gt;
-
-&lt;a name=&quot;L.em.Work-in-progress..updated.August.2015...em.&quot;&gt;&lt;/a&gt;
-&lt;h3&gt;&lt;em&gt;Work-in-progress (updated August 2015)&lt;/em&gt;&lt;/h3&gt;
-
-    &lt;p&gt;&lt;a href=&quot;/languages/2015/06/12/graphs-and-relationships.html&quot;&gt;Graphs and Relationships&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 12, 2015.&lt;/p&gt;
   </content>
 </entry>
 
@@ -570,7 +788,7 @@ docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c
 &lt;h2&gt;Elastic Search&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;mkdir /elastic
-docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c &#39;elasticsearch -Xmx 8g -Xms 2g --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs &#39;
+docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c &#39;elasticsearch --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs &#39;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;blockquote&gt;&lt;p&gt;You just lit up 2 database docker instances!!!
@@ -604,7 +822,8 @@ CMD [&quot;npm&quot;, &quot;start&quot;]
 
 &lt;p&gt;In terminal, &lt;code&gt;cd&lt;/code&gt; to your project folder and run the following &lt;code&gt;build&lt;/code&gt; command &lt;em&gt;everytime&lt;/em&gt; you deploy changes - or want to change/upgrade OS or Env config)&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;docker build -t app-name-here .&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;docker build -t app-name-here .
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;a name=&quot;Docker.Commands.to.Learn&quot;&gt;&lt;/a&gt;
 &lt;h1&gt;Docker Commands to Learn&lt;/h1&gt;

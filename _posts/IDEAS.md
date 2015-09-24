@@ -1,4 +1,16 @@
 
+cat /proc/sys/vm/swappiness
+
+
+Network & Hacking Series
+- netstat
+
+netstat -pawnt 2>/dev/null | grep 3001 | awk '{ print $7 }'
+
+
+
+
+
 Parse SDK: The Lost Bits (unofficial)
 - Diverging between Cloud Code
 - Syntax, WTF?

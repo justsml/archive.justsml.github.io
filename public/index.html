@@ -62,15 +62,17 @@
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/custom.css">
+
 <!-- Webfonts -->
-<link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+<link async defer href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
 
 <meta http-equiv="cleartype" content="on">
 
 <!-- Load Modernizr -->
 <script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
-
+<script async defer src="/assets/js/hacks.js"></script>
 
 <!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
 <script async defer src="/assets/js/vendor/prism.js"></script>
@@ -166,7 +168,7 @@
 					<h4>Dan Levy</h4>
 					<p>Devout Programmer</p>
 				</li>
-				<li><a href="/cv/resume-full.html" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
+				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
@@ -192,13 +194,17 @@
 			</ul><!-- /.dl-submenu -->
 		</li>
 		<li>
-			<a href="/posts/">Posts</a>
+			<a href="#">Articles</a>
+			<ul class="dl-submenu article-list">
+				<li><a href="/posts/">All Articles</a></li>
+				
+			</ul>
 		</li>
 		
 	    
 	        
 	    
-	    <li><a href="/cv/resume-full.html" >Download Resume</a></li>
+	    <li><a href="/cv/resume-dan-levy-2015-07.pdf" >Download Resume</a></li>
 	  
 	    
 	        
@@ -230,6 +236,207 @@
   <header>
     
       <div class="entry-image-index">
+        <a href="/programming/2015/09/14/beautiful-engineering-models-and-data.html" title="Beautiful Engineering: Models & Data"><img src="/images/abstract-5.jpg" alt="Beautiful Engineering: Models & Data"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-09-14T00:00:00-06:00"><a href="/programming/2015/09/14/beautiful-engineering-models-and-data.html">September 14, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~10 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/programming/2015/09/14/beautiful-engineering-models-and-data.html" rel="bookmark" title="Beautiful Engineering: Models & Data" itemprop="url">Beautiful Engineering: Models & Data</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="L.em.Work-in-progress..updated.Sep..2015...em."></a>
+<h4><em>Work-in-progress (updated Sep. 2015)</em></h4>
+
+<a name="The.issue.at.hand.is.deceptively.simple..amp..subtle:..strong.Naming..strong."></a>
+<h3>The issue at hand is deceptively simple &amp; subtle: <strong>Naming</strong></h3>
+
+<blockquote><p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
+
+<p>While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don&rsquo;t need to read this if the following makes sense: <code>No-Sql denormalization strategy</code>, or <code>Boyce Codd Normal Forms</code></p>
+
+<p>Recommended reading includes:</p>
+
+<ol>
+<li>Book: Code Complete</li>
+<li><a href="http://phlonx.com/resources/nf3/">http://phlonx.com/resources/nf3/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Database_normalization">https://en.wikipedia.org/wiki/Database_normalization</a></li>
+</ol>
+</blockquote>
+
+<a name="The.Problem.-.by.Example"></a>
+<h2>The Problem - by Example</h2>
+
+<p>Have you ever designed a <code>data model</code> (in code, Sql, or excel worksheets)?
+Does the following look familiar?</p>
+
+<pre><code>*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+</code></pre>
+
+<p>If this is familiar to you, I&rsquo;ll bet you:</p>
+
+<ol>
+<li>Feel any change to your app will necessitate hours of arduous debugging.</li>
+<li>Fear ANY Changing Requirements
+<img src="https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif" alt="schema refactor" /></li>
+</ol>
+
+
+<a name="The.Cost.of.Bad..Naming..Habits"></a>
+<h2>The Cost of Bad (Naming) Habits</h2>
+
+<p>Let&rsquo;s examine some of the subtle issues (probably familiar):</p>
+
+<hr />
+
+<p>Why is naming a field <code>agentEmailPrimary</code> the worst?
+For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
+
+<ol>
+<li>&lsquo;Locked&rsquo; into highly specific name, means <code>agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
+
+<ul>
+<li>Data not syncing between tables (not obvious if <code>user.email</code> needs to propagate to <code>agent.agentEmail</code> or vice-versa - nevermind complexity of manually implementing where &amp; how to enforce this &lsquo;logic&rsquo; &hellip;)</li>
+<li>Validation rules/logic are likely duplicated &amp; inconsitent.</li>
+<li>Increasingly, your project will resemble a shaky Jenga tower.</li>
+<li>Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes</li>
+</ul>
+</li>
+</ol>
+
+
+<p>I know, you probably feel something like&hellip;</p>
+
+<p><img src="https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif" alt="fuck this" /></p>
+
+<a name="A.Solution"></a>
+<h2>A Solution</h2>
+
+<pre><code>// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+</code></pre>
+
+<p>I removed the <code>Agent</code> table, as it didn&rsquo;t contain fields which were uniquely related to Agents.</p>
+
+<p>All changes were made with these general ideas in mind:</p>
+
+<ol>
+<li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
+<li> Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong></li>
+<li> Delete redundant data collection (e.g. remove <code>ActivityLogs</code> table if replaced by Google Analytics)</li>
+<li>Try keep <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
+<li> There is <strong>no such thing</strong> as <code>Agent.agentEmail</code> or <code>Agent.agentPhonePrimary</code>. Period.</li>
+<li> By using Highly Specific Names, you cast-in-stone a specific level of <code>code-reusability</code> and <code>durability</code>, well, specifically <strong>ZERO %</strong>.</li>
+<li> Don&rsquo;t think you are doing yourself any favors with crap like this <code>User.profileSummaryEmail</code> (where &lsquo;profile&rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code>Profiles</code> which includes <code>Profiles.email</code>.</li>
+</ol>
+
+
+<!-- ![schema refactor][schema_refactor] -->
+
+
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html" title="AngularJS v2.0 and the Impending Schism"><img src="/images/abstract-11.jpg" alt="AngularJS v2.0 and the Impending Schism"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-08-05T00:00:00-06:00"><a href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html">August 05, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~3 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html" rel="bookmark" title="AngularJS v2.0 and the Impending Schism" itemprop="url">AngularJS v2.0 and the Impending Schism</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <p>I think we are witnessing the Python 2->3 &lsquo;Conversion&rsquo; all over again.
+AngularJS v2.0 introduces too many changes. <strong>Not least of which is TypeScript</strong>, which is a big ask amidst the finalization of JS&rsquo;s latest version: ES6.</p>
+
+<blockquote><p>Let me say clearly: I love TypeScript. I seccretly wish the TC-39 meetings had produced it&hellip; They didn&rsquo;t.
+However, They came up with another (totally different), also-awesome spec&hellip;</p></blockquote>
+
+<p>While TypeScript compiles to JavaScript, it doesn&rsquo;t mean you blindly copy &amp; paste &lsquo;compiled&rsquo; TypeScript. It effectively becomes required learning, as to understand annotated AngularJS 2.0 TypeScript.</p>
+
+<p>Now, newbies must climb &lsquo;Mount TypeScript&rsquo; before they can even start assembling an Angular app (with some level of understanding).</p>
+
+<div class="anigif end">
+![not_a_fan][not_a_fan]
+</div>
+
+
+<p>Oh well, I&rsquo;ll add it to the Newbie training list: somewhere between <code>Basic Shell Usage</code> and <code>Gulp or Grunt? Godsend+Misery!</code></p>
+
+<p>
+Anyway, I hope this works out...
+</p>
+
+
+
+
+<div class="anigif top end">
+![drinking][drinking]
+</div>
+
+
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
         <a href="/languages/2015/06/12/polyglot-redux.html" title="Polyglot Redux"><img src="/images/abstract-11.jpg" alt="Polyglot Redux"></a>
       </div><!-- /.entry-image -->
     
@@ -239,7 +446,7 @@
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
         
-        Reading time ~12 minutes
+        Reading time ~18 minutes
       </span><!-- /.entry-reading-time -->
       
     </div><!-- /.entry-meta -->
@@ -260,9 +467,66 @@
 <a name="JavaScript"></a>
 <h2>JavaScript</h2>
 
-<p>For years I foolishly had nothing but scorn, derision and hatred for what is now, <strong>easily my favorite language</strong>.</p>
+<p>My One True Love, supremely versatile &amp; ubiquitous - the all-around, amazingly-powerful champ!
+It&rsquo;s the #1 Most Active/Popular Language on GitHub.com for <em>years</em> running.</p>
 
-<p>ES5 may be old, and ES6 is brand new, but it&rsquo;s officially a real standard now!</p>
+<p>I hate to admit it, but for years I foolishly had nothing but scorn and derision for what is now, <strong>my favorite language</strong>.</p>
+
+<p><strong>ES6</strong> has only increased my <del>addiction</del> love. While pure ES5 will always hold a special place in my heart, each time I use some <strong>ES6</strong>, I feel that radioactive spider-bite&hellip;</p>
+
+<p>There were 4 factors which pushed me into the <strong>ES6 Camp</strong>:</p>
+
+<ol>
+<li>It&rsquo;s fun. Seriously. There are tangible gains in beauty, clarity &amp; productivity.</li>
+<li>Subjective claims, you say? Let me show you a bit of ES6:</li>
+<li><code>let expired = users.filter(u =&gt; Date.now() &gt; u.trialDate)</code></li>
+<li>Now you don&rsquo;t have to pretend you know how to use <code>Object.create</code> or <code>Object.defineProperty</code></li>
+<li>See examples below</li>
+<li>As of July 2015,  ES6 is an officially finalized standard now!</li>
+<li>Support is Effectively 100%*! &hellip; Ok, BabelJS is needed to patch your code so it&rsquo;s ES5 compatible. Historically JS transpilers have been frowned upon. However, as of late (2014-15) things have changed as BabelJS has become a key enabler/driver of language advancement. Tons of companies including Microsoft &amp; Facebook use it on some of the largest sites around.</li>
+<li><a href="https://nodejs.org/en/blog/release/v4.0.0/">Latest versions of Node</a> include the same V8 JS engine as Chrome v45, it&rsquo;s v4.5</li>
+</ol>
+
+
+<a name="Examples"></a>
+<h3>Examples</h3>
+
+<pre><code class="js">// /services/users.js
+class Users {
+  constructor(data) {
+    this.users = data || [];
+  }
+  expired() {
+    return this.users
+      .filter(u =&gt; Date.now() &gt; u.trialDate)
+  }
+}
+</code></pre>
+
+<ul>
+<li>No more tedious code to &lsquo;extract&rsquo; and &lsquo;check&rsquo; fields passed to a function. Cut to example <code>add()</code>:</li>
+</ul>
+
+
+<pre><code class="js">// /services/users.js
+class Users {
+  constructor(data) { this.users = data || []; }
+  add({name, email, password}) {
+    // Store pwd hash, We only need to define 1 explicit `var/let` - the other vars are 'defined' with the `{fields}` wizardry above ^^^
+    let hash = getSha256(password);
+    return http.post('/users', {
+      'name': name,
+      'email': email,
+      'passwordHash': hash
+    })
+    .then(usr =&gt; this.users.push(usr)); // append user upon service response
+  }
+}
+</code></pre>
+
+<p>I know. It feels like this:</p>
+
+<p>It gets better: auto <code>this</code> binding more-sane inheritance</p>
 
 <a name="io.js"></a>
 <h4><a href="http://iojs.org/">io.js</a></h4>
@@ -280,30 +544,25 @@
 <li><p><strong>Pros</strong></p>
 
 <ul>
-<li>Imagine if there was a language as powerful as C or C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
-<li>In fact I&rsquo;d guess Rust is roughly as complex as the ES6 draft, with a ton of extra bonuses:
+<li>Imagine if there was a language as fast as C and as powerful as Python/C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
+<li>In fact I&rsquo;d guess Rust is roughly as complex as the ES6 spec.</li>
+<li>It includes a ton of extras:
 
 <ol>
-<li> Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
-<li> Including <strong><strong>all the best practices</strong></strong> in C you would probably screw up on, I <del>eventually</del> always do.
-
-<ul>
+<li>Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
+<li>Including <strong><strong>all the best practices</strong></strong> in C you would probably screw up on, I <del>eventually</del> always do.</li>
 <li>Automatically you get:</li>
 <li>Auto Memory management (no need for a slow garbage collector!)</li>
 <li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
 <li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
 <li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can&rsquo;t overlook a code-path)</li>
-</ul>
-</li>
 </ol>
 </li>
 <li>Oh yeah, it throws in true language extensibility with a sensible &lsquo;macro&rsquo; feature.
 
 <ul>
 <li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.</li>
-<li> Too good to be true? Nah, It gets better:
-
-<ul>
+<li>Too good to be true? Nah, It gets better:</li>
 <li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google&rsquo;s hot-newish language)
 
 <ul>
@@ -315,8 +574,6 @@
 </ul>
 </li>
 <li>I had to triple check the numbers too.</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
@@ -354,11 +611,9 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 # Now we can call pixel
 </code></pre>
 
-<pre><code>- Tuples and arbitrary sets are so easy
-</code></pre>
-
 <ul>
-<li><strong>Cons</strong>
+<li><p>Tuples and arbitrary sets are so easy</p></li>
+<li><p><strong>Cons</strong></p>
 
 <ul>
 <li>Annoyingly, Python 2.x and 3.x are incompatible. The Great Schism continues, so many years later.</li>
@@ -380,9 +635,16 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 </li>
 <li><strong>Cons</strong>
 
-<a name="L..-.Syntax..amp..Patterns.can.be.hard.to.get.used.to."></a>
-<h2>  - Syntax &amp; Patterns can be hard to get used to.</h2></li>
+<ul>
+<li>Syntax &amp; Patterns can be hard to get used to.</li>
 </ul>
+</li>
+</ul>
+
+
+<div align="center" class="anigif">
+![endless_loop][endless_loop]
+</div>
 
 
 <a name="SmallTalk-80"></a>
@@ -404,37 +666,6 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 </li>
 </ul>
 
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/languages/2015/06/12/graphs-and-relationships.html" title="Graphs and Relationships"><img src="/images/abstract-11.jpg" alt="Graphs and Relationships"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-12T03:21:12-06:00"><a href="/languages/2015/06/12/graphs-and-relationships.html">June 12, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~1 minute
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/languages/2015/06/12/graphs-and-relationships.html" rel="bookmark" title="Graphs and Relationships" itemprop="url">Graphs and Relationships</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <a name="Programming.Languages.Notes"></a>
-<h1>Programming Languages Notes</h1>
-
-<a name="L.em.Work-in-progress..updated.August.2015...em."></a>
-<h3><em>Work-in-progress (updated August 2015)</em></h3>
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
@@ -639,126 +870,6 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
 
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/javascript/2015/06/06/javascript-scope-magic.html" title="JavaScript Magic"><img src="/images/abstract-7.jpg" alt="JavaScript Magic"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-06T09:42:21-06:00"><a href="/javascript/2015/06/06/javascript-scope-magic.html">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~8 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/javascript/2015/06/06/javascript-scope-magic.html" rel="bookmark" title="JavaScript Magic" itemprop="url">JavaScript Magic</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <a name="L..Work-in-progress..Includes.Future.JavaScript.Article.Ideas.."></a>
-<h3>[ Work-in-progress, Includes Future JavaScript Article Ideas ]</h3>
-
-<blockquote><p>This post is geared to modern browsers and Node.JS/iojs.</p></blockquote>
-
-<a name="Imperative.vs..Recursive.vs..Functional"></a>
-<h1>Imperative vs. Recursive vs. Functional</h1>
-
-<p>Work-in-progress</p>
-
-<pre><code class="javascript">
-// Imperative: The Fastest ( + very simple, no new pointers or excess allocs ):
-function fib(n) {
-  var a = 1, b = 1, c = 0;
-  for(var i = 1; i &lt; n-1; ++i) {
-    c = a + b;
-    a = b;
-    b = c;
-  }
-  return b;
-}
-
-// Recursive: (FIREFOX or BABELJS Only) ES6 function definition with
-//  parameter defaults used to set initial (internal/recursive) values
-function fib(n, current=0, a=1, b=1, c=0) {
-  current++;
-  c = a + b;
-  a = b;
-  b = c;
-  return current &gt;= n ? b : fib(n, current, a, b, c);
-}
-
-// Text-book-Bad Example - poor function scope w/ multiple mutable external values
-function fib(n) {
-  if (!arr) { var arr = [1,1]; n=n-2; };// Bad
-  if (n===-1) {return [arr[0]];}
-  if (n===0) {return arr;}
-  var proc = function() {
-    --n;
-    arr.push(arr[arr.length-1] + arr[arr.length-2]);
-    return (n===0 ? arr : proc());
-    // Bad: inner recursive function not needed, hint: variables used are from parent function scope
-  };
-  var ans = proc();
-  return ans[ans.length-1];
-}
-</code></pre>
-
-<a name="Promises:.Awesome."></a>
-<h1>Promises: Awesome!</h1>
-
-<pre><code class="js">
-// Example Using bluebird Promises and it's
-var Promise = require('bluebird'),
-    fs = Promise.promisifyAll(require('fs')),
-    less = Promise.promisifyAll(require('less'));
-
-function writeFileData(data) {
-  return fs.writeFileAsync('/tmp/output.css', data);
-}
-// Bluebird makes something like this perhaps uncomfortably simple and succinct:
-fs.readFileAsync('./style.less') // Call promisified readFile()
-  .then(less.renderAsync)         // Hand off to less.render
-  .then(writeFileData);      // Function to recieve the css contents (1st parameter)
-</code></pre>
-
-<ol>
-<li>While, native ES6 Promises are great, I prefer the robust <a href="https://github.com/petkaantonov/bluebird/blob/master/API.md">Bluebird Promise Library</a>.</li>
-<li>Library or not, modern browsers have supported Promise for years.</li>
-<li>Promises can be utilized without crazy patterns - implicit <code>deferred</code> is preferable.</li>
-<li><strong>$q just sucks</strong> just use bluebird, see above.</li>
-<li>Worth mentioning: Bluebirds Benchmarks are best-case tests, so take note if doing crazy fancy promise chains</li>
-</ol>
-
-
-<a name="Java.vs.JavaScript"></a>
-<h1>Java vs JavaScript</h1>
-
-<a name="Rate.Limiting...Debouncing...Throttling"></a>
-<h2>Rate Limiting / Debouncing / Throttling</h2>
-
-<ol>
-<li>In JavaScript <a href="http://davidwalsh.name/essential-javascript-functions">David Walsh implemented debounce</a> in less than 20 lines!</li>
-<li>In Java, JDebounce, an library which is a lot more complicated, at ~500+ lines.</li>
-<li>_ Comparing the two: _</li>
-<li> The JavaScript is fast &amp; uses first-class functions to achieve brilliant simplicity.</li>
-<li> Whereas the Java has many more moving parts, annotations are used to apply behaviour at compile-time, and there&rsquo;s a ton of XML, just for funsies!</li>
-</ol>
-
-
-<a name="Inversion.of.Control.Techniques"></a>
-<h1>Inversion of Control Techniques</h1>
-
-<p>Work-in-progress</p>
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
 
 <div class="pagination">
   
@@ -777,11 +888,19 @@ fs.readFileAsync('./style.less') // Call promisified readFile()
         
       </li>
     
+      <li>
+        
+          <a href="/page3">3</a>
+        
+      </li>
+    
   </ul>
   
     <a href="/page2" class="btn">Next</a>
   
 </div><!-- /.pagination -->
+
+
 </div><!-- /#main -->
 
 <div class="footer-wrapper">

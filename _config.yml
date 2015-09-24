@@ -75,6 +75,7 @@ rdiscount:
     - generate_toc
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 # permalink:   /:categories/:title/
+permalink: /:year/:month/:day/:title/
 
 # Amount of post to show on home page
 paginate: 5
@@ -88,7 +89,7 @@ kramdown:
   use_coderay: false
 
   coderay:
-    coderay_line_numbers: nil
+    coderay_line_numbers: true
     coderay_line_numbers_start: 1
     coderay_tab_width: 2
     coderay_bold_every: 10
