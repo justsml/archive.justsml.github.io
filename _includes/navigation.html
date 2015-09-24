@@ -47,10 +47,11 @@
 			<a href="#">Articles</a>
 			<ul class="dl-submenu article-list">
 				<li><a href="{{ site.url }}/posts/">All Articles</a></li>
-				{% for post in ([].slice.call(site.posts).slice(0, 4)) %}
+				{% for p in (0..5) %}
+					{% assign post = site.posts[p] %}
 	        <li class="entry-title">
 	        	<a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">
-	        		{{ post.title }}
+	        		<div>{{ post.title }}</div>
 		        	<em>{{ post.date | date: "%Y-%m-%d" }}</em>
 	        	</a>
 	        </li>
