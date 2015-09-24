@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-09-24T13:31:35-06:00</updated>
+<updated>2015-09-24T14:31:46-06:00</updated>
 <id>/</id>
 <author>
   <name>Dan Levy</name>
@@ -15,8 +15,8 @@
 
 <entry>
   <title type="html"><![CDATA[Beautiful Engineering: Models & Data]]></title>
- <link rel="alternate" type="text/html" href="/programming/2015/09/14/beautiful-engineering-models-and-data.html" />
-  <id>/programming/2015/09/14/beautiful-engineering-models-and-data</id>
+ <link rel="alternate" type="text/html" href="/2015/09/14/beautiful-engineering-models-and-data/" />
+  <id>/2015/09/14/beautiful-engineering-models-and-data</id>
   <updated>2015-09-26T00:00:00-00:00</updated>
   <published>2015-09-14T00:00:00-06:00</published>
   
@@ -146,15 +146,15 @@ User
 
 
 
-    &lt;p&gt;&lt;a href=&quot;/programming/2015/09/14/beautiful-engineering-models-and-data.html&quot;&gt;Beautiful Engineering: Models &amp; Data&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on September 14, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/09/14/beautiful-engineering-models-and-data/&quot;&gt;Beautiful Engineering: Models &amp; Data&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on September 14, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[AngularJS v2.0 and the Impending Schism]]></title>
- <link rel="alternate" type="text/html" href="/angularjs/2015/08/05/angularjs-v2-impending-schism.html" />
-  <id>/angularjs/2015/08/05/angularjs-v2-impending-schism</id>
+ <link rel="alternate" type="text/html" href="/2015/08/05/angularjs-v2-impending-schism/" />
+  <id>/2015/08/05/angularjs-v2-impending-schism</id>
   <updated>2015-09-01T00:00:00-00:00</updated>
   <published>2015-08-05T00:00:00-06:00</published>
   
@@ -195,15 +195,15 @@ Anyway, I hope this works out...
 
 
 
-    &lt;p&gt;&lt;a href=&quot;/angularjs/2015/08/05/angularjs-v2-impending-schism.html&quot;&gt;AngularJS v2.0 and the Impending Schism&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on August 05, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/08/05/angularjs-v2-impending-schism/&quot;&gt;AngularJS v2.0 and the Impending Schism&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on August 05, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Polyglot Redux]]></title>
- <link rel="alternate" type="text/html" href="/languages/2015/06/12/polyglot-redux.html" />
-  <id>/languages/2015/06/12/polyglot-redux</id>
+ <link rel="alternate" type="text/html" href="/2015/06/12/polyglot-redux/" />
+  <id>/2015/06/12/polyglot-redux</id>
   <updated>2015-06-13 19:00:01 -0600T00:00:00-00:00</updated>
   <published>2015-06-12T03:21:12-06:00</published>
   
@@ -425,15 +425,15 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 &lt;/ul&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/languages/2015/06/12/polyglot-redux.html&quot;&gt;Polyglot Redux&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 12, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/06/12/polyglot-redux/&quot;&gt;Polyglot Redux&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 12, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Docker rocks. Boot2docker just sucks.]]></title>
- <link rel="alternate" type="text/html" href="/docker/2015/06/10/docker-great-though-boot2docker-sucks.html" />
-  <id>/docker/2015/06/10/docker-great-though-boot2docker-sucks</id>
+ <link rel="alternate" type="text/html" href="/2015/06/10/docker-great-though-boot2docker-sucks/" />
+  <id>/2015/06/10/docker-great-though-boot2docker-sucks</id>
   <updated>2015-06-15 04:00:01 -0600T00:00:00-00:00</updated>
   <published>2015-06-10T23:00:12-06:00</published>
   
@@ -516,15 +516,15 @@ boot2docker init
 boot2docker up
 &lt;/code&gt;&lt;/pre&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/docker/2015/06/10/docker-great-though-boot2docker-sucks.html&quot;&gt;Docker rocks. Boot2docker just sucks.&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 10, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/06/10/docker-great-though-boot2docker-sucks/&quot;&gt;Docker rocks. Boot2docker just sucks.&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 10, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Docker Firewall Setup]]></title>
- <link rel="alternate" type="text/html" href="/docker/2015/06/06/docker-firewall-setup.html" />
-  <id>/docker/2015/06/06/docker-firewall-setup</id>
+ <link rel="alternate" type="text/html" href="/2015/06/06/docker-firewall-setup/" />
+  <id>/2015/06/06/docker-firewall-setup</id>
   <updated>2015-06-15 04:50:00 -0600T00:00:00-00:00</updated>
   <published>2015-06-06T16:22:22-06:00</published>
   
@@ -611,15 +611,15 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
 &lt;a name=&quot;DONE..Now.you.should.see.ONLY.the.ports.you.configured.&quot;&gt;&lt;/a&gt;
 &lt;h4&gt;DONE! Now you should see ONLY the ports you configured!&lt;/h4&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/docker/2015/06/06/docker-firewall-setup.html&quot;&gt;Docker Firewall Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/06/06/docker-firewall-setup/&quot;&gt;Docker Firewall Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[JavaScript Magic]]></title>
- <link rel="alternate" type="text/html" href="/javascript/2015/06/06/javascript-scope-magic.html" />
-  <id>/javascript/2015/06/06/javascript-scope-magic</id>
+ <link rel="alternate" type="text/html" href="/2015/06/06/javascript-scope-magic/" />
+  <id>/2015/06/06/javascript-scope-magic</id>
   <updated>2015-06-15 03:00:01 -0600T00:00:00-00:00</updated>
   <published>2015-06-06T09:42:21-06:00</published>
   
@@ -724,15 +724,15 @@ fs.readFileAsync(&#39;./style.less&#39;) // Call promisified readFile()
 
 &lt;p&gt;Work-in-progress&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/javascript/2015/06/06/javascript-scope-magic.html&quot;&gt;JavaScript Magic&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/06/06/javascript-scope-magic/&quot;&gt;JavaScript Magic&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Docker server Setup]]></title>
- <link rel="alternate" type="text/html" href="/docker/2015/04/05/docker-server-setup-notes.html" />
-  <id>/docker/2015/04/05/docker-server-setup-notes</id>
+ <link rel="alternate" type="text/html" href="/2015/04/05/docker-server-setup-notes/" />
+  <id>/2015/04/05/docker-server-setup-notes</id>
   <published>2015-04-05T19:00:59-06:00</published>
   <updated>2015-04-05T19:00:59-06:00</updated>
   <author>
@@ -859,15 +859,15 @@ docker rm -f webapp01
 docker rm -f mongo elastic
 &lt;/code&gt;&lt;/pre&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/docker/2015/04/05/docker-server-setup-notes.html&quot;&gt;Docker server Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on April 05, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/04/05/docker-server-setup-notes/&quot;&gt;Docker server Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on April 05, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Winning Design Resource]]></title>
- <link rel="alternate" type="text/html" href="/design/2015/02/26/amazing-resources.html" />
-  <id>/design/2015/02/26/amazing-resources</id>
+ <link rel="alternate" type="text/html" href="/2015/02/26/amazing-resources/" />
+  <id>/2015/02/26/amazing-resources</id>
   <updated>2015-06-12 19:00:01 -0600T00:00:00-00:00</updated>
   <published>2015-02-26T04:42:21-07:00</published>
   
@@ -906,15 +906,15 @@ The &lt;a href=&quot;http://tympanus.net/codrops/author/crnacura/&quot;&gt;autho
 
 &lt;p&gt;Here&amp;rsquo;s where I found this stuff: &lt;a href=&quot;https://twitter.com/codrops&quot;&gt;follow codrops at https://twitter.com/codrops&lt;/a&gt;&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/design/2015/02/26/amazing-resources.html&quot;&gt;Winning Design Resource&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/02/26/amazing-resources/&quot;&gt;Winning Design Resource&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[AngularJS Tricks]]></title>
- <link rel="alternate" type="text/html" href="/angularjs/2015/02/26/stop-the-angularjs-hate.html" />
-  <id>/angularjs/2015/02/26/stop-the-angularjs-hate</id>
+ <link rel="alternate" type="text/html" href="/2015/02/26/stop-the-angularjs-hate/" />
+  <id>/2015/02/26/stop-the-angularjs-hate</id>
   <published>2015-02-26T04:22:33-07:00</published>
   <updated>2015-02-26T04:22:33-07:00</updated>
   <author>
@@ -1053,15 +1053,15 @@ If you have tons of small reusable UI components - ReactJS might be a better cho
 &lt;/ul&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/angularjs/2015/02/26/stop-the-angularjs-hate.html&quot;&gt;AngularJS Tricks&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/02/26/stop-the-angularjs-hate/&quot;&gt;AngularJS Tricks&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Docker === Love]]></title>
- <link rel="alternate" type="text/html" href="/docker/2015/02/26/docker-makes-everything-better.html" />
-  <id>/docker/2015/02/26/docker-makes-everything-better</id>
+ <link rel="alternate" type="text/html" href="/2015/02/26/docker-makes-everything-better/" />
+  <id>/2015/02/26/docker-makes-everything-better</id>
   <published>2015-02-26T04:07:59-07:00</published>
   <updated>2015-02-26T04:07:59-07:00</updated>
   <author>
@@ -1130,15 +1130,15 @@ Docker will make your life easier throughout the &lt;em&gt;entire&lt;/em&gt; SDL
 &lt;/ul&gt;
 &lt;/blockquote&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/docker/2015/02/26/docker-makes-everything-better.html&quot;&gt;Docker === Love&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/02/26/docker-makes-everything-better/&quot;&gt;Docker === Love&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
   </content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Security Notes: RegEx]]></title>
- <link rel="alternate" type="text/html" href="/security/2015/02/23/security-notes-regex.html" />
-  <id>/security/2015/02/23/security-notes-regex</id>
+ <link rel="alternate" type="text/html" href="/2015/02/23/security-notes-regex/" />
+  <id>/2015/02/23/security-notes-regex</id>
   <published>2015-02-23T22:42:21-07:00</published>
   <updated>2015-02-23T22:42:21-07:00</updated>
   <author>
@@ -1184,7 +1184,7 @@ Either poorly written or poorly implemented.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;amp;utm_medium=email&quot;&gt;Regular Expression DoS and Node.js&lt;/a&gt;&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/security/2015/02/23/security-notes-regex.html&quot;&gt;Security Notes: RegEx&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 23, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/02/23/security-notes-regex/&quot;&gt;Security Notes: RegEx&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 23, 2015.&lt;/p&gt;
   </content>
 </entry>
 

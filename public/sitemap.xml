@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/programming/2015/09/14/beautiful-engineering-models-and-data.html</loc>
+    <loc>/2015/09/14/beautiful-engineering-models-and-data/</loc>
     <lastmod>2015-09-14T00:00:00-06:00</lastmod>
   </url>
   <url>
-    <loc>/angularjs/2015/08/05/angularjs-v2-impending-schism.html</loc>
+    <loc>/2015/08/05/angularjs-v2-impending-schism/</loc>
     <lastmod>2015-08-05T00:00:00-06:00</lastmod>
   </url>
   <url>
-    <loc>/languages/2015/06/12/polyglot-redux.html</loc>
+    <loc>/2015/06/12/polyglot-redux/</loc>
     <lastmod>2015-06-12T03:21:12-06:00</lastmod>
   </url>
   <url>
-    <loc>/docker/2015/06/10/docker-great-though-boot2docker-sucks.html</loc>
+    <loc>/2015/06/10/docker-great-though-boot2docker-sucks/</loc>
     <lastmod>2015-06-10T23:00:12-06:00</lastmod>
   </url>
   <url>
-    <loc>/docker/2015/06/06/docker-firewall-setup.html</loc>
+    <loc>/2015/06/06/docker-firewall-setup/</loc>
     <lastmod>2015-06-06T16:22:22-06:00</lastmod>
   </url>
   <url>
-    <loc>/javascript/2015/06/06/javascript-scope-magic.html</loc>
+    <loc>/2015/06/06/javascript-scope-magic/</loc>
     <lastmod>2015-06-06T09:42:21-06:00</lastmod>
   </url>
   <url>
-    <loc>/docker/2015/04/05/docker-server-setup-notes.html</loc>
+    <loc>/2015/04/05/docker-server-setup-notes/</loc>
     <lastmod>2015-04-05T19:00:59-06:00</lastmod>
   </url>
   <url>
-    <loc>/design/2015/02/26/amazing-resources.html</loc>
+    <loc>/2015/02/26/amazing-resources/</loc>
     <lastmod>2015-02-26T04:42:21-07:00</lastmod>
   </url>
   <url>
-    <loc>/angularjs/2015/02/26/stop-the-angularjs-hate.html</loc>
+    <loc>/2015/02/26/stop-the-angularjs-hate/</loc>
     <lastmod>2015-02-26T04:22:33-07:00</lastmod>
   </url>
   <url>
-    <loc>/docker/2015/02/26/docker-makes-everything-better.html</loc>
+    <loc>/2015/02/26/docker-makes-everything-better/</loc>
     <lastmod>2015-02-26T04:07:59-07:00</lastmod>
   </url>
   <url>
-    <loc>/security/2015/02/23/security-notes-regex.html</loc>
+    <loc>/2015/02/23/security-notes-regex/</loc>
     <lastmod>2015-02-23T22:42:21-07:00</lastmod>
   </url>
   <url>
