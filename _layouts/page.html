@@ -23,6 +23,7 @@
 
 <div id="main" role="main">
   <article class="hentry">
+    {% if page.title %}
     <header class="header-title">
       <div class="header-title-wrap">
         <h1 class="entry-title">{{ page.title }}</h1>
@@ -35,6 +36,7 @@
         {% endif %}
       </div><!-- /.header-title-wrap -->
     </header>
+    {% endif %}
     <div class="entry-content">
       {{ content }}
       <footer class="entry-meta">
@@ -53,7 +55,7 @@
   </footer>
 </div><!-- /.footer-wrapper -->
 
-{% include scripts.html %}          
+{% include scripts.html %}
 
 </body>
 </html>

@@ -160,32 +160,35 @@
 	<button class="dl-trigger">Open Menu</button>
 	<ul class="dl-menu">
 		<li><a href="/">Home</a></li>
+		<li><a href="/tags">Tags</a></li>
 		<li>
-			<a href="#">Contact Me</a>
+			<a href="#">About Dan</a>
 			<ul class="dl-submenu">
 				<li>
 					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
-					<h4>Dan Levy</h4>
-					<p>Devout Programmer</p>
+					<div class="clearfix"></div>
+					<h3 style="float: left; display: inline; margin-left: 12px;">Dan Levy</h3>
+					<p style="float: right; display: inline;">Devout Programmer</p>
+					<div class="clearfix"></div>
 				</li>
 				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
 				<li>
-					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
+					<a target="_blank" href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				<li>
-					<a href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
+					<a target="_blank" href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
 				</li>
 				<li>
-					<a href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
+					<a target="_blank" href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
 				</li>
 				<li>
-					<a href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
+					<a target="_blank" href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
 				</li>
 				<li>
-					<a href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
+					<a target="_blank" href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
 				</li>
 				
 				
@@ -196,13 +199,20 @@
 		<li>
 			<a href="#">Articles</a>
 			<ul class="dl-submenu article-list">
-				<li><a href="/posts/">All Articles</a></li>
 				
 					
 	        <li class="entry-title">
-	        	<a href="/2015/09/14/beautiful-engineering-models-and-data/" title="Beautiful Engineering: Models & Data">
-	        		<div>Beautiful Engineering: Models & Data</div>
-		        	<em>2015-09-14</em>
+	        	<a href="/2015/09/22/concatenation-anti-patterns/" title="Beautiful Models (and Data)">
+	        		<div>Beautiful Models (and Data)</div>
+		        	<em>2015-09-22</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/09/22/beautiful-engineering-models-and-data/" title="Beautiful Models (and Data)">
+	        		<div>Beautiful Models (and Data)</div>
+		        	<em>2015-09-22</em>
 	        	</a>
 	        </li>
 			  
@@ -230,22 +240,7 @@
 	        	</a>
 	        </li>
 			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/06/06/docker-firewall-setup/" title="Docker Firewall Setup">
-	        		<div>Docker Firewall Setup</div>
-		        	<em>2015-06-06</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/06/06/javascript-scope-magic/" title="JavaScript Magic">
-	        		<div>JavaScript Magic</div>
-		        	<em>2015-06-06</em>
-	        	</a>
-	        </li>
-			  
+				<li style="text-align: center;"><a href="/posts/"><strong>[ All Articles ]</strong></a></li>
 			</ul>
 		</li>
 		
@@ -280,6 +275,91 @@
 
 <div id="main" role="main">
   
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/02/26/docker-makes-everything-better/" title="Docker === Love"><img src="/images/abstract-6.jpg" alt="Docker === Love"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-26T00:00:00-07:00"><a href="/2015/02/26/docker-makes-everything-better/">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~4 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/02/26/docker-makes-everything-better/" rel="bookmark" title="Docker === Love" itemprop="url">Docker === Love</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="Docker.Can.Do.Everything.."></a>
+<h1>Docker Can Do Everything!*</h1>
+
+<p>Improve your process for:</p>
+
+<ol>
+<li>Testing Dev Tools &amp; Servers WITH VIRTUALLY ZERO risk of messing up dependencies on your PC</li>
+<li>Testing your software</li>
+<li>Makes you write more idempotent, modular code&hellip; (I&rsquo;ll write how to actually realize this in a follow up)</li>
+</ol>
+
+
+<p>There may seem like a huge volume of new stuff to learn, <strong>don&rsquo;t let that stop you</strong> from getting started.</p>
+
+<a name="Notes"></a>
+<h4>Notes</h4>
+
+<ul>
+<li>If you see a <code>docker run</code> command with either options <code>-d</code> or <code>-it</code>:
+
+<ul>
+<li><code>-it</code> or <code>-i -t</code> will run the configured command interactively</li>
+<li><code>-d</code> will start the docker container as a &lsquo;daemon&rsquo; aka background service.</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<a name="EXAMPLES"></a>
+<h1>EXAMPLES</h1>
+
+<a name="nginx"></a>
+<h2>nginx</h2>
+
+<pre><code class="bash">
+    # Note: using host-based, shared folders
+    #(shared folders are not possible with the VOLUME Dockerfile cmd)
+    sudo docker run --name web01 -d -p 8181:80 \
+        -v $(NGINX_DIR)/etc:/etc/nginx \
+        -v $(NGINX_DIR)/log:/var/log/nginx \
+        -v $(NGINX_DIR)/www:/var/www/html \
+        nginx:latest
+
+    # Local data, isolated within instance
+    sudo docker run --name web01 -d -p 8181:80 nginx:latest
+
+    # nodejs
+    sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
+</code></pre>
+
+<blockquote><p>Credits: <a href="https://dockerfile.github.io/#/nginx">https://dockerfile.github.io/#/nginx</a>
+Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
+
+<ul>
+<li>Pretty close</li>
+</ul>
+</blockquote>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
 <article class="hentry">
   <header>
     

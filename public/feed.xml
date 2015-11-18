@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-09-24T14:36:02-06:00</updated>
+<updated>2015-11-16T03:11:07-07:00</updated>
 <id>/</id>
 <author>
   <name>Dan Levy</name>
@@ -14,11 +14,11 @@
 
 
 <entry>
-  <title type="html"><![CDATA[Beautiful Engineering: Models & Data]]></title>
- <link rel="alternate" type="text/html" href="/2015/09/14/beautiful-engineering-models-and-data/" />
-  <id>/2015/09/14/beautiful-engineering-models-and-data</id>
-  <updated>2015-09-26T00:00:00-00:00</updated>
-  <published>2015-09-14T00:00:00-06:00</published>
+  <title type="html"><![CDATA[Beautiful Models (and Data)]]></title>
+ <link rel="alternate" type="text/html" href="/2015/09/22/concatenation-anti-patterns/" />
+  <id>/2015/09/22/concatenation-anti-patterns</id>
+  <updated>2015-11-13T00:00:00-00:00</updated>
+  <published>2015-09-22T00:00:00-06:00</published>
   
   <author>
     <name>Dan Levy</name>
@@ -26,11 +26,91 @@
     <email>Dan@DanLevy.net</email>
   </author>
   <content type="html">
-    &lt;a name=&quot;L.em.Work-in-progress..updated.Sep..2015...em.&quot;&gt;&lt;/a&gt;
-&lt;h4&gt;&lt;em&gt;Work-in-progress (updated Sep. 2015)&lt;/em&gt;&lt;/h4&gt;
+    &lt;a name=&quot;L.em.Work-in-progress..updated.Nov..2015...em.&quot;&gt;&lt;/a&gt;
+&lt;h4&gt;&lt;em&gt;Work-in-progress (updated Nov. 2015)&lt;/em&gt;&lt;/h4&gt;
 
-&lt;a name=&quot;The.issue.at.hand.is.deceptively.simple..amp..subtle:..strong.Naming..strong.&quot;&gt;&lt;/a&gt;
-&lt;h3&gt;The issue at hand is deceptively simple &amp;amp; subtle: &lt;strong&gt;Naming&lt;/strong&gt;&lt;/h3&gt;
+&lt;a name=&quot;Array-.or.Set-based.Coding.Style&quot;&gt;&lt;/a&gt;
+&lt;h1&gt;Array- or Set-based Coding Style&lt;/h1&gt;
+
+&lt;a name=&quot;An.Anti-Pattern.&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;An Anti-Pattern?&lt;/h2&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Note: This is not Yet-Another-Article warning noobs about RAM usage when appending strings&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;This is an exploration of advantages gained when you &lt;strong&gt;code everything as an array.&lt;/strong&gt; (Using Jedi concepts from SmallTalk)&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s some guiding principles:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;All input is array-like. Even if an array of 1.&lt;/li&gt;
+&lt;li&gt;Functions should generally accept AND return arrays.&lt;/li&gt;
+&lt;li&gt;99 out of 100 devs code suffers from what I call &lt;code&gt;acute schema surplusage&lt;/code&gt; syndrome -based models.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Yes, beware &lt;code&gt;fat ASS models&lt;/code&gt; - with all the predictable trappings: fragile &lt;code&gt;instance state&lt;/code&gt; - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic &lt;code&gt;property getter/setters&lt;/code&gt;, and your &lt;code&gt;public/private/final/etc&lt;/code&gt; usage is solid, right?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;So let me take a common problem and &lt;em&gt;shoehorn&lt;/em&gt; &lt;del&gt;add&lt;/del&gt; some of my set-based heretical musings.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt; Why is a Product price always a single data point? Why on earth would I make price(s) an Array?&lt;/li&gt;
+&lt;li&gt; Let&amp;rsquo;s add this functionality:
+
+&lt;ol type=&quot;a&quot;&gt;
+&lt;li&gt;&lt;strong&gt;New requirements:&lt;/strong&gt; &lt;code&gt;retailPrice&lt;/code&gt;, &lt;code&gt;priceSavings&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;These changes hopefully look no worse than my sorry attempt:&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;package net.danlevy.testpool.why.java.has.so.many.dots;
+
+public class Product {
+
+  public String Name;
+  public float Price;
+  public float retailPrice;
+  public float priceSavings;
+
+  public Product(String name, float price) {
+    Name = name;
+    Price = price;
+    this.retailPrice = price;
+    this.priceSavings = 0.0f;
+  }
+
+  public Product(String name, float price,
+      float retailPrice,
+      float priceSavings) {
+    this.name = name;
+    this.price = price;
+    this.retailPrice = retailPrice;
+    this.priceSavings = priceSavings;
+  }
+
+  public float getPriceSavings() {
+    return this.retailPrice - this.price;
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;   (I&amp;rsquo;m not replacing the valid pattern of tracking historical prices in tables)
+  1. I&amp;rsquo;m not sure about you, but price of just about anything is in flux - just given time.
+  1.
+  I &lt;strong&gt;experience&lt;/strong&gt; price as constantly fluctuating data point.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt; For example, even values which seem like singular variables - say a &lt;code&gt;Product&lt;/code&gt; class includes &lt;code&gt;var listPrice = 125&lt;/code&gt; - change it to &lt;code&gt;var prices = [50, 100, 125]&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt; Bear with me. That is not likely the final re-factor on that&amp;hellip;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;function Product({name=&#39;widget&#39;, prices=[]}) {
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Foreshadowing: We&amp;rsquo;re going to go through a concept familiar to LISP, SmallTalk, et al. devs.
+It&amp;rsquo;s known by many names, however I prefer &lt;strong&gt;Array-based programming.&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;a name=&quot;The.issue.we.ll.examine.is.deceptively.simple..amp..subtle:..strong.Naming..strong.&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;The issue we&amp;rsquo;ll examine is deceptively simple &amp;amp; subtle: &lt;strong&gt;Naming&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;blockquote&gt;&lt;p&gt;I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.&lt;/p&gt;
 
@@ -88,8 +168,9 @@ Does the following look familiar?&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;Why is naming a field &lt;code&gt;agentEmailPrimary&lt;/code&gt; the worst?
-For starters, you are &lt;strong&gt;not&lt;/strong&gt; creating an entirely new object unto the universe. Over-specificity has some traps:&lt;/p&gt;
+&lt;p&gt;Why is naming a field &lt;code&gt;agentEmailPrimary&lt;/code&gt; the worst?&lt;/p&gt;
+
+&lt;p&gt;For starters, you are &lt;strong&gt;not&lt;/strong&gt; creating an entirely new object unto the universe. Over-specificity has some traps:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&amp;lsquo;Locked&amp;rsquo; into highly specific name, means &lt;code&gt;agentEmailPrimary&lt;/code&gt; probably make your views and related code &lt;strong&gt;0% reusable&lt;/strong&gt;, and featuring annoyingly recurring bugs like:
@@ -134,19 +215,164 @@ User
 &lt;li&gt;Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.&lt;/li&gt;
 &lt;li&gt; Try merge related tables. &lt;strong&gt;Important if you are coming from a SQL background to No-SQL&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt; Delete redundant data collection (e.g. remove &lt;code&gt;ActivityLogs&lt;/code&gt; table if replaced by Google Analytics)&lt;/li&gt;
-&lt;li&gt;Try keep &lt;strong&gt;all field names&lt;/strong&gt; to a &lt;strong&gt;single word/noun/pro-noun&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Try keeping &lt;strong&gt;all field names&lt;/strong&gt; to a &lt;strong&gt;single word/noun/pro-noun&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt; There is &lt;strong&gt;no such thing&lt;/strong&gt; as &lt;code&gt;Agent.agentEmail&lt;/code&gt; or &lt;code&gt;Agent.agentPhonePrimary&lt;/code&gt;. Period.&lt;/li&gt;
 &lt;li&gt; By using Highly Specific Names, you cast-in-stone a specific level of &lt;code&gt;code-reusability&lt;/code&gt; and &lt;code&gt;durability&lt;/code&gt;, well, specifically &lt;strong&gt;ZERO %&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt; Don&amp;rsquo;t think you are doing yourself any favors with crap like this &lt;code&gt;User.profileSummaryEmail&lt;/code&gt; (where &amp;lsquo;profile&amp;rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say &lt;code&gt;Profiles&lt;/code&gt; which includes &lt;code&gt;Profiles.email&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 
+&lt;a name=&quot;L.em.Work-in-progress..updated.Nov..2015...em.&quot;&gt;&lt;/a&gt;
+&lt;h3&gt;&lt;em&gt;Work-in-progress (updated Nov. 2015)&lt;/em&gt;&lt;/h3&gt;
+
 &lt;!-- ![schema refactor][schema_refactor] --&gt;
 
 
 
 
-    &lt;p&gt;&lt;a href=&quot;/2015/09/14/beautiful-engineering-models-and-data/&quot;&gt;Beautiful Engineering: Models &amp; Data&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on September 14, 2015.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2015/09/22/concatenation-anti-patterns/&quot;&gt;Beautiful Models (and Data)&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on September 22, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Beautiful Models (and Data)]]></title>
+ <link rel="alternate" type="text/html" href="/2015/09/22/beautiful-engineering-models-and-data/" />
+  <id>/2015/09/22/beautiful-engineering-models-and-data</id>
+  <updated>2015-09-24T00:00:00-00:00</updated>
+  <published>2015-09-22T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;a name=&quot;L.em.Work-in-progress..updated.Sep..2015...em.&quot;&gt;&lt;/a&gt;
+&lt;h4&gt;&lt;em&gt;Work-in-progress (updated Sep. 2015)&lt;/em&gt;&lt;/h4&gt;
+
+&lt;a name=&quot;The.issue.we.ll.examine.is.deceptively.simple..amp..subtle:..strong.Naming..strong.&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;The issue we&amp;rsquo;ll examine is deceptively simple &amp;amp; subtle: &lt;strong&gt;Naming&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;&lt;p&gt;I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.&lt;/p&gt;
+
+&lt;p&gt;While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don&amp;rsquo;t need to read this if the following makes sense: &lt;code&gt;No-Sql denormalization strategy&lt;/code&gt;, or &lt;code&gt;Boyce Codd Normal Forms&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Recommended reading includes:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Book: Code Complete&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://phlonx.com/resources/nf3/&quot;&gt;http://phlonx.com/resources/nf3/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Database_normalization&quot;&gt;https://en.wikipedia.org/wiki/Database_normalization&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;a name=&quot;The.Problem.-.by.Example&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;The Problem - by Example&lt;/h2&gt;
+
+&lt;p&gt;Have you ever designed a &lt;code&gt;data model&lt;/code&gt; (in code, Sql, or excel worksheets)?
+Does the following look familiar?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;*** anti-pattern - don&#39;t copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - &#39;Pointer&#39; to User table ^^^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If this is familiar to you, I&amp;rsquo;ll bet you:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Feel any change to your app will necessitate hours of arduous debugging.&lt;/li&gt;
+&lt;li&gt;Fear ANY Changing Requirements
+&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif&quot; alt=&quot;schema refactor&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;a name=&quot;The.Cost.of.Bad..Naming..Habits&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;The Cost of Bad (Naming) Habits&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s examine some of the subtle issues (probably familiar):&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Why is naming a field &lt;code&gt;agentEmailPrimary&lt;/code&gt; the worst?&lt;/p&gt;
+
+&lt;p&gt;For starters, you are &lt;strong&gt;not&lt;/strong&gt; creating an entirely new object unto the universe. Over-specificity has some traps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&amp;lsquo;Locked&amp;rsquo; into highly specific name, means &lt;code&gt;agentEmailPrimary&lt;/code&gt; probably make your views and related code &lt;strong&gt;0% reusable&lt;/strong&gt;, and featuring annoyingly recurring bugs like:
+
+&lt;ul&gt;
+&lt;li&gt;Data not syncing between tables (not obvious if &lt;code&gt;user.email&lt;/code&gt; needs to propagate to &lt;code&gt;agent.agentEmail&lt;/code&gt; or vice-versa - nevermind complexity of manually implementing where &amp;amp; how to enforce this &amp;lsquo;logic&amp;rsquo; &amp;hellip;)&lt;/li&gt;
+&lt;li&gt;Validation rules/logic are likely duplicated &amp;amp; inconsitent.&lt;/li&gt;
+&lt;li&gt;Increasingly, your project will resemble a shaky Jenga tower.&lt;/li&gt;
+&lt;li&gt;Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;I know, you probably feel something like&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif&quot; alt=&quot;fuck this&quot; /&gt;&lt;/p&gt;
+
+&lt;a name=&quot;A.Solution&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;A Solution&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;// Dan&#39;s Recommended Schema Consolidation:
+
+User
+  - id
+  - role: [&#39;agent&#39;, &#39;lead&#39;, &#39;admin&#39;]
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I removed the &lt;code&gt;Agent&lt;/code&gt; table, as it didn&amp;rsquo;t contain fields which were uniquely related to Agents.&lt;/p&gt;
+
+&lt;p&gt;All changes were made with these general ideas in mind:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.&lt;/li&gt;
+&lt;li&gt; Try merge related tables. &lt;strong&gt;Important if you are coming from a SQL background to No-SQL&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt; Delete redundant data collection (e.g. remove &lt;code&gt;ActivityLogs&lt;/code&gt; table if replaced by Google Analytics)&lt;/li&gt;
+&lt;li&gt;Try keeping &lt;strong&gt;all field names&lt;/strong&gt; to a &lt;strong&gt;single word/noun/pro-noun&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt; There is &lt;strong&gt;no such thing&lt;/strong&gt; as &lt;code&gt;Agent.agentEmail&lt;/code&gt; or &lt;code&gt;Agent.agentPhonePrimary&lt;/code&gt;. Period.&lt;/li&gt;
+&lt;li&gt; By using Highly Specific Names, you cast-in-stone a specific level of &lt;code&gt;code-reusability&lt;/code&gt; and &lt;code&gt;durability&lt;/code&gt;, well, specifically &lt;strong&gt;ZERO %&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt; Don&amp;rsquo;t think you are doing yourself any favors with crap like this &lt;code&gt;User.profileSummaryEmail&lt;/code&gt; (where &amp;lsquo;profile&amp;rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say &lt;code&gt;Profiles&lt;/code&gt; which includes &lt;code&gt;Profiles.email&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;a name=&quot;L.em.Work-in-progress..updated.Sep..2015...em.&quot;&gt;&lt;/a&gt;
+&lt;h3&gt;&lt;em&gt;Work-in-progress (updated Sep. 2015)&lt;/em&gt;&lt;/h3&gt;
+
+&lt;!-- ![schema refactor][schema_refactor] --&gt;
+
+
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/09/22/beautiful-engineering-models-and-data/&quot;&gt;Beautiful Models (and Data)&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on September 22, 2015.&lt;/p&gt;
   </content>
 </entry>
 
@@ -155,7 +381,7 @@ User
   <title type="html"><![CDATA[AngularJS v2.0 and the Impending Schism]]></title>
  <link rel="alternate" type="text/html" href="/2015/08/05/angularjs-v2-impending-schism/" />
   <id>/2015/08/05/angularjs-v2-impending-schism</id>
-  <updated>2015-09-01T00:00:00-00:00</updated>
+  <updated>2015-09-18T00:00:00-00:00</updated>
   <published>2015-08-05T00:00:00-06:00</published>
   
   <author>
@@ -174,22 +400,19 @@ However, They came up with another (totally different), also-awesome spec&amp;he
 
 &lt;p&gt;Now, newbies must climb &amp;lsquo;Mount TypeScript&amp;rsquo; before they can even start assembling an Angular app (with some level of understanding).&lt;/p&gt;
 
+&lt;p&gt;I have a feeling how this might go&amp;hellip;&lt;/p&gt;
+
 &lt;div class=&quot;anigif end&quot;&gt;
-![not_a_fan][not_a_fan]
+  &lt;img alt=&#39;endless loop&#39; src=&quot;https://res.cloudinary.com/ddd/image/upload/timeout-expired.gif&quot; /&gt;
 &lt;/div&gt;
 
 
 &lt;p&gt;Oh well, I&amp;rsquo;ll add it to the Newbie training list: somewhere between &lt;code&gt;Basic Shell Usage&lt;/code&gt; and &lt;code&gt;Gulp or Grunt? Godsend+Misery!&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;
-Anyway, I hope this works out...
-&lt;/p&gt;
-
-
-
+&lt;blockquote&gt;&lt;p&gt;Anyway, I hope this works out&amp;hellip;&lt;/p&gt;&lt;/blockquote&gt;
 
 &lt;div class=&quot;anigif top end&quot;&gt;
-![drinking][drinking]
+  &lt;img alt=&#39;everything is going to be ok&#39; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1442175801/system-maint-anon.gif&quot; /&gt;
 &lt;/div&gt;
 
 
@@ -216,8 +439,8 @@ Anyway, I hope this works out...
     &lt;a name=&quot;Programming.Languages.Notes&quot;&gt;&lt;/a&gt;
 &lt;h1&gt;Programming Languages Notes&lt;/h1&gt;
 
-&lt;a name=&quot;L.em.Work-in-progress..updated.June.15th.2015...em.&quot;&gt;&lt;/a&gt;
-&lt;h3&gt;&lt;em&gt;Work-in-progress (updated June 15th 2015)&lt;/em&gt;&lt;/h3&gt;
+&lt;a name=&quot;L.em.Work-in-progress..updated.Sept..25th.2015...em.&quot;&gt;&lt;/a&gt;
+&lt;h3&gt;&lt;em&gt;Work-in-progress (updated Sept. 25th 2015)&lt;/em&gt;&lt;/h3&gt;
 
 &lt;a name=&quot;I.m.sure.my.Miscellaneous.Observations.have.been.made.before..but.here.is.my.list.of.most.interesting.languages:&quot;&gt;&lt;/a&gt;
 &lt;h3&gt;I&amp;rsquo;m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:&lt;/h3&gt;
@@ -249,6 +472,15 @@ It&amp;rsquo;s the #1 Most Active/Popular Language on GitHub.com for &lt;em&gt;y
 &lt;a name=&quot;Examples&quot;&gt;&lt;/a&gt;
 &lt;h3&gt;Examples&lt;/h3&gt;
 
+&lt;blockquote&gt;&lt;p&gt;I&amp;rsquo;m going to show you what finally made me &lt;em&gt;start&lt;/em&gt; drinking that ES6-flavoured KoolAid.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;In my recent experience, ES6 helps you write code faster. To the point.
+Because code is more succinct, appreciably less brain power is needed to sift through and understand your old code (or that of a teammates).&lt;/p&gt;
+
+&lt;p&gt;I have regularly seen KLOC savings roughly of 20-50%. That&amp;rsquo;s like Kate Moss trim!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/screenshots/Diff-ES6-vs-ES5-Head-to-Head.png&quot; alt=&quot;EcmaScript 5 vs ES 2016 - Demo: Classes, Destructuring, Sexiness&quot; /&gt;&lt;/p&gt;
+
 &lt;pre&gt;&lt;code class=&quot;js&quot;&gt;// /services/users.js
 class Users {
   constructor(data) {
@@ -276,18 +508,69 @@ class Users {
       &#39;name&#39;: name,
       &#39;email&#39;: email,
       &#39;passwordHash&#39;: hash
-    })
-    .then(usr =&amp;gt; this.users.push(usr)); // append user upon service response
+    }).then(usr =&amp;gt; this.users.push(usr)); // append user upon service response
   }
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;I know. It feels like this:&lt;/p&gt;
+&lt;p&gt;&lt;noscript&gt;&lt;pre&gt;// services/user.js
+function Users(data) {
+  // ensure we&amp;#39;re a real thing
+  if (!(this instanceof Users)) { return new Users(data); }
+  this.users = data || [];
+}&lt;/p&gt;
 
-&lt;p&gt;It gets better: auto &lt;code&gt;this&lt;/code&gt; binding more-sane inheritance&lt;/p&gt;
+&lt;p&gt;Users.prototype.add = function(opts) {
+    // Validate input, We need to extract the 3 fields from opts
+    if ( !opts || typeof(opts) !== &amp;#39;object&amp;#39; ) {
+      return Promise.reject(&amp;#39;add() requires Opts parameter&amp;#39;);
+    }
+    // Unpack data, assuming keys are there
+    var name  = opts.name,
+        email = opts.email,
+        pass  = opts.password;
+    var hash = getSha256(pass);&lt;/p&gt;
 
-&lt;a name=&quot;io.js&quot;&gt;&lt;/a&gt;
-&lt;h4&gt;&lt;a href=&quot;http://iojs.org/&quot;&gt;io.js&lt;/a&gt;&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;return http.post(&amp;amp;#39;/users&amp;amp;#39;, {
+  &amp;amp;#39;name&amp;amp;#39;: name,
+  &amp;amp;#39;email&amp;amp;#39;: email,
+  &amp;amp;#39;passwordHash&amp;amp;#39;: hash})
+.then(function(usr) {
+  return this.users.push(usr);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  }
+}&lt;/pre&gt;&lt;/noscript&gt;&lt;script src=&quot;https://gist.github.com/justsml/aaddc9852c1624d61cf3.js&quot;&gt; &lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;#160;&lt;/p&gt;
+
+
+&lt;a name=&quot;Jumping.on.ES6.can.feel.like.going.from:&quot;&gt;&lt;/a&gt;
+&lt;h3&gt;Jumping on ES6 can feel like going from:&lt;/h3&gt;
+
+&lt;div class=&quot;anigif top&quot;&gt;
+  &lt;img alt=&#39;huh&#39; title=&quot;Huh?&quot; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1441143891/wtf__tumblr_inline_n7ygqh6Y0C1svcdm1_igeqey.gif&quot; /&gt;
+&lt;/div&gt;
+
+
+&lt;h3&gt;To&lt;/h3&gt;
+
+
+&lt;div class=&quot;anigif&quot;&gt;
+  &lt;img alt=&#39;wtf&#39; title=&quot;WTF?!?!&quot; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1443133148/cat-wtf-trap.gif&quot; /&gt;
+&lt;/div&gt;
+
+
+&lt;h3&gt;To&lt;/h3&gt;
+
+
+&lt;div class=&quot;anigif end&quot;&gt;
+  &lt;img alt=&#39;#winning&#39; title=&#39;#winning&#39; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1443133141/full-throttle.gif&quot; /&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Just keep sifting through the new stuff. Check out string templates, auto &lt;code&gt;this&lt;/code&gt; binding, more-sane inheritance&amp;hellip;&lt;/p&gt;
 
 &lt;a name=&quot;Node.JS&quot;&gt;&lt;/a&gt;
 &lt;h4&gt;&lt;a href=&quot;http://nodejs.org/&quot;&gt;Node.JS&lt;/a&gt;&lt;/h4&gt;
@@ -400,8 +683,8 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 &lt;/ul&gt;
 
 
-&lt;div align=&quot;center&quot; class=&quot;anigif&quot;&gt;
-![endless_loop][endless_loop]
+&lt;div class=&quot;anigif end&quot;&gt;
+  &lt;img alt=&#39;endless loop&#39; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1441143881/endless-loop.gif&quot; /&gt;
 &lt;/div&gt;
 
 
@@ -424,6 +707,9 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 &lt;/li&gt;
 &lt;/ul&gt;
 
+
+&lt;a name=&quot;L.em.Work-in-progress..updated.Sept..25th.2015...em.&quot;&gt;&lt;/a&gt;
+&lt;h3&gt;&lt;em&gt;Work-in-progress (updated Sept. 25th 2015)&lt;/em&gt;&lt;/h3&gt;
 
     &lt;p&gt;&lt;a href=&quot;/2015/06/12/polyglot-redux/&quot;&gt;Polyglot Redux&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 12, 2015.&lt;/p&gt;
   </content>
@@ -522,106 +808,11 @@ boot2docker up
 
 
 <entry>
-  <title type="html"><![CDATA[Docker Firewall Setup]]></title>
- <link rel="alternate" type="text/html" href="/2015/06/06/docker-firewall-setup/" />
-  <id>/2015/06/06/docker-firewall-setup</id>
-  <updated>2015-06-15 04:50:00 -0600T00:00:00-00:00</updated>
-  <published>2015-06-06T16:22:22-06:00</published>
-  
-  <author>
-    <name>Dan Levy</name>
-    <uri></uri>
-    <email>Dan@DanLevy.net</email>
-  </author>
-  <content type="html">
-    &lt;a name=&quot;Setup.Docker.Host.Firewall&quot;&gt;&lt;/a&gt;
-&lt;h1&gt;Setup Docker Host Firewall&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Debian/Ubuntu Server is assumed&lt;/li&gt;
-&lt;li&gt;Designed to run on Docker Host Server&lt;/li&gt;
-&lt;/ol&gt;
-
-
-&lt;a name=&quot;Install.Requirements&quot;&gt;&lt;/a&gt;
-&lt;h2&gt;Install Requirements&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# Ultimate Firewall Needed
-apt-get update &amp;amp;&amp;amp; apt-get install -y ufw nmap curl
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;a name=&quot;Get.your.Internal..amp..External.IP.Addresses&quot;&gt;&lt;/a&gt;
-&lt;h2&gt;Get your Internal &amp;amp; External IP Addresses&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# Get your IP Addresses, simple output:
-hostname --all-ip-addresses
-
-# OR use ip tool, example:
-ip addr
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;a name=&quot;Firtewall..UFW..Setup.-.Example.Cmds&quot;&gt;&lt;/a&gt;
-&lt;h2&gt;Firtewall (UFW) Setup - Example Cmds&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# Allow and log all new ssh connections,
-ufw allow log proto tcp from any to any port 22
-## Allow http traffic (w/o explicit logging)
-ufw allow proto tcp from any to any port 80
-ufw limit tcp/22 # Basic Rate limit 4 SSH brute force mitigation
-
-# Set your ext IP
-export EXTERNAL_IP=123.123.123.123
-# Update docker IP if needed
-export DOCKER_IP=172.17.42.1
-# Forward tcp 8080 traffic to  Dockerized App
-ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;a name=&quot;Enable...Start.Firewall&quot;&gt;&lt;/a&gt;
-&lt;h2&gt;Enable / Start Firewall&lt;/h2&gt;
-
-&lt;blockquote&gt;&lt;p&gt;Be Careful, Don&amp;rsquo;t Lock out your SSH port (sshd defaults to 22)&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;ufw enable
-ufw reset
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;a name=&quot;Test.Your.Firewall&quot;&gt;&lt;/a&gt;
-&lt;h2&gt;Test Your Firewall&lt;/h2&gt;
-
-&lt;blockquote&gt;&lt;p&gt;Important: USE A REMOTE IP ADDR/LOCATION&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# Verify dependency
-apt-get update &amp;amp;&amp;amp; apt-get install -y nmap
-
-# Set scan target
-export TARGET_HOST=123.123.123.123
-
-# Example Scan Commands:
-# Fast open port check
-nmap -p 1-10240,27017 -T5 $TARGET_HOST
-# Thorough scan
-nmap -p 1-10240,27017 --open -v -APN $TARGET_HOST
-# Svc Inspection
-nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;a name=&quot;DONE..Now.you.should.see.ONLY.the.ports.you.configured.&quot;&gt;&lt;/a&gt;
-&lt;h4&gt;DONE! Now you should see ONLY the ports you configured!&lt;/h4&gt;
-
-    &lt;p&gt;&lt;a href=&quot;/2015/06/06/docker-firewall-setup/&quot;&gt;Docker Firewall Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
-  </content>
-</entry>
-
-
-<entry>
   <title type="html"><![CDATA[JavaScript Magic]]></title>
  <link rel="alternate" type="text/html" href="/2015/06/06/javascript-scope-magic/" />
   <id>/2015/06/06/javascript-scope-magic</id>
-  <updated>2015-06-15 03:00:01 -0600T00:00:00-00:00</updated>
-  <published>2015-06-06T09:42:21-06:00</published>
+  <updated>2015-09-24T00:00:00-00:00</updated>
+  <published>2015-06-06T00:00:00-06:00</published>
   
   <author>
     <name>Dan Levy</name>
@@ -636,8 +827,6 @@ nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
 
 &lt;a name=&quot;Imperative.vs..Recursive.vs..Functional&quot;&gt;&lt;/a&gt;
 &lt;h1&gt;Imperative vs. Recursive vs. Functional&lt;/h1&gt;
-
-&lt;p&gt;Work-in-progress&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;
 // Imperative: The Fastest ( + very simple, no new pointers or excess allocs ):
@@ -679,6 +868,8 @@ function fib(n) {
 
 &lt;a name=&quot;Promises:.Awesome.&quot;&gt;&lt;/a&gt;
 &lt;h1&gt;Promises: Awesome!&lt;/h1&gt;
+
+&lt;p&gt;![fuck this][fuck_this]&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;js&quot;&gt;
 // Example Using bluebird Promises and it&#39;s
@@ -730,6 +921,120 @@ fs.readFileAsync(&#39;./style.less&#39;) // Call promisified readFile()
 
 
 <entry>
+  <title type="html"><![CDATA[Docker Firewall Setup]]></title>
+ <link rel="alternate" type="text/html" href="/2015/06/06/docker-firewall-setup/" />
+  <id>/2015/06/06/docker-firewall-setup</id>
+  <updated>2015-11-08T00:00:00-00:00</updated>
+  <published>2015-06-06T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;a name=&quot;Setup.Docker.Host.Firewall&quot;&gt;&lt;/a&gt;
+&lt;h1&gt;Setup Docker Host Firewall&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Debian/Ubuntu Server is assumed&lt;/li&gt;
+&lt;li&gt;Designed to run on Docker Host Server&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;a name=&quot;Install.Requirements&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;Install Requirements&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# Ultimate Firewall Needed
+apt-get update &amp;amp;&amp;amp; apt-get install -y ufw nmap curl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;a name=&quot;Get.your.Internal..amp..External.IP.Addresses&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;Get your Internal &amp;amp; External IP Addresses&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# Get your IP Addresses, simple output:
+hostname --all-ip-addresses
+
+# OR use ip tool, example:
+ip addr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;a name=&quot;Firtewall..UFW..Setup.-.Example.Cmds&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;Firtewall (UFW) Setup - Example Cmds&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;ufw logging on # on=low - medium might be better for diagnostics
+ufw logging medium
+# First, block all the things
+ufw default deny incoming
+
+# REQUIRED: CHOOSE *ONE* OF THE FOLLOWING DEFAULT OUTBOUND RULES:
+ufw default deny outgoing
+ufw default allow outgoing
+
+
+# Allow and log all new ssh connections,
+ufw allow log proto tcp from any to any port 22
+## Allow http traffic (w/o explicit logging)
+ufw allow out on docker0 53/udp to 172.17.0.1/16
+ufw allow out on eth0 to any port 53
+ufw allow out on eth0 from 0.0.0.0/0 to any port 80 proto tcp
+ufw allow out on eth0 from 0.0.0.0/0 to any port 443 proto tcp
+
+# Verbose: ufw allow proto tcp from any to any port 80
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow log 22/tcp
+ufw limit ssh # Basic Rate limit 4 SSH brute force mitigation
+
+# Set your ext IP
+export EXTERNAL_IP=123.123.123.123
+# Update docker IP if needed
+export DOCKER_IP=172.17.42.1
+# Forward tcp 8080 traffic to  Dockerized App
+ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;a name=&quot;Enable...Start.Firewall&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;Enable / Start Firewall&lt;/h2&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Be Careful, Don&amp;rsquo;t Lock out your SSH port (sshd defaults to 22)&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;ufw --force enable
+
+ufw reset
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;a name=&quot;Test.Your.Firewall&quot;&gt;&lt;/a&gt;
+&lt;h2&gt;Test Your Firewall&lt;/h2&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Important: USE A REMOTE IP ADDR/LOCATION&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;# Verify dependency
+apt-get update &amp;amp;&amp;amp; apt-get install -y nmap
+
+# Set scan target
+export TARGET_HOST=123.123.123.123
+
+# Example Scan Commands:
+# Fast open port check
+nmap -p 1-10240,27017 -T5 $TARGET_HOST
+# Thorough scan
+nmap -p 1-10240,27017 --open -v -APN $TARGET_HOST
+# Svc Inspection
+nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;a name=&quot;DONE..Now.you.should.see.ONLY.the.ports.you.configured.&quot;&gt;&lt;/a&gt;
+&lt;h4&gt;DONE! Now you should see ONLY the ports you configured!&lt;/h4&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/2015/06/06/docker-firewall-setup/&quot;&gt;Docker Firewall Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
   <title type="html"><![CDATA[Docker server Setup]]></title>
  <link rel="alternate" type="text/html" href="/2015/04/05/docker-server-setup-notes/" />
   <id>/2015/04/05/docker-server-setup-notes</id>
@@ -758,6 +1063,8 @@ mkdir ~/backups
 cp ~/.bash* ~/backups/
 
 # Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors
+curl -o- https://raw.githubusercontent.com/justsml/system-setup-tools/master/modules/vim-update.sh | bash
+
 curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc &amp;gt;&amp;gt; ~/.bashrc
 curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases &amp;gt;&amp;gt; ~/.bash_aliases
 # Read into current shell (login steps already missed the aliases file)
@@ -1062,8 +1369,9 @@ If you have tons of small reusable UI components - ReactJS might be a better cho
   <title type="html"><![CDATA[Docker === Love]]></title>
  <link rel="alternate" type="text/html" href="/2015/02/26/docker-makes-everything-better/" />
   <id>/2015/02/26/docker-makes-everything-better</id>
-  <published>2015-02-26T04:07:59-07:00</published>
-  <updated>2015-02-26T04:07:59-07:00</updated>
+  <updated>2015-09-23T00:00:00-00:00</updated>
+  <published>2015-02-26T00:00:00-07:00</published>
+  
   <author>
     <name>Dan Levy</name>
     <uri></uri>

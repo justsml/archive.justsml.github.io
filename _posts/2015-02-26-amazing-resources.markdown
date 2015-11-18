@@ -4,7 +4,7 @@ title:  "Winning Design Resource"
 date:   2015-02-26 11:42:21
 modified:   2015-06-13 01:00:01
 categories: design
-tags: [development, design, resource, ideas, patterns]
+tags: [development, design, resources, patterns]
 image:
   feature: abstract-3.jpg
   credit:

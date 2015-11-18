@@ -4,7 +4,7 @@ title:  "Docker rocks. Boot2docker just sucks."
 date:   2015-06-11 05:00:12
 modified:   2015-06-15 10:00:01
 categories: docker
-tags: [docker, boot2docker, docker cli]
+tags: [docker, boot2docker, devops]
 image:
   feature: abstract-10.jpg
   credit:

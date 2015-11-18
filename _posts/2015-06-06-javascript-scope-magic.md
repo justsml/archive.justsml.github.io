@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "JavaScript Magic"
-date:   2015-06-06 15:42:21
-modified:   2015-06-15 09:00:01
+date:   2015-06-06
+modified:   2015-09-24
 categories: javascript
-tags: [javascript, examples, samples, magic]
+tags: [javascript, programming, performance, patterns]
 image:
   feature: abstract-7.jpg
   credit:
@@ -15,8 +15,6 @@ image:
 > This post is geared to modern browsers and Node.JS/iojs.
 
 # Imperative vs. Recursive vs. Functional
-
-Work-in-progress
 
 ~~~javascript
 
@@ -59,6 +57,9 @@ function fib(n) {
 
 
 # Promises: Awesome!
+
+![fuck this][fuck_this]
+
 ~~~js
 
 // Example Using bluebird Promises and it's

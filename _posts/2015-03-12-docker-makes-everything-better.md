@@ -1,9 +1,10 @@
 ---
 layout: post
 title:  "Docker === Love"
-date:   2015-02-26 11:07:59
+date:   2015-02-26
+modified:   2015-09-23
 categories: docker
-tags: [development, design, resource, ideas, patterns]
+tags: [docker, devops, patterns]
 image:
   feature: abstract-6.jpg
   credit:

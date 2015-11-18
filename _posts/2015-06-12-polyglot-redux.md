@@ -12,7 +12,7 @@ image:
 
 # Programming Languages Notes
 
-### _Work-in-progress (updated June 15th 2015)_
+### _Work-in-progress (updated Sept. 25th 2015)_
 
 ### I'm sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:
 
@@ -39,6 +39,15 @@ There were 4 factors which pushed me into the **ES6 Camp**:
 
 ### Examples
 
+> I'm going to show you what finally made me *start* drinking that ES6-flavoured KoolAid.
+
+In my recent experience, ES6 helps you write code faster. To the point.
+Because code is more succinct, appreciably less brain power is needed to sift through and understand your old code (or that of a teammates).
+
+I have regularly seen KLOC savings roughly of 20-50%. That's like Kate Moss trim!
+
+![EcmaScript 5 vs ES 2016 - Demo: Classes, Destructuring, Sexiness](/images/screenshots/Diff-ES6-vs-ES5-Head-to-Head.png)
+
 ```js
 // /services/users.js
 class Users {
@@ -64,19 +73,34 @@ class Users {
       'name': name,
       'email': email,
       'passwordHash': hash
-    })
-    .then(usr => this.users.push(usr)); // append user upon service response
+    }).then(usr => this.users.push(usr)); // append user upon service response
   }
 }
 ```
 
-I know. It feels like this:
+{% gist justsml/aaddc9852c1624d61cf3 %}
 
 
-It gets better: auto `this` binding more-sane inheritance
+<p>&#160;</p>
+
+### Jumping on ES6 can feel like going from:
+
+<div class="anigif top">
+  <img alt='huh' title="Huh?" src="http://res.cloudinary.com/ddd/image/upload/v1441143891/wtf__tumblr_inline_n7ygqh6Y0C1svcdm1_igeqey.gif" />
+</div>
+<h3>To</h3>
+<div class="anigif">
+  <img alt='wtf' title="WTF?!?!" src="http://res.cloudinary.com/ddd/image/upload/v1443133148/cat-wtf-trap.gif" />
+</div>
+<h3>To</h3>
+<div class="anigif end">
+  <img alt='#winning' title='#winning' src="http://res.cloudinary.com/ddd/image/upload/v1443133141/full-throttle.gif" />
+</div>
 
 
-#### [io.js](http://iojs.org/)
+Just keep sifting through the new stuff. Check out string templates, auto `this` binding, more-sane inheritance...
+
+
 #### [Node.JS](http://nodejs.org/)
 
 
@@ -144,8 +168,9 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 * __Cons__
   - Syntax & Patterns can be hard to get used to.
 
-<div align="center" class="anigif">
-![endless_loop][endless_loop]
+
+<div class="anigif end">
+  <img alt='endless loop' src="http://res.cloudinary.com/ddd/image/upload/v1441143881/endless-loop.gif" />
 </div>
 
 
@@ -161,6 +186,11 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 
 
 
+
+### _Work-in-progress (updated Sept. 25th 2015)_
+
+
+
 [schema_refactor]: https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif
 [not_a_fan]: https://res.cloudinary.com/ddd/image/upload/timeout-expired.gif
 [teamwork]: https://res.cloudinary.com/ddd/image/upload/teamwork__tumblr_n2df80cPZa1s373hwo1_400_ghv4xn.gif
@@ -172,4 +202,5 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 [cat_bowl]: http://res.cloudinary.com/ddd/image/upload/v1441143883/kitten_bowl.gif
 [cat_wtf]: http://res.cloudinary.com/ddd/image/upload/v1441143878/cat-wtf.gif
 [endless_loop]: http://res.cloudinary.com/ddd/image/upload/v1441143881/endless-loop.gif
+[happy_time]: http://res.cloudinary.com/ddd/image/upload/v1443133146/happy-time.gif
 

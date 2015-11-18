@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "Docker Firewall Setup"
-date:       2015-06-06 22:22:22
-modified:   2015-06-15 10:50:00
+date:       2015-06-06
+modified:   2015-11-08
 categories: docker
-tags: [docker,firewall,iptables, ultimate firewall, ufw]
+tags: [docker, security, devops]
 image:
   feature: abstract-8.jpg
   credit:
@@ -38,11 +38,29 @@ ip addr
 ## Firtewall (UFW) Setup - Example Cmds
 
 ~~~sh
+ufw logging on # on=low - medium might be better for diagnostics
+ufw logging medium
+# First, block all the things
+ufw default deny incoming
+
+# REQUIRED: CHOOSE *ONE* OF THE FOLLOWING DEFAULT OUTBOUND RULES:
+ufw default deny outgoing
+ufw default allow outgoing
+
+
 # Allow and log all new ssh connections,
 ufw allow log proto tcp from any to any port 22
 ## Allow http traffic (w/o explicit logging)
-ufw allow proto tcp from any to any port 80
-ufw limit tcp/22 # Basic Rate limit 4 SSH brute force mitigation
+ufw allow out on docker0 53/udp to 172.17.0.1/16
+ufw allow out on eth0 to any port 53
+ufw allow out on eth0 from 0.0.0.0/0 to any port 80 proto tcp
+ufw allow out on eth0 from 0.0.0.0/0 to any port 443 proto tcp
+
+# Verbose: ufw allow proto tcp from any to any port 80
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow log 22/tcp
+ufw limit ssh # Basic Rate limit 4 SSH brute force mitigation
 
 # Set your ext IP
 export EXTERNAL_IP=123.123.123.123
@@ -58,7 +76,8 @@ ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
 > Be Careful, Don't Lock out your SSH port (sshd defaults to 22)
 
 ~~~sh
-ufw enable
+ufw --force enable
+
 ufw reset
 ~~~
 

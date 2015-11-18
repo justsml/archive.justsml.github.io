@@ -1,7 +1,10 @@
 ---
-layout: default
+layout: page
 teaser: "My tag cloud"
-completetitle: "Popular tags on www.danlevy.net"
+title: "Popular tags on www.danlevy.net"
+date:   2015-09-24
+image:
+  feature: abstract-6.jpg
 ---
 <section class="tag-cloud">
     <h1>Popular tags on www.DanLevy.net</h1>
@@ -18,7 +21,7 @@ completetitle: "Popular tags on www.danlevy.net"
         {% else %}
         {% assign class="ultra-popular" %}
     {% endcase %}
-        <li class="{{ class }}"><a href="{{ site.tag_root }}/{{ tag[0] | cgi_escape }}/" title="View entries tagged '{{ tag[0] }}'">{{ tag[0] }}</a></li>
+        <li count="{{ taglist.size }}" class="{{ class }}"><a href="/tag/{{ tag[0] | cgi_escape }}/" title="View entries tagged '{{ tag[0] }}'">{{ tag[0] }}</a></li>
 {% endfor %}
     </ol>
 </section>

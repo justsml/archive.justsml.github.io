@@ -43,6 +43,8 @@ timezone:    America/Denver
 future:      true
 # pygments:    true
 
+tag_page_layout: tag_page
+tag_page_dir: tag
 
 markdown: rdiscount
 highlighter: pygments
@@ -76,6 +78,7 @@ rdiscount:
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 # permalink:   /:categories/:title/
 permalink: /:year/:month/:day/:title/
+tag_permalink_style: pretty
 
 # Amount of post to show on home page
 paginate: 5

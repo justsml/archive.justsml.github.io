@@ -2,9 +2,9 @@
 layout: post
 title:  "AngularJS v2.0 and the Impending Schism"
 date:   2015-08-05
-modified:   2015-09-01
+modified:   2015-09-18
 categories: angularjs
-tags: [programming, angularjs, javascript, python]
+tags: [programming, angularjs, javascript, python, opinion]
 image:
   feature: abstract-11.jpg
   credit:
@@ -20,19 +20,18 @@ While TypeScript compiles to JavaScript, it doesn't mean you blindly copy & past
 
 Now, newbies must climb 'Mount TypeScript' before they can even start assembling an Angular app (with some level of understanding).
 
-<div class="anigif end">
-![not_a_fan][not_a_fan]
-</div>
+I have a feeling how this might go...
 
+<div class="anigif end">
+  <img alt='endless loop' src="https://res.cloudinary.com/ddd/image/upload/timeout-expired.gif" />
+</div>
 
 Oh well, I'll add it to the Newbie training list: somewhere between `Basic Shell Usage` and `Gulp or Grunt? Godsend+Misery!`
 
-<p>
-Anyway, I hope this works out...
-</p>
+> Anyway, I hope this works out...
 
 <div class="anigif top end">
-![drinking][drinking]
+  <img alt='everything is going to be ok' src="http://res.cloudinary.com/ddd/image/upload/v1442175801/system-maint-anon.gif" />
 </div>
 
 

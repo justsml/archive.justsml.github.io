@@ -25,6 +25,8 @@ mkdir ~/backups
 cp ~/.bash* ~/backups/
 
 # Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors
+curl -o- https://raw.githubusercontent.com/justsml/system-setup-tools/master/modules/vim-update.sh | bash
+
 curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc >> ~/.bashrc
 curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases >> ~/.bash_aliases
 # Read into current shell (login steps already missed the aliases file)

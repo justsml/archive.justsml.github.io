@@ -12,7 +12,7 @@
 	perspective-origin: 50% 200%;
 	@media #{$medium} {
 		position: fixed;
-		max-width: 275px;
+		max-width: 375px;
 		top: 25px;
 		left: 25px;
 	}
@@ -121,6 +121,7 @@
 		}
 	}
 	.dl-menu {
+		color: $white;
 		margin: 0;
 		position: absolute;
 		width: 100%;

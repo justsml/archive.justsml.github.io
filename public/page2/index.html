@@ -160,32 +160,35 @@
 	<button class="dl-trigger">Open Menu</button>
 	<ul class="dl-menu">
 		<li><a href="/">Home</a></li>
+		<li><a href="/tags">Tags</a></li>
 		<li>
-			<a href="#">Contact Me</a>
+			<a href="#">About Dan</a>
 			<ul class="dl-submenu">
 				<li>
 					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
-					<h4>Dan Levy</h4>
-					<p>Devout Programmer</p>
+					<div class="clearfix"></div>
+					<h3 style="float: left; display: inline; margin-left: 12px;">Dan Levy</h3>
+					<p style="float: right; display: inline;">Devout Programmer</p>
+					<div class="clearfix"></div>
 				</li>
 				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
 				<li>
-					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
+					<a target="_blank" href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				<li>
-					<a href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
+					<a target="_blank" href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
 				</li>
 				<li>
-					<a href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
+					<a target="_blank" href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
 				</li>
 				<li>
-					<a href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
+					<a target="_blank" href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
 				</li>
 				<li>
-					<a href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
+					<a target="_blank" href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
 				</li>
 				
 				
@@ -196,13 +199,20 @@
 		<li>
 			<a href="#">Articles</a>
 			<ul class="dl-submenu article-list">
-				<li><a href="/posts/">All Articles</a></li>
 				
 					
 	        <li class="entry-title">
-	        	<a href="/2015/09/14/beautiful-engineering-models-and-data/" title="Beautiful Engineering: Models & Data">
-	        		<div>Beautiful Engineering: Models & Data</div>
-		        	<em>2015-09-14</em>
+	        	<a href="/2015/09/22/concatenation-anti-patterns/" title="Beautiful Models (and Data)">
+	        		<div>Beautiful Models (and Data)</div>
+		        	<em>2015-09-22</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/09/22/beautiful-engineering-models-and-data/" title="Beautiful Models (and Data)">
+	        		<div>Beautiful Models (and Data)</div>
+		        	<em>2015-09-22</em>
 	        	</a>
 	        </li>
 			  
@@ -230,22 +240,7 @@
 	        	</a>
 	        </li>
 			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/06/06/docker-firewall-setup/" title="Docker Firewall Setup">
-	        		<div>Docker Firewall Setup</div>
-		        	<em>2015-06-06</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/06/06/javascript-scope-magic/" title="JavaScript Magic">
-	        		<div>JavaScript Magic</div>
-		        	<em>2015-06-06</em>
-	        	</a>
-	        </li>
-			  
+				<li style="text-align: center;"><a href="/posts/"><strong>[ All Articles ]</strong></a></li>
 			</ul>
 		</li>
 		
@@ -288,7 +283,7 @@
       </div><!-- /.entry-image -->
     
     <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-06T09:42:21-06:00"><a href="/2015/06/06/javascript-scope-magic/">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      <span class="entry-date date published updated"><time datetime="2015-06-06T00:00:00-06:00"><a href="/2015/06/06/javascript-scope-magic/">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
       
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
@@ -309,8 +304,6 @@
 
 <a name="Imperative.vs..Recursive.vs..Functional"></a>
 <h1>Imperative vs. Recursive vs. Functional</h1>
-
-<p>Work-in-progress</p>
 
 <pre><code class="javascript">
 // Imperative: The Fastest ( + very simple, no new pointers or excess allocs ):
@@ -352,6 +345,8 @@ function fib(n) {
 
 <a name="Promises:.Awesome."></a>
 <h1>Promises: Awesome!</h1>
+
+<p>![fuck this][fuck_this]</p>
 
 <pre><code class="js">
 // Example Using bluebird Promises and it's
@@ -404,6 +399,127 @@ fs.readFileAsync('./style.less') // Call promisified readFile()
   <header>
     
       <div class="entry-image-index">
+        <a href="/2015/06/06/docker-firewall-setup/" title="Docker Firewall Setup"><img src="/images/abstract-8.jpg" alt="Docker Firewall Setup"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-06T00:00:00-06:00"><a href="/2015/06/06/docker-firewall-setup/">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~7 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/06/06/docker-firewall-setup/" rel="bookmark" title="Docker Firewall Setup" itemprop="url">Docker Firewall Setup</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="Setup.Docker.Host.Firewall"></a>
+<h1>Setup Docker Host Firewall</h1>
+
+<ol>
+<li>Debian/Ubuntu Server is assumed</li>
+<li>Designed to run on Docker Host Server</li>
+</ol>
+
+
+<a name="Install.Requirements"></a>
+<h2>Install Requirements</h2>
+
+<pre><code class="sh"># Ultimate Firewall Needed
+apt-get update &amp;&amp; apt-get install -y ufw nmap curl
+</code></pre>
+
+<a name="Get.your.Internal..amp..External.IP.Addresses"></a>
+<h2>Get your Internal &amp; External IP Addresses</h2>
+
+<pre><code class="sh"># Get your IP Addresses, simple output:
+hostname --all-ip-addresses
+
+# OR use ip tool, example:
+ip addr
+</code></pre>
+
+<a name="Firtewall..UFW..Setup.-.Example.Cmds"></a>
+<h2>Firtewall (UFW) Setup - Example Cmds</h2>
+
+<pre><code class="sh">ufw logging on # on=low - medium might be better for diagnostics
+ufw logging medium
+# First, block all the things
+ufw default deny incoming
+
+# REQUIRED: CHOOSE *ONE* OF THE FOLLOWING DEFAULT OUTBOUND RULES:
+ufw default deny outgoing
+ufw default allow outgoing
+
+
+# Allow and log all new ssh connections,
+ufw allow log proto tcp from any to any port 22
+## Allow http traffic (w/o explicit logging)
+ufw allow out on docker0 53/udp to 172.17.0.1/16
+ufw allow out on eth0 to any port 53
+ufw allow out on eth0 from 0.0.0.0/0 to any port 80 proto tcp
+ufw allow out on eth0 from 0.0.0.0/0 to any port 443 proto tcp
+
+# Verbose: ufw allow proto tcp from any to any port 80
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow log 22/tcp
+ufw limit ssh # Basic Rate limit 4 SSH brute force mitigation
+
+# Set your ext IP
+export EXTERNAL_IP=123.123.123.123
+# Update docker IP if needed
+export DOCKER_IP=172.17.42.1
+# Forward tcp 8080 traffic to  Dockerized App
+ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
+</code></pre>
+
+<a name="Enable...Start.Firewall"></a>
+<h2>Enable / Start Firewall</h2>
+
+<blockquote><p>Be Careful, Don&rsquo;t Lock out your SSH port (sshd defaults to 22)</p></blockquote>
+
+<pre><code class="sh">ufw --force enable
+
+ufw reset
+</code></pre>
+
+<hr />
+
+<a name="Test.Your.Firewall"></a>
+<h2>Test Your Firewall</h2>
+
+<blockquote><p>Important: USE A REMOTE IP ADDR/LOCATION</p></blockquote>
+
+<pre><code class="sh"># Verify dependency
+apt-get update &amp;&amp; apt-get install -y nmap
+
+# Set scan target
+export TARGET_HOST=123.123.123.123
+
+# Example Scan Commands:
+# Fast open port check
+nmap -p 1-10240,27017 -T5 $TARGET_HOST
+# Thorough scan
+nmap -p 1-10240,27017 --open -v -APN $TARGET_HOST
+# Svc Inspection
+nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
+</code></pre>
+
+<a name="DONE..Now.you.should.see.ONLY.the.ports.you.configured."></a>
+<h4>DONE! Now you should see ONLY the ports you configured!</h4>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
         <a href="/2015/04/05/docker-server-setup-notes/" title="Docker server Setup"><img src="/images/abstract-7.jpg" alt="Docker server Setup"></a>
       </div><!-- /.entry-image -->
     
@@ -439,6 +555,8 @@ mkdir ~/backups
 cp ~/.bash* ~/backups/
 
 # Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors
+curl -o- https://raw.githubusercontent.com/justsml/system-setup-tools/master/modules/vim-update.sh | bash
+
 curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc &gt;&gt; ~/.bashrc
 curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases &gt;&gt; ~/.bash_aliases
 # Read into current shell (login steps already missed the aliases file)
@@ -748,91 +866,6 @@ If you have tons of small reusable UI components - ReactJS might be a better cho
 </li>
 </ul>
 
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/2015/02/26/docker-makes-everything-better/" title="Docker === Love"><img src="/images/abstract-6.jpg" alt="Docker === Love"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-02-26T04:07:59-07:00"><a href="/2015/02/26/docker-makes-everything-better/">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~4 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/2015/02/26/docker-makes-everything-better/" rel="bookmark" title="Docker === Love" itemprop="url">Docker === Love</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <a name="Docker.Can.Do.Everything.."></a>
-<h1>Docker Can Do Everything!*</h1>
-
-<p>Improve your process for:</p>
-
-<ol>
-<li>Testing Dev Tools &amp; Servers WITH VIRTUALLY ZERO risk of messing up dependencies on your PC</li>
-<li>Testing your software</li>
-<li>Makes you write more idempotent, modular code&hellip; (I&rsquo;ll write how to actually realize this in a follow up)</li>
-</ol>
-
-
-<p>There may seem like a huge volume of new stuff to learn, <strong>don&rsquo;t let that stop you</strong> from getting started.</p>
-
-<a name="Notes"></a>
-<h4>Notes</h4>
-
-<ul>
-<li>If you see a <code>docker run</code> command with either options <code>-d</code> or <code>-it</code>:
-
-<ul>
-<li><code>-it</code> or <code>-i -t</code> will run the configured command interactively</li>
-<li><code>-d</code> will start the docker container as a &lsquo;daemon&rsquo; aka background service.</li>
-</ul>
-</li>
-</ul>
-
-
-<hr />
-
-<a name="EXAMPLES"></a>
-<h1>EXAMPLES</h1>
-
-<a name="nginx"></a>
-<h2>nginx</h2>
-
-<pre><code class="bash">
-    # Note: using host-based, shared folders
-    #(shared folders are not possible with the VOLUME Dockerfile cmd)
-    sudo docker run --name web01 -d -p 8181:80 \
-        -v $(NGINX_DIR)/etc:/etc/nginx \
-        -v $(NGINX_DIR)/log:/var/log/nginx \
-        -v $(NGINX_DIR)/www:/var/www/html \
-        nginx:latest
-
-    # Local data, isolated within instance
-    sudo docker run --name web01 -d -p 8181:80 nginx:latest
-
-    # nodejs
-    sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
-</code></pre>
-
-<blockquote><p>Credits: <a href="https://dockerfile.github.io/#/nginx">https://dockerfile.github.io/#/nginx</a>
-Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
-
-<ul>
-<li>Pretty close</li>
-</ul>
-</blockquote>
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->

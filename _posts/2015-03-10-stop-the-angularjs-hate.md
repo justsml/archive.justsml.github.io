@@ -3,7 +3,7 @@ layout: post
 title:  "AngularJS Tricks"
 date:   2015-02-26 11:22:33
 categories: angularjs
-tags: [angularjs, development, performance, tuning]
+tags: [angularjs, development, performance, programming]
 image:
   feature: abstract-5.jpg
   credit:

@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Beautiful Engineering: Models & Data"
-date:   2015-09-14
-modified:   2015-09-26
+title:  "Beautiful Models (and Data)"
+date:   2015-09-22
+modified:   2015-09-24
 categories: programming
-tags: [programming, basics, class design, field naming, source code, organization]
+tags: [programming, patterns, models, source code, organization]
 image:
   feature: abstract-5.jpg
   credit:
@@ -13,7 +13,7 @@ image:
 #### _Work-in-progress (updated Sep. 2015)_
 
 
-### The issue at hand is deceptively simple & subtle: **Naming**
+## The issue we'll examine is deceptively simple & subtle: **Naming**
 
 > I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.
 
@@ -68,6 +68,7 @@ Let's examine some of the subtle issues (probably familiar):
 =======
 
 Why is naming a field `agentEmailPrimary` the worst?
+
 For starters, you are **not** creating an entirely new object unto the universe. Over-specificity has some traps:
 
 1. 'Locked' into highly specific name, means `agentEmailPrimary` probably make your views and related code **0% reusable**, and featuring annoyingly recurring bugs like:
@@ -100,7 +101,6 @@ User
     - address
 
 ```
-
 I removed the `Agent` table, as it didn't contain fields which were uniquely related to Agents.
 
 All changes were made with these general ideas in mind:
@@ -108,11 +108,14 @@ All changes were made with these general ideas in mind:
 1. Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.
   1. Try merge related tables. **Important if you are coming from a SQL background to No-SQL**
   1. Delete redundant data collection (e.g. remove `ActivityLogs` table if replaced by Google Analytics)
-1. Try keep **all field names** to a **single word/noun/pro-noun**.
+1. Try keeping **all field names** to a **single word/noun/pro-noun**.
   1. There is **no such thing** as `Agent.agentEmail` or `Agent.agentPhonePrimary`. Period.
   1. By using Highly Specific Names, you cast-in-stone a specific level of `code-reusability` and `durability`, well, specifically **ZERO %**.
   1. Don't think you are doing yourself any favors with crap like this `User.profileSummaryEmail` (where 'profile' could include contact details for a personal ads site) . This is probably a good point to create a new table, say `Profiles` which includes `Profiles.email`.
 
+
+
+### _Work-in-progress (updated Sep. 2015)_
 
 
 

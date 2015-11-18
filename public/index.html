@@ -160,32 +160,35 @@
 	<button class="dl-trigger">Open Menu</button>
 	<ul class="dl-menu">
 		<li><a href="/">Home</a></li>
+		<li><a href="/tags">Tags</a></li>
 		<li>
-			<a href="#">Contact Me</a>
+			<a href="#">About Dan</a>
 			<ul class="dl-submenu">
 				<li>
 					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
-					<h4>Dan Levy</h4>
-					<p>Devout Programmer</p>
+					<div class="clearfix"></div>
+					<h3 style="float: left; display: inline; margin-left: 12px;">Dan Levy</h3>
+					<p style="float: right; display: inline;">Devout Programmer</p>
+					<div class="clearfix"></div>
 				</li>
 				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
 				<li>
-					<a href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
+					<a target="_blank" href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
 				</li>
 				<li>
-					<a href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
+					<a target="_blank" href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
 				</li>
 				<li>
-					<a href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
+					<a target="_blank" href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
 				</li>
 				<li>
-					<a href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
+					<a target="_blank" href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
 				</li>
 				<li>
-					<a href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
+					<a target="_blank" href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
 				</li>
 				
 				
@@ -196,13 +199,20 @@
 		<li>
 			<a href="#">Articles</a>
 			<ul class="dl-submenu article-list">
-				<li><a href="/posts/">All Articles</a></li>
 				
 					
 	        <li class="entry-title">
-	        	<a href="/2015/09/14/beautiful-engineering-models-and-data/" title="Beautiful Engineering: Models & Data">
-	        		<div>Beautiful Engineering: Models & Data</div>
-		        	<em>2015-09-14</em>
+	        	<a href="/2015/09/22/concatenation-anti-patterns/" title="Beautiful Models (and Data)">
+	        		<div>Beautiful Models (and Data)</div>
+		        	<em>2015-09-22</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/09/22/beautiful-engineering-models-and-data/" title="Beautiful Models (and Data)">
+	        		<div>Beautiful Models (and Data)</div>
+		        	<em>2015-09-22</em>
 	        	</a>
 	        </li>
 			  
@@ -230,22 +240,7 @@
 	        	</a>
 	        </li>
 			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/06/06/docker-firewall-setup/" title="Docker Firewall Setup">
-	        		<div>Docker Firewall Setup</div>
-		        	<em>2015-06-06</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/06/06/javascript-scope-magic/" title="JavaScript Magic">
-	        		<div>JavaScript Magic</div>
-		        	<em>2015-06-06</em>
-	        	</a>
-	        </li>
-			  
+				<li style="text-align: center;"><a href="/posts/"><strong>[ All Articles ]</strong></a></li>
 			</ul>
 		</li>
 		
@@ -284,29 +279,109 @@
   <header>
     
       <div class="entry-image-index">
-        <a href="/2015/09/14/beautiful-engineering-models-and-data/" title="Beautiful Engineering: Models & Data"><img src="/images/abstract-5.jpg" alt="Beautiful Engineering: Models & Data"></a>
+        <a href="/2015/09/22/concatenation-anti-patterns/" title="Beautiful Models (and Data)"><img src="/images/abstract-5.jpg" alt="Beautiful Models (and Data)"></a>
       </div><!-- /.entry-image -->
     
     <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-09-14T00:00:00-06:00"><a href="/2015/09/14/beautiful-engineering-models-and-data/">September 14, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      <span class="entry-date date published updated"><time datetime="2015-09-22T00:00:00-06:00"><a href="/2015/09/22/concatenation-anti-patterns/">September 22, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
       
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
         
-        Reading time ~10 minutes
+        Reading time ~18 minutes
       </span><!-- /.entry-reading-time -->
       
     </div><!-- /.entry-meta -->
     
-      <h1 class="entry-title"><a href="/2015/09/14/beautiful-engineering-models-and-data/" rel="bookmark" title="Beautiful Engineering: Models & Data" itemprop="url">Beautiful Engineering: Models & Data</a></h1>
+      <h1 class="entry-title"><a href="/2015/09/22/concatenation-anti-patterns/" rel="bookmark" title="Beautiful Models (and Data)" itemprop="url">Beautiful Models (and Data)</a></h1>
     
   </header>
   <div class="entry-content">
-    <a name="L.em.Work-in-progress..updated.Sep..2015...em."></a>
-<h4><em>Work-in-progress (updated Sep. 2015)</em></h4>
+    <a name="L.em.Work-in-progress..updated.Nov..2015...em."></a>
+<h4><em>Work-in-progress (updated Nov. 2015)</em></h4>
 
-<a name="The.issue.at.hand.is.deceptively.simple..amp..subtle:..strong.Naming..strong."></a>
-<h3>The issue at hand is deceptively simple &amp; subtle: <strong>Naming</strong></h3>
+<a name="Array-.or.Set-based.Coding.Style"></a>
+<h1>Array- or Set-based Coding Style</h1>
+
+<a name="An.Anti-Pattern."></a>
+<h2>An Anti-Pattern?</h2>
+
+<blockquote><p>Note: This is not Yet-Another-Article warning noobs about RAM usage when appending strings</p></blockquote>
+
+<p>This is an exploration of advantages gained when you <strong>code everything as an array.</strong> (Using Jedi concepts from SmallTalk)</p>
+
+<p>Here&rsquo;s some guiding principles:</p>
+
+<ol>
+<li>All input is array-like. Even if an array of 1.</li>
+<li>Functions should generally accept AND return arrays.</li>
+<li>99 out of 100 devs code suffers from what I call <code>acute schema surplusage</code> syndrome -based models.</li>
+<li><p>Yes, beware <code>fat ASS models</code> - with all the predictable trappings: fragile <code>instance state</code> - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic <code>property getter/setters</code>, and your <code>public/private/final/etc</code> usage is solid, right?</p></li>
+<li><p>So let me take a common problem and <em>shoehorn</em> <del>add</del> some of my set-based heretical musings.</p></li>
+<li> Why is a Product price always a single data point? Why on earth would I make price(s) an Array?</li>
+<li> Let&rsquo;s add this functionality:
+
+<ol type="a">
+<li><strong>New requirements:</strong> <code>retailPrice</code>, <code>priceSavings</code></li>
+</ol>
+</li>
+<li>These changes hopefully look no worse than my sorry attempt:</li>
+</ol>
+
+
+<pre><code class="java">package net.danlevy.testpool.why.java.has.so.many.dots;
+
+public class Product {
+
+  public String Name;
+  public float Price;
+  public float retailPrice;
+  public float priceSavings;
+
+  public Product(String name, float price) {
+    Name = name;
+    Price = price;
+    this.retailPrice = price;
+    this.priceSavings = 0.0f;
+  }
+
+  public Product(String name, float price,
+      float retailPrice,
+      float priceSavings) {
+    this.name = name;
+    this.price = price;
+    this.retailPrice = retailPrice;
+    this.priceSavings = priceSavings;
+  }
+
+  public float getPriceSavings() {
+    return this.retailPrice - this.price;
+  }
+
+}
+</code></pre>
+
+<p>   (I&rsquo;m not replacing the valid pattern of tracking historical prices in tables)
+  1. I&rsquo;m not sure about you, but price of just about anything is in flux - just given time.
+  1.
+  I <strong>experience</strong> price as constantly fluctuating data point.</p>
+
+<ol>
+<li> For example, even values which seem like singular variables - say a <code>Product</code> class includes <code>var listPrice = 125</code> - change it to <code>var prices = [50, 100, 125]</code>.</li>
+<li> Bear with me. That is not likely the final re-factor on that&hellip;</li>
+</ol>
+
+
+<pre><code class="js">function Product({name='widget', prices=[]}) {
+
+}
+</code></pre>
+
+<blockquote><p>Foreshadowing: We&rsquo;re going to go through a concept familiar to LISP, SmallTalk, et al. devs.
+It&rsquo;s known by many names, however I prefer <strong>Array-based programming.</strong></p></blockquote>
+
+<a name="The.issue.we.ll.examine.is.deceptively.simple..amp..subtle:..strong.Naming..strong."></a>
+<h2>The issue we&rsquo;ll examine is deceptively simple &amp; subtle: <strong>Naming</strong></h2>
 
 <blockquote><p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
 
@@ -364,8 +439,9 @@ Does the following look familiar?</p>
 
 <hr />
 
-<p>Why is naming a field <code>agentEmailPrimary</code> the worst?
-For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
+<p>Why is naming a field <code>agentEmailPrimary</code> the worst?</p>
+
+<p>For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
 
 <ol>
 <li>&lsquo;Locked&rsquo; into highly specific name, means <code>agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
@@ -410,12 +486,164 @@ User
 <li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
 <li> Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong></li>
 <li> Delete redundant data collection (e.g. remove <code>ActivityLogs</code> table if replaced by Google Analytics)</li>
-<li>Try keep <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
+<li>Try keeping <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
 <li> There is <strong>no such thing</strong> as <code>Agent.agentEmail</code> or <code>Agent.agentPhonePrimary</code>. Period.</li>
 <li> By using Highly Specific Names, you cast-in-stone a specific level of <code>code-reusability</code> and <code>durability</code>, well, specifically <strong>ZERO %</strong>.</li>
 <li> Don&rsquo;t think you are doing yourself any favors with crap like this <code>User.profileSummaryEmail</code> (where &lsquo;profile&rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code>Profiles</code> which includes <code>Profiles.email</code>.</li>
 </ol>
 
+
+<a name="L.em.Work-in-progress..updated.Nov..2015...em."></a>
+<h3><em>Work-in-progress (updated Nov. 2015)</em></h3>
+
+<!-- ![schema refactor][schema_refactor] -->
+
+
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/09/22/beautiful-engineering-models-and-data/" title="Beautiful Models (and Data)"><img src="/images/abstract-5.jpg" alt="Beautiful Models (and Data)"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-09-22T00:00:00-06:00"><a href="/2015/09/22/beautiful-engineering-models-and-data/">September 22, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~10 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/09/22/beautiful-engineering-models-and-data/" rel="bookmark" title="Beautiful Models (and Data)" itemprop="url">Beautiful Models (and Data)</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="L.em.Work-in-progress..updated.Sep..2015...em."></a>
+<h4><em>Work-in-progress (updated Sep. 2015)</em></h4>
+
+<a name="The.issue.we.ll.examine.is.deceptively.simple..amp..subtle:..strong.Naming..strong."></a>
+<h2>The issue we&rsquo;ll examine is deceptively simple &amp; subtle: <strong>Naming</strong></h2>
+
+<blockquote><p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
+
+<p>While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don&rsquo;t need to read this if the following makes sense: <code>No-Sql denormalization strategy</code>, or <code>Boyce Codd Normal Forms</code></p>
+
+<p>Recommended reading includes:</p>
+
+<ol>
+<li>Book: Code Complete</li>
+<li><a href="http://phlonx.com/resources/nf3/">http://phlonx.com/resources/nf3/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Database_normalization">https://en.wikipedia.org/wiki/Database_normalization</a></li>
+</ol>
+</blockquote>
+
+<a name="The.Problem.-.by.Example"></a>
+<h2>The Problem - by Example</h2>
+
+<p>Have you ever designed a <code>data model</code> (in code, Sql, or excel worksheets)?
+Does the following look familiar?</p>
+
+<pre><code>*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+</code></pre>
+
+<p>If this is familiar to you, I&rsquo;ll bet you:</p>
+
+<ol>
+<li>Feel any change to your app will necessitate hours of arduous debugging.</li>
+<li>Fear ANY Changing Requirements
+<img src="https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif" alt="schema refactor" /></li>
+</ol>
+
+
+<a name="The.Cost.of.Bad..Naming..Habits"></a>
+<h2>The Cost of Bad (Naming) Habits</h2>
+
+<p>Let&rsquo;s examine some of the subtle issues (probably familiar):</p>
+
+<hr />
+
+<p>Why is naming a field <code>agentEmailPrimary</code> the worst?</p>
+
+<p>For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
+
+<ol>
+<li>&lsquo;Locked&rsquo; into highly specific name, means <code>agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
+
+<ul>
+<li>Data not syncing between tables (not obvious if <code>user.email</code> needs to propagate to <code>agent.agentEmail</code> or vice-versa - nevermind complexity of manually implementing where &amp; how to enforce this &lsquo;logic&rsquo; &hellip;)</li>
+<li>Validation rules/logic are likely duplicated &amp; inconsitent.</li>
+<li>Increasingly, your project will resemble a shaky Jenga tower.</li>
+<li>Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes</li>
+</ul>
+</li>
+</ol>
+
+
+<p>I know, you probably feel something like&hellip;</p>
+
+<p><img src="https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif" alt="fuck this" /></p>
+
+<a name="A.Solution"></a>
+<h2>A Solution</h2>
+
+<pre><code>// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+</code></pre>
+
+<p>I removed the <code>Agent</code> table, as it didn&rsquo;t contain fields which were uniquely related to Agents.</p>
+
+<p>All changes were made with these general ideas in mind:</p>
+
+<ol>
+<li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
+<li> Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong></li>
+<li> Delete redundant data collection (e.g. remove <code>ActivityLogs</code> table if replaced by Google Analytics)</li>
+<li>Try keeping <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
+<li> There is <strong>no such thing</strong> as <code>Agent.agentEmail</code> or <code>Agent.agentPhonePrimary</code>. Period.</li>
+<li> By using Highly Specific Names, you cast-in-stone a specific level of <code>code-reusability</code> and <code>durability</code>, well, specifically <strong>ZERO %</strong>.</li>
+<li> Don&rsquo;t think you are doing yourself any favors with crap like this <code>User.profileSummaryEmail</code> (where &lsquo;profile&rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code>Profiles</code> which includes <code>Profiles.email</code>.</li>
+</ol>
+
+
+<a name="L.em.Work-in-progress..updated.Sep..2015...em."></a>
+<h3><em>Work-in-progress (updated Sep. 2015)</em></h3>
 
 <!-- ![schema refactor][schema_refactor] -->
 
@@ -457,22 +685,19 @@ However, They came up with another (totally different), also-awesome spec&hellip
 
 <p>Now, newbies must climb &lsquo;Mount TypeScript&rsquo; before they can even start assembling an Angular app (with some level of understanding).</p>
 
+<p>I have a feeling how this might go&hellip;</p>
+
 <div class="anigif end">
-![not_a_fan][not_a_fan]
+  <img alt='endless loop' src="https://res.cloudinary.com/ddd/image/upload/timeout-expired.gif" />
 </div>
 
 
 <p>Oh well, I&rsquo;ll add it to the Newbie training list: somewhere between <code>Basic Shell Usage</code> and <code>Gulp or Grunt? Godsend+Misery!</code></p>
 
-<p>
-Anyway, I hope this works out...
-</p>
-
-
-
+<blockquote><p>Anyway, I hope this works out&hellip;</p></blockquote>
 
 <div class="anigif top end">
-![drinking][drinking]
+  <img alt='everything is going to be ok' src="http://res.cloudinary.com/ddd/image/upload/v1442175801/system-maint-anon.gif" />
 </div>
 
 
@@ -494,7 +719,7 @@ Anyway, I hope this works out...
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
         
-        Reading time ~18 minutes
+        Reading time ~23 minutes
       </span><!-- /.entry-reading-time -->
       
     </div><!-- /.entry-meta -->
@@ -506,8 +731,8 @@ Anyway, I hope this works out...
     <a name="Programming.Languages.Notes"></a>
 <h1>Programming Languages Notes</h1>
 
-<a name="L.em.Work-in-progress..updated.June.15th.2015...em."></a>
-<h3><em>Work-in-progress (updated June 15th 2015)</em></h3>
+<a name="L.em.Work-in-progress..updated.Sept..25th.2015...em."></a>
+<h3><em>Work-in-progress (updated Sept. 25th 2015)</em></h3>
 
 <a name="I.m.sure.my.Miscellaneous.Observations.have.been.made.before..but.here.is.my.list.of.most.interesting.languages:"></a>
 <h3>I&rsquo;m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:</h3>
@@ -539,6 +764,15 @@ It&rsquo;s the #1 Most Active/Popular Language on GitHub.com for <em>years</em> 
 <a name="Examples"></a>
 <h3>Examples</h3>
 
+<blockquote><p>I&rsquo;m going to show you what finally made me <em>start</em> drinking that ES6-flavoured KoolAid.</p></blockquote>
+
+<p>In my recent experience, ES6 helps you write code faster. To the point.
+Because code is more succinct, appreciably less brain power is needed to sift through and understand your old code (or that of a teammates).</p>
+
+<p>I have regularly seen KLOC savings roughly of 20-50%. That&rsquo;s like Kate Moss trim!</p>
+
+<p><img src="/images/screenshots/Diff-ES6-vs-ES5-Head-to-Head.png" alt="EcmaScript 5 vs ES 2016 - Demo: Classes, Destructuring, Sexiness" /></p>
+
 <pre><code class="js">// /services/users.js
 class Users {
   constructor(data) {
@@ -566,18 +800,69 @@ class Users {
       'name': name,
       'email': email,
       'passwordHash': hash
-    })
-    .then(usr =&gt; this.users.push(usr)); // append user upon service response
+    }).then(usr =&gt; this.users.push(usr)); // append user upon service response
   }
 }
 </code></pre>
 
-<p>I know. It feels like this:</p>
+<p><noscript><pre>// services/user.js
+function Users(data) {
+  // ensure we&#39;re a real thing
+  if (!(this instanceof Users)) { return new Users(data); }
+  this.users = data || [];
+}</p>
 
-<p>It gets better: auto <code>this</code> binding more-sane inheritance</p>
+<p>Users.prototype.add = function(opts) {
+    // Validate input, We need to extract the 3 fields from opts
+    if ( !opts || typeof(opts) !== &#39;object&#39; ) {
+      return Promise.reject(&#39;add() requires Opts parameter&#39;);
+    }
+    // Unpack data, assuming keys are there
+    var name  = opts.name,
+        email = opts.email,
+        pass  = opts.password;
+    var hash = getSha256(pass);</p>
 
-<a name="io.js"></a>
-<h4><a href="http://iojs.org/">io.js</a></h4>
+<pre><code>return http.post(&amp;#39;/users&amp;#39;, {
+  &amp;#39;name&amp;#39;: name,
+  &amp;#39;email&amp;#39;: email,
+  &amp;#39;passwordHash&amp;#39;: hash})
+.then(function(usr) {
+  return this.users.push(usr);
+});
+</code></pre>
+
+<p>  }
+}</pre></noscript><script src="https://gist.github.com/justsml/aaddc9852c1624d61cf3.js"> </script></p>
+
+<p>&#160;</p>
+
+
+<a name="Jumping.on.ES6.can.feel.like.going.from:"></a>
+<h3>Jumping on ES6 can feel like going from:</h3>
+
+<div class="anigif top">
+  <img alt='huh' title="Huh?" src="http://res.cloudinary.com/ddd/image/upload/v1441143891/wtf__tumblr_inline_n7ygqh6Y0C1svcdm1_igeqey.gif" />
+</div>
+
+
+<h3>To</h3>
+
+
+<div class="anigif">
+  <img alt='wtf' title="WTF?!?!" src="http://res.cloudinary.com/ddd/image/upload/v1443133148/cat-wtf-trap.gif" />
+</div>
+
+
+<h3>To</h3>
+
+
+<div class="anigif end">
+  <img alt='#winning' title='#winning' src="http://res.cloudinary.com/ddd/image/upload/v1443133141/full-throttle.gif" />
+</div>
+
+
+<p>Just keep sifting through the new stuff. Check out string templates, auto <code>this</code> binding, more-sane inheritance&hellip;</p>
 
 <a name="Node.JS"></a>
 <h4><a href="http://nodejs.org/">Node.JS</a></h4>
@@ -690,8 +975,8 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 </ul>
 
 
-<div align="center" class="anigif">
-![endless_loop][endless_loop]
+<div class="anigif end">
+  <img alt='endless loop' src="http://res.cloudinary.com/ddd/image/upload/v1441143881/endless-loop.gif" />
 </div>
 
 
@@ -714,6 +999,9 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 </li>
 </ul>
 
+
+<a name="L.em.Work-in-progress..updated.Sept..25th.2015...em."></a>
+<h3><em>Work-in-progress (updated Sept. 25th 2015)</em></h3>
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
@@ -812,108 +1100,6 @@ Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box
 boot2docker init
 boot2docker up
 </code></pre>
-
-  </div><!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/2015/06/06/docker-firewall-setup/" title="Docker Firewall Setup"><img src="/images/abstract-8.jpg" alt="Docker Firewall Setup"></a>
-      </div><!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-06T16:22:22-06:00"><a href="/2015/06/06/docker-firewall-setup/">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~5 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div><!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/2015/06/06/docker-firewall-setup/" rel="bookmark" title="Docker Firewall Setup" itemprop="url">Docker Firewall Setup</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <a name="Setup.Docker.Host.Firewall"></a>
-<h1>Setup Docker Host Firewall</h1>
-
-<ol>
-<li>Debian/Ubuntu Server is assumed</li>
-<li>Designed to run on Docker Host Server</li>
-</ol>
-
-
-<a name="Install.Requirements"></a>
-<h2>Install Requirements</h2>
-
-<pre><code class="sh"># Ultimate Firewall Needed
-apt-get update &amp;&amp; apt-get install -y ufw nmap curl
-</code></pre>
-
-<a name="Get.your.Internal..amp..External.IP.Addresses"></a>
-<h2>Get your Internal &amp; External IP Addresses</h2>
-
-<pre><code class="sh"># Get your IP Addresses, simple output:
-hostname --all-ip-addresses
-
-# OR use ip tool, example:
-ip addr
-</code></pre>
-
-<a name="Firtewall..UFW..Setup.-.Example.Cmds"></a>
-<h2>Firtewall (UFW) Setup - Example Cmds</h2>
-
-<pre><code class="sh"># Allow and log all new ssh connections,
-ufw allow log proto tcp from any to any port 22
-## Allow http traffic (w/o explicit logging)
-ufw allow proto tcp from any to any port 80
-ufw limit tcp/22 # Basic Rate limit 4 SSH brute force mitigation
-
-# Set your ext IP
-export EXTERNAL_IP=123.123.123.123
-# Update docker IP if needed
-export DOCKER_IP=172.17.42.1
-# Forward tcp 8080 traffic to  Dockerized App
-ufw allow proto tcp from $EXTERNAL_IP port 8080 to $DOCKER_IP port 3000
-</code></pre>
-
-<a name="Enable...Start.Firewall"></a>
-<h2>Enable / Start Firewall</h2>
-
-<blockquote><p>Be Careful, Don&rsquo;t Lock out your SSH port (sshd defaults to 22)</p></blockquote>
-
-<pre><code class="sh">ufw enable
-ufw reset
-</code></pre>
-
-<hr />
-
-<a name="Test.Your.Firewall"></a>
-<h2>Test Your Firewall</h2>
-
-<blockquote><p>Important: USE A REMOTE IP ADDR/LOCATION</p></blockquote>
-
-<pre><code class="sh"># Verify dependency
-apt-get update &amp;&amp; apt-get install -y nmap
-
-# Set scan target
-export TARGET_HOST=123.123.123.123
-
-# Example Scan Commands:
-# Fast open port check
-nmap -p 1-10240,27017 -T5 $TARGET_HOST
-# Thorough scan
-nmap -p 1-10240,27017 --open -v -APN $TARGET_HOST
-# Svc Inspection
-nmap -p 1-10240,27017 -O --osscan-guess $TARGET_HOST
-</code></pre>
-
-<a name="DONE..Now.you.should.see.ONLY.the.ports.you.configured."></a>
-<h4>DONE! Now you should see ONLY the ports you configured!</h4>
 
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
