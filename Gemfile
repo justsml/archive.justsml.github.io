@@ -8,3 +8,4 @@ gem 'stringex', '~> 2.5.2'
 gem 'jekyll-tagging'
 gem 'jekyll-gist'
 
+# gem 'jekyll-paginate'

@@ -89,7 +89,7 @@ kramdown:
   entity_output: as_char
   toc_levels: 1..6
   input: GFM
-  use_coderay: false
+  enable_coderay: false
 
   coderay:
     coderay_line_numbers: true

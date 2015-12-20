@@ -21,11 +21,11 @@ module Kramdown
     class PygmentsHtml < Html
 
       begin
-        require 'pygments'
+        require 'pygments.rb'
       rescue LoadError
         STDERR.puts 'You are missing a library required for syntax highlighting. Please run:'
-        STDERR.puts '  $ [sudo] gem install pygments'
-        raise FatalException.new("Missing dependency: Pygments")
+        STDERR.puts '  $ [sudo] gem install pygments.rb'
+        raise FatalException.new("Missing dependency: pygments.rb")
       end
 
       def convert_codeblock(el, indent)
@@ -51,7 +51,7 @@ module Kramdown
         end
         "<code#{html_attributes(attr)}>#{code}</code>"
       end
-      
+
       def pygmentize(code, lang)
         if lang
           Pygments.highlight(code,

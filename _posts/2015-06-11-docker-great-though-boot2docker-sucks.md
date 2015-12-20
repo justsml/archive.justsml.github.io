@@ -12,6 +12,9 @@ image:
 
 # Overview
 
+## Updates November 2015
+> Boot2Docker
+
 #### To everyone on OSX or Windows: Don't let Boot2docker leave you with the impression that Docker sucks! It's really just your antique OS.
 
 1. Docker is amazing, period.

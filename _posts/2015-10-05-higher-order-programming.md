@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Beautiful Models (and Data)"
+title:  "Higher Order Programming"
 date:   2015-09-22
 modified:   2015-11-13
 categories: programming
@@ -27,8 +27,9 @@ Here's some guiding principles:
 1. 99 out of 100 devs code suffers from what I call `acute schema surplusage` syndrome -based models.
 1. Yes, beware `fat ASS models` - with all the predictable trappings: fragile `instance state` - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic `property getter/setters`, and your `public/private/final/etc` usage is solid, right?
 
-1. So let me take a common problem and *shoehorn* ~~~add~~~ some of my set-based heretical musings.
-  1. Why is a Product price always a single data point? Why on earth would I make price(s) an Array?
+1. So let me take a common problem and *shoehorn* ~~~add~~~ some set-based musings.
+  1. Why is a Product price always a single data point? Why would I make price(s) an Array?
+
   1. Let's add this functionality:
     a. **New requirements:** `retailPrice`, `priceSavings`
 1. These changes hopefully look no worse than my sorry attempt:

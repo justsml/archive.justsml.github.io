@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Polyglot Redux"
-date:   2015-06-12 09:21:12
-modified:   2015-06-14 01:00:01
+date:   2015-06-12
+modified:   2015-12-09
 categories: languages
 tags: [programming, languages, lua, haskell, scala, rust, smalltalk, go, javascript, python]
 image:
@@ -11,8 +11,6 @@ image:
 ---
 
 # Programming Languages Notes
-
-### _Work-in-progress (updated Sept. 25th 2015)_
 
 ### I'm sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:
 
@@ -144,6 +142,7 @@ Just keep sifting through the new stuff. Check out string templates, auto `this`
 * __Pros__
   - Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )
   - Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just bloated!
+  - Arrays, 'Sequences', Tuples etc. are relatively simple
 
 ~~~python
 # dummy code: defines a color + pixel-coord -
@@ -153,10 +152,10 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 # Now we can call pixel
 ~~~
 
-  - Tuples and arbitrary sets are so easy
 
 * __Cons__
   - Annoyingly, Python 2.x and 3.x are incompatible. The Great Schism continues, so many years later.
+  - Some essential libraries are not nessacerily understood by some devs (numpy)
 
 
 
@@ -187,7 +186,7 @@ x, y, r, g, b = pixel(10, 20, 255, 255, 255)
 
 
 
-### _Work-in-progress (updated Sept. 25th 2015)_
+### _Work-in-progress (updated Dec. 2015)_
 
 
 

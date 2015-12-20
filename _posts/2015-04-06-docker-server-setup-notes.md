@@ -15,7 +15,7 @@ image:
 
 ~~~sh
 # Debian/BSD Requirements / Updates + monitoring tools: atop & htop
-apt-get update && apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64
+apt-get update && apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64 sudo
 
 # OSX, Debian & RHEL: Host OS Tuning
 sysctl -w vm.max_map_count=262144
@@ -27,11 +27,13 @@ cp ~/.bash* ~/backups/
 # Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors
 curl -o- https://raw.githubusercontent.com/justsml/system-setup-tools/master/modules/vim-update.sh | bash
 
-curl -sSL https://gist.githubusercontent.com/justsml/882f6c7cee46aa71625f/raw/a4f0d1ed006080d5fe7f40b6e07b8eb9d6838a5f/.bashrc >> ~/.bashrc
-curl -sSL https://gist.githubusercontent.com/justsml/b667f158731fd054cd38/raw/5778dbb5d3d138ccf99ae1bf973457ce89661362/.bash_aliases >> ~/.bash_aliases
+curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bashrc >> ~/.bashrc
+curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bash_aliases >> ~/.bash_aliases
 # Read into current shell (login steps already missed the aliases file)
 source ~/.bashrc
 
+# Docker pre reqs
+# sudo apt-get install -y linux-image-virtual linux-image-extra-virtual
 # Install Docker, straight from the horses mouth
 curl -sSL https://get.docker.com/ | sh
 

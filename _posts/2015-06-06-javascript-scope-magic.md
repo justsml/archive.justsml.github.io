@@ -58,7 +58,6 @@ function fib(n) {
 
 # Promises: Awesome!
 
-![fuck this][fuck_this]
 
 ~~~js
 
@@ -100,3 +99,4 @@ fs.readFileAsync('./style.less') // Call promisified readFile()
 Work-in-progress
 
 
+[fuck_this]: https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif
