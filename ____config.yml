@@ -4,11 +4,11 @@ email: dan@danlevy.net
 description: Devout Developer
 disqus_shortname: danlevy
 reading_time:     true
-words_per_minute: 100 #was 200, 50 is better for code
+words_per_minute: 50 #was 200, 50 is better for code
 # Your site's domain goes here (eg: //mmistakes.github.io, http://mademistakes.com, etc)
 # When testing locally leave blank or use http://localhost:4000
-#url:
-#baseurl: "/blog/" # the subpath of your site, e.g. /blog/
+url:
+# baseurl: "/" # the subpath of your site, e.g. /blog/
 
 # Owner/author information
 owner:
@@ -30,7 +30,7 @@ owner:
 
 # Background image to be tiled on all pages
 background: abstract-3.jpg
-destination: ./docs
+destination: ./public
 
 # Analytics and webmaster tools stuff goes here
 google_analytics: UA-59708923-1
@@ -45,8 +45,8 @@ future:      true
 
 tag_page_layout: tag_page
 tag_page_dir: tag
-tag_page_data:
-  sitemap: false
+
+#markdown: rdiscount
 #highlighter: pygments
 
 # markdown:    kramdown
@@ -56,23 +56,24 @@ tag_page_data:
 # markdown:    rdiscount
 
 gems:
-  - jekyll-mentions
-  - jemoji
   - jekyll-sitemap
-  - jekyll-paginate
-  - jekyll-feed
-  - jekyll-tagging
 sass:
   sass_dir: _sass
   style: compressed
 
-#redcarpet:
-#  extensions:
-#    - tables
-#    - autolink
-#    - no_intra_emphasis
-#    - lax_spacing
+redcarpet:
+  extensions:
+    - tables
+    - autolink
+    - no_intra_emphasis
+    - lax_spacing
 
+rdiscount:
+  extensions:
+    - autolink      # greedily urlify links
+    - footnotes     # footnotes
+    - smart         # typographic substitutions with SmartyPants
+    - generate_toc
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 # permalink:   /:categories/:title/
 permalink: /:year/:month/:day/:title/
