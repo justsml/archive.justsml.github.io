@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Cloud Tuning: Gain a 70% Boost"
+title:  "Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost"
 date:   2017-04-15
 modified:   2017-04-27
 categories: programming
