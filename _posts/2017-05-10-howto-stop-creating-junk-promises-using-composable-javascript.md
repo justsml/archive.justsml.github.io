@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "HOWTO: Stop creating junk Promises using Composable Javascript"
+title:  "HOWTO: Fix Promise Anti-Patterns with Composable JavaScript"
 date:       2017-05-10
 modified:   2017-05-15
 categories: programming
@@ -10,7 +10,7 @@ image:
   credit:
 ---
 
-## HOWTO: Stop making junk promises
+## HOWTO: Fix Promise Anti-Patterns with Composable JavaScript
 
 > Please take a look at (& star plz) this article's companion Github project, [Escape From Callback Mountain](https://github.com/justsml/escape-from-callback-mountain)
 #### Project Goal: research & develop better functional language patterns in JavaScript.
