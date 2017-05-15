@@ -10,18 +10,18 @@
 > If you are like me, you just started your Amazon EC2 `i3.*large` server (or a Packet.net Type2 box) and can't remember `parted` params to save your life. Run scripts below.
 You're welcome, future self.
 
-#### Create ext4 NVMe Partition 
+#### Create ext4 NVMe Partition
 
 ```sh
+# Try this first
+mkfs.ext4 /dev/nvme0n1
+# If it fails, try the following destructive cmds
 parted --script -a optimal /dev/nvme0n1 mklabel gpt
 parted --script -a optimal /dev/nvme0n1 mkpart primary ext4 0% 100%
-mkfs.ext4 /dev/nvme0n1
+
 mkdir -p /data
 mount /dev/nvme0n1 /data
-```
-
-#### Persist between reboots: for nvme0n1 device/volume
-```sh
+## Persist between reboots: for nvme0n1 device/volume
 echo '/dev/nvme0n1 /data ext4 defaults,nofail,discard 0 0' | sudo tee -a /etc/fstab
 ```
 
@@ -37,8 +37,8 @@ sudo update-initramfs -u
 ## HTTP/S & Reverse Proxy Scripts
 
 
-### Free SSL/TLS Certificate 
-#### (DNS CNAME or A records required) 
+### Free SSL/TLS Certificate
+#### (DNS CNAME or A records required)
 
 ```sh
 docker run -it --rm -p 443:443 -p 80:80 -e ENV_DOMAIN --name certbot -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt quay.io/letsencrypt/letsencrypt:latest \
@@ -50,7 +50,7 @@ docker run -it --rm -p 443:443 -p 80:80 -e ENV_DOMAIN --name certbot -v /etc/let
 
 
 
-## Amazon Web Services CLI 
+## Amazon Web Services CLI
 
 ### To Remove an S3 Bucket (Careful now)
 

@@ -170,7 +170,7 @@
 					<p style="float: right; display: inline;">Devout Programmer</p>
 					<div class="clearfix"></div>
 				</li>
-				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target="_blank"><span class="btn btn-inverse">Resume</span></a></li>
+				<li><a href="/cv/ResumeDanLevy2017.pdf" target="_blank"><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
@@ -202,6 +202,14 @@
 				
 					
 	        <li class="entry-title">
+	        	<a href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/" title="HOWTO: Stop creating junk Promises using Composable Javascript">
+	        		<div>HOWTO: Stop creating junk Promises using Composable Javascript</div>
+		        	<em>2017-05-10</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
 	        	<a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts">
 	        		<div>Linux Server Benchmarking Scripts</div>
 		        	<em>2017-05-01</em>
@@ -210,9 +218,17 @@
 			  
 					
 	        <li class="entry-title">
-	        	<a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost">
-	        		<div>Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost</div>
+	        	<a href="/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost">
+	        		<div>Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost</div>
 		        	<em>2017-04-15</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2016/06/01/naming-things-real-good/" title="Naming things real good">
+	        		<div>Naming things real good</div>
+		        	<em>2016-06-01</em>
 	        	</a>
 	        </li>
 			  
@@ -221,22 +237,6 @@
 	        	<a href="/2015/12/22/disable-transparent-hugepages/" title="MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu">
 	        		<div>MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu</div>
 		        	<em>2015-12-22</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" title="When AI Fails &amp; the Crashing Robotic Cars">
-	        		<div>When AI Fails &amp; the Crashing Robotic Cars</div>
-		        	<em>2015-12-18</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/09/22/higher-order-programming/" title="Higher Order Programming">
-	        		<div>Higher Order Programming</div>
-		        	<em>2015-09-22</em>
 	        	</a>
 	        </li>
 			  
@@ -278,6 +278,173 @@
 
 <div id="main" role="main">
   
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" title="When AI Fails &amp; the Crashing Robotic Cars"><img src="/images/abstract-2.jpg" alt="When AI Fails &amp; the Crashing Robotic Cars"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-12-18T00:00:00-07:00"><a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/">December 18, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~4 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" rel="bookmark" title="When AI Fails &amp; the Crashing Robotic Cars" itemprop="url">When AI Fails &amp; the Crashing Robotic Cars</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="robotic-cars-more-accidents-now-with-less-injury--damages">Robotic Cars: More accidents (now With Less Injury &amp; Damages!)</h1>
+
+<p>Google’s self-driving cars are apparently in 2x as many accidents as human drivers - If you think this is just buggy new tech, way too complex from the get-go - well, you’re partially right. <a href="http://www.bloomberg.com/news/articles/2015-12-18/humans-are-slamming-into-driverless-cars-and-exposing-a-key-flaw">An important detail I should share: as of Dec 2015 virtually all accidents were not the robots fault.</a></p>
+
+<p>The accidents are caused by humans drivers unfamiliar with robotic drivers. Furthermore, Google has programmed the cars to obey the law in absolute terms - never speeding, difficulty merging in dense or fast freeway traffic.
+This opens up a bunch of legal, ethical questions -</p>
+
+<ul>
+  <li>Is it ever ok:
+    <ul>
+      <li>to avoid a rear-end collision if it means driving past the walkway at a red light <strong>assuming path is clear</strong> ?</li>
+      <li>to drive on the sidewalk to avoid a bicycle cutting across lanes? - is it ok for AI to accept this breach in ‘rules of the road’</li>
+    </ul>
+  </li>
+</ul>
+
+<p>I understand Google’s approach, especially when trying to minimize liability: always follow the rules - logically it follows that you cannot really be at fault if you <strong>always</strong> observe the law.</p>
+
+<p>There would be <strong>massive liability</strong> if an accident happened because of intentionally designed ‘flexibility’ around the laws.</p>
+
+<h2 id="dont-let-the-future-escape-us">Don’t let the future escape us</h2>
+
+<p>The future will still arrive, even if the robots drive like octagenarians.</p>
+
+<p>Perhaps a simple fix for now would be to use bright red flashing LEDs  (think school buses) to warn human drivers they are about to rear-end an innocent robot.</p>
+
+<p>I would be more comfortable with a car which had tiers of observance and rule adherance. To my mind this would be much closer to how humans drive.</p>
+
+<p>Imagine 3-tiers of system-perception as follows: (decision &amp; other layers omitted for simplicity)</p>
+
+<ol>
+  <li>base: follows laws with annoying precision</li>
+  <li>local: flexibile adjustments based on current traffic - to allow merge on the highway if say, 10MPH+ is needed. Conversely if the traffic is simply going too fast, the car should be smart enough to pull over to avoid being a nuissance to other drivers.</li>
+  <li>360: calculate ANY potential extreme collision risk/avoidance measures - driving on a shoulder or</li>
+</ol>
+
+<p>This would likely require a smart balancing act - say tier 1 detects an immenent accident which cannot be avoided following the laws, it would then shift all processor power into tier 3 - hopefully finding a creative way to avoid harm.</p>
+
+<p>Robotic cars are on the cusp of being technically smarter &amp; faster than any human driver. Accept it. Welcome it.</p>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li><a href="http://nn.cs.utexas.edu/pages/research/neat-warning/">http://nn.cs.utexas.edu/pages/research/neat-warning/</a></li>
+  <li><a href="http://www.claimsjournal.com/magazines/idea-exchange/2014/09/29/255161.htm">http://www.claimsjournal.com/magazines/idea-exchange/2014/09/29/255161.htm</a></li>
+</ol>
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/09/22/higher-order-programming/" title="Higher Order Programming"><img src="/images/abstract-5.jpg" alt="Higher Order Programming"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-09-22T00:00:00-06:00"><a href="/2015/09/22/higher-order-programming/">September 22, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~4 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/09/22/higher-order-programming/" rel="bookmark" title="Higher Order Programming" itemprop="url">Higher Order Programming</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="array--or-set-based-coding-style">Array- or Set-based Coding Style</h1>
+
+<h2 id="an-anti-pattern">An Anti-Pattern?</h2>
+
+<p>This is an exploration of advantages gained when you <strong>code everything as an array.</strong> (Using Jedi concepts from SmallTalk)</p>
+
+<p>Here’s some guiding principles:</p>
+
+<ol>
+  <li>All input is array-like. Even if an array of 1.</li>
+  <li>Higher level functions should generally accept AND return arrays. (Except for callback methods for loops: map/reduce/each/filter)</li>
+  <li>99 out of 100 devs code suffers from what I call <code class="highlighter-rouge">acute schema surplusage</code> syndrome -based models.</li>
+  <li>
+    <p>Yes, beware <code class="highlighter-rouge">fat clASS-backed models</code> - with all the predictable trappings: fragile <code class="highlighter-rouge">instance state</code> - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic <code class="highlighter-rouge">property getter/setters</code>, and your <code class="highlighter-rouge">public/private/final/etc</code> usage is solid, right?</p>
+  </li>
+  <li>So let me take a common problem and <em>shoehorn</em> ~<del>add</del>~ some set-based musings.</li>
+  <li>A hypothetical Blog Site has lots of Articles, and has even more Posts (Comments).</li>
+  <li>Let’s add a <code class="highlighter-rouge">delete</code> method (below) - but with support for both singular OR arrays.</li>
+</ol>
+
+<div class="language-java highlighter-rouge">
+<pre class="highlight"><code><span class="kn">package</span> <span class="n">net</span><span class="o">.</span><span class="na">danlevy</span><span class="o">.</span><span class="na">why</span><span class="o">.</span><span class="na">java___why</span><span class="o">.</span><span class="na">you</span><span class="o">.</span><span class="na">got</span><span class="o">.</span><span class="na">all</span><span class="o">.</span><span class="na">the</span><span class="o">.</span><span class="na">dots____it</span><span class="o">.</span><span class="na">must</span><span class="o">.</span><span class="na">be</span><span class="o">.</span><span class="na">all</span><span class="o">.</span><span class="na">the</span><span class="o">.</span><span class="na">factories</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span>   <span class="n">title</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="n">Date</span>     <span class="n">created</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="n">String</span>   <span class="n">message</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Post</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">title</span>    <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">message</span>  <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">created</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="n">Date</span> <span class="nf">isArchived</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">created</span> <span class="o">&lt;</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="mi">2015</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Post.delete` can be called w/ a singular Post or an array of Post[]</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Post</span> <span class="n">post</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Post</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&gt;</span> <span class="n">posts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Post</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&gt;(</span><span class="n">post</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nf">delete</span><span class="o">(</span><span class="n">posts</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Post</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&gt;</span> <span class="n">posts</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">posts</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">DB</span><span class="o">.</span><span class="na">cleanupPost</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Forgive me if my Java is a little rusty.</p>
+</blockquote>
+
+<h3 id="work-in-progress-updated-nov-2015"><em>Work-in-progress (updated Nov. 2015)</em></h3>
+
+<!-- ![schema refactor][schema_refactor] -->
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
 <article class="hentry">
   <header>
     
@@ -749,228 +916,6 @@ Because code is more succinct, appreciably less brain power is needed to sift th
 <!-- /.entry-content -->
 </article><!-- /.hentry -->
 
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/2015/06/10/docker-great-though-boot2docker-sucks/" title="Docker rocks. Boot2docker just sucks."><img src="/images/abstract-10.jpg" alt="Docker rocks. Boot2docker just sucks."></a>
-      </div>
-<!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-10T23:00:12-06:00"><a href="/2015/06/10/docker-great-though-boot2docker-sucks/">June 10, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~3 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div>
-<!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/2015/06/10/docker-great-though-boot2docker-sucks/" rel="bookmark" title="Docker rocks. Boot2docker just sucks." itemprop="url">Docker rocks. Boot2docker just sucks.</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h1 id="overview">Overview</h1>
-
-<h2 id="updates-november-2015">Updates November 2015</h2>
-<blockquote>
-  <p>Boot2Docker</p>
-</blockquote>
-
-<h4 id="to-everyone-on-osx-or-windows-dont-let-boot2docker-leave-you-with-the-impression-that-docker-sucks-its-really-just-your-antique-os">To everyone on OSX or Windows: Don’t let Boot2docker leave you with the impression that Docker sucks! It’s really just your antique OS.</h4>
-
-<ol>
-  <li>Docker is amazing, period.</li>
-  <li>However it’s rough-around-the-edges, hackey utility, boot2docker - for OS X, Windows and old Linux Kernels - leaves a <strong>lot</strong> to be desired.</li>
-</ol>
-
-<h1 id="issues">Issues</h1>
-
-<blockquote>
-  <p>Boot2docker causes 99/100 headaches compared with using a native docker install locally.
-I should concede that it wraps several other complicated/flakey technologies:
-VirtualBox, x-platform Folder Sharing, and also the docker cli command runs in a network-client mode so,
-file copying, builds etc take a long time  vs. running a native docker server.
-=============
-Docker can currently only run natively on a Linux Kernel 3.4+ - and the current boot2docker vm actually runs v4.
-Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box,
-… c’mon those games aren’t helping your code…</p>
-</blockquote>
-
-<h1 id="boot2docker-key-commands">Boot2docker Key Commands</h1>
-
-<h2 id="when-you-get-error-fata0000">When you get error: ‘FATA[0000]’</h2>
-
-<ul>
-  <li>Full error message:
-    <ul>
-      <li>FATA[0000] Get http:///var/run/docker.sock/v1.18/info: dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?</li>
-    </ul>
-  </li>
-  <li>Solution: You need some info from boot2docker
-    <ul>
-      <li>Run this to get the 3 needed shell environment variables:</li>
-    </ul>
-  </li>
-</ul>
-
-<div class="language-sh highlighter-rouge">
-<pre class="highlight"><code>boot2docker shellinit
-<span class="c"># Copy &amp; paste the exports into the current shell, &amp; retry $(docker info)</span>
-</code></pre>
-</div>
-
-<h2 id="get-docker-server-ip-address">Get Docker Server IP Address</h2>
-<div class="language-sh highlighter-rouge">
-<pre class="highlight"><code>boot2docker ip
-</code></pre>
-</div>
-<blockquote>
-  <p>Now your app on port 3000 is available at something like: http://$(boot2docker ip):3000/</p>
-</blockquote>
-
-<h1 id="boot2docker-quick-start-for-os-x">Boot2Docker Quick Start for OS X</h1>
-
-<ol>
-  <li>In a terminal on your <code class="highlighter-rouge">brew</code> able Mac:</li>
-</ol>
-
-<div class="language-sh highlighter-rouge">
-<pre class="highlight"><code>brew install boot2docker
-boot2docker init
-boot2docker up
-</code></pre>
-</div>
-
-
-  </div>
-<!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/2015/06/06/javascript-scope-magic/" title="JavaScript Magic"><img src="/images/abstract-7.jpg" alt="JavaScript Magic"></a>
-      </div>
-<!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-06-06T00:00:00-06:00"><a href="/2015/06/06/javascript-scope-magic/">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~7 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div>
-<!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/2015/06/06/javascript-scope-magic/" rel="bookmark" title="JavaScript Magic" itemprop="url">JavaScript Magic</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h3 id="-work-in-progress-includes-future-javascript-article-ideas-">[ Work-in-progress, Includes Future JavaScript Article Ideas ]</h3>
-
-<blockquote>
-  <p>This post is geared to modern browsers and Node.JS/iojs.</p>
-</blockquote>
-
-<h1 id="imperative-vs-recursive-vs-functional">Imperative vs. Recursive vs. Functional</h1>
-
-<div class="language-javascript highlighter-rouge">
-<pre class="highlight"><code>
-<span class="c1">// Imperative: The Fastest ( + very simple, no new pointers or excess allocs ):</span>
-<span class="kd">function</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">c</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
-    <span class="nx">a</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span>
-    <span class="nx">b</span> <span class="o">=</span> <span class="nx">c</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">b</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// Recursive: (FIREFOX or BABELJS Only) ES6 function definition with</span>
-<span class="c1">//  parameter defaults used to set initial (internal/recursive) values</span>
-<span class="kd">function</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">current</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nx">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nx">c</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">current</span><span class="o">++</span><span class="p">;</span>
-  <span class="nx">c</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
-  <span class="nx">a</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span>
-  <span class="nx">b</span> <span class="o">=</span> <span class="nx">c</span><span class="p">;</span>
-  <span class="k">return</span> <span class="nx">current</span> <span class="o">&gt;=</span> <span class="nx">n</span> <span class="p">?</span> <span class="nx">b</span> <span class="p">:</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">current</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// Text-book-Bad Example - poor function scope w/ multiple mutable external values</span>
-<span class="kd">function</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span> <span class="nx">n</span><span class="o">=</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span> <span class="p">};</span><span class="c1">// Bad</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span><span class="o">===-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">[</span><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]];}</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span><span class="o">===</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">arr</span><span class="p">;}</span>
-  <span class="kd">var</span> <span class="nx">proc</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">--</span><span class="nx">n</span><span class="p">;</span>
-    <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="k">return</span> <span class="p">(</span><span class="nx">n</span><span class="o">===</span><span class="mi">0</span> <span class="p">?</span> <span class="nx">arr</span> <span class="p">:</span> <span class="nx">proc</span><span class="p">());</span>
-    <span class="c1">// Bad: inner recursive function not needed, hint: variables used are from parent function scope</span>
-  <span class="p">};</span>
-  <span class="kd">var</span> <span class="nx">ans</span> <span class="o">=</span> <span class="nx">proc</span><span class="p">();</span>
-  <span class="k">return</span> <span class="nx">ans</span><span class="p">[</span><span class="nx">ans</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<h1 id="promises-awesome">Promises: Awesome!</h1>
-
-<div class="language-js highlighter-rouge">
-<pre class="highlight"><code>
-<span class="c1">// Example Using bluebird Promises and it's</span>
-<span class="kd">var</span> <span class="nx">Promise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'bluebird'</span><span class="p">),</span>
-    <span class="nx">fs</span> <span class="o">=</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">promisifyAll</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">)),</span>
-    <span class="nx">less</span> <span class="o">=</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">promisifyAll</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">'less'</span><span class="p">));</span>
-
-<span class="kd">function</span> <span class="nx">writeFileData</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileAsync</span><span class="p">(</span><span class="s1">'/tmp/output.css'</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="c1">// Bluebird makes something like this perhaps uncomfortably simple and succinct:</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">readFileAsync</span><span class="p">(</span><span class="s1">'./style.less'</span><span class="p">)</span> <span class="c1">// Call promisified readFile()</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">less</span><span class="p">.</span><span class="nx">renderAsync</span><span class="p">)</span>         <span class="c1">// Hand off to less.render</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">writeFileData</span><span class="p">);</span>      <span class="c1">// Function to recieve the css contents (1st parameter)</span>
-
-</code></pre>
-</div>
-<ol>
-  <li>While, native ES6 Promises are great, I prefer the robust <a href="https://github.com/petkaantonov/bluebird/blob/master/API.md">Bluebird Promise Library</a>.</li>
-  <li>Library or not, modern browsers have supported Promise for years.</li>
-  <li>Promises can be utilized without crazy patterns - implicit <code class="highlighter-rouge">deferred</code> is preferable.</li>
-  <li>
-<strong>$q just sucks</strong> just use bluebird, see above.</li>
-  <li>Worth mentioning: Bluebirds Benchmarks are best-case tests, so take note if doing crazy fancy promise chains</li>
-</ol>
-
-<h1 id="java-vs-javascript">Java vs JavaScript</h1>
-
-<h2 id="rate-limiting--debouncing--throttling">Rate Limiting / Debouncing / Throttling</h2>
-
-<ol>
-  <li>In JavaScript <a href="http://davidwalsh.name/essential-javascript-functions">David Walsh implemented debounce</a> in less than 20 lines!</li>
-  <li>In Java, JDebounce, an library which is a lot more complicated, at ~500+ lines.</li>
-  <li>_ Comparing the two: _</li>
-  <li>The JavaScript is fast &amp; uses first-class functions to achieve brilliant simplicity.</li>
-  <li>Whereas the Java has many more moving parts, annotations are used to apply behaviour at compile-time, and there’s a ton of XML, just for funsies!</li>
-</ol>
-
-<h1 id="inversion-of-control-techniques">Inversion of Control Techniques</h1>
-
-<p>Work-in-progress</p>
-
-
-  </div>
-<!-- /.entry-content -->
-</article><!-- /.hentry -->
-
 
 <div class="pagination">
   
@@ -1013,7 +958,7 @@ boot2docker up
 <div class="tag-page">
         <h3><em>Tag Cloud</em></h3>
                                                 <div class="tag-cloud">
-                                                            <a href="/tag/ai/" class="set-1">ai</a> <a href="/tag/amazon-web-services/" class="set-1">amazon-web-services</a> <a href="/tag/angularjs/" class="set-1">angularjs</a> <a href="/tag/architecture/" class="set-1">architecture</a> <a href="/tag/artificial-intelligence/" class="set-1">artificial intelligence</a> <a href="/tag/azure/" class="set-1">azure</a> <a href="/tag/benchmarks/" class="set-1">benchmarks</a> <a href="/tag/boot2docker/" class="set-1">boot2docker</a> <a href="/tag/cloud/" class="set-1">cloud</a> <a href="/tag/design/" class="set-1">design</a> <a href="/tag/development/" class="set-1">development</a> <a href="/tag/devops/" class="set-3">devops</a> <a href="/tag/digital-ocean/" class="set-1">digital-ocean</a> <a href="/tag/docker/" class="set-3">docker</a> <a href="/tag/fails/" class="set-1">fails</a> <a href="/tag/go/" class="set-1">go</a> <a href="/tag/google-cloud-engine/" class="set-1">google-cloud-engine</a> <a href="/tag/haskell/" class="set-1">haskell</a> <a href="/tag/javascript/" class="set-2">javascript</a> <a href="/tag/languages/" class="set-1">languages</a> <a href="/tag/lua/" class="set-1">lua</a> <a href="/tag/models/" class="set-2">models</a> <a href="/tag/online.net/" class="set-1">online.net</a> <a href="/tag/opinion/" class="set-1">opinion</a> <a href="/tag/organization/" class="set-2">organization</a> <a href="/tag/ovh.net/" class="set-1">ovh.net</a> <a href="/tag/packet.net/" class="set-1">packet.net</a> <a href="/tag/patterns/" class="set-5">patterns</a> <a href="/tag/performance/" class="set-2">performance</a> <a href="/tag/programming/" class="set-5">programming</a> <a href="/tag/python/" class="set-1">python</a> <a href="/tag/resources/" class="set-1">resources</a> <a href="/tag/rust/" class="set-1">rust</a> <a href="/tag/scala/" class="set-1">scala</a> <a href="/tag/scaling/" class="set-1">scaling</a> <a href="/tag/security/" class="set-1">security</a> <a href="/tag/self-driving-cars/" class="set-1">self-driving cars</a> <a href="/tag/server/" class="set-1">server</a> <a href="/tag/servers/" class="set-1">servers</a> <a href="/tag/setup/" class="set-1">setup</a> <a href="/tag/shell-script/" class="set-1">shell script</a> <a href="/tag/smalltalk/" class="set-1">smalltalk</a> <a href="/tag/source-code/" class="set-2">source code</a>
+                                                            <a href="/tag/ai/" class="set-1">ai</a> <a href="/tag/amazon-web-services/" class="set-1">amazon-web-services</a> <a href="/tag/angularjs/" class="set-1">angularjs</a> <a href="/tag/architecture/" class="set-1">architecture</a> <a href="/tag/artificial-intelligence/" class="set-1">artificial intelligence</a> <a href="/tag/azure/" class="set-1">azure</a> <a href="/tag/benchmarks/" class="set-1">benchmarks</a> <a href="/tag/boot2docker/" class="set-1">boot2docker</a> <a href="/tag/cloud/" class="set-1">cloud</a> <a href="/tag/design/" class="set-1">design</a> <a href="/tag/development/" class="set-1">development</a> <a href="/tag/devops/" class="set-2">devops</a> <a href="/tag/digital-ocean/" class="set-1">digital-ocean</a> <a href="/tag/docker/" class="set-2">docker</a> <a href="/tag/fails/" class="set-1">fails</a> <a href="/tag/functional-river/" class="set-1">functional river</a> <a href="/tag/go/" class="set-1">go</a> <a href="/tag/google-cloud-engine/" class="set-1">google-cloud-engine</a> <a href="/tag/haskell/" class="set-1">haskell</a> <a href="/tag/javascript/" class="set-2">javascript</a> <a href="/tag/languages/" class="set-1">languages</a> <a href="/tag/lua/" class="set-1">lua</a> <a href="/tag/models/" class="set-2">models</a> <a href="/tag/naming/" class="set-1">naming</a> <a href="/tag/online.net/" class="set-1">online.net</a> <a href="/tag/opinion/" class="set-1">opinion</a> <a href="/tag/organization/" class="set-2">organization</a> <a href="/tag/ovh.net/" class="set-1">ovh.net</a> <a href="/tag/packet.net/" class="set-1">packet.net</a> <a href="/tag/patterns/" class="set-5">patterns</a> <a href="/tag/performance/" class="set-2">performance</a> <a href="/tag/programming/" class="set-5">programming</a> <a href="/tag/python/" class="set-1">python</a> <a href="/tag/resources/" class="set-1">resources</a> <a href="/tag/rust/" class="set-1">rust</a> <a href="/tag/scala/" class="set-1">scala</a> <a href="/tag/scaling/" class="set-1">scaling</a> <a href="/tag/security/" class="set-1">security</a> <a href="/tag/self-driving-cars/" class="set-1">self-driving cars</a> <a href="/tag/server/" class="set-1">server</a> <a href="/tag/servers/" class="set-1">servers</a> <a href="/tag/setup/" class="set-1">setup</a> <a href="/tag/shell-script/" class="set-1">shell script</a> <a href="/tag/smalltalk/" class="set-1">smalltalk</a> <a href="/tag/source-code/" class="set-3">source code</a>
                                                               </div>
                                                       </div>
 

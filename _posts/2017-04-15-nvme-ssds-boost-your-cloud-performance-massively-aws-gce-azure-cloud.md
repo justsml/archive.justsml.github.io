@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost"
+title:  "Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost"
 date:   2017-04-15
-modified:   2017-04-27
+modified:   2017-05-05
 categories: programming
 tags: [cloud, servers, architecture, scaling, digital-ocean, amazon-web-services, google-cloud-engine, azure, packet.net, online.net, ovh.net]
 image:

@@ -170,7 +170,7 @@
 					<p style="float: right; display: inline;">Devout Programmer</p>
 					<div class="clearfix"></div>
 				</li>
-				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target="_blank"><span class="btn btn-inverse">Resume</span></a></li>
+				<li><a href="/cv/ResumeDanLevy2017.pdf" target="_blank"><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
@@ -202,6 +202,14 @@
 				
 					
 	        <li class="entry-title">
+	        	<a href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/" title="HOWTO: Stop creating junk Promises using Composable Javascript">
+	        		<div>HOWTO: Stop creating junk Promises using Composable Javascript</div>
+		        	<em>2017-05-10</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
 	        	<a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts">
 	        		<div>Linux Server Benchmarking Scripts</div>
 		        	<em>2017-05-01</em>
@@ -210,9 +218,17 @@
 			  
 					
 	        <li class="entry-title">
-	        	<a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost">
-	        		<div>Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost</div>
+	        	<a href="/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost">
+	        		<div>Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost</div>
 		        	<em>2017-04-15</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2016/06/01/naming-things-real-good/" title="Naming things real good">
+	        		<div>Naming things real good</div>
+		        	<em>2016-06-01</em>
 	        	</a>
 	        </li>
 			  
@@ -221,22 +237,6 @@
 	        	<a href="/2015/12/22/disable-transparent-hugepages/" title="MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu">
 	        		<div>MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu</div>
 		        	<em>2015-12-22</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" title="When AI Fails &amp; the Crashing Robotic Cars">
-	        		<div>When AI Fails &amp; the Crashing Robotic Cars</div>
-		        	<em>2015-12-18</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/09/22/higher-order-programming/" title="Higher Order Programming">
-	        		<div>Higher Order Programming</div>
-		        	<em>2015-09-22</em>
 	        	</a>
 	        </li>
 			  
@@ -284,7 +284,7 @@
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           
-          Reading time ~10 minutes
+          Reading time ~4 minutes
         </p>
 <!-- /.entry-reading-time -->
         
@@ -292,15 +292,9 @@
 <!-- /.header-title-wrap -->
     </header>
     <div class="entry-content">
-      <h4 id="work-in-progress-updated-nov-2015"><em>Work-in-progress (updated Nov. 2015)</em></h4>
-
-<h1 id="array--or-set-based-coding-style">Array- or Set-based Coding Style</h1>
+      <h1 id="array--or-set-based-coding-style">Array- or Set-based Coding Style</h1>
 
 <h2 id="an-anti-pattern">An Anti-Pattern?</h2>
-
-<blockquote>
-  <p>Note: This is not Yet-Another-Article warning noobs about RAM usage when appending strings</p>
-</blockquote>
 
 <p>This is an exploration of advantages gained when you <strong>code everything as an array.</strong> (Using Jedi concepts from SmallTalk)</p>
 
@@ -308,51 +302,43 @@
 
 <ol>
   <li>All input is array-like. Even if an array of 1.</li>
-  <li>Functions should generally accept AND return arrays.</li>
+  <li>Higher level functions should generally accept AND return arrays. (Except for callback methods for loops: map/reduce/each/filter)</li>
   <li>99 out of 100 devs code suffers from what I call <code class="highlighter-rouge">acute schema surplusage</code> syndrome -based models.</li>
   <li>
-    <p>Yes, beware <code class="highlighter-rouge">fat ASS models</code> - with all the predictable trappings: fragile <code class="highlighter-rouge">instance state</code> - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic <code class="highlighter-rouge">property getter/setters</code>, and your <code class="highlighter-rouge">public/private/final/etc</code> usage is solid, right?</p>
+    <p>Yes, beware <code class="highlighter-rouge">fat clASS-backed models</code> - with all the predictable trappings: fragile <code class="highlighter-rouge">instance state</code> - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic <code class="highlighter-rouge">property getter/setters</code>, and your <code class="highlighter-rouge">public/private/final/etc</code> usage is solid, right?</p>
   </li>
   <li>So let me take a common problem and <em>shoehorn</em> ~<del>add</del>~ some set-based musings.</li>
-  <li>
-    <p>Why is a Product price always a single data point? Why would I make price(s) an Array?</p>
-  </li>
-  <li>Let’s add this functionality:
-    a. <strong>New requirements:</strong> <code class="highlighter-rouge">retailPrice</code>, <code class="highlighter-rouge">priceSavings</code>
-</li>
-  <li>These changes hopefully look no worse than my sorry attempt:</li>
+  <li>A hypothetical Blog Site has lots of Articles, and has even more Posts (Comments).</li>
+  <li>Let’s add a <code class="highlighter-rouge">delete</code> method (below) - but with support for both singular OR arrays.</li>
 </ol>
 
 <div class="language-java highlighter-rouge">
-<pre class="highlight"><code><span class="kn">package</span> <span class="n">net</span><span class="o">.</span><span class="na">danlevy</span><span class="o">.</span><span class="na">testpool</span><span class="o">.</span><span class="na">why</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">has</span><span class="o">.</span><span class="na">so</span><span class="o">.</span><span class="na">many</span><span class="o">.</span><span class="na">dots</span><span class="o">;</span>
+<pre class="highlight"><code><span class="kn">package</span> <span class="n">net</span><span class="o">.</span><span class="na">danlevy</span><span class="o">.</span><span class="na">why</span><span class="o">.</span><span class="na">java___why</span><span class="o">.</span><span class="na">you</span><span class="o">.</span><span class="na">got</span><span class="o">.</span><span class="na">all</span><span class="o">.</span><span class="na">the</span><span class="o">.</span><span class="na">dots____it</span><span class="o">.</span><span class="na">must</span><span class="o">.</span><span class="na">be</span><span class="o">.</span><span class="na">all</span><span class="o">.</span><span class="na">the</span><span class="o">.</span><span class="na">factories</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span>   <span class="n">title</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="n">Date</span>     <span class="n">created</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="n">String</span>   <span class="n">message</span><span class="o">;</span>
 
-  <span class="kd">public</span> <span class="n">String</span> <span class="n">Name</span><span class="o">;</span>
-  <span class="kd">public</span> <span class="kt">float</span> <span class="n">Price</span><span class="o">;</span>
-  <span class="kd">public</span> <span class="kt">float</span> <span class="n">retailPrice</span><span class="o">;</span>
-  <span class="kd">public</span> <span class="kt">float</span> <span class="n">priceSavings</span><span class="o">;</span>
-
-  <span class="kd">public</span> <span class="nf">Product</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">float</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="n">Price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">retailPrice</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">priceSavings</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="nf">Post</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">title</span>    <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">message</span>  <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">created</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">();</span>
   <span class="o">}</span>
 
-  <span class="kd">public</span> <span class="nf">Product</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">float</span> <span class="n">price</span><span class="o">,</span>
-      <span class="kt">float</span> <span class="n">retailPrice</span><span class="o">,</span>
-      <span class="kt">float</span> <span class="n">priceSavings</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">retailPrice</span> <span class="o">=</span> <span class="n">retailPrice</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">priceSavings</span> <span class="o">=</span> <span class="n">priceSavings</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="n">Date</span> <span class="nf">isArchived</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">created</span> <span class="o">&lt;</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="mi">2015</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPriceSavings</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">retailPrice</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="na">price</span><span class="o">;</span>
+  <span class="c1">// Post.delete` can be called w/ a singular Post or an array of Post[]</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Post</span> <span class="n">post</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Post</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&gt;</span> <span class="n">posts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Post</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&gt;(</span><span class="n">post</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nf">delete</span><span class="o">(</span><span class="n">posts</span><span class="o">)</span>
   <span class="o">}</span>
 
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Post</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&gt;</span> <span class="n">posts</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">posts</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">DB</span><span class="o">.</span><span class="na">cleanupPost</span><span class="o">);</span>
+  <span class="o">}</span>
 <span class="o">}</span>
 
 
@@ -360,149 +346,11 @@
 </code></pre>
 </div>
 
-<p>(I’m not replacing the valid pattern of tracking historical prices in tables)</p>
-<ol>
-  <li>
-    <p>I’m not sure about you, but price of just about anything is in flux - just given time.
-  1.
-  I <strong>experience</strong> price as constantly fluctuating data point.</p>
-  </li>
-  <li>For example, even values which seem like singular variables - say a <code class="highlighter-rouge">Product</code> class includes <code class="highlighter-rouge">var listPrice = 125</code> - change it to <code class="highlighter-rouge">var prices = [50, 100, 125]</code>.</li>
-  <li>Bear with me. That is not likely the final re-factor on that…</li>
-</ol>
-
-<div class="language-js highlighter-rouge">
-<pre class="highlight"><code><span class="kd">function</span> <span class="nx">Product</span><span class="p">({</span><span class="nx">name</span><span class="o">=</span><span class="s1">'widget'</span><span class="p">,</span> <span class="nx">prices</span><span class="o">=</span><span class="p">[]})</span> <span class="p">{</span>
-
-<span class="p">}</span>
-
-
-</code></pre>
-</div>
-
 <blockquote>
-  <p>Foreshadowing: We’re going to go through a concept familiar to LISP, SmallTalk, et al. devs.
-It’s known by many names, however I prefer <strong>Array-based programming.</strong></p>
+  <p>Forgive me if my Java is a little rusty.</p>
 </blockquote>
 
-<h2 id="the-issue-well-examine-is-deceptively-simple--subtle-naming">The issue we’ll examine is deceptively simple &amp; subtle: <strong>Naming</strong>
-</h2>
-
-<blockquote>
-  <p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
-</blockquote>
-
-<blockquote>
-  <p>While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don’t need to read this if the following makes sense: <code class="highlighter-rouge">No-Sql denormalization strategy</code>, or <code class="highlighter-rouge">Boyce Codd Normal Forms</code></p>
-</blockquote>
-
-<blockquote>
-  <p>Recommended reading includes:</p>
-
-  <ol>
-    <li>Book: Code Complete</li>
-    <li><a href="http://phlonx.com/resources/nf3/">http://phlonx.com/resources/nf3/</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Database_normalization">https://en.wikipedia.org/wiki/Database_normalization</a></li>
-  </ol>
-</blockquote>
-
-<h2 id="the-problem---by-example">The Problem - by Example</h2>
-
-<p>Have you ever designed a <code class="highlighter-rouge">data model</code> (in code, Sql, or excel worksheets)?
-Does the following look familiar?</p>
-
-<div class="highlighter-rouge">
-<pre class="highlight"><code>*** anti-pattern - don't copy-paste ***
-* User
-  - id
-  - avatarUrl
-  - email
-  - passwordHash
-
-* Agent
-  - id
-  - primaryPhoto
-  - agentName
-  - agentEmail
-  - agentPhoneMain
-  - agentEmailPrimary
-  - agentPhonePrimary
-  - agentAddressLine1
-  - agentCompanyName
-  - agentCompanyAddress
-  - *userEmail* - 'Pointer' to User table ^^^
-</code></pre>
-</div>
-
-<p>If this is familiar to you, I’ll bet you:</p>
-
-<ol>
-  <li>Feel any change to your app will necessitate hours of arduous debugging.</li>
-  <li>Fear ANY Changing Requirements
-<img src="https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif" alt="schema refactor">
-</li>
-</ol>
-
-<h2 id="the-cost-of-bad-naming-habits">The Cost of Bad (Naming) Habits</h2>
-
-<p>Let’s examine some of the subtle issues (probably familiar):</p>
-
-<p>=======</p>
-
-<p>Why is naming a field <code class="highlighter-rouge">agentEmailPrimary</code> the worst?</p>
-
-<p>For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
-
-<ol>
-  <li>‘Locked’ into highly specific name, means <code class="highlighter-rouge">agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
-    <ul>
-      <li>Data not syncing between tables (not obvious if <code class="highlighter-rouge">user.email</code> needs to propagate to <code class="highlighter-rouge">agent.agentEmail</code> or vice-versa - nevermind complexity of manually implementing where &amp; how to enforce this ‘logic’ …)</li>
-      <li>Validation rules/logic are likely duplicated &amp; inconsitent.</li>
-      <li>Increasingly, your project will resemble a shaky Jenga tower.</li>
-      <li>Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes</li>
-    </ul>
-  </li>
-</ol>
-
-<p>I know, you probably feel something like…</p>
-
-<p><img src="https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif" alt="fuck this"></p>
-
-<h2 id="a-solution">A Solution</h2>
-
-<div class="highlighter-rouge">
-<pre class="highlight"><code>// Dan's Recommended Schema Consolidation:
-
-User
-  - id
-  - role: ['agent', 'lead', 'admin']
-  - name
-  - phone
-  - address
-  - email
-  - passwordHash
-  - company
-    - name
-    - address
-
-</code></pre>
-</div>
-<p>I removed the <code class="highlighter-rouge">Agent</code> table, as it didn’t contain fields which were uniquely related to Agents.</p>
-
-<p>All changes were made with these general ideas in mind:</p>
-
-<ol>
-  <li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
-  <li>Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong>
-</li>
-  <li>Delete redundant data collection (e.g. remove <code class="highlighter-rouge">ActivityLogs</code> table if replaced by Google Analytics)</li>
-  <li>Try keeping <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
-  <li>There is <strong>no such thing</strong> as <code class="highlighter-rouge">Agent.agentEmail</code> or <code class="highlighter-rouge">Agent.agentPhonePrimary</code>. Period.</li>
-  <li>By using Highly Specific Names, you cast-in-stone a specific level of <code class="highlighter-rouge">code-reusability</code> and <code class="highlighter-rouge">durability</code>, well, specifically <strong>ZERO %</strong>.</li>
-  <li>Don’t think you are doing yourself any favors with crap like this <code class="highlighter-rouge">User.profileSummaryEmail</code> (where ‘profile’ could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code class="highlighter-rouge">Profiles</code> which includes <code class="highlighter-rouge">Profiles.email</code>.</li>
-</ol>
-
-<h3 id="work-in-progress-updated-nov-2015-1"><em>Work-in-progress (updated Nov. 2015)</em></h3>
+<h3 id="work-in-progress-updated-nov-2015"><em>Work-in-progress (updated Nov. 2015)</em></h3>
 
 <!-- ![schema refactor][schema_refactor] -->
 
@@ -530,22 +378,22 @@ User
     </div>
 <!-- /.read-more-header -->
     <div class="read-more-content">
-      <h3><a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts">Linux Server Benchmarking Scripts</a></h3>
-      <p># Get HDD+CPU Baseline Stats```sh# COPY + PASTE THE FOLLOWING TO CREATE FOLDER &amp; MAIN SCRIPT(S)# Create folder for results &amp; scriptsexpor...… <a href="/2017/05/01/linux-system-benchmark-scripts/">Continue reading</a></p>
+      <h3><a href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/" title="HOWTO: Stop creating junk Promises using Composable Javascript">HOWTO: Stop creating junk Promises using Composable Javascript</a></h3>
+      <p>## HOWTO: Stop making junk promises&gt; Please take a look at (&amp; star plz) this article's companion Github project, [Escape From Callback Mo...… <a href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/">Continue reading</a></p>
     </div>
 <!-- /.read-more-content -->
   
   <div class="read-more-list">
     
       <div class="list-item">
-        <h4><a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost">Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost</a></h4>
-        <span>Published on April 15, 2017</span>
+        <h4><a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts">Linux Server Benchmarking Scripts</a></h4>
+        <span>Published on May 01, 2017</span>
       </div>
 <!-- /.list-item -->
     
       <div class="list-item">
-        <h4><a href="/2015/12/22/disable-transparent-hugepages/" title="MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu">MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu</a></h4>
-        <span>Published on December 22, 2015</span>
+        <h4><a href="/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost">Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost</a></h4>
+        <span>Published on April 15, 2017</span>
       </div>
 <!-- /.list-item -->
     

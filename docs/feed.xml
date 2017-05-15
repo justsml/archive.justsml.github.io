@@ -4,13 +4,101 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2017-05-15T09:13:43-06:00</updated>
+<updated>2017-05-15T16:18:24-06:00</updated>
 <id>/</id>
 <author>
   <name>Dan Levy</name>
   <uri>/</uri>
   <email>Dan@DanLevy.net</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[HOWTO: Stop creating junk Promises using Composable Javascript]]></title>
+ <link rel="alternate" type="text/html" href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/" />
+  <id>/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript</id>
+  <updated>2017-05-15T00:00:00-00:00</updated>
+  <published>2017-05-10T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h2 id=&quot;howto-stop-making-junk-promises&quot;&gt;HOWTO: Stop making junk promises&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Please take a look at (&amp;amp; star plz) this article’s companion Github project, &lt;a href=&quot;https://github.com/justsml/escape-from-callback-mountain&quot;&gt;Escape From Callback Mountain&lt;/a&gt;&lt;/p&gt;
+  &lt;h4 id=&quot;project-goal-research--develop-better-functional-language-patterns-in-javascript&quot;&gt;Project Goal: research &amp;amp; develop better functional language patterns in JavaScript.&lt;/h4&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The subjects I’m addressing have been explored by many - and rejected by others.
+I believe the reason for the divide is &lt;code class=&quot;highlighter-rouge&quot;&gt;Google Results Roulette&lt;/code&gt; &amp;amp; developers blindly trusting results.
+Bad/outdated examples lead to broad suspicions of terms like: &lt;code class=&quot;highlighter-rouge&quot;&gt;modular JS&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;composable JS&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;functional JS&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Let me start with a confession: I’m guilty of writing the same anti-patterns I criticize below, as I’m sure many JS developers are as well. Nothing I’ve laid out is meant to be personal or even directed at the original authors. I’m merely doing a code review on common patterns - I hope to pass along an understanding of my priorities &amp;amp; critical thinking processes.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Hopefully you will be able to spot the warning signs of bad Promises after groking this project.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#callbackhellcom&quot;&gt;CallbackHell.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#strongloop&quot;&gt;StrongLoop&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#risingstack&quot;&gt;RisingStack&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#qlibrary&quot;&gt;Q Library&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;callbackhellcom&quot;&gt;CallbackHell.com&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;CREDIT:&lt;/strong&gt; http://callbackhell.com/
+&lt;img src=&quot;https://cloud.githubusercontent.com/assets/397632/25830910/97f8394c-341d-11e7-8eb3-46a13a085b83.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;strongloop&quot;&gt;StrongLoop&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;CREDIT:&lt;/strong&gt; https://strongloop.com/strongblog/node-js-callback-hell-promises-generators/
+&lt;img src=&quot;https://cloud.githubusercontent.com/assets/397632/25831443/5dbb15fc-3421-11e7-96d6-0e37bdaafc1c.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;risingstack&quot;&gt;RisingStack&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;CREDIT:&lt;/strong&gt; https://blog.risingstack.com/node-js-async-best-practices-avoiding-callback-hell-node-js-at-scale/
+This is a pretty solid article. I only have 1 concern:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cloud.githubusercontent.com/assets/397632/25830851/2eea5548-341d-11e7-946d-05f4cfc692d5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;q-library&quot;&gt;Q Library&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;CREDIT:&lt;/strong&gt; https://github.com/kriskowal/q&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The Q library is one of the most used &amp;amp; oldest to be associated with “Promises.” Hence it suffers from aging examples and it’s need to maintain backwards compatibility.
+&lt;strong&gt;I say “associated with ‘Promises’” since I feel Q is really about the &lt;code class=&quot;highlighter-rouge&quot;&gt;deferred&lt;/code&gt; pattern.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It may resemble Promises, however I insist it ain’t. It has far too large a surface area for all the wrong reasons. Also the naming convention inconsistently abbreviates names, making it harder to memorize the interface. Methods like &lt;code class=&quot;highlighter-rouge&quot;&gt;when&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;done&lt;/code&gt; are not necessary.&lt;/p&gt;
+
+&lt;p&gt;Bottom line: the &lt;code class=&quot;highlighter-rouge&quot;&gt;deferred&lt;/code&gt; pattern is a painful anti-pattern - it improves virtually nothing over the typical callback approach.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cloud.githubusercontent.com/assets/397632/25921328/3dd1bbf2-3592-11e7-91db-ec90f7044f9d.png&quot; alt=&quot;q first example&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cloud.githubusercontent.com/assets/397632/25920616/c7d807fa-358f-11e7-98c7-d77781672656.png&quot; alt=&quot;q xmlHTTP deferred anti-pattern&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;One more thing, my work likely has bugs or quality issues - please &lt;a href=&quot;https://github.com/justsml/escape-from-callback-mountain/issues/new&quot;&gt;file an issue here&lt;/a&gt; - always appreciated!&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/&quot;&gt;HOWTO: Stop creating junk Promises using Composable Javascript&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on May 10, 2017.&lt;/p&gt;
+  </content>
+</entry>
 
 
 <entry>
@@ -25,18 +113,20 @@
     <email>Dan@DanLevy.net</email>
   </author>
   <content type="html">
-    &lt;h1 id=&quot;get-hddcpu-baseline-stats&quot;&gt;Get HDD+CPU Baseline Stats&lt;/h1&gt;
+    &lt;blockquote&gt;
+  &lt;p&gt;Goal is a simple set of bash scripts which allow rapid assessment of any given hardware.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Currently only CPU &amp;amp; HDD tests are wired up. Other tests are a work-in-progress, added as needed.&lt;/p&gt;
+
+&lt;h4 id=&quot;create-benchmark-shortcut-aliases&quot;&gt;CREATE BENCHMARK SHORTCUT ALIASES&lt;/h4&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# COPY + PASTE THE FOLLOWING TO CREATE FOLDER &amp;amp; MAIN SCRIPT(S)&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# Create folder for results &amp;amp; scripts&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BENCH_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/benchmarks
 mkdir -p &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/results
 
-touch &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/bench-library.sh
-touch &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/run-bench.sh
-chmod +x &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sh
-
-cat &lt;span class=&quot;sh&quot;&gt;&amp;lt;&amp;lt; 'EOT' &amp;gt;&amp;gt; $BENCH_DIR/bench-library.sh
+cat &lt;span class=&quot;sh&quot;&gt;&amp;lt;&amp;lt; 'EOT' &amp;gt;&amp;gt; $HOME/benchmarks/bench-library.sh
 #!/bin/bash
 set -e
 
@@ -67,7 +157,7 @@ function benchCpu() {
   fi
 }
 
-# benchSingleDisk seqrd 120G 8K 300 
+# benchSingleDisk seqrd 120G 8K 300
 function benchSingleDisk () {
   sysbench --test=fileio --init-rng=on  --file-test-mode=${1:-seqrd} --file-block-size=${3:-64K} \
     --num-threads=${CPU_CORES} --max-time=${4:-180} --file-total-size=${2:-60G} \
@@ -77,46 +167,41 @@ function benchSingleDisk () {
 
 # benchDisk - tests random read &amp;amp; write, and sequential r, and sequential write, before final cleanup.
 function benchDisk() {
-  #   Generates test files - up to 80% of your free space - in local dir, then runs the 3 tests (up to 20 minutes each)
-  # tests=${1:rndrw,seqrd,seqwr}
-  freeSpace=`df -kh . | tail -1 | awk '{print $4}'`
-  freeSpace=&quot;${freeSpace//G/}&quot;
-  # Get 80% of available space (from current dir)
-  testSize=$(awk &quot;BEGIN {print $freeSpace * 0.8; exit}&quot;)
+  #   Generates test files - up to 75% of your free space - in local dir, then runs the 3 tests (up to 20 minutes each)
+  freeSpace=`df -k . | tail -1 | awk '{print $4}'`
+  freeSpace=&quot;${freeSpace//G|T/}&quot;
+  testSize=$(awk &quot;BEGIN {print ($freeSpace / 1024 / 1024) * 0.75; exit}&quot;)
   testSize=${testSize}G
-
   printf &quot;####&amp;gt;&amp;gt;&amp;gt; \nWriting $testSize test data to ${PWD}...\n&quot;
 
-  # echo 'Starting' | tee -a $BENCH_DIR/results/sysbench-debug.log
+  benchSingleDisk seqrd ${testSize} 8K 300
+  benchSingleDisk seqwr ${testSize} 8K 300
+  benchSingleDisk seqrw ${testSize} 8K 300
+  benchSingleDisk rndrd ${testSize} 8K 300
+  benchSingleDisk rndwr ${testSize} 8K 300
+  benchSingleDisk rndrw ${testSize} 8K 300
 
-  # do Rand R+W, Sequential Read AND Seq. Write
-
-benchSingleDisk seqrd 120G 8K 300
-benchSingleDisk seqwr 120G 8K 300
-benchSingleDisk seqrw 120G 8K 300
-benchSingleDisk rndrd 120G 8K 300
-benchSingleDisk rndwr 120G 8K 300
-benchSingleDisk rndrw 120G 8K 300
-
-benchSingleDisk seqrd 120G 64K 300
-benchSingleDisk seqwr 120G 64K 300
-benchSingleDisk seqrw 120G 64K 300
-benchSingleDisk rndrd 120G 64K 300
-benchSingleDisk rndwr 120G 64K 300
-benchSingleDisk rndrw 120G 64K 300
+  benchSingleDisk seqrd ${testSize} 64K 300
+  benchSingleDisk seqwr ${testSize} 64K 300
+  benchSingleDisk seqrw ${testSize} 64K 300
+  benchSingleDisk rndrd ${testSize} 64K 300
+  benchSingleDisk rndwr ${testSize} 64K 300
+  benchSingleDisk rndrw ${testSize} 64K 300
 
   printf &quot;\n\n####&amp;gt;&amp;gt;&amp;gt; \nCOMPLETED TESTS! Great Success!!! \n\n\n&quot;
 }
 
 EOT
 
+&lt;/span&gt;chmod +x &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sh
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/benchmarks/bench-library.sh
 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
+&lt;h4 id=&quot;step-2-create-runner-script&quot;&gt;Step 2: CREATE RUNNER SCRIPT&lt;/h4&gt;
 
-
-&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;###### CREATE RUN SCRIPT&lt;/span&gt;
-
-cat &lt;span class=&quot;sh&quot;&gt;&amp;lt;&amp;lt; 'EOT' &amp;gt;&amp;gt; tee $BENCH_DIR/run-bench.sh
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat &lt;span class=&quot;sh&quot;&gt;&amp;lt;&amp;lt; 'EOT' &amp;gt;&amp;gt; tee $HOME/benchmarks/run-bench.sh
 #!/bin/bash
 set -e
 
@@ -154,11 +239,16 @@ EOT
 
 &lt;p&gt;Make sure to &lt;code class=&quot;highlighter-rouge&quot;&gt;source ~/benchmarks/bench-library.sh&lt;/code&gt; before running the following commands manually.&lt;/p&gt;
 
-&lt;h1 id=&quot;io---live-monitor&quot;&gt;I/O - Live Monitor&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;System: iotop&lt;/li&gt;
-  &lt;li&gt;Per command: dtrace/ltrace/strace&lt;/li&gt;
-&lt;/ol&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;benchCpu 8   250000
+benchCpu 16  250000
+benchDisk
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;!--# I/O - Live Monitor
+1. System: iotop
+1. Per command: dtrace/ltrace/strace
+--&gt;
 
 
     &lt;p&gt;&lt;a href=&quot;/2017/05/01/linux-system-benchmark-scripts/&quot;&gt;Linux Server Benchmarking Scripts&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on May 01, 2017.&lt;/p&gt;
@@ -167,10 +257,10 @@ EOT
 
 
 <entry>
-  <title type="html"><![CDATA[Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost]]></title>
- <link rel="alternate" type="text/html" href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" />
-  <id>/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud</id>
-  <updated>2017-04-27T00:00:00-00:00</updated>
+  <title type="html"><![CDATA[Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost]]></title>
+ <link rel="alternate" type="text/html" href="/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/" />
+  <id>/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud</id>
+  <updated>2017-05-05T00:00:00-00:00</updated>
   <published>2017-04-15T00:00:00-06:00</published>
   
   <author>
@@ -221,7 +311,144 @@ The &lt;strong&gt;i3&lt;/strong&gt; hardware series is the only type I would con
 &lt;/ul&gt;
 
 
-    &lt;p&gt;&lt;a href=&quot;/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/&quot;&gt;Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on April 15, 2017.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/&quot;&gt;Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on April 15, 2017.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Naming things real good]]></title>
+ <link rel="alternate" type="text/html" href="/2016/06/01/naming-things-real-good/" />
+  <id>/2016/06/01/naming-things-real-good</id>
+  <updated>2017-04-29T00:00:00-00:00</updated>
+  <published>2016-06-01T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h2 id=&quot;lets-tackle-something-deceptively-simple--subtle-naming&quot;&gt;Let’s tackle something deceptively simple &amp;amp; subtle: &lt;strong&gt;Naming&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. &lt;em&gt;You probably don’t need to read this if the following makes sense &lt;code class=&quot;highlighter-rouge&quot;&gt;Boyce Codd Normal Forms&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;the-problem---by-example&quot;&gt;The Problem - by Example&lt;/h2&gt;
+
+&lt;p&gt;Have you ever designed a &lt;code class=&quot;highlighter-rouge&quot;&gt;data model&lt;/code&gt; (in code, Sql, or excel worksheets)?
+Does the following look familiar?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If this is familiar to you, I’ll bet you:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Feel any change to your app will necessitate hours of arduous debugging.&lt;/li&gt;
+  &lt;li&gt;Fear ANY Changing Requirements&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif&quot; alt=&quot;schema refactor&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-cost-of-bad-naming-habits&quot;&gt;The Cost of Bad (Naming) Habits&lt;/h2&gt;
+
+&lt;p&gt;Why is naming a field &lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; &lt;em&gt;the worst&lt;/em&gt;?&lt;/p&gt;
+
+&lt;p&gt;For starters, you are &lt;strong&gt;not&lt;/strong&gt; creating an entirely new object unto the universe. Over-specificity has some traps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Strong hint some bad object design/seperation is afoot.&lt;/li&gt;
+  &lt;li&gt;‘Locked’ into highly specific name, means &lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; probably make your views and related code &lt;strong&gt;0% reusable&lt;/strong&gt;, and featuring annoyingly recurring bugs like:
+    &lt;ul&gt;
+      &lt;li&gt;Data not syncing between tables (not obvious if &lt;code class=&quot;highlighter-rouge&quot;&gt;user.email&lt;/code&gt; needs to propagate to &lt;code class=&quot;highlighter-rouge&quot;&gt;agent.agentEmail&lt;/code&gt; or vice-versa - nevermind complexity of manually implementing where &amp;amp; how to enforce this ‘logic’ …)&lt;/li&gt;
+      &lt;li&gt;Validation rules/logic are likely duplicated &amp;amp; inconsitent.&lt;/li&gt;
+      &lt;li&gt;Increasingly, your project will resemble a shaky Jenga tower.&lt;/li&gt;
+      &lt;li&gt;Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; could mean a few different things. Avoid ambiguity with &lt;strong&gt;shorter names&lt;/strong&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;Watch out for silly excess wording. &lt;code class=&quot;highlighter-rouge&quot;&gt;Primary&lt;/code&gt;? Just leads to more questions: Is there a Secondary? Is it for their Primary Next-of-kin?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Hang in there, we’re almost to the solution…&lt;/p&gt;
+
+&lt;h2 id=&quot;a-solution&quot;&gt;A Solution&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I removed the &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent&lt;/code&gt; table, as it didn’t contain fields which were uniquely related to Agents.&lt;/p&gt;
+
+&lt;p&gt;All changes were made with these general ideas in mind:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.&lt;/li&gt;
+  &lt;li&gt;Try merge related tables. &lt;strong&gt;Important if you are coming from a SQL background to No-SQL&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Delete redundant data collection (e.g. remove &lt;code class=&quot;highlighter-rouge&quot;&gt;ActivityLogs&lt;/code&gt; table if replaced by Google Analytics)&lt;/li&gt;
+  &lt;li&gt;Try keeping &lt;strong&gt;all field names&lt;/strong&gt; to a &lt;strong&gt;single word/noun/pro-noun&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;There is &lt;strong&gt;no such thing&lt;/strong&gt; as &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent.agentEmail&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent.agentPhonePrimary&lt;/code&gt;. Period.&lt;/li&gt;
+  &lt;li&gt;By using Highly Specific Names, you cast-in-stone a specific level of &lt;code class=&quot;highlighter-rouge&quot;&gt;code-reusability&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;durability&lt;/code&gt;, well, specifically &lt;strong&gt;ZERO %&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Don’t think you are doing yourself any favors with crap like this &lt;code class=&quot;highlighter-rouge&quot;&gt;User.profileSummaryEmail&lt;/code&gt; (where ‘profile’ could include contact details for a personal ads site) . This is probably a good point to create a new table, say &lt;code class=&quot;highlighter-rouge&quot;&gt;Profiles&lt;/code&gt; which includes &lt;code class=&quot;highlighter-rouge&quot;&gt;Profiles.email&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;and-if-you-think-ive-just-got-crazy-ideas-hopefully-this-will-help&quot;&gt;And if you think I’ve just got crazy ideas, hopefully this will help:&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif&quot; alt=&quot;fuck this&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Recommended reading includes:&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;Book: Code Complete&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://phlonx.com/resources/nf3/&quot;&gt;http://phlonx.com/resources/nf3/&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Database_normalization&quot;&gt;https://en.wikipedia.org/wiki/Database_normalization&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2016/06/01/naming-things-real-good/&quot;&gt;Naming things real good&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 01, 2016.&lt;/p&gt;
   </content>
 </entry>
 
@@ -343,15 +570,9 @@ This opens up a bunch of legal, ethical questions -&lt;/p&gt;
     <email>Dan@DanLevy.net</email>
   </author>
   <content type="html">
-    &lt;h4 id=&quot;work-in-progress-updated-nov-2015&quot;&gt;&lt;em&gt;Work-in-progress (updated Nov. 2015)&lt;/em&gt;&lt;/h4&gt;
-
-&lt;h1 id=&quot;array--or-set-based-coding-style&quot;&gt;Array- or Set-based Coding Style&lt;/h1&gt;
+    &lt;h1 id=&quot;array--or-set-based-coding-style&quot;&gt;Array- or Set-based Coding Style&lt;/h1&gt;
 
 &lt;h2 id=&quot;an-anti-pattern&quot;&gt;An Anti-Pattern?&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: This is not Yet-Another-Article warning noobs about RAM usage when appending strings&lt;/p&gt;
-&lt;/blockquote&gt;
 
 &lt;p&gt;This is an exploration of advantages gained when you &lt;strong&gt;code everything as an array.&lt;/strong&gt; (Using Jedi concepts from SmallTalk)&lt;/p&gt;
 
@@ -359,49 +580,42 @@ This opens up a bunch of legal, ethical questions -&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;All input is array-like. Even if an array of 1.&lt;/li&gt;
-  &lt;li&gt;Functions should generally accept AND return arrays.&lt;/li&gt;
+  &lt;li&gt;Higher level functions should generally accept AND return arrays. (Except for callback methods for loops: map/reduce/each/filter)&lt;/li&gt;
   &lt;li&gt;99 out of 100 devs code suffers from what I call &lt;code class=&quot;highlighter-rouge&quot;&gt;acute schema surplusage&lt;/code&gt; syndrome -based models.&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Yes, beware &lt;code class=&quot;highlighter-rouge&quot;&gt;fat ASS models&lt;/code&gt; - with all the predictable trappings: fragile &lt;code class=&quot;highlighter-rouge&quot;&gt;instance state&lt;/code&gt; - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic &lt;code class=&quot;highlighter-rouge&quot;&gt;property getter/setters&lt;/code&gt;, and your &lt;code class=&quot;highlighter-rouge&quot;&gt;public/private/final/etc&lt;/code&gt; usage is solid, right?&lt;/p&gt;
+    &lt;p&gt;Yes, beware &lt;code class=&quot;highlighter-rouge&quot;&gt;fat clASS-backed models&lt;/code&gt; - with all the predictable trappings: fragile &lt;code class=&quot;highlighter-rouge&quot;&gt;instance state&lt;/code&gt; - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic &lt;code class=&quot;highlighter-rouge&quot;&gt;property getter/setters&lt;/code&gt;, and your &lt;code class=&quot;highlighter-rouge&quot;&gt;public/private/final/etc&lt;/code&gt; usage is solid, right?&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;So let me take a common problem and &lt;em&gt;shoehorn&lt;/em&gt; ~&lt;del&gt;add&lt;/del&gt;~ some set-based musings.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Why is a Product price always a single data point? Why would I make price(s) an Array?&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Let’s add this functionality:
-    a. &lt;strong&gt;New requirements:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;retailPrice&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;priceSavings&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;These changes hopefully look no worse than my sorry attempt:&lt;/li&gt;
+  &lt;li&gt;A hypothetical Blog Site has lots of Articles, and has even more Posts (Comments).&lt;/li&gt;
+  &lt;li&gt;Let’s add a &lt;code class=&quot;highlighter-rouge&quot;&gt;delete&lt;/code&gt; method (below) - but with support for both singular OR arrays.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;danlevy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;testpool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;why&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;has&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;so&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;many&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;danlevy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;why&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;java___why&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;got&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dots____it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;must&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;factories&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Product&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Post&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt;     &lt;span class=&quot;n&quot;&gt;created&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retailPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;priceSavings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Price&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;retailPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;priceSavings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;created&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retailPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;priceSavings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;price&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;retailPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retailPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;priceSavings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;priceSavings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isArchived&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;created&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2015&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPriceSavings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;retailPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// Post.delete` can be called w/ a singular Post or an array of Post[]&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Post&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;posts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;posts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;posts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;posts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;cleanupPost&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
 
@@ -409,143 +623,11 @@ This opens up a bunch of legal, ethical questions -&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;(I’m not replacing the valid pattern of tracking historical prices in tables)&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;I’m not sure about you, but price of just about anything is in flux - just given time.
-  1.
-  I &lt;strong&gt;experience&lt;/strong&gt; price as constantly fluctuating data point.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;For example, even values which seem like singular variables - say a &lt;code class=&quot;highlighter-rouge&quot;&gt;Product&lt;/code&gt; class includes &lt;code class=&quot;highlighter-rouge&quot;&gt;var listPrice = 125&lt;/code&gt; - change it to &lt;code class=&quot;highlighter-rouge&quot;&gt;var prices = [50, 100, 125]&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Bear with me. That is not likely the final re-factor on that…&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'widget'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]})&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
 &lt;blockquote&gt;
-  &lt;p&gt;Foreshadowing: We’re going to go through a concept familiar to LISP, SmallTalk, et al. devs.
-It’s known by many names, however I prefer &lt;strong&gt;Array-based programming.&lt;/strong&gt;&lt;/p&gt;
+  &lt;p&gt;Forgive me if my Java is a little rusty.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;the-issue-well-examine-is-deceptively-simple--subtle-naming&quot;&gt;The issue we’ll examine is deceptively simple &amp;amp; subtle: &lt;strong&gt;Naming&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don’t need to read this if the following makes sense: &lt;code class=&quot;highlighter-rouge&quot;&gt;No-Sql denormalization strategy&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;Boyce Codd Normal Forms&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Recommended reading includes:&lt;/p&gt;
-
-  &lt;ol&gt;
-    &lt;li&gt;Book: Code Complete&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;http://phlonx.com/resources/nf3/&quot;&gt;http://phlonx.com/resources/nf3/&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Database_normalization&quot;&gt;https://en.wikipedia.org/wiki/Database_normalization&lt;/a&gt;&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;the-problem---by-example&quot;&gt;The Problem - by Example&lt;/h2&gt;
-
-&lt;p&gt;Have you ever designed a &lt;code class=&quot;highlighter-rouge&quot;&gt;data model&lt;/code&gt; (in code, Sql, or excel worksheets)?
-Does the following look familiar?&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*** anti-pattern - don't copy-paste ***
-* User
-  - id
-  - avatarUrl
-  - email
-  - passwordHash
-
-* Agent
-  - id
-  - primaryPhoto
-  - agentName
-  - agentEmail
-  - agentPhoneMain
-  - agentEmailPrimary
-  - agentPhonePrimary
-  - agentAddressLine1
-  - agentCompanyName
-  - agentCompanyAddress
-  - *userEmail* - 'Pointer' to User table ^^^
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;If this is familiar to you, I’ll bet you:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Feel any change to your app will necessitate hours of arduous debugging.&lt;/li&gt;
-  &lt;li&gt;Fear ANY Changing Requirements
-&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif&quot; alt=&quot;schema refactor&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;the-cost-of-bad-naming-habits&quot;&gt;The Cost of Bad (Naming) Habits&lt;/h2&gt;
-
-&lt;p&gt;Let’s examine some of the subtle issues (probably familiar):&lt;/p&gt;
-
-&lt;p&gt;=======&lt;/p&gt;
-
-&lt;p&gt;Why is naming a field &lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; the worst?&lt;/p&gt;
-
-&lt;p&gt;For starters, you are &lt;strong&gt;not&lt;/strong&gt; creating an entirely new object unto the universe. Over-specificity has some traps:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;‘Locked’ into highly specific name, means &lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; probably make your views and related code &lt;strong&gt;0% reusable&lt;/strong&gt;, and featuring annoyingly recurring bugs like:
-    &lt;ul&gt;
-      &lt;li&gt;Data not syncing between tables (not obvious if &lt;code class=&quot;highlighter-rouge&quot;&gt;user.email&lt;/code&gt; needs to propagate to &lt;code class=&quot;highlighter-rouge&quot;&gt;agent.agentEmail&lt;/code&gt; or vice-versa - nevermind complexity of manually implementing where &amp;amp; how to enforce this ‘logic’ …)&lt;/li&gt;
-      &lt;li&gt;Validation rules/logic are likely duplicated &amp;amp; inconsitent.&lt;/li&gt;
-      &lt;li&gt;Increasingly, your project will resemble a shaky Jenga tower.&lt;/li&gt;
-      &lt;li&gt;Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;I know, you probably feel something like…&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif&quot; alt=&quot;fuck this&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;a-solution&quot;&gt;A Solution&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Dan's Recommended Schema Consolidation:
-
-User
-  - id
-  - role: ['agent', 'lead', 'admin']
-  - name
-  - phone
-  - address
-  - email
-  - passwordHash
-  - company
-    - name
-    - address
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;I removed the &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent&lt;/code&gt; table, as it didn’t contain fields which were uniquely related to Agents.&lt;/p&gt;
-
-&lt;p&gt;All changes were made with these general ideas in mind:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.&lt;/li&gt;
-  &lt;li&gt;Try merge related tables. &lt;strong&gt;Important if you are coming from a SQL background to No-SQL&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Delete redundant data collection (e.g. remove &lt;code class=&quot;highlighter-rouge&quot;&gt;ActivityLogs&lt;/code&gt; table if replaced by Google Analytics)&lt;/li&gt;
-  &lt;li&gt;Try keeping &lt;strong&gt;all field names&lt;/strong&gt; to a &lt;strong&gt;single word/noun/pro-noun&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;There is &lt;strong&gt;no such thing&lt;/strong&gt; as &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent.agentEmail&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent.agentPhonePrimary&lt;/code&gt;. Period.&lt;/li&gt;
-  &lt;li&gt;By using Highly Specific Names, you cast-in-stone a specific level of &lt;code class=&quot;highlighter-rouge&quot;&gt;code-reusability&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;durability&lt;/code&gt;, well, specifically &lt;strong&gt;ZERO %&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;Don’t think you are doing yourself any favors with crap like this &lt;code class=&quot;highlighter-rouge&quot;&gt;User.profileSummaryEmail&lt;/code&gt; (where ‘profile’ could include contact details for a personal ads site) . This is probably a good point to create a new table, say &lt;code class=&quot;highlighter-rouge&quot;&gt;Profiles&lt;/code&gt; which includes &lt;code class=&quot;highlighter-rouge&quot;&gt;Profiles.email&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;work-in-progress-updated-nov-2015-1&quot;&gt;&lt;em&gt;Work-in-progress (updated Nov. 2015)&lt;/em&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;work-in-progress-updated-nov-2015&quot;&gt;&lt;em&gt;Work-in-progress (updated Nov. 2015)&lt;/em&gt;&lt;/h3&gt;
 
 &lt;!-- ![schema refactor][schema_refactor] --&gt;
 

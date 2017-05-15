@@ -170,7 +170,7 @@
 					<p style="float: right; display: inline;">Devout Programmer</p>
 					<div class="clearfix"></div>
 				</li>
-				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target="_blank"><span class="btn btn-inverse">Resume</span></a></li>
+				<li><a href="/cv/ResumeDanLevy2017.pdf" target="_blank"><span class="btn btn-inverse">Resume</span></a></li>
 				<li>
 					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>
@@ -202,6 +202,14 @@
 				
 					
 	        <li class="entry-title">
+	        	<a href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/" title="HOWTO: Stop creating junk Promises using Composable Javascript">
+	        		<div>HOWTO: Stop creating junk Promises using Composable Javascript</div>
+		        	<em>2017-05-10</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
 	        	<a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts">
 	        		<div>Linux Server Benchmarking Scripts</div>
 		        	<em>2017-05-01</em>
@@ -210,9 +218,17 @@
 			  
 					
 	        <li class="entry-title">
-	        	<a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost">
-	        		<div>Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost</div>
+	        	<a href="/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost">
+	        		<div>Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost</div>
 		        	<em>2017-04-15</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2016/06/01/naming-things-real-good/" title="Naming things real good">
+	        		<div>Naming things real good</div>
+		        	<em>2016-06-01</em>
 	        	</a>
 	        </li>
 			  
@@ -221,22 +237,6 @@
 	        	<a href="/2015/12/22/disable-transparent-hugepages/" title="MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu">
 	        		<div>MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu</div>
 		        	<em>2015-12-22</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" title="When AI Fails &amp; the Crashing Robotic Cars">
-	        		<div>When AI Fails &amp; the Crashing Robotic Cars</div>
-		        	<em>2015-12-18</em>
-	        	</a>
-	        </li>
-			  
-					
-	        <li class="entry-title">
-	        	<a href="/2015/09/22/higher-order-programming/" title="Higher Order Programming">
-	        		<div>Higher Order Programming</div>
-		        	<em>2015-09-22</em>
 	        	</a>
 	        </li>
 			  
@@ -282,7 +282,105 @@
   <header>
     
       <div class="entry-image-index">
-        <a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts"><img src="/images/abstract-2.jpg" alt="Linux Server Benchmarking Scripts"></a>
+        <a href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/" title="HOWTO: Stop creating junk Promises using Composable Javascript"><img src="/images/abstract-3.jpg" alt="HOWTO: Stop creating junk Promises using Composable Javascript"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2017-05-10T00:00:00-06:00"><a href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/">May 10, 2017</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~3 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2017/05/10/howto-stop-creating-junk-promises-using-composable-javascript/" rel="bookmark" title="HOWTO: Stop creating junk Promises using Composable Javascript" itemprop="url">HOWTO: Stop creating junk Promises using Composable Javascript</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h2 id="howto-stop-making-junk-promises">HOWTO: Stop making junk promises</h2>
+
+<blockquote>
+  <p>Please take a look at (&amp; star plz) this article’s companion Github project, <a href="https://github.com/justsml/escape-from-callback-mountain">Escape From Callback Mountain</a></p>
+  <h4 id="project-goal-research--develop-better-functional-language-patterns-in-javascript">Project Goal: research &amp; develop better functional language patterns in JavaScript.</h4>
+</blockquote>
+
+<blockquote>
+  <p>The subjects I’m addressing have been explored by many - and rejected by others.
+I believe the reason for the divide is <code class="highlighter-rouge">Google Results Roulette</code> &amp; developers blindly trusting results.
+Bad/outdated examples lead to broad suspicions of terms like: <code class="highlighter-rouge">modular JS</code>, <code class="highlighter-rouge">composable JS</code> or <code class="highlighter-rouge">functional JS</code>.</p>
+</blockquote>
+
+<p>Let me start with a confession: I’m guilty of writing the same anti-patterns I criticize below, as I’m sure many JS developers are as well. Nothing I’ve laid out is meant to be personal or even directed at the original authors. I’m merely doing a code review on common patterns - I hope to pass along an understanding of my priorities &amp; critical thinking processes.</p>
+
+<blockquote>
+  <p>Hopefully you will be able to spot the warning signs of bad Promises after groking this project.</p>
+</blockquote>
+
+<ol>
+  <li><a href="#callbackhellcom">CallbackHell.com</a></li>
+  <li><a href="#strongloop">StrongLoop</a></li>
+  <li><a href="#risingstack">RisingStack</a></li>
+  <li><a href="#qlibrary">Q Library</a></li>
+</ol>
+
+<hr>
+<h3 id="callbackhellcom">CallbackHell.com</h3>
+<blockquote>
+  <p><strong>CREDIT:</strong> http://callbackhell.com/
+<img src="https://cloud.githubusercontent.com/assets/397632/25830910/97f8394c-341d-11e7-8eb3-46a13a085b83.png" alt="image"></p>
+</blockquote>
+
+<hr>
+<h3 id="strongloop">StrongLoop</h3>
+<blockquote>
+  <p><strong>CREDIT:</strong> https://strongloop.com/strongblog/node-js-callback-hell-promises-generators/
+<img src="https://cloud.githubusercontent.com/assets/397632/25831443/5dbb15fc-3421-11e7-96d6-0e37bdaafc1c.png" alt="image"></p>
+</blockquote>
+
+<hr>
+<h3 id="risingstack">RisingStack</h3>
+<blockquote>
+  <p><strong>CREDIT:</strong> https://blog.risingstack.com/node-js-async-best-practices-avoiding-callback-hell-node-js-at-scale/
+This is a pretty solid article. I only have 1 concern:</p>
+</blockquote>
+
+<p><img src="https://cloud.githubusercontent.com/assets/397632/25830851/2eea5548-341d-11e7-946d-05f4cfc692d5.png" alt="image"></p>
+
+<hr>
+<h3 id="q-library">Q Library</h3>
+<blockquote>
+  <p><strong>CREDIT:</strong> https://github.com/kriskowal/q</p>
+</blockquote>
+
+<p>The Q library is one of the most used &amp; oldest to be associated with “Promises.” Hence it suffers from aging examples and it’s need to maintain backwards compatibility.
+<strong>I say “associated with ‘Promises’” since I feel Q is really about the <code class="highlighter-rouge">deferred</code> pattern.</strong></p>
+
+<p>It may resemble Promises, however I insist it ain’t. It has far too large a surface area for all the wrong reasons. Also the naming convention inconsistently abbreviates names, making it harder to memorize the interface. Methods like <code class="highlighter-rouge">when</code> and <code class="highlighter-rouge">done</code> are not necessary.</p>
+
+<p>Bottom line: the <code class="highlighter-rouge">deferred</code> pattern is a painful anti-pattern - it improves virtually nothing over the typical callback approach.</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/397632/25921328/3dd1bbf2-3592-11e7-91db-ec90f7044f9d.png" alt="q first example"></p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/397632/25920616/c7d807fa-358f-11e7-98c7-d77781672656.png" alt="q xmlHTTP deferred anti-pattern"></p>
+
+<hr>
+
+<p>One more thing, my work likely has bugs or quality issues - please <a href="https://github.com/justsml/escape-from-callback-mountain/issues/new">file an issue here</a> - always appreciated!</p>
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts"><img src="/images/abstract-1.jpg" alt="Linux Server Benchmarking Scripts"></a>
       </div>
 <!-- /.entry-image -->
     
@@ -292,7 +390,7 @@
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
         
-        Reading time ~4 minutes
+        Reading time ~5 minutes
       </span><!-- /.entry-reading-time -->
       
     </div>
@@ -302,7 +400,13 @@
     
   </header>
   <div class="entry-content">
-    <h1 id="get-hddcpu-baseline-stats">Get HDD+CPU Baseline Stats</h1>
+    <blockquote>
+  <p>Goal is a simple set of bash scripts which allow rapid assessment of any given hardware.</p>
+</blockquote>
+
+<p>Currently only CPU &amp; HDD tests are wired up. Other tests are a work-in-progress, added as needed.</p>
+
+<h4 id="create-benchmark-shortcut-aliases">CREATE BENCHMARK SHORTCUT ALIASES</h4>
 
 <div class="language-sh highlighter-rouge">
 <pre class="highlight"><code><span class="c"># COPY + PASTE THE FOLLOWING TO CREATE FOLDER &amp; MAIN SCRIPT(S)</span>
@@ -310,11 +414,7 @@
 <span class="nb">export </span><span class="nv">BENCH_DIR</span><span class="o">=</span><span class="nv">$HOME</span>/benchmarks
 mkdir -p <span class="nv">$BENCH_DIR</span>/results
 
-touch <span class="nv">$BENCH_DIR</span>/bench-library.sh
-touch <span class="nv">$BENCH_DIR</span>/run-bench.sh
-chmod +x <span class="nv">$BENCH_DIR</span>/<span class="k">*</span>.sh
-
-cat <span class="sh">&lt;&lt; 'EOT' &gt;&gt; $BENCH_DIR/bench-library.sh
+cat <span class="sh">&lt;&lt; 'EOT' &gt;&gt; $HOME/benchmarks/bench-library.sh
 #!/bin/bash
 set -e
 
@@ -345,7 +445,7 @@ function benchCpu() {
   fi
 }
 
-# benchSingleDisk seqrd 120G 8K 300 
+# benchSingleDisk seqrd 120G 8K 300
 function benchSingleDisk () {
   sysbench --test=fileio --init-rng=on  --file-test-mode=${1:-seqrd} --file-block-size=${3:-64K} \
     --num-threads=${CPU_CORES} --max-time=${4:-180} --file-total-size=${2:-60G} \
@@ -355,46 +455,42 @@ function benchSingleDisk () {
 
 # benchDisk - tests random read &amp; write, and sequential r, and sequential write, before final cleanup.
 function benchDisk() {
-  #   Generates test files - up to 80% of your free space - in local dir, then runs the 3 tests (up to 20 minutes each)
-  # tests=${1:rndrw,seqrd,seqwr}
-  freeSpace=`df -kh . | tail -1 | awk '{print $4}'`
-  freeSpace="${freeSpace//G/}"
-  # Get 80% of available space (from current dir)
-  testSize=$(awk "BEGIN {print $freeSpace * 0.8; exit}")
+  #   Generates test files - up to 75% of your free space - in local dir, then runs the 3 tests (up to 20 minutes each)
+  freeSpace=`df -k . | tail -1 | awk '{print $4}'`
+  freeSpace="${freeSpace//G|T/}"
+  testSize=$(awk "BEGIN {print ($freeSpace / 1024 / 1024) * 0.75; exit}")
   testSize=${testSize}G
-
   printf "####&gt;&gt;&gt; \nWriting $testSize test data to ${PWD}...\n"
 
-  # echo 'Starting' | tee -a $BENCH_DIR/results/sysbench-debug.log
+  benchSingleDisk seqrd ${testSize} 8K 300
+  benchSingleDisk seqwr ${testSize} 8K 300
+  benchSingleDisk seqrw ${testSize} 8K 300
+  benchSingleDisk rndrd ${testSize} 8K 300
+  benchSingleDisk rndwr ${testSize} 8K 300
+  benchSingleDisk rndrw ${testSize} 8K 300
 
-  # do Rand R+W, Sequential Read AND Seq. Write
-
-benchSingleDisk seqrd 120G 8K 300
-benchSingleDisk seqwr 120G 8K 300
-benchSingleDisk seqrw 120G 8K 300
-benchSingleDisk rndrd 120G 8K 300
-benchSingleDisk rndwr 120G 8K 300
-benchSingleDisk rndrw 120G 8K 300
-
-benchSingleDisk seqrd 120G 64K 300
-benchSingleDisk seqwr 120G 64K 300
-benchSingleDisk seqrw 120G 64K 300
-benchSingleDisk rndrd 120G 64K 300
-benchSingleDisk rndwr 120G 64K 300
-benchSingleDisk rndrw 120G 64K 300
+  benchSingleDisk seqrd ${testSize} 64K 300
+  benchSingleDisk seqwr ${testSize} 64K 300
+  benchSingleDisk seqrw ${testSize} 64K 300
+  benchSingleDisk rndrd ${testSize} 64K 300
+  benchSingleDisk rndwr ${testSize} 64K 300
+  benchSingleDisk rndrw ${testSize} 64K 300
 
   printf "\n\n####&gt;&gt;&gt; \nCOMPLETED TESTS! Great Success!!! \n\n\n"
 }
 
 EOT
 
+</span>chmod +x <span class="nv">$BENCH_DIR</span>/<span class="k">*</span>.sh
+<span class="nb">source</span> <span class="nv">$HOME</span>/benchmarks/bench-library.sh
 
+</code></pre>
+</div>
 
+<h4 id="step-2-create-runner-script">Step 2: CREATE RUNNER SCRIPT</h4>
 
-
-</span><span class="c">###### CREATE RUN SCRIPT</span>
-
-cat <span class="sh">&lt;&lt; 'EOT' &gt;&gt; tee $BENCH_DIR/run-bench.sh
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>cat <span class="sh">&lt;&lt; 'EOT' &gt;&gt; tee $HOME/benchmarks/run-bench.sh
 #!/bin/bash
 set -e
 
@@ -432,11 +528,17 @@ EOT
 
 <p>Make sure to <code class="highlighter-rouge">source ~/benchmarks/bench-library.sh</code> before running the following commands manually.</p>
 
-<h1 id="io---live-monitor">I/O - Live Monitor</h1>
-<ol>
-  <li>System: iotop</li>
-  <li>Per command: dtrace/ltrace/strace</li>
-</ol>
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>benchCpu 8   250000
+benchCpu 16  250000
+benchDisk
+</code></pre>
+</div>
+
+<!--# I/O - Live Monitor
+1. System: iotop
+1. Per command: dtrace/ltrace/strace
+-->
 
 
   </div>
@@ -447,12 +549,12 @@ EOT
   <header>
     
       <div class="entry-image-index">
-        <a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost"><img src="/images/abstract-8.jpg" alt="Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost"></a>
+        <a href="/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/" title="Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost"><img src="/images/abstract-8.jpg" alt="Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost"></a>
       </div>
 <!-- /.entry-image -->
     
     <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2017-04-15T00:00:00-06:00"><a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/">April 15, 2017</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      <span class="entry-date date published updated"><time datetime="2017-04-15T00:00:00-06:00"><a href="/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/">April 15, 2017</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
       
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
@@ -463,7 +565,7 @@ EOT
     </div>
 <!-- /.entry-meta -->
     
-      <h1 class="entry-title"><a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" rel="bookmark" title="Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost" itemprop="url">Cloud Tuning: NVMe SSDs are fast path to +70% Speed Boost</a></h1>
+      <h1 class="entry-title"><a href="/2017/04/15/nvme-ssds-boost-your-cloud-performance-massively-aws-gce-azure-cloud/" rel="bookmark" title="Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost" itemprop="url">Cloud Tuning: NVMe SSDs are fast path to Radical Speed Boost</a></h1>
     
   </header>
   <div class="entry-content">
@@ -507,6 +609,158 @@ The <strong>i3</strong> hardware series is the only type I would consider from a
 <ul>
   <li><a href="http://www.ec2instances.info/?region=us-west-2&amp;cost_duration=monthly&amp;selected=t2.nano,t2.micro,t1.micro,t2.small,m1.small,t2.medium,m3.medium,m1.medium,t2.large,c4.large,c3.large,m4.large,c1.medium,m3.large,r4.large,m4.xlarge,i3.xlarge,i3.2xlarge,i2.xlarge">ec2instances.info</a></li>
 </ul>
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2016/06/01/naming-things-real-good/" title="Naming things real good"><img src="/images/abstract-5.jpg" alt="Naming things real good"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2016-06-01T00:00:00-06:00"><a href="/2016/06/01/naming-things-real-good/">June 01, 2016</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~5 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2016/06/01/naming-things-real-good/" rel="bookmark" title="Naming things real good" itemprop="url">Naming things real good</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h2 id="lets-tackle-something-deceptively-simple--subtle-naming">Let’s tackle something deceptively simple &amp; subtle: <strong>Naming</strong>
+</h2>
+
+<blockquote>
+  <p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
+</blockquote>
+
+<blockquote>
+  <p>While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. <em>You probably don’t need to read this if the following makes sense <code class="highlighter-rouge">Boyce Codd Normal Forms</code></em></p>
+</blockquote>
+
+<h2 id="the-problem---by-example">The Problem - by Example</h2>
+
+<p>Have you ever designed a <code class="highlighter-rouge">data model</code> (in code, Sql, or excel worksheets)?
+Does the following look familiar?</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+</code></pre>
+</div>
+
+<p>If this is familiar to you, I’ll bet you:</p>
+
+<ol>
+  <li>Feel any change to your app will necessitate hours of arduous debugging.</li>
+  <li>Fear ANY Changing Requirements</li>
+</ol>
+
+<p><img src="https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif" alt="schema refactor"></p>
+
+<h2 id="the-cost-of-bad-naming-habits">The Cost of Bad (Naming) Habits</h2>
+
+<p>Why is naming a field <code class="highlighter-rouge">agentEmailPrimary</code> <em>the worst</em>?</p>
+
+<p>For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
+
+<ol>
+  <li>Strong hint some bad object design/seperation is afoot.</li>
+  <li>‘Locked’ into highly specific name, means <code class="highlighter-rouge">agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
+    <ul>
+      <li>Data not syncing between tables (not obvious if <code class="highlighter-rouge">user.email</code> needs to propagate to <code class="highlighter-rouge">agent.agentEmail</code> or vice-versa - nevermind complexity of manually implementing where &amp; how to enforce this ‘logic’ …)</li>
+      <li>Validation rules/logic are likely duplicated &amp; inconsitent.</li>
+      <li>Increasingly, your project will resemble a shaky Jenga tower.</li>
+      <li>Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes</li>
+    </ul>
+  </li>
+  <li>
+<code class="highlighter-rouge">agentEmailPrimary</code> could mean a few different things. Avoid ambiguity with <strong>shorter names</strong>.
+    <ul>
+      <li>Watch out for silly excess wording. <code class="highlighter-rouge">Primary</code>? Just leads to more questions: Is there a Secondary? Is it for their Primary Next-of-kin?</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Hang in there, we’re almost to the solution…</p>
+
+<h2 id="a-solution">A Solution</h2>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+
+</code></pre>
+</div>
+
+<p>I removed the <code class="highlighter-rouge">Agent</code> table, as it didn’t contain fields which were uniquely related to Agents.</p>
+
+<p>All changes were made with these general ideas in mind:</p>
+
+<ol>
+  <li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
+  <li>Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong>
+</li>
+  <li>Delete redundant data collection (e.g. remove <code class="highlighter-rouge">ActivityLogs</code> table if replaced by Google Analytics)</li>
+  <li>Try keeping <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
+  <li>There is <strong>no such thing</strong> as <code class="highlighter-rouge">Agent.agentEmail</code> or <code class="highlighter-rouge">Agent.agentPhonePrimary</code>. Period.</li>
+  <li>By using Highly Specific Names, you cast-in-stone a specific level of <code class="highlighter-rouge">code-reusability</code> and <code class="highlighter-rouge">durability</code>, well, specifically <strong>ZERO %</strong>.</li>
+  <li>Don’t think you are doing yourself any favors with crap like this <code class="highlighter-rouge">User.profileSummaryEmail</code> (where ‘profile’ could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code class="highlighter-rouge">Profiles</code> which includes <code class="highlighter-rouge">Profiles.email</code>.</li>
+</ol>
+
+<h4 id="and-if-you-think-ive-just-got-crazy-ideas-hopefully-this-will-help">And if you think I’ve just got crazy ideas, hopefully this will help:</h4>
+
+<p><img src="https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif" alt="fuck this"></p>
+
+<blockquote>
+  <p>Recommended reading includes:</p>
+
+  <ol>
+    <li>Book: Code Complete</li>
+    <li><a href="http://phlonx.com/resources/nf3/">http://phlonx.com/resources/nf3/</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Database_normalization">https://en.wikipedia.org/wiki/Database_normalization</a></li>
+  </ol>
+</blockquote>
 
 
   </div>
@@ -562,325 +816,6 @@ The <strong>i3</strong> hardware series is the only type I would consider from a
 <!-- /.entry-content -->
 </article><!-- /.hentry -->
 
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" title="When AI Fails &amp; the Crashing Robotic Cars"><img src="/images/abstract-2.jpg" alt="When AI Fails &amp; the Crashing Robotic Cars"></a>
-      </div>
-<!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-12-18T00:00:00-07:00"><a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/">December 18, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~4 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div>
-<!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" rel="bookmark" title="When AI Fails &amp; the Crashing Robotic Cars" itemprop="url">When AI Fails &amp; the Crashing Robotic Cars</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h1 id="robotic-cars-more-accidents-now-with-less-injury--damages">Robotic Cars: More accidents (now With Less Injury &amp; Damages!)</h1>
-
-<p>Google’s self-driving cars are apparently in 2x as many accidents as human drivers - If you think this is just buggy new tech, way too complex from the get-go - well, you’re partially right. <a href="http://www.bloomberg.com/news/articles/2015-12-18/humans-are-slamming-into-driverless-cars-and-exposing-a-key-flaw">An important detail I should share: as of Dec 2015 virtually all accidents were not the robots fault.</a></p>
-
-<p>The accidents are caused by humans drivers unfamiliar with robotic drivers. Furthermore, Google has programmed the cars to obey the law in absolute terms - never speeding, difficulty merging in dense or fast freeway traffic.
-This opens up a bunch of legal, ethical questions -</p>
-
-<ul>
-  <li>Is it ever ok:
-    <ul>
-      <li>to avoid a rear-end collision if it means driving past the walkway at a red light <strong>assuming path is clear</strong> ?</li>
-      <li>to drive on the sidewalk to avoid a bicycle cutting across lanes? - is it ok for AI to accept this breach in ‘rules of the road’</li>
-    </ul>
-  </li>
-</ul>
-
-<p>I understand Google’s approach, especially when trying to minimize liability: always follow the rules - logically it follows that you cannot really be at fault if you <strong>always</strong> observe the law.</p>
-
-<p>There would be <strong>massive liability</strong> if an accident happened because of intentionally designed ‘flexibility’ around the laws.</p>
-
-<h2 id="dont-let-the-future-escape-us">Don’t let the future escape us</h2>
-
-<p>The future will still arrive, even if the robots drive like octagenarians.</p>
-
-<p>Perhaps a simple fix for now would be to use bright red flashing LEDs  (think school buses) to warn human drivers they are about to rear-end an innocent robot.</p>
-
-<p>I would be more comfortable with a car which had tiers of observance and rule adherance. To my mind this would be much closer to how humans drive.</p>
-
-<p>Imagine 3-tiers of system-perception as follows: (decision &amp; other layers omitted for simplicity)</p>
-
-<ol>
-  <li>base: follows laws with annoying precision</li>
-  <li>local: flexibile adjustments based on current traffic - to allow merge on the highway if say, 10MPH+ is needed. Conversely if the traffic is simply going too fast, the car should be smart enough to pull over to avoid being a nuissance to other drivers.</li>
-  <li>360: calculate ANY potential extreme collision risk/avoidance measures - driving on a shoulder or</li>
-</ol>
-
-<p>This would likely require a smart balancing act - say tier 1 detects an immenent accident which cannot be avoided following the laws, it would then shift all processor power into tier 3 - hopefully finding a creative way to avoid harm.</p>
-
-<p>Robotic cars are on the cusp of being technically smarter &amp; faster than any human driver. Accept it. Welcome it.</p>
-
-<h2 id="references">References</h2>
-
-<ol>
-  <li><a href="http://nn.cs.utexas.edu/pages/research/neat-warning/">http://nn.cs.utexas.edu/pages/research/neat-warning/</a></li>
-  <li><a href="http://www.claimsjournal.com/magazines/idea-exchange/2014/09/29/255161.htm">http://www.claimsjournal.com/magazines/idea-exchange/2014/09/29/255161.htm</a></li>
-</ol>
-
-
-  </div>
-<!-- /.entry-content -->
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  <header>
-    
-      <div class="entry-image-index">
-        <a href="/2015/09/22/higher-order-programming/" title="Higher Order Programming"><img src="/images/abstract-5.jpg" alt="Higher Order Programming"></a>
-      </div>
-<!-- /.entry-image -->
-    
-    <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="2015-09-22T00:00:00-06:00"><a href="/2015/09/22/higher-order-programming/">September 22, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
-      
-      <span class="entry-reading-time">
-        <i class="fa fa-clock-o"></i>
-        
-        Reading time ~10 minutes
-      </span><!-- /.entry-reading-time -->
-      
-    </div>
-<!-- /.entry-meta -->
-    
-      <h1 class="entry-title"><a href="/2015/09/22/higher-order-programming/" rel="bookmark" title="Higher Order Programming" itemprop="url">Higher Order Programming</a></h1>
-    
-  </header>
-  <div class="entry-content">
-    <h4 id="work-in-progress-updated-nov-2015"><em>Work-in-progress (updated Nov. 2015)</em></h4>
-
-<h1 id="array--or-set-based-coding-style">Array- or Set-based Coding Style</h1>
-
-<h2 id="an-anti-pattern">An Anti-Pattern?</h2>
-
-<blockquote>
-  <p>Note: This is not Yet-Another-Article warning noobs about RAM usage when appending strings</p>
-</blockquote>
-
-<p>This is an exploration of advantages gained when you <strong>code everything as an array.</strong> (Using Jedi concepts from SmallTalk)</p>
-
-<p>Here’s some guiding principles:</p>
-
-<ol>
-  <li>All input is array-like. Even if an array of 1.</li>
-  <li>Functions should generally accept AND return arrays.</li>
-  <li>99 out of 100 devs code suffers from what I call <code class="highlighter-rouge">acute schema surplusage</code> syndrome -based models.</li>
-  <li>
-    <p>Yes, beware <code class="highlighter-rouge">fat ASS models</code> - with all the predictable trappings: fragile <code class="highlighter-rouge">instance state</code> - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic <code class="highlighter-rouge">property getter/setters</code>, and your <code class="highlighter-rouge">public/private/final/etc</code> usage is solid, right?</p>
-  </li>
-  <li>So let me take a common problem and <em>shoehorn</em> ~<del>add</del>~ some set-based musings.</li>
-  <li>
-    <p>Why is a Product price always a single data point? Why would I make price(s) an Array?</p>
-  </li>
-  <li>Let’s add this functionality:
-    a. <strong>New requirements:</strong> <code class="highlighter-rouge">retailPrice</code>, <code class="highlighter-rouge">priceSavings</code>
-</li>
-  <li>These changes hopefully look no worse than my sorry attempt:</li>
-</ol>
-
-<div class="language-java highlighter-rouge">
-<pre class="highlight"><code><span class="kn">package</span> <span class="n">net</span><span class="o">.</span><span class="na">danlevy</span><span class="o">.</span><span class="na">testpool</span><span class="o">.</span><span class="na">why</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">has</span><span class="o">.</span><span class="na">so</span><span class="o">.</span><span class="na">many</span><span class="o">.</span><span class="na">dots</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
-
-  <span class="kd">public</span> <span class="n">String</span> <span class="n">Name</span><span class="o">;</span>
-  <span class="kd">public</span> <span class="kt">float</span> <span class="n">Price</span><span class="o">;</span>
-  <span class="kd">public</span> <span class="kt">float</span> <span class="n">retailPrice</span><span class="o">;</span>
-  <span class="kd">public</span> <span class="kt">float</span> <span class="n">priceSavings</span><span class="o">;</span>
-
-  <span class="kd">public</span> <span class="nf">Product</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">float</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="n">Price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">retailPrice</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">priceSavings</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="o">;</span>
-  <span class="o">}</span>
-
-  <span class="kd">public</span> <span class="nf">Product</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">float</span> <span class="n">price</span><span class="o">,</span>
-      <span class="kt">float</span> <span class="n">retailPrice</span><span class="o">,</span>
-      <span class="kt">float</span> <span class="n">priceSavings</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">retailPrice</span> <span class="o">=</span> <span class="n">retailPrice</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">priceSavings</span> <span class="o">=</span> <span class="n">priceSavings</span><span class="o">;</span>
-  <span class="o">}</span>
-
-  <span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPriceSavings</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">retailPrice</span> <span class="o">-</span> <span class="k">this</span><span class="o">.</span><span class="na">price</span><span class="o">;</span>
-  <span class="o">}</span>
-
-<span class="o">}</span>
-
-
-
-</code></pre>
-</div>
-
-<p>(I’m not replacing the valid pattern of tracking historical prices in tables)</p>
-<ol>
-  <li>
-    <p>I’m not sure about you, but price of just about anything is in flux - just given time.
-  1.
-  I <strong>experience</strong> price as constantly fluctuating data point.</p>
-  </li>
-  <li>For example, even values which seem like singular variables - say a <code class="highlighter-rouge">Product</code> class includes <code class="highlighter-rouge">var listPrice = 125</code> - change it to <code class="highlighter-rouge">var prices = [50, 100, 125]</code>.</li>
-  <li>Bear with me. That is not likely the final re-factor on that…</li>
-</ol>
-
-<div class="language-js highlighter-rouge">
-<pre class="highlight"><code><span class="kd">function</span> <span class="nx">Product</span><span class="p">({</span><span class="nx">name</span><span class="o">=</span><span class="s1">'widget'</span><span class="p">,</span> <span class="nx">prices</span><span class="o">=</span><span class="p">[]})</span> <span class="p">{</span>
-
-<span class="p">}</span>
-
-
-</code></pre>
-</div>
-
-<blockquote>
-  <p>Foreshadowing: We’re going to go through a concept familiar to LISP, SmallTalk, et al. devs.
-It’s known by many names, however I prefer <strong>Array-based programming.</strong></p>
-</blockquote>
-
-<h2 id="the-issue-well-examine-is-deceptively-simple--subtle-naming">The issue we’ll examine is deceptively simple &amp; subtle: <strong>Naming</strong>
-</h2>
-
-<blockquote>
-  <p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
-</blockquote>
-
-<blockquote>
-  <p>While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don’t need to read this if the following makes sense: <code class="highlighter-rouge">No-Sql denormalization strategy</code>, or <code class="highlighter-rouge">Boyce Codd Normal Forms</code></p>
-</blockquote>
-
-<blockquote>
-  <p>Recommended reading includes:</p>
-
-  <ol>
-    <li>Book: Code Complete</li>
-    <li><a href="http://phlonx.com/resources/nf3/">http://phlonx.com/resources/nf3/</a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Database_normalization">https://en.wikipedia.org/wiki/Database_normalization</a></li>
-  </ol>
-</blockquote>
-
-<h2 id="the-problem---by-example">The Problem - by Example</h2>
-
-<p>Have you ever designed a <code class="highlighter-rouge">data model</code> (in code, Sql, or excel worksheets)?
-Does the following look familiar?</p>
-
-<div class="highlighter-rouge">
-<pre class="highlight"><code>*** anti-pattern - don't copy-paste ***
-* User
-  - id
-  - avatarUrl
-  - email
-  - passwordHash
-
-* Agent
-  - id
-  - primaryPhoto
-  - agentName
-  - agentEmail
-  - agentPhoneMain
-  - agentEmailPrimary
-  - agentPhonePrimary
-  - agentAddressLine1
-  - agentCompanyName
-  - agentCompanyAddress
-  - *userEmail* - 'Pointer' to User table ^^^
-</code></pre>
-</div>
-
-<p>If this is familiar to you, I’ll bet you:</p>
-
-<ol>
-  <li>Feel any change to your app will necessitate hours of arduous debugging.</li>
-  <li>Fear ANY Changing Requirements
-<img src="https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif" alt="schema refactor">
-</li>
-</ol>
-
-<h2 id="the-cost-of-bad-naming-habits">The Cost of Bad (Naming) Habits</h2>
-
-<p>Let’s examine some of the subtle issues (probably familiar):</p>
-
-<p>=======</p>
-
-<p>Why is naming a field <code class="highlighter-rouge">agentEmailPrimary</code> the worst?</p>
-
-<p>For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
-
-<ol>
-  <li>‘Locked’ into highly specific name, means <code class="highlighter-rouge">agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
-    <ul>
-      <li>Data not syncing between tables (not obvious if <code class="highlighter-rouge">user.email</code> needs to propagate to <code class="highlighter-rouge">agent.agentEmail</code> or vice-versa - nevermind complexity of manually implementing where &amp; how to enforce this ‘logic’ …)</li>
-      <li>Validation rules/logic are likely duplicated &amp; inconsitent.</li>
-      <li>Increasingly, your project will resemble a shaky Jenga tower.</li>
-      <li>Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes</li>
-    </ul>
-  </li>
-</ol>
-
-<p>I know, you probably feel something like…</p>
-
-<p><img src="https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif" alt="fuck this"></p>
-
-<h2 id="a-solution">A Solution</h2>
-
-<div class="highlighter-rouge">
-<pre class="highlight"><code>// Dan's Recommended Schema Consolidation:
-
-User
-  - id
-  - role: ['agent', 'lead', 'admin']
-  - name
-  - phone
-  - address
-  - email
-  - passwordHash
-  - company
-    - name
-    - address
-
-</code></pre>
-</div>
-<p>I removed the <code class="highlighter-rouge">Agent</code> table, as it didn’t contain fields which were uniquely related to Agents.</p>
-
-<p>All changes were made with these general ideas in mind:</p>
-
-<ol>
-  <li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
-  <li>Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong>
-</li>
-  <li>Delete redundant data collection (e.g. remove <code class="highlighter-rouge">ActivityLogs</code> table if replaced by Google Analytics)</li>
-  <li>Try keeping <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
-  <li>There is <strong>no such thing</strong> as <code class="highlighter-rouge">Agent.agentEmail</code> or <code class="highlighter-rouge">Agent.agentPhonePrimary</code>. Period.</li>
-  <li>By using Highly Specific Names, you cast-in-stone a specific level of <code class="highlighter-rouge">code-reusability</code> and <code class="highlighter-rouge">durability</code>, well, specifically <strong>ZERO %</strong>.</li>
-  <li>Don’t think you are doing yourself any favors with crap like this <code class="highlighter-rouge">User.profileSummaryEmail</code> (where ‘profile’ could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code class="highlighter-rouge">Profiles</code> which includes <code class="highlighter-rouge">Profiles.email</code>.</li>
-</ol>
-
-<h3 id="work-in-progress-updated-nov-2015-1"><em>Work-in-progress (updated Nov. 2015)</em></h3>
-
-<!-- ![schema refactor][schema_refactor] -->
-
-
-  </div>
-<!-- /.entry-content -->
-</article><!-- /.hentry -->
-
 
 <div class="pagination">
   
@@ -921,7 +856,7 @@ User
 <div class="tag-page">
         <h3><em>Tag Cloud</em></h3>
                                                 <div class="tag-cloud">
-                                                            <a href="/tag/ai/" class="set-1">ai</a> <a href="/tag/amazon-web-services/" class="set-1">amazon-web-services</a> <a href="/tag/angularjs/" class="set-1">angularjs</a> <a href="/tag/architecture/" class="set-1">architecture</a> <a href="/tag/artificial-intelligence/" class="set-1">artificial intelligence</a> <a href="/tag/azure/" class="set-1">azure</a> <a href="/tag/benchmarks/" class="set-1">benchmarks</a> <a href="/tag/boot2docker/" class="set-1">boot2docker</a> <a href="/tag/cloud/" class="set-1">cloud</a> <a href="/tag/design/" class="set-1">design</a> <a href="/tag/development/" class="set-1">development</a> <a href="/tag/devops/" class="set-3">devops</a> <a href="/tag/digital-ocean/" class="set-1">digital-ocean</a> <a href="/tag/docker/" class="set-3">docker</a> <a href="/tag/fails/" class="set-1">fails</a> <a href="/tag/go/" class="set-1">go</a> <a href="/tag/google-cloud-engine/" class="set-1">google-cloud-engine</a> <a href="/tag/haskell/" class="set-1">haskell</a> <a href="/tag/javascript/" class="set-2">javascript</a> <a href="/tag/languages/" class="set-1">languages</a> <a href="/tag/lua/" class="set-1">lua</a> <a href="/tag/models/" class="set-2">models</a> <a href="/tag/online.net/" class="set-1">online.net</a> <a href="/tag/opinion/" class="set-1">opinion</a> <a href="/tag/organization/" class="set-2">organization</a> <a href="/tag/ovh.net/" class="set-1">ovh.net</a> <a href="/tag/packet.net/" class="set-1">packet.net</a> <a href="/tag/patterns/" class="set-5">patterns</a> <a href="/tag/performance/" class="set-2">performance</a> <a href="/tag/programming/" class="set-5">programming</a> <a href="/tag/python/" class="set-1">python</a> <a href="/tag/resources/" class="set-1">resources</a> <a href="/tag/rust/" class="set-1">rust</a> <a href="/tag/scala/" class="set-1">scala</a> <a href="/tag/scaling/" class="set-1">scaling</a> <a href="/tag/security/" class="set-1">security</a> <a href="/tag/self-driving-cars/" class="set-1">self-driving cars</a> <a href="/tag/server/" class="set-1">server</a> <a href="/tag/servers/" class="set-1">servers</a> <a href="/tag/setup/" class="set-1">setup</a> <a href="/tag/shell-script/" class="set-1">shell script</a> <a href="/tag/smalltalk/" class="set-1">smalltalk</a> <a href="/tag/source-code/" class="set-2">source code</a>
+                                                            <a href="/tag/ai/" class="set-1">ai</a> <a href="/tag/amazon-web-services/" class="set-1">amazon-web-services</a> <a href="/tag/angularjs/" class="set-1">angularjs</a> <a href="/tag/architecture/" class="set-1">architecture</a> <a href="/tag/artificial-intelligence/" class="set-1">artificial intelligence</a> <a href="/tag/azure/" class="set-1">azure</a> <a href="/tag/benchmarks/" class="set-1">benchmarks</a> <a href="/tag/boot2docker/" class="set-1">boot2docker</a> <a href="/tag/cloud/" class="set-1">cloud</a> <a href="/tag/design/" class="set-1">design</a> <a href="/tag/development/" class="set-1">development</a> <a href="/tag/devops/" class="set-2">devops</a> <a href="/tag/digital-ocean/" class="set-1">digital-ocean</a> <a href="/tag/docker/" class="set-2">docker</a> <a href="/tag/fails/" class="set-1">fails</a> <a href="/tag/functional-river/" class="set-1">functional river</a> <a href="/tag/go/" class="set-1">go</a> <a href="/tag/google-cloud-engine/" class="set-1">google-cloud-engine</a> <a href="/tag/haskell/" class="set-1">haskell</a> <a href="/tag/javascript/" class="set-2">javascript</a> <a href="/tag/languages/" class="set-1">languages</a> <a href="/tag/lua/" class="set-1">lua</a> <a href="/tag/models/" class="set-2">models</a> <a href="/tag/naming/" class="set-1">naming</a> <a href="/tag/online.net/" class="set-1">online.net</a> <a href="/tag/opinion/" class="set-1">opinion</a> <a href="/tag/organization/" class="set-2">organization</a> <a href="/tag/ovh.net/" class="set-1">ovh.net</a> <a href="/tag/packet.net/" class="set-1">packet.net</a> <a href="/tag/patterns/" class="set-5">patterns</a> <a href="/tag/performance/" class="set-2">performance</a> <a href="/tag/programming/" class="set-5">programming</a> <a href="/tag/python/" class="set-1">python</a> <a href="/tag/resources/" class="set-1">resources</a> <a href="/tag/rust/" class="set-1">rust</a> <a href="/tag/scala/" class="set-1">scala</a> <a href="/tag/scaling/" class="set-1">scaling</a> <a href="/tag/security/" class="set-1">security</a> <a href="/tag/self-driving-cars/" class="set-1">self-driving cars</a> <a href="/tag/server/" class="set-1">server</a> <a href="/tag/servers/" class="set-1">servers</a> <a href="/tag/setup/" class="set-1">setup</a> <a href="/tag/shell-script/" class="set-1">shell script</a> <a href="/tag/smalltalk/" class="set-1">smalltalk</a> <a href="/tag/source-code/" class="set-3">source code</a>
                                                               </div>
                                                       </div>
 
