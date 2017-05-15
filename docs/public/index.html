@@ -1,0 +1,1183 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Latest Posts &#8211; www.DanLevy.net</title>
+<meta name="description" content="Dan Levy's Website & Blog Musings">
+<meta name="keywords" content="programming, languages, javascript, angularjs, devops, docker, security">
+
+
+	<!-- Twitter Cards -->
+	
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:image" content="/images/abstract-1.jpg">
+		
+	<meta name="twitter:title" content="Latest Posts">
+	<meta name="twitter:description" content="Dan Levy's Website & Blog Musings">
+	<meta name="twitter:creator" content="@justsml">
+
+	<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Latest Posts">
+<meta property="og:description" content="Dan Levy's Website & Blog Musings">
+<meta property="og:url" content="/index.html">
+<meta property="og:site_name" content="www.DanLevy.net">
+
+<meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
+<meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
+
+
+<link rel="canonical" href="/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- Webfonts -->
+<link async defer href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<script async defer src="/assets/js/hacks.js"></script>
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css" />
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+<!--
+
+
+
+<style type="text/css">body { background-repeat: repeat-x; background-image:url(/images/abstract-3.jpg);}</style>
+
+-->
+
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
+<style type='text/css'>
+#toc, .toc, .mw-warning {
+    background-color: #F9F9F9;
+    border: 1px solid #AAAAAA;
+    font-size: 95%;
+    padding: 5px;
+}
+#toc h2, .toc h2 {
+    border: medium none;
+    display: inline;
+    font-size: 100%;
+    font-weight: bold;
+    padding: 0;
+}
+#toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
+    text-align: center;
+}
+#toc ul, .toc ul {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    text-align: left;
+}
+#toc ul ul, .toc ul ul {
+    margin: 0 0 0 2em;
+}
+#toc .toctoggle, .toc .toctoggle {
+    font-size: 94%;
+}
+
+#toc ul li {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#toc-container {
+	margin-bottom: 10px;
+}
+
+</style>
+
+</head>
+
+<body id="post-index" class="feature">
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+<nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="/">Home</a></li>
+		<li><a href="/tags">Tags</a></li>
+		<li>
+			<a href="#">About Dan</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
+					<div class="clearfix"></div>
+					<h3 style="float: left; display: inline; margin-left: 12px;">Dan Levy</h3>
+					<p style="float: right; display: inline;">Devout Programmer</p>
+					<div class="clearfix"></div>
+				</li>
+				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target='_blank'><span class="btn btn-inverse">Resume</span></a></li>
+				<li>
+					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
+				</li>
+				
+				
+				
+				
+			</ul><!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">Articles</a>
+			<ul class="dl-submenu article-list">
+				
+					
+	        <li class="entry-title">
+	        	<a href="/2015/09/22/concatenation-anti-patterns/" title="Beautiful Models (and Data)">
+	        		<div>Beautiful Models (and Data)</div>
+		        	<em>2015-09-22</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/09/22/beautiful-engineering-models-and-data/" title="Beautiful Models (and Data)">
+	        		<div>Beautiful Models (and Data)</div>
+		        	<em>2015-09-22</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/08/05/angularjs-v2-impending-schism/" title="AngularJS v2.0 and the Impending Schism">
+	        		<div>AngularJS v2.0 and the Impending Schism</div>
+		        	<em>2015-08-05</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/06/12/polyglot-redux/" title="Polyglot Redux">
+	        		<div>Polyglot Redux</div>
+		        	<em>2015-06-12</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/06/10/docker-great-though-boot2docker-sucks/" title="Docker rocks. Boot2docker just sucks.">
+	        		<div>Docker rocks. Boot2docker just sucks.</div>
+		        	<em>2015-06-10</em>
+	        	</a>
+	        </li>
+			  
+				<li style="text-align: center;"><a href="/posts/"><strong>[ All Articles ]</strong></a></li>
+			</ul>
+		</li>
+		
+	    
+	        
+	    
+	    <li><a href="/cv/resume-dan-levy-2015-07.pdf" >Download Resume</a></li>
+	  
+	    
+	        
+	        
+	    <li><a href="http://github.com/justsml" target="_blank">GitHub</a></li>
+	  
+	</ul><!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
+
+
+<div class="entry-header">
+  <div class="image-credit">Image source: <a href="">dargadgetz</a></div><!-- /.image-credit -->
+  
+    <div class="entry-image">
+      <img src="/images/abstract-1.jpg" alt="Latest Posts">
+    </div><!-- /.entry-image -->
+  
+  <div class="header-title">
+    <div class="header-title-wrap">
+      <h1>www.DanLevy.net</h1>
+      <h2>Latest Posts</h2>
+    </div><!-- /.header-title-wrap -->
+  </div><!-- /.header-title -->
+</div><!-- /.entry-header -->
+
+<div id="main" role="main">
+  
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/09/22/concatenation-anti-patterns/" title="Beautiful Models (and Data)"><img src="/images/abstract-5.jpg" alt="Beautiful Models (and Data)"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-09-22T00:00:00-06:00"><a href="/2015/09/22/concatenation-anti-patterns/">September 22, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~18 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/09/22/concatenation-anti-patterns/" rel="bookmark" title="Beautiful Models (and Data)" itemprop="url">Beautiful Models (and Data)</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="L.em.Work-in-progress..updated.Nov..2015...em."></a>
+<h4><em>Work-in-progress (updated Nov. 2015)</em></h4>
+
+<a name="Array-.or.Set-based.Coding.Style"></a>
+<h1>Array- or Set-based Coding Style</h1>
+
+<a name="An.Anti-Pattern."></a>
+<h2>An Anti-Pattern?</h2>
+
+<blockquote><p>Note: This is not Yet-Another-Article warning noobs about RAM usage when appending strings</p></blockquote>
+
+<p>This is an exploration of advantages gained when you <strong>code everything as an array.</strong> (Using Jedi concepts from SmallTalk)</p>
+
+<p>Here&rsquo;s some guiding principles:</p>
+
+<ol>
+<li>All input is array-like. Even if an array of 1.</li>
+<li>Functions should generally accept AND return arrays.</li>
+<li>99 out of 100 devs code suffers from what I call <code>acute schema surplusage</code> syndrome -based models.</li>
+<li><p>Yes, beware <code>fat ASS models</code> - with all the predictable trappings: fragile <code>instance state</code> - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic <code>property getter/setters</code>, and your <code>public/private/final/etc</code> usage is solid, right?</p></li>
+<li><p>So let me take a common problem and <em>shoehorn</em> <del>add</del> some of my set-based heretical musings.</p></li>
+<li> Why is a Product price always a single data point? Why on earth would I make price(s) an Array?</li>
+<li> Let&rsquo;s add this functionality:
+
+<ol type="a">
+<li><strong>New requirements:</strong> <code>retailPrice</code>, <code>priceSavings</code></li>
+</ol>
+</li>
+<li>These changes hopefully look no worse than my sorry attempt:</li>
+</ol>
+
+
+<pre><code class="java">package net.danlevy.testpool.why.java.has.so.many.dots;
+
+public class Product {
+
+  public String Name;
+  public float Price;
+  public float retailPrice;
+  public float priceSavings;
+
+  public Product(String name, float price) {
+    Name = name;
+    Price = price;
+    this.retailPrice = price;
+    this.priceSavings = 0.0f;
+  }
+
+  public Product(String name, float price,
+      float retailPrice,
+      float priceSavings) {
+    this.name = name;
+    this.price = price;
+    this.retailPrice = retailPrice;
+    this.priceSavings = priceSavings;
+  }
+
+  public float getPriceSavings() {
+    return this.retailPrice - this.price;
+  }
+
+}
+</code></pre>
+
+<p>   (I&rsquo;m not replacing the valid pattern of tracking historical prices in tables)
+  1. I&rsquo;m not sure about you, but price of just about anything is in flux - just given time.
+  1.
+  I <strong>experience</strong> price as constantly fluctuating data point.</p>
+
+<ol>
+<li> For example, even values which seem like singular variables - say a <code>Product</code> class includes <code>var listPrice = 125</code> - change it to <code>var prices = [50, 100, 125]</code>.</li>
+<li> Bear with me. That is not likely the final re-factor on that&hellip;</li>
+</ol>
+
+
+<pre><code class="js">function Product({name='widget', prices=[]}) {
+
+}
+</code></pre>
+
+<blockquote><p>Foreshadowing: We&rsquo;re going to go through a concept familiar to LISP, SmallTalk, et al. devs.
+It&rsquo;s known by many names, however I prefer <strong>Array-based programming.</strong></p></blockquote>
+
+<a name="The.issue.we.ll.examine.is.deceptively.simple..amp..subtle:..strong.Naming..strong."></a>
+<h2>The issue we&rsquo;ll examine is deceptively simple &amp; subtle: <strong>Naming</strong></h2>
+
+<blockquote><p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
+
+<p>While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don&rsquo;t need to read this if the following makes sense: <code>No-Sql denormalization strategy</code>, or <code>Boyce Codd Normal Forms</code></p>
+
+<p>Recommended reading includes:</p>
+
+<ol>
+<li>Book: Code Complete</li>
+<li><a href="http://phlonx.com/resources/nf3/">http://phlonx.com/resources/nf3/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Database_normalization">https://en.wikipedia.org/wiki/Database_normalization</a></li>
+</ol>
+</blockquote>
+
+<a name="The.Problem.-.by.Example"></a>
+<h2>The Problem - by Example</h2>
+
+<p>Have you ever designed a <code>data model</code> (in code, Sql, or excel worksheets)?
+Does the following look familiar?</p>
+
+<pre><code>*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+</code></pre>
+
+<p>If this is familiar to you, I&rsquo;ll bet you:</p>
+
+<ol>
+<li>Feel any change to your app will necessitate hours of arduous debugging.</li>
+<li>Fear ANY Changing Requirements
+<img src="https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif" alt="schema refactor" /></li>
+</ol>
+
+
+<a name="The.Cost.of.Bad..Naming..Habits"></a>
+<h2>The Cost of Bad (Naming) Habits</h2>
+
+<p>Let&rsquo;s examine some of the subtle issues (probably familiar):</p>
+
+<hr />
+
+<p>Why is naming a field <code>agentEmailPrimary</code> the worst?</p>
+
+<p>For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
+
+<ol>
+<li>&lsquo;Locked&rsquo; into highly specific name, means <code>agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
+
+<ul>
+<li>Data not syncing between tables (not obvious if <code>user.email</code> needs to propagate to <code>agent.agentEmail</code> or vice-versa - nevermind complexity of manually implementing where &amp; how to enforce this &lsquo;logic&rsquo; &hellip;)</li>
+<li>Validation rules/logic are likely duplicated &amp; inconsitent.</li>
+<li>Increasingly, your project will resemble a shaky Jenga tower.</li>
+<li>Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes</li>
+</ul>
+</li>
+</ol>
+
+
+<p>I know, you probably feel something like&hellip;</p>
+
+<p><img src="https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif" alt="fuck this" /></p>
+
+<a name="A.Solution"></a>
+<h2>A Solution</h2>
+
+<pre><code>// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+</code></pre>
+
+<p>I removed the <code>Agent</code> table, as it didn&rsquo;t contain fields which were uniquely related to Agents.</p>
+
+<p>All changes were made with these general ideas in mind:</p>
+
+<ol>
+<li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
+<li> Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong></li>
+<li> Delete redundant data collection (e.g. remove <code>ActivityLogs</code> table if replaced by Google Analytics)</li>
+<li>Try keeping <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
+<li> There is <strong>no such thing</strong> as <code>Agent.agentEmail</code> or <code>Agent.agentPhonePrimary</code>. Period.</li>
+<li> By using Highly Specific Names, you cast-in-stone a specific level of <code>code-reusability</code> and <code>durability</code>, well, specifically <strong>ZERO %</strong>.</li>
+<li> Don&rsquo;t think you are doing yourself any favors with crap like this <code>User.profileSummaryEmail</code> (where &lsquo;profile&rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code>Profiles</code> which includes <code>Profiles.email</code>.</li>
+</ol>
+
+
+<a name="L.em.Work-in-progress..updated.Nov..2015...em."></a>
+<h3><em>Work-in-progress (updated Nov. 2015)</em></h3>
+
+<!-- ![schema refactor][schema_refactor] -->
+
+
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/09/22/beautiful-engineering-models-and-data/" title="Beautiful Models (and Data)"><img src="/images/abstract-5.jpg" alt="Beautiful Models (and Data)"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-09-22T00:00:00-06:00"><a href="/2015/09/22/beautiful-engineering-models-and-data/">September 22, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~10 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/09/22/beautiful-engineering-models-and-data/" rel="bookmark" title="Beautiful Models (and Data)" itemprop="url">Beautiful Models (and Data)</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="L.em.Work-in-progress..updated.Sep..2015...em."></a>
+<h4><em>Work-in-progress (updated Sep. 2015)</em></h4>
+
+<a name="The.issue.we.ll.examine.is.deceptively.simple..amp..subtle:..strong.Naming..strong."></a>
+<h2>The issue we&rsquo;ll examine is deceptively simple &amp; subtle: <strong>Naming</strong></h2>
+
+<blockquote><p>I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.</p>
+
+<p>While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don&rsquo;t need to read this if the following makes sense: <code>No-Sql denormalization strategy</code>, or <code>Boyce Codd Normal Forms</code></p>
+
+<p>Recommended reading includes:</p>
+
+<ol>
+<li>Book: Code Complete</li>
+<li><a href="http://phlonx.com/resources/nf3/">http://phlonx.com/resources/nf3/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Database_normalization">https://en.wikipedia.org/wiki/Database_normalization</a></li>
+</ol>
+</blockquote>
+
+<a name="The.Problem.-.by.Example"></a>
+<h2>The Problem - by Example</h2>
+
+<p>Have you ever designed a <code>data model</code> (in code, Sql, or excel worksheets)?
+Does the following look familiar?</p>
+
+<pre><code>*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+</code></pre>
+
+<p>If this is familiar to you, I&rsquo;ll bet you:</p>
+
+<ol>
+<li>Feel any change to your app will necessitate hours of arduous debugging.</li>
+<li>Fear ANY Changing Requirements
+<img src="https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif" alt="schema refactor" /></li>
+</ol>
+
+
+<a name="The.Cost.of.Bad..Naming..Habits"></a>
+<h2>The Cost of Bad (Naming) Habits</h2>
+
+<p>Let&rsquo;s examine some of the subtle issues (probably familiar):</p>
+
+<hr />
+
+<p>Why is naming a field <code>agentEmailPrimary</code> the worst?</p>
+
+<p>For starters, you are <strong>not</strong> creating an entirely new object unto the universe. Over-specificity has some traps:</p>
+
+<ol>
+<li>&lsquo;Locked&rsquo; into highly specific name, means <code>agentEmailPrimary</code> probably make your views and related code <strong>0% reusable</strong>, and featuring annoyingly recurring bugs like:
+
+<ul>
+<li>Data not syncing between tables (not obvious if <code>user.email</code> needs to propagate to <code>agent.agentEmail</code> or vice-versa - nevermind complexity of manually implementing where &amp; how to enforce this &lsquo;logic&rsquo; &hellip;)</li>
+<li>Validation rules/logic are likely duplicated &amp; inconsitent.</li>
+<li>Increasingly, your project will resemble a shaky Jenga tower.</li>
+<li>Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes</li>
+</ul>
+</li>
+</ol>
+
+
+<p>I know, you probably feel something like&hellip;</p>
+
+<p><img src="https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif" alt="fuck this" /></p>
+
+<a name="A.Solution"></a>
+<h2>A Solution</h2>
+
+<pre><code>// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+</code></pre>
+
+<p>I removed the <code>Agent</code> table, as it didn&rsquo;t contain fields which were uniquely related to Agents.</p>
+
+<p>All changes were made with these general ideas in mind:</p>
+
+<ol>
+<li>Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.</li>
+<li> Try merge related tables. <strong>Important if you are coming from a SQL background to No-SQL</strong></li>
+<li> Delete redundant data collection (e.g. remove <code>ActivityLogs</code> table if replaced by Google Analytics)</li>
+<li>Try keeping <strong>all field names</strong> to a <strong>single word/noun/pro-noun</strong>.</li>
+<li> There is <strong>no such thing</strong> as <code>Agent.agentEmail</code> or <code>Agent.agentPhonePrimary</code>. Period.</li>
+<li> By using Highly Specific Names, you cast-in-stone a specific level of <code>code-reusability</code> and <code>durability</code>, well, specifically <strong>ZERO %</strong>.</li>
+<li> Don&rsquo;t think you are doing yourself any favors with crap like this <code>User.profileSummaryEmail</code> (where &lsquo;profile&rsquo; could include contact details for a personal ads site) . This is probably a good point to create a new table, say <code>Profiles</code> which includes <code>Profiles.email</code>.</li>
+</ol>
+
+
+<a name="L.em.Work-in-progress..updated.Sep..2015...em."></a>
+<h3><em>Work-in-progress (updated Sep. 2015)</em></h3>
+
+<!-- ![schema refactor][schema_refactor] -->
+
+
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/08/05/angularjs-v2-impending-schism/" title="AngularJS v2.0 and the Impending Schism"><img src="/images/abstract-11.jpg" alt="AngularJS v2.0 and the Impending Schism"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-08-05T00:00:00-06:00"><a href="/2015/08/05/angularjs-v2-impending-schism/">August 05, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~3 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/08/05/angularjs-v2-impending-schism/" rel="bookmark" title="AngularJS v2.0 and the Impending Schism" itemprop="url">AngularJS v2.0 and the Impending Schism</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <p>I think we are witnessing the Python 2->3 &lsquo;Conversion&rsquo; all over again.
+AngularJS v2.0 introduces too many changes. <strong>Not least of which is TypeScript</strong>, which is a big ask amidst the finalization of JS&rsquo;s latest version: ES6.</p>
+
+<blockquote><p>Let me say clearly: I love TypeScript. I seccretly wish the TC-39 meetings had produced it&hellip; They didn&rsquo;t.
+However, They came up with another (totally different), also-awesome spec&hellip;</p></blockquote>
+
+<p>While TypeScript compiles to JavaScript, it doesn&rsquo;t mean you blindly copy &amp; paste &lsquo;compiled&rsquo; TypeScript. It effectively becomes required learning, as to understand annotated AngularJS 2.0 TypeScript.</p>
+
+<p>Now, newbies must climb &lsquo;Mount TypeScript&rsquo; before they can even start assembling an Angular app (with some level of understanding).</p>
+
+<p>I have a feeling how this might go&hellip;</p>
+
+<div class="anigif end">
+  <img alt='endless loop' src="https://res.cloudinary.com/ddd/image/upload/timeout-expired.gif" />
+</div>
+
+
+<p>Oh well, I&rsquo;ll add it to the Newbie training list: somewhere between <code>Basic Shell Usage</code> and <code>Gulp or Grunt? Godsend+Misery!</code></p>
+
+<blockquote><p>Anyway, I hope this works out&hellip;</p></blockquote>
+
+<div class="anigif top end">
+  <img alt='everything is going to be ok' src="http://res.cloudinary.com/ddd/image/upload/v1442175801/system-maint-anon.gif" />
+</div>
+
+
+
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/06/12/polyglot-redux/" title="Polyglot Redux"><img src="/images/abstract-11.jpg" alt="Polyglot Redux"></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-12T03:21:12-06:00"><a href="/2015/06/12/polyglot-redux/">June 12, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~23 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/06/12/polyglot-redux/" rel="bookmark" title="Polyglot Redux" itemprop="url">Polyglot Redux</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="Programming.Languages.Notes"></a>
+<h1>Programming Languages Notes</h1>
+
+<a name="L.em.Work-in-progress..updated.Sept..25th.2015...em."></a>
+<h3><em>Work-in-progress (updated Sept. 25th 2015)</em></h3>
+
+<a name="I.m.sure.my.Miscellaneous.Observations.have.been.made.before..but.here.is.my.list.of.most.interesting.languages:"></a>
+<h3>I&rsquo;m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:</h3>
+
+<a name="JavaScript"></a>
+<h2>JavaScript</h2>
+
+<p>My One True Love, supremely versatile &amp; ubiquitous - the all-around, amazingly-powerful champ!
+It&rsquo;s the #1 Most Active/Popular Language on GitHub.com for <em>years</em> running.</p>
+
+<p>I hate to admit it, but for years I foolishly had nothing but scorn and derision for what is now, <strong>my favorite language</strong>.</p>
+
+<p><strong>ES6</strong> has only increased my <del>addiction</del> love. While pure ES5 will always hold a special place in my heart, each time I use some <strong>ES6</strong>, I feel that radioactive spider-bite&hellip;</p>
+
+<p>There were 4 factors which pushed me into the <strong>ES6 Camp</strong>:</p>
+
+<ol>
+<li>It&rsquo;s fun. Seriously. There are tangible gains in beauty, clarity &amp; productivity.</li>
+<li>Subjective claims, you say? Let me show you a bit of ES6:</li>
+<li><code>let expired = users.filter(u =&gt; Date.now() &gt; u.trialDate)</code></li>
+<li>Now you don&rsquo;t have to pretend you know how to use <code>Object.create</code> or <code>Object.defineProperty</code></li>
+<li>See examples below</li>
+<li>As of July 2015,  ES6 is an officially finalized standard now!</li>
+<li>Support is Effectively 100%*! &hellip; Ok, BabelJS is needed to patch your code so it&rsquo;s ES5 compatible. Historically JS transpilers have been frowned upon. However, as of late (2014-15) things have changed as BabelJS has become a key enabler/driver of language advancement. Tons of companies including Microsoft &amp; Facebook use it on some of the largest sites around.</li>
+<li><a href="https://nodejs.org/en/blog/release/v4.0.0/">Latest versions of Node</a> include the same V8 JS engine as Chrome v45, it&rsquo;s v4.5</li>
+</ol>
+
+
+<a name="Examples"></a>
+<h3>Examples</h3>
+
+<blockquote><p>I&rsquo;m going to show you what finally made me <em>start</em> drinking that ES6-flavoured KoolAid.</p></blockquote>
+
+<p>In my recent experience, ES6 helps you write code faster. To the point.
+Because code is more succinct, appreciably less brain power is needed to sift through and understand your old code (or that of a teammates).</p>
+
+<p>I have regularly seen KLOC savings roughly of 20-50%. That&rsquo;s like Kate Moss trim!</p>
+
+<p><img src="/images/screenshots/Diff-ES6-vs-ES5-Head-to-Head.png" alt="EcmaScript 5 vs ES 2016 - Demo: Classes, Destructuring, Sexiness" /></p>
+
+<pre><code class="js">// /services/users.js
+class Users {
+  constructor(data) {
+    this.users = data || [];
+  }
+  expired() {
+    return this.users
+      .filter(u =&gt; Date.now() &gt; u.trialDate)
+  }
+}
+</code></pre>
+
+<ul>
+<li>No more tedious code to &lsquo;extract&rsquo; and &lsquo;check&rsquo; fields passed to a function. Cut to example <code>add()</code>:</li>
+</ul>
+
+
+<pre><code class="js">// /services/users.js
+class Users {
+  constructor(data) { this.users = data || []; }
+  add({name, email, password}) {
+    // Store pwd hash, We only need to define 1 explicit `var/let` - the other vars are 'defined' with the `{fields}` wizardry above ^^^
+    let hash = getSha256(password);
+    return http.post('/users', {
+      'name': name,
+      'email': email,
+      'passwordHash': hash
+    }).then(usr =&gt; this.users.push(usr)); // append user upon service response
+  }
+}
+</code></pre>
+
+<p><noscript><pre>// services/user.js
+function Users(data) {
+  // ensure we&#39;re a real thing
+  if (!(this instanceof Users)) { return new Users(data); }
+  this.users = data || [];
+}</p>
+
+<p>Users.prototype.add = function(opts) {
+    // Validate input, We need to extract the 3 fields from opts
+    if ( !opts || typeof(opts) !== &#39;object&#39; ) {
+      return Promise.reject(&#39;add() requires Opts parameter&#39;);
+    }
+    // Unpack data, assuming keys are there
+    var name  = opts.name,
+        email = opts.email,
+        pass  = opts.password;
+    var hash = getSha256(pass);</p>
+
+<pre><code>return http.post(&amp;#39;/users&amp;#39;, {
+  &amp;#39;name&amp;#39;: name,
+  &amp;#39;email&amp;#39;: email,
+  &amp;#39;passwordHash&amp;#39;: hash})
+.then(function(usr) {
+  return this.users.push(usr);
+});
+</code></pre>
+
+<p>  }
+}</pre></noscript><script src="https://gist.github.com/justsml/aaddc9852c1624d61cf3.js"> </script></p>
+
+<p>&#160;</p>
+
+
+<a name="Jumping.on.ES6.can.feel.like.going.from:"></a>
+<h3>Jumping on ES6 can feel like going from:</h3>
+
+<div class="anigif top">
+  <img alt='huh' title="Huh?" src="http://res.cloudinary.com/ddd/image/upload/v1441143891/wtf__tumblr_inline_n7ygqh6Y0C1svcdm1_igeqey.gif" />
+</div>
+
+
+<h3>To</h3>
+
+
+<div class="anigif">
+  <img alt='wtf' title="WTF?!?!" src="http://res.cloudinary.com/ddd/image/upload/v1443133148/cat-wtf-trap.gif" />
+</div>
+
+
+<h3>To</h3>
+
+
+<div class="anigif end">
+  <img alt='#winning' title='#winning' src="http://res.cloudinary.com/ddd/image/upload/v1443133141/full-throttle.gif" />
+</div>
+
+
+<p>Just keep sifting through the new stuff. Check out string templates, auto <code>this</code> binding, more-sane inheritance&hellip;</p>
+
+<a name="Node.JS"></a>
+<h4><a href="http://nodejs.org/">Node.JS</a></h4>
+
+<a name="Rust"></a>
+<h2>Rust</h2>
+
+<a name="Official.Site"></a>
+<h4><a href="http://www.rust-lang.org/">Official Site</a></h4>
+
+<ul>
+<li><p><strong>Pros</strong></p>
+
+<ul>
+<li>Imagine if there was a language as fast as C and as powerful as Python/C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.</li>
+<li>In fact I&rsquo;d guess Rust is roughly as complex as the ES6 spec.</li>
+<li>It includes a ton of extras:
+
+<ol>
+<li>Essentially Rust transpiles from semi-dynamic syntax into <strong>pure C code</strong>!</li>
+<li>Including <strong><strong>all the best practices</strong></strong> in C you would probably screw up on, I <del>eventually</del> always do.</li>
+<li>Automatically you get:</li>
+<li>Auto Memory management (no need for a slow garbage collector!)</li>
+<li>Perfectly scoped Object ownership/locking (mutexting &amp; context switching minimized)</li>
+<li>Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)</li>
+<li>Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can&rsquo;t overlook a code-path)</li>
+</ol>
+</li>
+<li>Oh yeah, it throws in true language extensibility with a sensible &lsquo;macro&rsquo; feature.
+
+<ul>
+<li>Need Comprehensions? <a href="https://gist.github.com/hanny24/5749688">Scala style? Done</a>, and <a href="https://gist.github.com/JeffBelgum/5e762761cd63c796e803">Like Python? Done</a>.</li>
+<li>Too good to be true? Nah, It gets better:</li>
+<li>Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google&rsquo;s hot-newish language)
+
+<ul>
+<li>About 4K More Stars than Go (currently around 12,200)</li>
+<li>More total Contributors ( 2x! - 1,071 vs. Go&rsquo;s 479 )</li>
+<li>More forks ( 3X! - 2,343 vs. 765 )</li>
+<li>Number of Open Issues, Loses by a hair ( 2,000 vs 1,730 from Go )</li>
+<li>Pull Requests (Rust 70+ vs. Go&rsquo;s 1)</li>
+</ul>
+</li>
+<li>I had to triple check the numbers too.</li>
+</ul>
+</li>
+<li>Other libraries are very stable due to the constructs &amp; rules of rust.</li>
+<li>Threading model usable by mere mortals</li>
+</ul>
+</li>
+<li><p><strong>Cons</strong></p>
+
+<ul>
+<li>Decent <strong>web frameworks</strong> are relatively new, untested, and usually undocumented (though they are <strong>getting</strong> very impressive - as of March 2015).</li>
+<li>Lots of early pre-1.0 breaking changes</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="Python"></a>
+<h2>Python</h2>
+
+<ul>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )</li>
+<li>Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just bloated!</li>
+</ul>
+</li>
+</ul>
+
+
+<pre><code class="python"># dummy code: defines a color + pixel-coord -
+def pixel(x, y, r, g, b): return dict(x=x, y=y, r=r, g=g, b=b)
+# Create a new pixel object and apply to set of vars
+x, y, r, g, b = pixel(10, 20, 255, 255, 255)
+# Now we can call pixel
+</code></pre>
+
+<ul>
+<li><p>Tuples and arbitrary sets are so easy</p></li>
+<li><p><strong>Cons</strong></p>
+
+<ul>
+<li>Annoyingly, Python 2.x and 3.x are incompatible. The Great Schism continues, so many years later.</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="Haskell"></a>
+<h2>Haskell</h2>
+
+<ul>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Very rewarding when you finally memorize enough syntax to whip up comprehensions-based expressive patterns</li>
+<li>You will learn mind-bending code patterns - often somewhat applicable to other languages.</li>
+</ul>
+</li>
+<li><strong>Cons</strong>
+
+<ul>
+<li>Syntax &amp; Patterns can be hard to get used to.</li>
+</ul>
+</li>
+</ul>
+
+
+<div class="anigif end">
+  <img alt='endless loop' src="http://res.cloudinary.com/ddd/image/upload/v1441143881/endless-loop.gif" />
+</div>
+
+
+<a name="SmallTalk-80"></a>
+<h2>SmallTalk-80</h2>
+
+<ul>
+<li><strong>Pros</strong>
+
+<ul>
+<li>Incredibly simple compilers (original especially)</li>
+<li>Great resources: <a href="http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript">Smalltalk MVC Translated to JavaScript</a></li>
+</ul>
+</li>
+<li><strong>Cons</strong>
+
+<ul>
+<li>You will likely never use this language for anything. Zero projects. However it will have more of an impact on your coding style, faster than other functional languages&hellip; This should be in the pros list)</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="L.em.Work-in-progress..updated.Sept..25th.2015...em."></a>
+<h3><em>Work-in-progress (updated Sept. 25th 2015)</em></h3>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/06/10/docker-great-though-boot2docker-sucks/" title="Docker rocks. Boot2docker just sucks."><img src="/images/abstract-10.jpg" alt="Docker rocks. Boot2docker just sucks."></a>
+      </div><!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-10T23:00:12-06:00"><a href="/2015/06/10/docker-great-though-boot2docker-sucks/">June 10, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~5 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div><!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/06/10/docker-great-though-boot2docker-sucks/" rel="bookmark" title="Docker rocks. Boot2docker just sucks." itemprop="url">Docker rocks. Boot2docker just sucks.</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <a name="Overview"></a>
+<h1>Overview</h1>
+
+<a name="To.everyone.on.OSX.or.Windows:.Don.t.let.Boot2docker.leave.you.with.the.impression.that.Docker.sucks..It.s.really.just.your.antique.OS."></a>
+<h4>To everyone on OSX or Windows: Don&rsquo;t let Boot2docker leave you with the impression that Docker sucks! It&rsquo;s really just your antique OS.</h4>
+
+<ol>
+<li>Docker is amazing, period.</li>
+<li>However it&rsquo;s rough-around-the-edges, hackey utility, boot2docker - for OS X, Windows and old Linux Kernels - leaves a <strong>lot</strong> to be desired.</li>
+</ol>
+
+
+<a name="Issues"></a>
+<h1>Issues</h1>
+
+<blockquote><p>Boot2docker causes 99/100 headaches compared with using a native docker install locally.
+I should concede that it wraps several other complicated/flakey technologies:
+VirtualBox, x-platform Folder Sharing, and also the docker cli command runs in a network-client mode so,</p>
+
+<a name="file.copying..builds.etc.take.a.long.time..vs..running.a.native.docker.server."></a>
+<h1>file copying, builds etc take a long time  vs. running a native docker server.</h1>
+
+<p>Docker can currently only run natively on a Linux Kernel 3.4+ - and the current boot2docker vm actually runs v4.
+Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box,
+&hellip; c'mon those games aren&rsquo;t helping your code&hellip;</p></blockquote>
+
+<a name="Boot2docker.Key.Commands"></a>
+<h1>Boot2docker Key Commands</h1>
+
+<a name="When.you.get.error:..FATA.0000.."></a>
+<h2>When you get error: &lsquo;FATA[0000]&rsquo;</h2>
+
+<ul>
+<li>Full error message:
+
+<ul>
+<li>FATA[0000] Get <a href="http:///var/run/docker.sock/v1.18/info:">http:///var/run/docker.sock/v1.18/info:</a> dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?</li>
+</ul>
+</li>
+<li>Solution: You need some info from boot2docker
+
+<ul>
+<li>Run this to get the 3 needed shell environment variables:</li>
+</ul>
+</li>
+</ul>
+
+
+<pre><code class="sh">boot2docker shellinit
+# Copy &amp; paste the exports into the current shell, &amp; retry $(docker info)
+</code></pre>
+
+<a name="Get.Docker.Server.IP.Address"></a>
+<h2>Get Docker Server IP Address</h2>
+
+<pre><code class="sh">boot2docker ip
+</code></pre>
+
+<blockquote><p>Now your app on port 3000 is available at something like: <a href="http://$">http://$</a>(boot2docker ip):3000/</p></blockquote>
+
+<a name="Boot2Docker.Quick.Start.for.OS.X"></a>
+<h1>Boot2Docker Quick Start for OS X</h1>
+
+<ol>
+<li>In a terminal on your <code>brew</code> able Mac:</li>
+</ol>
+
+
+<pre><code class="sh">brew install boot2docker
+boot2docker init
+boot2docker up
+</code></pre>
+
+  </div><!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+
+<div class="pagination">
+  
+    Previous
+  
+  <ul class="inline-list">
+    <li>
+      
+        <span class="current-page">1</span>
+      
+    </li>
+    
+      <li>
+        
+          <a href="/page2">2</a>
+        
+      </li>
+    
+      <li>
+        
+          <a href="/page3">3</a>
+        
+      </li>
+    
+  </ul>
+  
+    <a href="/page2" class="btn">Next</a>
+  
+</div><!-- /.pagination -->
+
+
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span class="faded">&copy; 2015 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59708923-1', 'auto');  
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</body>
+</html>

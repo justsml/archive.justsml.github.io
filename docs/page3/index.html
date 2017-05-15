@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]--><!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]--><!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Latest Posts – www.DanLevy.net</title>
+<meta name="description" content="Dan Levy's Website &amp; Blog Musings">
+<meta name="keywords" content="programming, languages, javascript, angularjs, devops, docker, security">
+
+
+	<!-- Twitter Cards -->
+	
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:image" content="/images/abstract-1.jpg">
+		
+	<meta name="twitter:title" content="Latest Posts">
+	<meta name="twitter:description" content="Dan Levy's Website &amp; Blog Musings">
+	<meta name="twitter:creator" content="@justsml">
+
+	<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Latest Posts">
+<meta property="og:description" content="Dan Levy's Website &amp; Blog Musings">
+<meta property="og:url" content="/page3/">
+<meta property="og:site_name" content="www.DanLevy.net">
+
+<meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
+<meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
+
+
+<link rel="canonical" href="/page3/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- Webfonts -->
+<link async defer href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<script async defer src="/assets/js/hacks.js"></script>
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css">
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+<!--
+
+
+
+<style type="text/css">body { background-repeat: repeat-x; background-image:url(/images/abstract-3.jpg);}</style>
+
+-->
+
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
+<style type="text/css">
+#toc, .toc, .mw-warning {
+    background-color: #F9F9F9;
+    border: 1px solid #AAAAAA;
+    font-size: 95%;
+    padding: 5px;
+}
+#toc h2, .toc h2 {
+    border: medium none;
+    display: inline;
+    font-size: 100%;
+    font-weight: bold;
+    padding: 0;
+}
+#toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
+    text-align: center;
+}
+#toc ul, .toc ul {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    text-align: left;
+}
+#toc ul ul, .toc ul ul {
+    margin: 0 0 0 2em;
+}
+#toc .toctoggle, .toc .toctoggle {
+    font-size: 94%;
+}
+
+#toc ul li {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#toc-container {
+	margin-bottom: 10px;
+}
+
+</style>
+
+</head>
+
+<body id="post-index" class="feature">
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+<nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="/">Home</a></li>
+		<li><a href="/tags">Tags</a></li>
+		<li>
+			<a href="#">About Dan</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
+					<div class="clearfix"></div>
+					<h3 style="float: left; display: inline; margin-left: 12px;">Dan Levy</h3>
+					<p style="float: right; display: inline;">Devout Programmer</p>
+					<div class="clearfix"></div>
+				</li>
+				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target="_blank"><span class="btn btn-inverse">Resume</span></a></li>
+				<li>
+					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
+				</li>
+				
+				
+				
+				
+			</ul>
+<!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">Articles</a>
+			<ul class="dl-submenu article-list">
+				
+					
+	        <li class="entry-title">
+	        	<a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts">
+	        		<div>Linux Server Benchmarking Scripts</div>
+		        	<em>2017-05-01</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" title="Cloud Tuning: Gain a 70% Boost">
+	        		<div>Cloud Tuning: Gain a 70% Boost</div>
+		        	<em>2017-04-15</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/12/22/disable-transparent-hugepages/" title="MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu">
+	        		<div>MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu</div>
+		        	<em>2015-12-22</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" title="When AI Fails &amp; the Crashing Robotic Cars">
+	        		<div>When AI Fails &amp; the Crashing Robotic Cars</div>
+		        	<em>2015-12-18</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/09/22/higher-order-programming/" title="Higher Order Programming">
+	        		<div>Higher Order Programming</div>
+		        	<em>2015-09-22</em>
+	        	</a>
+	        </li>
+			  
+				<li style="text-align: center;"><a href="/posts/"><strong>[ All Articles ]</strong></a></li>
+			</ul>
+		</li>
+		
+	    
+	    <li><a href="/cv/Resume-DanLevy.pdf">Download Resume</a></li>
+	  
+	    
+	    <li><a href="http://github.com/justsml" target="_blank">GitHub</a></li>
+	  
+	</ul>
+<!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
+
+
+<div class="entry-header">
+  <div class="image-credit">Image source: <a href="">dargadgetz</a>
+</div>
+<!-- /.image-credit -->
+  
+    <div class="entry-image">
+      <img src="/images/abstract-1.jpg" alt="Latest Posts">
+    </div>
+<!-- /.entry-image -->
+  
+  <div class="header-title">
+    <div class="header-title-wrap">
+      <h1>www.DanLevy.net</h1>
+      <h2>Latest Posts</h2>
+    </div>
+<!-- /.header-title-wrap -->
+  </div>
+<!-- /.header-title -->
+</div>
+<!-- /.entry-header -->
+
+<div id="main" role="main">
+  
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/06/06/docker-firewall-setup/" title="Docker Firewall Setup"><img src="/images/abstract-8.jpg" alt="Docker Firewall Setup"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-06-06T00:00:00-06:00"><a href="/2015/06/06/docker-firewall-setup/">June 06, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~4 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/06/06/docker-firewall-setup/" rel="bookmark" title="Docker Firewall Setup" itemprop="url">Docker Firewall Setup</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="setup-docker-host-firewall">Setup Docker Host Firewall</h1>
+
+<ol>
+  <li>Debian/Ubuntu Server is assumed</li>
+  <li>Designed to run on Docker Host Server</li>
+</ol>
+
+<h2 id="install-requirements">Install Requirements</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="c"># Ultimate Firewall Needed</span>
+apt-get update <span class="o">&amp;&amp;</span> apt-get install -y ufw nmap curl
+</code></pre>
+</div>
+
+<h2 id="get-your-internal--external-ip-addresses">Get your Internal &amp; External IP Addresses</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="c"># Get your IP Addresses, simple output:</span>
+hostname --all-ip-addresses
+
+<span class="c"># OR use ip tool, example:</span>
+ip addr
+</code></pre>
+</div>
+
+<h2 id="firtewall-ufw-setup---example-cmds">Firtewall (UFW) Setup - Example Cmds</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>ufw logging on <span class="c"># on=low - medium might be better for diagnostics</span>
+ufw logging medium
+<span class="c"># First, block all the things</span>
+ufw default deny incoming
+
+<span class="c"># REQUIRED: CHOOSE *ONE* OF THE FOLLOWING DEFAULT OUTBOUND RULES:</span>
+ufw default deny outgoing
+ufw default allow outgoing
+
+
+<span class="c"># Allow and log all new ssh connections,</span>
+ufw allow log proto tcp from any to any port 22
+<span class="c">## Allow http traffic (w/o explicit logging)</span>
+ufw allow out on docker0 53/udp to 172.17.0.1/16
+ufw allow out on eth0 to any port 53
+ufw allow out on eth0 from 0.0.0.0/0 to any port 80 proto tcp
+ufw allow out on eth0 from 0.0.0.0/0 to any port 443 proto tcp
+
+<span class="c"># Verbose: ufw allow proto tcp from any to any port 80</span>
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow log 22/tcp
+ufw limit ssh <span class="c"># Basic Rate limit 4 SSH brute force mitigation</span>
+
+<span class="c"># Set your ext IP</span>
+<span class="nb">export </span><span class="nv">EXTERNAL_IP</span><span class="o">=</span>123.123.123.123
+<span class="c"># Update docker IP if needed</span>
+<span class="nb">export </span><span class="nv">DOCKER_IP</span><span class="o">=</span>172.17.42.1
+<span class="c"># Forward tcp 8080 traffic to  Dockerized App</span>
+ufw allow proto tcp from <span class="nv">$EXTERNAL_IP</span> port 8080 to <span class="nv">$DOCKER_IP</span> port 3000
+</code></pre>
+</div>
+
+<h2 id="enable--start-firewall">Enable / Start Firewall</h2>
+
+<blockquote>
+  <p>Be Careful, Don’t Lock out your SSH port (sshd defaults to 22)</p>
+</blockquote>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>ufw --force <span class="nb">enable
+
+</span>ufw reset
+</code></pre>
+</div>
+
+<hr>
+
+<h2 id="test-your-firewall">Test Your Firewall</h2>
+
+<blockquote>
+  <p>Important: USE A REMOTE IP ADDR/LOCATION</p>
+</blockquote>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="c"># Verify dependency</span>
+apt-get update <span class="o">&amp;&amp;</span> apt-get install -y nmap
+
+<span class="c"># Set scan target</span>
+<span class="nb">export </span><span class="nv">TARGET_HOST</span><span class="o">=</span>123.123.123.123
+
+<span class="c"># Example Scan Commands:</span>
+<span class="c"># Fast open port check</span>
+nmap -p 1-10240,27017 -T5 <span class="nv">$TARGET_HOST</span>
+<span class="c"># Thorough scan</span>
+nmap -p 1-10240,27017 --open -v -APN <span class="nv">$TARGET_HOST</span>
+<span class="c"># Svc Inspection</span>
+nmap -p 1-10240,27017 -O --osscan-guess <span class="nv">$TARGET_HOST</span>
+</code></pre>
+</div>
+
+<h4 id="done-now-you-should-see-only-the-ports-you-configured">DONE! Now you should see ONLY the ports you configured!</h4>
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/04/05/docker-server-setup-notes/" title="Docker server Setup"><img src="/images/abstract-7.jpg" alt="Docker server Setup"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-04-05T19:00:59-06:00"><a href="/2015/04/05/docker-server-setup-notes/">April 05, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~5 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/04/05/docker-server-setup-notes/" rel="bookmark" title="Docker server Setup" itemprop="url">Docker server Setup</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="docker-host-server-setup">Docker <strong>Host Server</strong> Setup</h1>
+
+<h2 id="basic-monitoring-tools">Basic Monitoring Tools</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="c"># Debian/BSD Requirements / Updates + monitoring tools: atop &amp; htop</span>
+apt-get update <span class="o">&amp;&amp;</span> apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64 sudo
+
+<span class="c"># OSX, Debian &amp; RHEL: Host OS Tuning</span>
+sysctl -w vm.max_map_count<span class="o">=</span>262144
+
+<span class="c"># Updates Profile init scripts before appending new scripts below</span>
+mkdir ~/backups
+cp ~/.bash<span class="k">*</span> ~/backups/
+
+<span class="c"># Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors</span>
+curl -o- https://raw.githubusercontent.com/justsml/system-setup-tools/master/modules/vim-update.sh | bash
+
+curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bashrc &gt;&gt; ~/.bashrc
+curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bash_aliases &gt;&gt; ~/.bash_aliases
+<span class="c"># Read into current shell (login steps already missed the aliases file)</span>
+<span class="nb">source</span> ~/.bashrc
+
+<span class="c"># Docker pre reqs</span>
+<span class="c"># sudo apt-get install -y linux-image-virtual linux-image-extra-virtual</span>
+<span class="c"># Install Docker, straight from the horses mouth</span>
+curl -sSL https://get.docker.com/ | sh
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Only for SELinux Enabled Systems</p>
+</blockquote>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="c"># SELinux fixes (optional)</span>
+<span class="c"># chcon -Rt svirt_sandbox_file_t /mongodb</span>
+<span class="c"># chcon -Rt svirt_sandbox_file_t /elastic</span>
+</code></pre>
+</div>
+
+<h1 id="simple-database-setupstartup">Simple Database Setup/Startup</h1>
+
+<h2 id="mongodb-v3-server">MongoDB v3 Server</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>mkdir /mongodb
+docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c <span class="s1">'mongod --logpath /data/mongodb.log --logappend --dbpath /data/data --storageEngine=wiredTiger'</span>
+</code></pre>
+</div>
+
+<h2 id="elastic-search">Elastic Search</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>mkdir /elastic
+docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c <span class="s1">'elasticsearch --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>You just lit up 2 database docker instances!!!
+If it were any easier, I’m pretty sure you couldn’t invoice for it.</p>
+</blockquote>
+
+<h1 id="package-up-your-nodejsrubypythonweb-app">Package up your NodeJS/Ruby/Python/Web App</h1>
+
+<ol>
+  <li>Add a blank file named <code class="highlighter-rouge">Dockerfile</code> in your project root.</li>
+  <li>
+<em>(Optional, Recommended)</em> Add a <code class="highlighter-rouge">.dockerignore</code> using .gitignore rules to exclude large non-essential paths. By default all project files are included.</li>
+</ol>
+
+<h2 id="create-a-dockerfile">Create a <code class="highlighter-rouge">Dockerfile</code>
+</h2>
+
+<pre><code class="language-dockerfile"># Example for NodeJS
+FROM node:0.12
+EXPOSE [3000]
+COPY . /app/
+WORKDIR /app
+RUN apt-get update \
+	&amp;&amp; apt-get dist-upgrade -y
+RUN ["npm", "install"]
+# Overridable Command
+CMD ["npm", "start"]
+</code></pre>
+
+<p>It’s easier to show how to start using the Dockerfile and demonstrate the results via console (see commands below).</p>
+
+<p>In terminal, <code class="highlighter-rouge">cd</code> to your project folder and run the following <code class="highlighter-rouge">build</code> command <em>everytime</em> you deploy changes - or want to change/upgrade OS or Env config)</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>docker build -t app-name-here .
+</code></pre>
+</div>
+
+<h1 id="docker-commands-to-learn">Docker Commands to Learn</h1>
+
+<h2 id="build-docker-image-every-deploychange">Build Docker Image Every Deploy/Change</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>docker build -t app-name-here .
+</code></pre>
+</div>
+
+<h2 id="createrun-web-app-w-links-to-db-servers">Create/Run Web App w/ Links to DB Servers</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
+</code></pre>
+</div>
+
+<h2 id="run-interactively-non-daemon-in-terminal">Run Interactively (non-daemon, in terminal)</h2>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here bash
+</code></pre>
+</div>
+
+<h2 id="delete-container-instance-or-image">Delete Container Instance or Image</h2>
+
+<blockquote>
+  <p>Important: Any data not stored on the mounted volume path will be lost!!</p>
+</blockquote>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code><span class="c"># Delete Image</span>
+docker rmi -f app-name-here
+docker rm -f webapp01
+<span class="c"># now re-run your `docker run...` from ^^^</span>
+<span class="c"># So for example, let's kill your db instances above, run: ( start with something like `docker stop {mongo,elastic}` )</span>
+docker rm -f mongo elastic
+</code></pre>
+</div>
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/02/26/amazing-resources/" title="Winning Design Resource"><img src="/images/abstract-3.jpg" alt="Winning Design Resource"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-26T04:42:21-07:00"><a href="/2015/02/26/amazing-resources/">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~1 minute
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/02/26/amazing-resources/" rel="bookmark" title="Winning Design Resource" itemprop="url">Winning Design Resource</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="solve-2-ui-challenges">Solve 2 UI challenges</h1>
+
+<blockquote>
+  <p>Your Prototype Apps Suck: So sprinkle some awesome in there</p>
+</blockquote>
+
+<h2 id="beautiful-sliding-menus">Beautiful Sliding Menus</h2>
+<p><a href="http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html">Side-Menu Demo</a></p>
+
+<blockquote>
+  <p>Note: Not my code, however I’ve evaluated it and I have to say I <strong>rarely find code at this level</strong>. Like, <em>never</em>, folks.
+The <a href="http://tympanus.net/codrops/author/crnacura/">author, Mary Lou</a> is just incredibly talented.</p>
+</blockquote>
+
+<h2 id="impressive-tooltips">Impressive Tooltips</h2>
+<p><a href="http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/">View demo</a></p>
+
+<p>Wow! … Am I Right?</p>
+
+<h3 id="misc">Misc</h3>
+
+<p>I know I said it, but let me emphasize: All the <strong>code is extraordinarily well done</strong>…  <em>I never say that, most devs rarely bother to be this meticulous</em></p>
+
+<blockquote>
+  <p>Btw, I say ‘prototype apps’ merely because the examples need a few accessability/usability tweaks (which are described in Mary’s articles).</p>
+</blockquote>
+
+<p>Here’s where I found this stuff: <a href="https://twitter.com/codrops">follow codrops at https://twitter.com/codrops</a></p>
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/02/26/stop-the-angularjs-hate/" title="AngularJS Tricks"><img src="/images/abstract-5.jpg" alt="AngularJS Tricks"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-26T04:22:33-07:00"><a href="/2015/02/26/stop-the-angularjs-hate/">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~5 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/02/26/stop-the-angularjs-hate/" rel="bookmark" title="AngularJS Tricks" itemprop="url">AngularJS Tricks</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="angularjs-can-be-fast">AngularJS CAN BE Fast!</h1>
+
+<ol>
+  <li>AngularJS Developers quickly discover that their med-large apps are buckling under the weight of scattered <code class="highlighter-rouge">$watch's</code> and the often bloated crutch known as <code class="highlighter-rouge">$scope</code>.</li>
+  <li>Keep your <code class="highlighter-rouge">$scope</code> free of excess UI state, try limit the size &amp; depth of your overall hierarchy.</li>
+</ol>
+
+<h2 id="2-way-data-binding-2-way-sword">2-way data binding: 2-way Sword</h2>
+
+<p>2-way binding alone makes coming from other frameworks like Backbone, well, <strong>frickin amazeballs</strong>.</p>
+
+<p>The problem is: many sites <strong>chronically overuse</strong> Angular’s design patterns.
+This leads to directive sprawl and a <code class="highlighter-rouge">$scope/rootScope</code> which easily has 1000’s of instances, and can cling to huge objects preventing any hope of effective garbage collection.</p>
+
+<p>You know where this is going: an exhausted browser! Forever doomed to work at a <strong>frantic pace</strong> executing endless and redundant UI/DOM re-compiles.</p>
+
+<h2 id="stop-over-angularjsification">Stop OVER-Angular.JSification</h2>
+
+<blockquote>
+  <p>“If your only tool is a hammer, then every problem looks like a nail.”</p>
+  <ul>
+    <li>old adage</li>
+  </ul>
+</blockquote>
+
+<p>Does your app have a problem with directives?</p>
+
+<pre><code class="language-jade">current-user-status-label
+  div(ng-if='loggedIn')
+    view-user-surplusage(ng-if='!editMode')
+      .head: contact-details(user='user')
+      .tool: contact-buttons(loggedIn='loggedIn')
+      a.edit-icon(ng-click='editMode = true')
+    edit-user-surplusage(ng-if='editMode')
+      .head: avatar-edit(user='user')
+      .body: edit-contact-details(user='user')
+      a.save-icon(ng-click='editMode = false')
+</code></pre>
+
+<p>Let’s design a flexible user-widget which helps:</p>
+
+<ol>
+  <li>Versatile componentization w/ DRY Angular code</li>
+  <li>Understandable directives, with minimal directive size/depth (mind your ng-repeats)</li>
+  <li>Simple Service Layer</li>
+  <li>Little actual coding to implement - just HTML/View Code</li>
+</ol>
+
+<pre><code class="language-jade">// jade
+user-widget
+  div(ng-if='loggedIn')
+    div.edit(ng-if='editMode')
+      h4.email-icon: input(type='email', ng-model='user.email')
+      h4.phone-icon: input(type='email', ng-model='user.phone')
+      a.save-icon(ng-click='editMode = false')
+    div.show(ng-if='!editMode')
+      h1.users-icon 
+      h4.email-icon 
+      h4.phone-icon 
+      a.edit-icon(ng-click='editMode = true')
+  div(ng-if='!loggedIn')
+    h5: i Welcome User
+    a.btn(href='/login') Login
+</code></pre>
+
+<h1 id="solutions">Solutions</h1>
+
+<h2 id="angular-tips">Angular Tips</h2>
+
+<ol>
+  <li>Use 1-way binding ( e.g. <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">::</span><span class="w"> </span><span class="err">title</span><span class="w"> </span><span class="p">}</span></code> )</li>
+  <li>Limit recursive nesting of directives</li>
+  <li>And if you must nest directives, <em>NEVER</em> do so inside an <code class="highlighter-rouge">ng-repeat</code> - Performance will start to inversely mirror something like <code class="highlighter-rouge">O(n^2)^3</code> ;)
+I. Use native JS/DOM code in a factory pattern to create basic DOM/UI fragments, examples: Modal msg box, status bar. Call UI factories from either directives or controllers.</li>
+  <li>
+<em>Bonus:</em> Understand cost and triggers of <a href="https://developers.google.com/web/fundamentals/performance/rendering/index?hl=en">browser render lifecycle</a>: animation, composite rendering, reflows</li>
+</ol>
+
+<h2 id="use-browserify-to-organize-project">Use Browserify to Organize Project</h2>
+
+<p>Not specifically for Angular per-se, but essential for simple dependency resolution.</p>
+
+<p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Browserify</a> makes JS projects managable with virtually no added code overhead (ok, a few 100 chars).</p>
+
+<p><a href="https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports">Just read this section</a> of the <a href="https://github.com/substack/browserify-handbook/">Browserify Handbook</a>.</p>
+
+<h1 id="alternatives">Alternatives</h1>
+
+<h2 id="reactjs-from-facebook">
+<a href="https://facebook.github.io/react/">ReactJS</a> from Facebook</h2>
+
+<p>For views which need minimal description:
+If you have tons of small reusable UI components - ReactJS might be a better choice:</p>
+
+<ul>
+  <li>If your project…?:
+    <ul>
+      <li>Has a different philosophy to UI/DOM implementation than Angular</li>
+      <li>Already has some kind of ‘framework’ - You can <strong>use ReactJS alongside</strong> AngularJS, Ember, Backbone.</li>
+      <li>Handles frequent data model changes in it’s own code, you’ll benefit by avoiding the ADHD digest/loop pattern of Angular</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="polymer-project-from-google">
+<a href="http://www.Polymer-Project.org/">Polymer Project</a> from Google</h2>
+
+<h2 id="pure-er-js-approach">Pure-er JS Approach</h2>
+
+<ul>
+  <li>By the way, here’s where I try create framework agnostic code (+1 testability, +1 reuse)
+    <ol>
+      <li>Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)</li>
+      <li>Use mustache templating to create HTML strings (or DOM directly)</li>
+      <li>Cache rendered content in localStorage if you can</li>
+      <li>(Optional) Now add an event listener to re-render the content. I have standardized on the event name <code class="highlighter-rouge">refresh.&lt;class-name&gt;</code>
+</li>
+    </ol>
+  </li>
+</ul>
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/02/26/docker-makes-everything-better/" title="Docker === Love"><img src="/images/abstract-6.jpg" alt="Docker === Love"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-26T00:00:00-07:00"><a href="/2015/02/26/docker-makes-everything-better/">February 26, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~2 minutes
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/02/26/docker-makes-everything-better/" rel="bookmark" title="Docker === Love" itemprop="url">Docker === Love</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="docker-can-do-everything">Docker Can Do Everything!*</h1>
+
+<p>Improve your process for:</p>
+
+<ol>
+  <li>Testing Dev Tools &amp; Servers WITH VIRTUALLY ZERO risk of messing up dependencies on your PC</li>
+  <li>Testing your software</li>
+  <li>Makes you write more idempotent, modular code… (I’ll write how to actually realize this in a follow up)</li>
+</ol>
+
+<p>There may seem like a huge volume of new stuff to learn, <strong>don’t let that stop you</strong> from getting started.</p>
+
+<h4 id="notes">Notes</h4>
+
+<ul>
+  <li>If you see a <code class="highlighter-rouge">docker run</code> command with either options <code class="highlighter-rouge">-d</code> or <code class="highlighter-rouge">-it</code>:
+    <ul>
+      <li>
+<code class="highlighter-rouge">-it</code> or <code class="highlighter-rouge">-i -t</code> will run the configured command interactively</li>
+      <li>
+<code class="highlighter-rouge">-d</code> will start the docker container as a ‘daemon’ aka background service.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr>
+
+<h1 id="examples">EXAMPLES</h1>
+
+<h2 id="nginx">nginx</h2>
+
+<div class="language-bash highlighter-rouge">
+<pre class="highlight"><code>
+	<span class="c"># Note: using host-based, shared folders</span>
+	<span class="c">#(shared folders are not possible with the VOLUME Dockerfile cmd)</span>
+	sudo docker run --name web01 -d -p 8181:80 <span class="se">\</span>
+		-v <span class="k">$(</span>NGINX_DIR<span class="k">)</span>/etc:/etc/nginx <span class="se">\</span>
+		-v <span class="k">$(</span>NGINX_DIR<span class="k">)</span>/log:/var/log/nginx <span class="se">\</span>
+		-v <span class="k">$(</span>NGINX_DIR<span class="k">)</span>/www:/var/www/html <span class="se">\</span>
+		nginx:latest
+
+	<span class="c"># Local data, isolated within instance</span>
+	sudo docker run --name web01 -d -p 8181:80 nginx:latest
+
+	<span class="c"># nodejs</span>
+	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Credits: <a href="https://dockerfile.github.io/#/nginx">https://dockerfile.github.io/#/nginx</a>
+Docker will make your life easier throughout the <em>entire</em> SDLC.</p>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li>Pretty close</li>
+  </ul>
+</blockquote>
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+
+<div class="pagination">
+  
+    
+      <a href="/page2" class="btn">Previous</a>
+    
+  
+  <ul class="inline-list">
+    <li>
+      
+        <a href="">1</a>
+      
+    </li>
+    
+      <li>
+        
+          <a href="/page2">2</a>
+        
+      </li>
+    
+      <li>
+        
+          <span class="current-page">3</span>
+        
+      </li>
+    
+      <li>
+        
+          <a href="/page4">4</a>
+        
+      </li>
+    
+  </ul>
+  
+    <a href="/page4" class="btn">Next</a>
+  
+</div>
+<!-- /.pagination -->
+
+<div class="tag-page">
+        <h3><em>Tag Cloud</em></h3>
+                                                <div class="tag-cloud">
+                                                            <a href="/tag/ai/" class="set-1">ai</a> <a href="/tag/amazon-web-services/" class="set-1">amazon-web-services</a> <a href="/tag/angularjs/" class="set-1">angularjs</a> <a href="/tag/architecture/" class="set-1">architecture</a> <a href="/tag/artificial-intelligence/" class="set-1">artificial intelligence</a> <a href="/tag/azure/" class="set-1">azure</a> <a href="/tag/benchmarks/" class="set-1">benchmarks</a> <a href="/tag/boot2docker/" class="set-1">boot2docker</a> <a href="/tag/cloud/" class="set-1">cloud</a> <a href="/tag/design/" class="set-1">design</a> <a href="/tag/development/" class="set-1">development</a> <a href="/tag/devops/" class="set-3">devops</a> <a href="/tag/digital-ocean/" class="set-1">digital-ocean</a> <a href="/tag/docker/" class="set-3">docker</a> <a href="/tag/fails/" class="set-1">fails</a> <a href="/tag/go/" class="set-1">go</a> <a href="/tag/google-cloud-engine/" class="set-1">google-cloud-engine</a> <a href="/tag/haskell/" class="set-1">haskell</a> <a href="/tag/javascript/" class="set-2">javascript</a> <a href="/tag/languages/" class="set-1">languages</a> <a href="/tag/lua/" class="set-1">lua</a> <a href="/tag/models/" class="set-2">models</a> <a href="/tag/online.net/" class="set-1">online.net</a> <a href="/tag/opinion/" class="set-1">opinion</a> <a href="/tag/organization/" class="set-2">organization</a> <a href="/tag/ovh.net/" class="set-1">ovh.net</a> <a href="/tag/packet.net/" class="set-1">packet.net</a> <a href="/tag/patterns/" class="set-5">patterns</a> <a href="/tag/performance/" class="set-2">performance</a> <a href="/tag/programming/" class="set-5">programming</a> <a href="/tag/python/" class="set-1">python</a> <a href="/tag/resources/" class="set-1">resources</a> <a href="/tag/rust/" class="set-1">rust</a> <a href="/tag/scala/" class="set-1">scala</a> <a href="/tag/scaling/" class="set-1">scaling</a> <a href="/tag/security/" class="set-1">security</a> <a href="/tag/self-driving-cars/" class="set-1">self-driving cars</a> <a href="/tag/server/" class="set-1">server</a> <a href="/tag/servers/" class="set-1">servers</a> <a href="/tag/setup/" class="set-1">setup</a> <a href="/tag/shell-script/" class="set-1">shell script</a> <a href="/tag/smalltalk/" class="set-1">smalltalk</a> <a href="/tag/source-code/" class="set-2">source code</a>
+                                                              </div>
+                                                      </div>
+
+
+
+
+</div>
+<!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span class="faded">© 2017 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
+  </footer>
+</div>
+<!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59708923-1', 'auto');  
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</body>
+</html>

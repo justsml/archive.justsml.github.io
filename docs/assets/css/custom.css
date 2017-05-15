@@ -1,0 +1,70 @@
+#main a {
+  text-decoration: underline;
+}
+
+.clearfix { clear: both; }
+
+.tile-list {
+  text-align: center;
+}
+.tile-list .tile {
+  text-align: center;
+  width: 30%;
+}
+
+ul.tag-list {
+  list-style: decimal;
+  margin-bottom: 80px;
+}
+ul.tag-list h3 {
+  margin: 16px 0px 0px 0px;
+}
+ul.tag-list em {
+  margin-left: 32px;
+}
+.article-list {
+  color: #FFF;
+
+}
+.article-list em {
+  font-size: 12px;
+  color: #DFDFDF;
+}
+
+.anigif {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.anigif img {
+  max-width: 400px;
+  margin: 16px;
+}
+.anigif.top {
+  margin-top:     50px;
+}
+.anigif.end {
+  margin-bottom:  50px;
+}
+
+.tag-cloud .set-1,
+.not-popular        {font-size:  14px; font-weight: 400; color: #999999; }
+.tag-cloud .set-2,
+.popular            {font-size: 19px; font-weight: 700; }
+.tag-cloud .set-3,
+.very-popular       {font-size: 25px; font-weight: 700; }
+.tag-cloud .set-4,
+.mega-popular       {font-size: 29px; font-weight: 800; }
+.tag-cloud .set-5,
+.ultra-popular      {font-size: 34px; font-weight: 900; }
+
+
+section.tag-cloud {
+  margin-right: -60px;
+  margin-left:  -60px;
+}
+section.tag-cloud li {
+  white-space: nowrap;
+  display: inline-block;
+  width: 32%;
+}

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]--><!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]--><!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Latest Posts – www.DanLevy.net</title>
+<meta name="description" content="Dan Levy's Website &amp; Blog Musings">
+<meta name="keywords" content="programming, languages, javascript, angularjs, devops, docker, security">
+
+
+	<!-- Twitter Cards -->
+	
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:image" content="/images/abstract-1.jpg">
+		
+	<meta name="twitter:title" content="Latest Posts">
+	<meta name="twitter:description" content="Dan Levy's Website &amp; Blog Musings">
+	<meta name="twitter:creator" content="@justsml">
+
+	<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Latest Posts">
+<meta property="og:description" content="Dan Levy's Website &amp; Blog Musings">
+<meta property="og:url" content="/page4/">
+<meta property="og:site_name" content="www.DanLevy.net">
+
+<meta name="google-site-verification" content="aQmDDAD2Nia138WekOPnb9tQ_J9AcRUDLbij5PxCmes">
+<meta name="msvalidate.01" content="1A9E3CE623BA981E829FE1023285585D">
+
+
+<link rel="canonical" href="/page4/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="www.DanLevy.net Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- Webfonts -->
+<link async defer href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<script async defer src="/assets/js/hacks.js"></script>
+
+<!-- <link async defer rel="stylesheet" href="/assets/css/prism.css">
+<script async defer src="/assets/js/vendor/prism.js"></script>
+ -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css">
+<script defer async="async" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+<!--
+
+
+
+<style type="text/css">body { background-repeat: repeat-x; background-image:url(/images/abstract-3.jpg);}</style>
+
+-->
+
+ <!-- Syntax Highlighting -->
+<!-- <script async defer type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css' />
+ --><!-- https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js
+ -->
+<style type="text/css">
+#toc, .toc, .mw-warning {
+    background-color: #F9F9F9;
+    border: 1px solid #AAAAAA;
+    font-size: 95%;
+    padding: 5px;
+}
+#toc h2, .toc h2 {
+    border: medium none;
+    display: inline;
+    font-size: 100%;
+    font-weight: bold;
+    padding: 0;
+}
+#toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
+    text-align: center;
+}
+#toc ul, .toc ul {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    text-align: left;
+}
+#toc ul ul, .toc ul ul {
+    margin: 0 0 0 2em;
+}
+#toc .toctoggle, .toc .toctoggle {
+    font-size: 94%;
+}
+
+#toc ul li {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#toc-container {
+	margin-bottom: 10px;
+}
+
+</style>
+
+</head>
+
+<body id="post-index" class="feature">
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+<nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="/">Home</a></li>
+		<li><a href="/tags">Tags</a></li>
+		<li>
+			<a href="#">About Dan</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="/images/avatar.jpg" alt="Dan Levy photo" class="author-photo">
+					<div class="clearfix"></div>
+					<h3 style="float: left; display: inline; margin-left: 12px;">Dan Levy</h3>
+					<p style="float: right; display: inline;">Devout Programmer</p>
+					<div class="clearfix"></div>
+				</li>
+				<li><a href="/cv/resume-dan-levy-2015-07.pdf" target="_blank"><span class="btn btn-inverse">Resume</span></a></li>
+				<li>
+					<a href="mailto:Dan@DanLevy.net"><i class="fa fa-fw fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://github.com/justsml"><i class="fa fa-fw fa-github"></i> GitHub</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://twitter.com/justsml"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://facebook.com/justsml"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://google.com/+justsml"><i class="fa fa-fw fa-google-plus"></i> Google+</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://linkedin.com/in/realdanlevy"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
+				</li>
+				
+				
+				
+				
+			</ul>
+<!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">Articles</a>
+			<ul class="dl-submenu article-list">
+				
+					
+	        <li class="entry-title">
+	        	<a href="/2017/05/01/linux-system-benchmark-scripts/" title="Linux Server Benchmarking Scripts">
+	        		<div>Linux Server Benchmarking Scripts</div>
+		        	<em>2017-05-01</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" title="Cloud Tuning: Gain a 70% Boost">
+	        		<div>Cloud Tuning: Gain a 70% Boost</div>
+		        	<em>2017-04-15</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/12/22/disable-transparent-hugepages/" title="MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu">
+	        		<div>MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu</div>
+		        	<em>2015-12-22</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" title="When AI Fails &amp; the Crashing Robotic Cars">
+	        		<div>When AI Fails &amp; the Crashing Robotic Cars</div>
+		        	<em>2015-12-18</em>
+	        	</a>
+	        </li>
+			  
+					
+	        <li class="entry-title">
+	        	<a href="/2015/09/22/higher-order-programming/" title="Higher Order Programming">
+	        		<div>Higher Order Programming</div>
+		        	<em>2015-09-22</em>
+	        	</a>
+	        </li>
+			  
+				<li style="text-align: center;"><a href="/posts/"><strong>[ All Articles ]</strong></a></li>
+			</ul>
+		</li>
+		
+	    
+	    <li><a href="/cv/Resume-DanLevy.pdf">Download Resume</a></li>
+	  
+	    
+	    <li><a href="http://github.com/justsml" target="_blank">GitHub</a></li>
+	  
+	</ul>
+<!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
+
+
+<div class="entry-header">
+  <div class="image-credit">Image source: <a href="">dargadgetz</a>
+</div>
+<!-- /.image-credit -->
+  
+    <div class="entry-image">
+      <img src="/images/abstract-1.jpg" alt="Latest Posts">
+    </div>
+<!-- /.entry-image -->
+  
+  <div class="header-title">
+    <div class="header-title-wrap">
+      <h1>www.DanLevy.net</h1>
+      <h2>Latest Posts</h2>
+    </div>
+<!-- /.header-title-wrap -->
+  </div>
+<!-- /.header-title -->
+</div>
+<!-- /.entry-header -->
+
+<div id="main" role="main">
+  
+<article class="hentry">
+  <header>
+    
+      <div class="entry-image-index">
+        <a href="/2015/02/23/security-notes-regex/" title="Security Notes: RegEx"><img src="/images/abstract-2.jpg" alt="Security Notes: RegEx"></a>
+      </div>
+<!-- /.entry-image -->
+    
+    <div class="entry-meta">
+      <span class="entry-date date published updated"><time datetime="2015-02-23T22:42:21-07:00"><a href="/2015/02/23/security-notes-regex/">February 23, 2015</a></time></span><span class="author vcard"><span class="fn"><a href="/about/" title="About Dan Levy">Dan Levy</a></span></span>
+      
+      <span class="entry-reading-time">
+        <i class="fa fa-clock-o"></i>
+        
+        Reading time ~1 minute
+      </span><!-- /.entry-reading-time -->
+      
+    </div>
+<!-- /.entry-meta -->
+    
+      <h1 class="entry-title"><a href="/2015/02/23/security-notes-regex/" rel="bookmark" title="Security Notes: RegEx" itemprop="url">Security Notes: RegEx</a></h1>
+    
+  </header>
+  <div class="entry-content">
+    <h1 id="denial-of-service-regex-vulnerability">Denial-of-Service Regex Vulnerability</h1>
+
+<p>One of the most common, and yet hard-to-spot vulnerabilities I encounter relate to regular expressions.
+Either poorly written or poorly implemented.</p>
+
+<h2 id="warning-signs">Warning Signs</h2>
+
+<ol>
+  <li>You have multiple capture groups</li>
+  <li>Global matching</li>
+  <li>Expression is used with un-checked user input</li>
+</ol>
+
+<h2 id="mitigation--resolution">Mitigation / Resolution</h2>
+
+<ol>
+  <li>RegEx is hard
+    <ol>
+      <li>For example, here is how the really smart folks at <a href="https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository">OWASP recommend handling IP validation</a>: <code class="highlighter-rouge">^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$</code>
+</li>
+      <li>That’s longer than a tweet, for a 4-byte IP Address!!!</li>
+    </ol>
+  </li>
+  <li>Make sure user input isn’t unduly long, when I know input data is reliably less than 40 chars, I’ll make sure I prevent anything over 64 - otherwise, an attacker could overwhelm my system with a flood of 4Kb requests.</li>
+  <li>This affects almost every language and platform .NET/Node/Python/PERL/Java</li>
+</ol>
+
+<h2 id="reference">Reference</h2>
+
+<p><a href="https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;utm_medium=email">Regular Expression DoS and Node.js</a></p>
+
+
+  </div>
+<!-- /.entry-content -->
+</article><!-- /.hentry -->
+
+
+<div class="pagination">
+  
+    
+      <a href="/page3" class="btn">Previous</a>
+    
+  
+  <ul class="inline-list">
+    <li>
+      
+        <a href="">1</a>
+      
+    </li>
+    
+      <li>
+        
+          <a href="/page2">2</a>
+        
+      </li>
+    
+      <li>
+        
+          <a href="/page3">3</a>
+        
+      </li>
+    
+      <li>
+        
+          <span class="current-page">4</span>
+        
+      </li>
+    
+  </ul>
+  
+    Next
+  
+</div>
+<!-- /.pagination -->
+
+<div class="tag-page">
+        <h3><em>Tag Cloud</em></h3>
+                                                <div class="tag-cloud">
+                                                            <a href="/tag/ai/" class="set-1">ai</a> <a href="/tag/amazon-web-services/" class="set-1">amazon-web-services</a> <a href="/tag/angularjs/" class="set-1">angularjs</a> <a href="/tag/architecture/" class="set-1">architecture</a> <a href="/tag/artificial-intelligence/" class="set-1">artificial intelligence</a> <a href="/tag/azure/" class="set-1">azure</a> <a href="/tag/benchmarks/" class="set-1">benchmarks</a> <a href="/tag/boot2docker/" class="set-1">boot2docker</a> <a href="/tag/cloud/" class="set-1">cloud</a> <a href="/tag/design/" class="set-1">design</a> <a href="/tag/development/" class="set-1">development</a> <a href="/tag/devops/" class="set-3">devops</a> <a href="/tag/digital-ocean/" class="set-1">digital-ocean</a> <a href="/tag/docker/" class="set-3">docker</a> <a href="/tag/fails/" class="set-1">fails</a> <a href="/tag/go/" class="set-1">go</a> <a href="/tag/google-cloud-engine/" class="set-1">google-cloud-engine</a> <a href="/tag/haskell/" class="set-1">haskell</a> <a href="/tag/javascript/" class="set-2">javascript</a> <a href="/tag/languages/" class="set-1">languages</a> <a href="/tag/lua/" class="set-1">lua</a> <a href="/tag/models/" class="set-2">models</a> <a href="/tag/online.net/" class="set-1">online.net</a> <a href="/tag/opinion/" class="set-1">opinion</a> <a href="/tag/organization/" class="set-2">organization</a> <a href="/tag/ovh.net/" class="set-1">ovh.net</a> <a href="/tag/packet.net/" class="set-1">packet.net</a> <a href="/tag/patterns/" class="set-5">patterns</a> <a href="/tag/performance/" class="set-2">performance</a> <a href="/tag/programming/" class="set-5">programming</a> <a href="/tag/python/" class="set-1">python</a> <a href="/tag/resources/" class="set-1">resources</a> <a href="/tag/rust/" class="set-1">rust</a> <a href="/tag/scala/" class="set-1">scala</a> <a href="/tag/scaling/" class="set-1">scaling</a> <a href="/tag/security/" class="set-1">security</a> <a href="/tag/self-driving-cars/" class="set-1">self-driving cars</a> <a href="/tag/server/" class="set-1">server</a> <a href="/tag/servers/" class="set-1">servers</a> <a href="/tag/setup/" class="set-1">setup</a> <a href="/tag/shell-script/" class="set-1">shell script</a> <a href="/tag/smalltalk/" class="set-1">smalltalk</a> <a href="/tag/source-code/" class="set-2">source code</a>
+                                                              </div>
+                                                      </div>
+
+
+
+
+</div>
+<!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span class="faded">© 2017 Dan Levy. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using the <a href="http://mademistakes.com/hpstr/" rel="notfollow">HPSTR Theme</a>.</span>
+
+
+
+<script>
+  try {
+    setTimeout(function() {
+      hljs.initHighlightingOnLoad();
+    }, hljs ? 10 : 5000);
+  } catch(ex) {
+    // err, highlightjs failed to async load
+  }
+
+</script>
+
+
+
+  </footer>
+</div>
+<!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59708923-1', 'auto');  
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</body>
+</html>

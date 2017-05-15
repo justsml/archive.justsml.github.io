@@ -1,0 +1,1742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">www.DanLevy.net</title>
+<generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="/feed.xml" />
+<link rel="alternate" type="text/html" href="" />
+<updated>2017-05-15T08:34:06-06:00</updated>
+<id>/</id>
+<author>
+  <name>Dan Levy</name>
+  <uri>/</uri>
+  <email>Dan@DanLevy.net</email>
+</author>
+
+
+<entry>
+  <title type="html"><![CDATA[Linux Server Benchmarking Scripts]]></title>
+ <link rel="alternate" type="text/html" href="/2017/05/01/linux-system-benchmark-scripts/" />
+  <id>/2017/05/01/linux-system-benchmark-scripts</id>
+  <published>2017-05-01T00:00:00-06:00</published>
+  <updated>2017-05-01T00:00:00-06:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;get-hddcpu-baseline-stats&quot;&gt;Get HDD+CPU Baseline Stats&lt;/h1&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# COPY + PASTE THE FOLLOWING TO CREATE FOLDER &amp;amp; MAIN SCRIPT(S)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Create folder for results &amp;amp; scripts&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BENCH_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/benchmarks
+mkdir -p &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/results
+
+touch &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/bench-library.sh
+touch &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/run-bench.sh
+chmod +x &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sh
+
+cat &lt;span class=&quot;sh&quot;&gt;&amp;lt;&amp;lt; 'EOT' &amp;gt;&amp;gt; $BENCH_DIR/bench-library.sh
+#!/bin/bash
+set -e
+
+# Install some deps
+if [ &quot;$(which sysbench)&quot; == &quot;&quot; -o &quot;$(which inxi)&quot; == &quot;&quot; -o &quot;$(which tcpdump)&quot; == &quot;&quot; ]; then
+  apt-get update &amp;amp;&amp;amp; apt-get install -y sysbench inxi htop iotop tcpdump hddtemp
+fi
+# Variables
+export DATE_TAG=`date +%F` #YYYY-MM-DD
+export CPU_CORES=&quot;$([ -e /proc/cpuinfo ] &amp;amp;&amp;amp; grep -sc ^processor /proc/cpuinfo || sysctl -n hw.ncpu)&quot;
+export BENCH_DIR=$HOME/benchmarks/
+
+mkdir -p $BENCH_DIR
+
+function benchCpu() {
+  thread_limit=${1:$CPU_CORES}
+  prime_limit=${2:-20000}
+
+  if [ $CPU_CORES -lt `expr 1 + $thread_limit` ]; then
+    printf &quot;\n\n${yellow}ALERT: Skipping tests limited by \&quot;${thread_limit} thread test\&quot;\n${cyan}Not enough CPU Cores ($CPU_CORES)  ${reset}\n\n&quot;
+  else
+    printf &quot;\n\n${yellow}ALERT: Skipping tests limited by \&quot;${thread_limit} thread test\&quot;\n${reset}&quot;
+
+    sysbench --test=cpu \
+      --cpu-max-prime=${prime_limit} \
+      --num-threads=${CPU_CORES} \
+      run | tee -a $BENCH_DIR/results/cpu-test.log
+  fi
+}
+
+# benchSingleDisk seqrd 120G 8K 300 
+function benchSingleDisk () {
+  sysbench --test=fileio --init-rng=on  --file-test-mode=${1:-seqrd} --file-block-size=${3:-64K} \
+    --num-threads=${CPU_CORES} --max-time=${4:-180} --file-total-size=${2:-60G} \
+    --max-requests=0 run | tee -a $BENCH_DIR/results/sysbench-fileio.log
+}
+
+
+# benchDisk - tests random read &amp;amp; write, and sequential r, and sequential write, before final cleanup.
+function benchDisk() {
+  #   Generates test files - up to 80% of your free space - in local dir, then runs the 3 tests (up to 20 minutes each)
+  # tests=${1:rndrw,seqrd,seqwr}
+  freeSpace=`df -kh . | tail -1 | awk '{print $4}'`
+  freeSpace=&quot;${freeSpace//G/}&quot;
+  # Get 80% of available space (from current dir)
+  testSize=$(awk &quot;BEGIN {print $freeSpace * 0.8; exit}&quot;)
+  testSize=${testSize}G
+
+  printf &quot;####&amp;gt;&amp;gt;&amp;gt; \nWriting $testSize test data to ${PWD}...\n&quot;
+
+  # echo 'Starting' | tee -a $BENCH_DIR/results/sysbench-debug.log
+
+  # do Rand R+W, Sequential Read AND Seq. Write
+
+benchSingleDisk seqrd 120G 8K 300
+benchSingleDisk seqwr 120G 8K 300
+benchSingleDisk seqrw 120G 8K 300
+benchSingleDisk rndrd 120G 8K 300
+benchSingleDisk rndwr 120G 8K 300
+benchSingleDisk rndrw 120G 8K 300
+
+benchSingleDisk seqrd 120G 64K 300
+benchSingleDisk seqwr 120G 64K 300
+benchSingleDisk seqrw 120G 64K 300
+benchSingleDisk rndrd 120G 64K 300
+benchSingleDisk rndwr 120G 64K 300
+benchSingleDisk rndrw 120G 64K 300
+
+  printf &quot;\n\n####&amp;gt;&amp;gt;&amp;gt; \nCOMPLETED TESTS! Great Success!!! \n\n\n&quot;
+}
+
+EOT
+
+
+
+
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;###### CREATE RUN SCRIPT&lt;/span&gt;
+
+cat &lt;span class=&quot;sh&quot;&gt;&amp;lt;&amp;lt; 'EOT' &amp;gt;&amp;gt; tee $BENCH_DIR/run-bench.sh
+#!/bin/bash
+set -e
+
+source ./bench-library.sh
+
+# Benchmark HDD Speed (in Current Directory)
+###########
+benchDisk
+
+# Benchmark CPU - trying different thread counts (and work sizes)
+# It'll automatically skip test if we don't have enough cores (to have an impact)
+# NB: results comparable between different hardware - up to their same CPU CORE #.
+###########
+benchCpu 1
+benchCpu 4
+benchCpu 8  50000
+benchCpu 12 100000
+benchCpu 16 100000
+benchCpu 32 250000
+benchCpu 48 500000
+benchCpu 64 2000000
+
+EOT
+
+&lt;/span&gt;chmod +x &lt;span class=&quot;nv&quot;&gt;$BENCH_DIR&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sh
+
+
+
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;usage-examples&quot;&gt;Usage Examples:&lt;/h2&gt;
+
+&lt;p&gt;Make sure to &lt;code class=&quot;highlighter-rouge&quot;&gt;source ~/benchmarks/bench-library.sh&lt;/code&gt; before running the following commands manually.&lt;/p&gt;
+
+&lt;h1 id=&quot;io---live-monitor&quot;&gt;I/O - Live Monitor&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;System: iotop&lt;/li&gt;
+  &lt;li&gt;Per command: dtrace/ltrace/strace&lt;/li&gt;
+&lt;/ol&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2017/05/01/linux-system-benchmark-scripts/&quot;&gt;Linux Server Benchmarking Scripts&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on May 01, 2017.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Cloud Tuning: Gain a 70% Boost]]></title>
+ <link rel="alternate" type="text/html" href="/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/" />
+  <id>/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud</id>
+  <updated>2017-04-27T00:00:00-00:00</updated>
+  <published>2017-04-15T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;boost-cloud-performance-up-to-70&quot;&gt;Boost Cloud Performance up to 70%&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;General notes &amp;amp; sections for select hosting providers below.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#aws_tips&quot;&gt;AWS (Amazon Web Services), EC2 (Elastic Compute Cloud), EBS (Elastic Block Storage),  etc.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#do_tips&quot;&gt;Digital Ocean&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#packet_tips&quot;&gt;Packet.net&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a id=&quot;aws_tips&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;amazon-web-services--ec2--ebs--s3&quot;&gt;Amazon Web Services / EC2 / EBS / S3&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;TLDR; AWS features restrictive hardware &amp;amp; pricing tiers.
+The &lt;strong&gt;i3&lt;/strong&gt; hardware series is the only type I would consider from a Price/performance (and absolute performance) perspective.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;iframe style=&quot;margin-left: -50%;&quot; width=&quot;1257.9607023411372&quot; height=&quot;777.8727573309395&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1qQ62m1RFj73YScdS77Q9R2GpRqJOk7JHuTEOFDR4jJE/pubchart?oid=13370750&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cloud.githubusercontent.com/assets/397632/25599756/081d0572-2e9c-11e7-855b-12b695f1494b.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note the &lt;strong&gt;i3.*xlarge&lt;/strong&gt; is the only hardware to feature competitively priced NVMe storage (ultra-fast +1GB/s speeds). The major limiting factor I found was the real network speed. Servers with advertised speeds “up to 10/Gb/s” struggled to get close to 1/Gb/s (60-80MB/s).&lt;/p&gt;
+
+&lt;p&gt;Network tests used up to 9 additional instances in the same availability zone. Any erroneous data points I replaced with a 0. Additional tests are needed as only 1-2 samples were collected.&lt;/p&gt;
+
+&lt;h2 id=&quot;head-to-head&quot;&gt;Head to Head&lt;/h2&gt;
+
+&lt;iframe style=&quot;margin-left: -50%;&quot; width=&quot;1004.51&quot; height=&quot;620.9271970262294&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1qQ62m1RFj73YScdS77Q9R2GpRqJOk7JHuTEOFDR4jJE/pubchart?oid=116848524&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+
+&lt;h3 id=&quot;credits&quot;&gt;Credits&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ec2instances.info/?region=us-west-2&amp;amp;cost_duration=monthly&amp;amp;selected=t2.nano,t2.micro,t1.micro,t2.small,m1.small,t2.medium,m3.medium,m1.medium,t2.large,c4.large,c3.large,m4.large,c1.medium,m3.large,r4.large,m4.xlarge,i3.xlarge,i3.2xlarge,i2.xlarge&quot;&gt;ec2instances.info&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2017/04/15/boost-your-cloud-70-percent-aws-gce-azure-cloud/&quot;&gt;Cloud Tuning: Gain a 70% Boost&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on April 15, 2017.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu]]></title>
+ <link rel="alternate" type="text/html" href="/2015/12/22/disable-transparent-hugepages/" />
+  <id>/2015/12/22/disable-transparent-hugepages</id>
+  <updated>2015-11-23T00:00:00-00:00</updated>
+  <published>2015-12-22T00:00:00-07:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;mongodb-tuning-disable-transparent-hugepages-fix-for-debianubuntu&quot;&gt;MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu&lt;/h1&gt;
+
+&lt;h2 id=&quot;seeing-warning-syskernelmmtransparent_hugepagedefrag-is-always-&quot;&gt;Seeing: “WARNING: /sys/kernel/mm/transparent_hugepage/defrag is ‘always’.” ?&lt;/h2&gt;
+
+&lt;p&gt;Run the following commands to quickly do what &lt;a href=&quot;https://docs.mongodb.org/v3.0/tutorial/transparent-huge-pages/&quot;&gt;MongoDB describes at greater length&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c&quot;&gt;# Currently just debian&lt;/span&gt;
+  sudo curl -sSL -o /etc/init.d/disable-transparent-hugepages https://gist.githubusercontent.com/justsml/5e8f10892070072c4ffb/raw/disable-transparent-hugepages
+  sudo chmod 755 /etc/init.d/disable-transparent-hugepages
+  sudo update-rc.d disable-transparent-hugepages defaults
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;references&quot;&gt;References:&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.mongodb.org/v3.0/tutorial/transparent-huge-pages/&quot;&gt;https://docs.mongodb.org/v3.0/tutorial/transparent-huge-pages/&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/2015/12/22/disable-transparent-hugepages/&quot;&gt;MongoDB Tuning: disable-transparent-hugepages fix for Debian/Ubuntu&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on December 22, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[When AI Fails & the Crashing Robotic Cars]]></title>
+ <link rel="alternate" type="text/html" href="/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/" />
+  <id>/2015/12/18/when-ai-fails-and-the-crashing-robot-cars</id>
+  <updated>2015-12-18T00:00:00-00:00</updated>
+  <published>2015-12-18T00:00:00-07:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;robotic-cars-more-accidents-now-with-less-injury--damages&quot;&gt;Robotic Cars: More accidents (now With Less Injury &amp;amp; Damages!)&lt;/h1&gt;
+
+&lt;p&gt;Google’s self-driving cars are apparently in 2x as many accidents as human drivers - If you think this is just buggy new tech, way too complex from the get-go - well, you’re partially right. &lt;a href=&quot;http://www.bloomberg.com/news/articles/2015-12-18/humans-are-slamming-into-driverless-cars-and-exposing-a-key-flaw&quot;&gt;An important detail I should share: as of Dec 2015 virtually all accidents were not the robots fault.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The accidents are caused by humans drivers unfamiliar with robotic drivers. Furthermore, Google has programmed the cars to obey the law in absolute terms - never speeding, difficulty merging in dense or fast freeway traffic.
+This opens up a bunch of legal, ethical questions -&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Is it ever ok:
+    &lt;ul&gt;
+      &lt;li&gt;to avoid a rear-end collision if it means driving past the walkway at a red light &lt;strong&gt;assuming path is clear&lt;/strong&gt; ?&lt;/li&gt;
+      &lt;li&gt;to drive on the sidewalk to avoid a bicycle cutting across lanes? - is it ok for AI to accept this breach in ‘rules of the road’&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I understand Google’s approach, especially when trying to minimize liability: always follow the rules - logically it follows that you cannot really be at fault if you &lt;strong&gt;always&lt;/strong&gt; observe the law.&lt;/p&gt;
+
+&lt;p&gt;There would be &lt;strong&gt;massive liability&lt;/strong&gt; if an accident happened because of intentionally designed ‘flexibility’ around the laws.&lt;/p&gt;
+
+&lt;h2 id=&quot;dont-let-the-future-escape-us&quot;&gt;Don’t let the future escape us&lt;/h2&gt;
+
+&lt;p&gt;The future will still arrive, even if the robots drive like octagenarians.&lt;/p&gt;
+
+&lt;p&gt;Perhaps a simple fix for now would be to use bright red flashing LEDs  (think school buses) to warn human drivers they are about to rear-end an innocent robot.&lt;/p&gt;
+
+&lt;p&gt;I would be more comfortable with a car which had tiers of observance and rule adherance. To my mind this would be much closer to how humans drive.&lt;/p&gt;
+
+&lt;p&gt;Imagine 3-tiers of system-perception as follows: (decision &amp;amp; other layers omitted for simplicity)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;base: follows laws with annoying precision&lt;/li&gt;
+  &lt;li&gt;local: flexibile adjustments based on current traffic - to allow merge on the highway if say, 10MPH+ is needed. Conversely if the traffic is simply going too fast, the car should be smart enough to pull over to avoid being a nuissance to other drivers.&lt;/li&gt;
+  &lt;li&gt;360: calculate ANY potential extreme collision risk/avoidance measures - driving on a shoulder or&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This would likely require a smart balancing act - say tier 1 detects an immenent accident which cannot be avoided following the laws, it would then shift all processor power into tier 3 - hopefully finding a creative way to avoid harm.&lt;/p&gt;
+
+&lt;p&gt;Robotic cars are on the cusp of being technically smarter &amp;amp; faster than any human driver. Accept it. Welcome it.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://nn.cs.utexas.edu/pages/research/neat-warning/&quot;&gt;http://nn.cs.utexas.edu/pages/research/neat-warning/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.claimsjournal.com/magazines/idea-exchange/2014/09/29/255161.htm&quot;&gt;http://www.claimsjournal.com/magazines/idea-exchange/2014/09/29/255161.htm&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/12/18/when-ai-fails-and-the-crashing-robot-cars/&quot;&gt;When AI Fails &amp; the Crashing Robotic Cars&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on December 18, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Higher Order Programming]]></title>
+ <link rel="alternate" type="text/html" href="/2015/09/22/higher-order-programming/" />
+  <id>/2015/09/22/higher-order-programming</id>
+  <updated>2015-11-13T00:00:00-00:00</updated>
+  <published>2015-09-22T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h4 id=&quot;work-in-progress-updated-nov-2015&quot;&gt;&lt;em&gt;Work-in-progress (updated Nov. 2015)&lt;/em&gt;&lt;/h4&gt;
+
+&lt;h1 id=&quot;array--or-set-based-coding-style&quot;&gt;Array- or Set-based Coding Style&lt;/h1&gt;
+
+&lt;h2 id=&quot;an-anti-pattern&quot;&gt;An Anti-Pattern?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: This is not Yet-Another-Article warning noobs about RAM usage when appending strings&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is an exploration of advantages gained when you &lt;strong&gt;code everything as an array.&lt;/strong&gt; (Using Jedi concepts from SmallTalk)&lt;/p&gt;
+
+&lt;p&gt;Here’s some guiding principles:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;All input is array-like. Even if an array of 1.&lt;/li&gt;
+  &lt;li&gt;Functions should generally accept AND return arrays.&lt;/li&gt;
+  &lt;li&gt;99 out of 100 devs code suffers from what I call &lt;code class=&quot;highlighter-rouge&quot;&gt;acute schema surplusage&lt;/code&gt; syndrome -based models.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Yes, beware &lt;code class=&quot;highlighter-rouge&quot;&gt;fat ASS models&lt;/code&gt; - with all the predictable trappings: fragile &lt;code class=&quot;highlighter-rouge&quot;&gt;instance state&lt;/code&gt; - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic &lt;code class=&quot;highlighter-rouge&quot;&gt;property getter/setters&lt;/code&gt;, and your &lt;code class=&quot;highlighter-rouge&quot;&gt;public/private/final/etc&lt;/code&gt; usage is solid, right?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;So let me take a common problem and &lt;em&gt;shoehorn&lt;/em&gt; ~&lt;del&gt;add&lt;/del&gt;~ some set-based musings.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Why is a Product price always a single data point? Why would I make price(s) an Array?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Let’s add this functionality:
+    a. &lt;strong&gt;New requirements:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;retailPrice&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;priceSavings&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;These changes hopefully look no worse than my sorry attempt:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;danlevy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;testpool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;why&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;has&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;so&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;many&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Product&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retailPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;priceSavings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Price&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;retailPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;priceSavings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retailPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;priceSavings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;price&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;retailPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retailPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;priceSavings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;priceSavings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPriceSavings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;retailPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;(I’m not replacing the valid pattern of tracking historical prices in tables)&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;I’m not sure about you, but price of just about anything is in flux - just given time.
+  1.
+  I &lt;strong&gt;experience&lt;/strong&gt; price as constantly fluctuating data point.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;For example, even values which seem like singular variables - say a &lt;code class=&quot;highlighter-rouge&quot;&gt;Product&lt;/code&gt; class includes &lt;code class=&quot;highlighter-rouge&quot;&gt;var listPrice = 125&lt;/code&gt; - change it to &lt;code class=&quot;highlighter-rouge&quot;&gt;var prices = [50, 100, 125]&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Bear with me. That is not likely the final re-factor on that…&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'widget'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]})&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Foreshadowing: We’re going to go through a concept familiar to LISP, SmallTalk, et al. devs.
+It’s known by many names, however I prefer &lt;strong&gt;Array-based programming.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;the-issue-well-examine-is-deceptively-simple--subtle-naming&quot;&gt;The issue we’ll examine is deceptively simple &amp;amp; subtle: &lt;strong&gt;Naming&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don’t need to read this if the following makes sense: &lt;code class=&quot;highlighter-rouge&quot;&gt;No-Sql denormalization strategy&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;Boyce Codd Normal Forms&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Recommended reading includes:&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;Book: Code Complete&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://phlonx.com/resources/nf3/&quot;&gt;http://phlonx.com/resources/nf3/&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Database_normalization&quot;&gt;https://en.wikipedia.org/wiki/Database_normalization&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;the-problem---by-example&quot;&gt;The Problem - by Example&lt;/h2&gt;
+
+&lt;p&gt;Have you ever designed a &lt;code class=&quot;highlighter-rouge&quot;&gt;data model&lt;/code&gt; (in code, Sql, or excel worksheets)?
+Does the following look familiar?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If this is familiar to you, I’ll bet you:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Feel any change to your app will necessitate hours of arduous debugging.&lt;/li&gt;
+  &lt;li&gt;Fear ANY Changing Requirements
+&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif&quot; alt=&quot;schema refactor&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;the-cost-of-bad-naming-habits&quot;&gt;The Cost of Bad (Naming) Habits&lt;/h2&gt;
+
+&lt;p&gt;Let’s examine some of the subtle issues (probably familiar):&lt;/p&gt;
+
+&lt;p&gt;=======&lt;/p&gt;
+
+&lt;p&gt;Why is naming a field &lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; the worst?&lt;/p&gt;
+
+&lt;p&gt;For starters, you are &lt;strong&gt;not&lt;/strong&gt; creating an entirely new object unto the universe. Over-specificity has some traps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;‘Locked’ into highly specific name, means &lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; probably make your views and related code &lt;strong&gt;0% reusable&lt;/strong&gt;, and featuring annoyingly recurring bugs like:
+    &lt;ul&gt;
+      &lt;li&gt;Data not syncing between tables (not obvious if &lt;code class=&quot;highlighter-rouge&quot;&gt;user.email&lt;/code&gt; needs to propagate to &lt;code class=&quot;highlighter-rouge&quot;&gt;agent.agentEmail&lt;/code&gt; or vice-versa - nevermind complexity of manually implementing where &amp;amp; how to enforce this ‘logic’ …)&lt;/li&gt;
+      &lt;li&gt;Validation rules/logic are likely duplicated &amp;amp; inconsitent.&lt;/li&gt;
+      &lt;li&gt;Increasingly, your project will resemble a shaky Jenga tower.&lt;/li&gt;
+      &lt;li&gt;Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I know, you probably feel something like…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif&quot; alt=&quot;fuck this&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;a-solution&quot;&gt;A Solution&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;I removed the &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent&lt;/code&gt; table, as it didn’t contain fields which were uniquely related to Agents.&lt;/p&gt;
+
+&lt;p&gt;All changes were made with these general ideas in mind:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.&lt;/li&gt;
+  &lt;li&gt;Try merge related tables. &lt;strong&gt;Important if you are coming from a SQL background to No-SQL&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Delete redundant data collection (e.g. remove &lt;code class=&quot;highlighter-rouge&quot;&gt;ActivityLogs&lt;/code&gt; table if replaced by Google Analytics)&lt;/li&gt;
+  &lt;li&gt;Try keeping &lt;strong&gt;all field names&lt;/strong&gt; to a &lt;strong&gt;single word/noun/pro-noun&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;There is &lt;strong&gt;no such thing&lt;/strong&gt; as &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent.agentEmail&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent.agentPhonePrimary&lt;/code&gt;. Period.&lt;/li&gt;
+  &lt;li&gt;By using Highly Specific Names, you cast-in-stone a specific level of &lt;code class=&quot;highlighter-rouge&quot;&gt;code-reusability&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;durability&lt;/code&gt;, well, specifically &lt;strong&gt;ZERO %&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Don’t think you are doing yourself any favors with crap like this &lt;code class=&quot;highlighter-rouge&quot;&gt;User.profileSummaryEmail&lt;/code&gt; (where ‘profile’ could include contact details for a personal ads site) . This is probably a good point to create a new table, say &lt;code class=&quot;highlighter-rouge&quot;&gt;Profiles&lt;/code&gt; which includes &lt;code class=&quot;highlighter-rouge&quot;&gt;Profiles.email&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;work-in-progress-updated-nov-2015-1&quot;&gt;&lt;em&gt;Work-in-progress (updated Nov. 2015)&lt;/em&gt;&lt;/h3&gt;
+
+&lt;!-- ![schema refactor][schema_refactor] --&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/09/22/higher-order-programming/&quot;&gt;Higher Order Programming&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on September 22, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Beautiful Models (and Data)]]></title>
+ <link rel="alternate" type="text/html" href="/2015/09/22/beautiful-engineering-models-and-data/" />
+  <id>/2015/09/22/beautiful-engineering-models-and-data</id>
+  <updated>2015-09-24T00:00:00-00:00</updated>
+  <published>2015-09-22T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h4 id=&quot;work-in-progress-updated-sep-2015&quot;&gt;&lt;em&gt;Work-in-progress (updated Sep. 2015)&lt;/em&gt;&lt;/h4&gt;
+
+&lt;h2 id=&quot;the-issue-well-examine-is-deceptively-simple--subtle-naming&quot;&gt;The issue we’ll examine is deceptively simple &amp;amp; subtle: &lt;strong&gt;Naming&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I want to avoid the super-fancy-tech-lingo for this article; and hopefully I can illustrate the issue in a more useful fashion.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;While covered in exhausting detail before, the subject matter often gets too technical for the novice programmer to draw any practical understanding. You probably don’t need to read this if the following makes sense: &lt;code class=&quot;highlighter-rouge&quot;&gt;No-Sql denormalization strategy&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;Boyce Codd Normal Forms&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Recommended reading includes:&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;Book: Code Complete&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://phlonx.com/resources/nf3/&quot;&gt;http://phlonx.com/resources/nf3/&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Database_normalization&quot;&gt;https://en.wikipedia.org/wiki/Database_normalization&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;the-problem---by-example&quot;&gt;The Problem - by Example&lt;/h2&gt;
+
+&lt;p&gt;Have you ever designed a &lt;code class=&quot;highlighter-rouge&quot;&gt;data model&lt;/code&gt; (in code, Sql, or excel worksheets)?
+Does the following look familiar?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*** anti-pattern - don't copy-paste ***
+* User
+  - id
+  - avatarUrl
+  - email
+  - passwordHash
+
+* Agent
+  - id
+  - primaryPhoto
+  - agentName
+  - agentEmail
+  - agentPhoneMain
+  - agentEmailPrimary
+  - agentPhonePrimary
+  - agentAddressLine1
+  - agentCompanyName
+  - agentCompanyAddress
+  - *userEmail* - 'Pointer' to User table ^^^
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If this is familiar to you, I’ll bet you:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Feel any change to your app will necessitate hours of arduous debugging.&lt;/li&gt;
+  &lt;li&gt;Fear ANY Changing Requirements
+&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/bldg-collapse__wsZKhIc_kafcha.gif&quot; alt=&quot;schema refactor&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;the-cost-of-bad-naming-habits&quot;&gt;The Cost of Bad (Naming) Habits&lt;/h2&gt;
+
+&lt;p&gt;Let’s examine some of the subtle issues (probably familiar):&lt;/p&gt;
+
+&lt;p&gt;=======&lt;/p&gt;
+
+&lt;p&gt;Why is naming a field &lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; the worst?&lt;/p&gt;
+
+&lt;p&gt;For starters, you are &lt;strong&gt;not&lt;/strong&gt; creating an entirely new object unto the universe. Over-specificity has some traps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;‘Locked’ into highly specific name, means &lt;code class=&quot;highlighter-rouge&quot;&gt;agentEmailPrimary&lt;/code&gt; probably make your views and related code &lt;strong&gt;0% reusable&lt;/strong&gt;, and featuring annoyingly recurring bugs like:
+    &lt;ul&gt;
+      &lt;li&gt;Data not syncing between tables (not obvious if &lt;code class=&quot;highlighter-rouge&quot;&gt;user.email&lt;/code&gt; needs to propagate to &lt;code class=&quot;highlighter-rouge&quot;&gt;agent.agentEmail&lt;/code&gt; or vice-versa - nevermind complexity of manually implementing where &amp;amp; how to enforce this ‘logic’ …)&lt;/li&gt;
+      &lt;li&gt;Validation rules/logic are likely duplicated &amp;amp; inconsitent.&lt;/li&gt;
+      &lt;li&gt;Increasingly, your project will resemble a shaky Jenga tower.&lt;/li&gt;
+      &lt;li&gt;Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I know, you probably feel something like…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/ddd/image/upload/panda-rampage__tumblr_nq7srwTXqr1stn6klo1_500_gm2som.gif&quot; alt=&quot;fuck this&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;a-solution&quot;&gt;A Solution&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Dan's Recommended Schema Consolidation:
+
+User
+  - id
+  - role: ['agent', 'lead', 'admin']
+  - name
+  - phone
+  - address
+  - email
+  - passwordHash
+  - company
+    - name
+    - address
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;I removed the &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent&lt;/code&gt; table, as it didn’t contain fields which were uniquely related to Agents.&lt;/p&gt;
+
+&lt;p&gt;All changes were made with these general ideas in mind:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Eliminate unessesary tables. If you have a few dozen tables, this step is mandatory.&lt;/li&gt;
+  &lt;li&gt;Try merge related tables. &lt;strong&gt;Important if you are coming from a SQL background to No-SQL&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Delete redundant data collection (e.g. remove &lt;code class=&quot;highlighter-rouge&quot;&gt;ActivityLogs&lt;/code&gt; table if replaced by Google Analytics)&lt;/li&gt;
+  &lt;li&gt;Try keeping &lt;strong&gt;all field names&lt;/strong&gt; to a &lt;strong&gt;single word/noun/pro-noun&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;There is &lt;strong&gt;no such thing&lt;/strong&gt; as &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent.agentEmail&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Agent.agentPhonePrimary&lt;/code&gt;. Period.&lt;/li&gt;
+  &lt;li&gt;By using Highly Specific Names, you cast-in-stone a specific level of &lt;code class=&quot;highlighter-rouge&quot;&gt;code-reusability&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;durability&lt;/code&gt;, well, specifically &lt;strong&gt;ZERO %&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Don’t think you are doing yourself any favors with crap like this &lt;code class=&quot;highlighter-rouge&quot;&gt;User.profileSummaryEmail&lt;/code&gt; (where ‘profile’ could include contact details for a personal ads site) . This is probably a good point to create a new table, say &lt;code class=&quot;highlighter-rouge&quot;&gt;Profiles&lt;/code&gt; which includes &lt;code class=&quot;highlighter-rouge&quot;&gt;Profiles.email&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;work-in-progress-updated-sep-2015-1&quot;&gt;&lt;em&gt;Work-in-progress (updated Sep. 2015)&lt;/em&gt;&lt;/h3&gt;
+
+&lt;!-- ![schema refactor][schema_refactor] --&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/09/22/beautiful-engineering-models-and-data/&quot;&gt;Beautiful Models (and Data)&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on September 22, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[AngularJS v2.0 and the Impending Schism]]></title>
+ <link rel="alternate" type="text/html" href="/2015/08/05/angularjs-v2-impending-schism/" />
+  <id>/2015/08/05/angularjs-v2-impending-schism</id>
+  <updated>2015-09-18T00:00:00-00:00</updated>
+  <published>2015-08-05T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;p&gt;I think we are witnessing the Python 2-&amp;gt;3 ‘Conversion’ all over again.
+AngularJS v2.0 introduces too many changes. &lt;strong&gt;Not least of which is TypeScript&lt;/strong&gt;, which is a big ask amidst the finalization of JS’s latest version: ES6.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Let me say clearly: I love TypeScript. I seccretly wish the TC-39 meetings had produced it… They didn’t.
+However, They came up with another (totally different), also-awesome spec…&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;While TypeScript compiles to JavaScript, it doesn’t mean you blindly copy &amp;amp; paste ‘compiled’ TypeScript. It effectively becomes required learning, as to understand annotated AngularJS 2.0 TypeScript.&lt;/p&gt;
+
+&lt;p&gt;Now, newbies must climb ‘Mount TypeScript’ before they can even start assembling an Angular app (with some level of understanding).&lt;/p&gt;
+
+&lt;p&gt;I have a feeling how this might go…&lt;/p&gt;
+
+&lt;div class=&quot;anigif end&quot;&gt;
+  &lt;img alt=&quot;endless loop&quot; src=&quot;https://res.cloudinary.com/ddd/image/upload/timeout-expired.gif&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Oh well, I’ll add it to the Newbie training list: somewhere between &lt;code class=&quot;highlighter-rouge&quot;&gt;Basic Shell Usage&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Gulp or Grunt? Godsend+Misery!&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Anyway, I hope this works out…&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;anigif top end&quot;&gt;
+  &lt;img alt=&quot;everything is going to be ok&quot; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1442175801/system-maint-anon.gif&quot; /&gt;
+&lt;/div&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/08/05/angularjs-v2-impending-schism/&quot;&gt;AngularJS v2.0 and the Impending Schism&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on August 05, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Polyglot Redux]]></title>
+ <link rel="alternate" type="text/html" href="/2015/06/12/polyglot-redux/" />
+  <id>/2015/06/12/polyglot-redux</id>
+  <updated>2015-12-09T00:00:00-00:00</updated>
+  <published>2015-06-12T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;programming-languages-notes&quot;&gt;Programming Languages Notes&lt;/h1&gt;
+
+&lt;h3 id=&quot;im-sure-my-miscellaneous-observations-have-been-made-before-but-here-is-my-list-of-most-interesting-languages&quot;&gt;I’m sure my Miscellaneous Observations have been made before, but here is my list of most interesting languages:&lt;/h3&gt;
+
+&lt;h2 id=&quot;javascript&quot;&gt;JavaScript&lt;/h2&gt;
+
+&lt;p&gt;My One True Love, supremely versatile &amp;amp; ubiquitous - the all-around, amazingly-powerful champ!
+It’s the #1 Most Active/Popular Language on GitHub.com for &lt;em&gt;years&lt;/em&gt; running.&lt;/p&gt;
+
+&lt;p&gt;I hate to admit it, but for years I foolishly had nothing but scorn and derision for what is now, &lt;strong&gt;my favorite language&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ES6&lt;/strong&gt; has only increased my ~&lt;del&gt;addiction&lt;/del&gt;~ love. While pure ES5 will always hold a special place in my heart, each time I use some &lt;strong&gt;ES6&lt;/strong&gt;, I feel that radioactive spider-bite…&lt;/p&gt;
+
+&lt;p&gt;There were 4 factors which pushed me into the &lt;strong&gt;ES6 Camp&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It’s fun. Seriously. There are tangible gains in beauty, clarity &amp;amp; productivity.
+    &lt;ul&gt;
+      &lt;li&gt;Subjective claims, you say? Let me show you a bit of ES6:&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;let expired = users.filter(u =&amp;gt; Date.now() &amp;gt; u.trialDate)&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Now you don’t have to pretend you know how to use &lt;code class=&quot;highlighter-rouge&quot;&gt;Object.create&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Object.defineProperty&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;See examples below&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;As of July 2015,  ES6 is an officially finalized standard now!&lt;/li&gt;
+  &lt;li&gt;Support is Effectively 100%*! … Ok, BabelJS is needed to patch your code so it’s ES5 compatible. Historically JS transpilers have been frowned upon. However, as of late (2014-15) things have changed as BabelJS has become a key enabler/driver of language advancement. Tons of companies including Microsoft &amp;amp; Facebook use it on some of the largest sites around.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://nodejs.org/en/blog/release/v4.0.0/&quot;&gt;Latest versions of Node&lt;/a&gt; include the same V8 JS engine as Chrome v45, it’s v4.5&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I’m going to show you what finally made me &lt;em&gt;start&lt;/em&gt; drinking that ES6-flavoured KoolAid.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In my recent experience, ES6 helps you write code faster. To the point.
+Because code is more succinct, appreciably less brain power is needed to sift through and understand your old code (or that of a teammates).&lt;/p&gt;
+
+&lt;p&gt;I have regularly seen KLOC savings roughly of 20-50%. That’s like Kate Moss trim!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/screenshots/Diff-ES6-vs-ES5-Head-to-Head.png&quot; alt=&quot;EcmaScript 5 vs ES 2016 - Demo: Classes, Destructuring, Sexiness&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// /services/users.js&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Users&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;users&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;expired&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;users&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;trialDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;No more tedious code to ‘extract’ and ‘check’ fields passed to a function. Cut to example &lt;code class=&quot;highlighter-rouge&quot;&gt;add()&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// /services/users.js&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Users&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;users&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Store pwd hash, We only need to define 1 explicit `var/let` - the other vars are 'defined' with the `{fields}` wizardry above ^^^&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getSha256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/users'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;'email'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;'passwordHash'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hash&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;usr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// append user upon service response&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://gist.github.com/justsml/aaddc9852c1624d61cf3.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;&amp;#160;&lt;/p&gt;
+
+&lt;h3 id=&quot;jumping-on-es6-can-feel-like-going-from&quot;&gt;Jumping on ES6 can feel like going from:&lt;/h3&gt;
+
+&lt;div class=&quot;anigif top&quot;&gt;
+  &lt;img alt=&quot;huh&quot; title=&quot;Huh?&quot; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1441143891/wtf__tumblr_inline_n7ygqh6Y0C1svcdm1_igeqey.gif&quot; /&gt;
+&lt;/div&gt;
+&lt;h3&gt;To&lt;/h3&gt;
+&lt;div class=&quot;anigif&quot;&gt;
+  &lt;img alt=&quot;wtf&quot; title=&quot;WTF?!?!&quot; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1443133148/cat-wtf-trap.gif&quot; /&gt;
+&lt;/div&gt;
+&lt;h3&gt;To&lt;/h3&gt;
+&lt;div class=&quot;anigif end&quot;&gt;
+  &lt;img alt=&quot;#winning&quot; title=&quot;#winning&quot; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1443133141/full-throttle.gif&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Just keep sifting through the new stuff. Check out string templates, auto &lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt; binding, more-sane inheritance…&lt;/p&gt;
+
+&lt;h4 id=&quot;nodejs&quot;&gt;&lt;a href=&quot;http://nodejs.org/&quot;&gt;Node.JS&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h2 id=&quot;rust&quot;&gt;Rust&lt;/h2&gt;
+
+&lt;h4 id=&quot;official-site&quot;&gt;&lt;a href=&quot;http://www.rust-lang.org/&quot;&gt;Official Site&lt;/a&gt;&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Pros&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Imagine if there was a language as fast as C and as powerful as Python/C++, yet without the complexity/pitfalls that usually trap even the most skilled devs.&lt;/li&gt;
+      &lt;li&gt;In fact I’d guess Rust is roughly as complex as the ES6 spec.&lt;/li&gt;
+      &lt;li&gt;It includes a ton of extras:
+        &lt;ol&gt;
+          &lt;li&gt;Essentially Rust transpiles from semi-dynamic syntax into &lt;strong&gt;pure C code&lt;/strong&gt;!&lt;/li&gt;
+          &lt;li&gt;Including &lt;strong&gt;__all the best practices__&lt;/strong&gt; in C you would probably screw up on, I &lt;del&gt;eventually&lt;/del&gt; always do.
+            &lt;ul&gt;
+              &lt;li&gt;Automatically you get:&lt;/li&gt;
+              &lt;li&gt;Auto Memory management (no need for a slow garbage collector!)&lt;/li&gt;
+              &lt;li&gt;Perfectly scoped Object ownership/locking (mutexting &amp;amp; context switching minimized)&lt;/li&gt;
+              &lt;li&gt;Object lifetimes (automatically implemented*, and auto coded like you knew every edge case)&lt;/li&gt;
+              &lt;li&gt;Prevent virtually all run time errors (seriously, your code-paths become explicit: you just can’t overlook a code-path)&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Oh yeah, it throws in true language extensibility with a sensible ‘macro’ feature.
+        &lt;ul&gt;
+          &lt;li&gt;Need Comprehensions? &lt;a href=&quot;https://gist.github.com/hanny24/5749688&quot;&gt;Scala style? Done&lt;/a&gt;, and &lt;a href=&quot;https://gist.github.com/JeffBelgum/5e762761cd63c796e803&quot;&gt;Like Python? Done&lt;/a&gt;.
+            &lt;ol&gt;
+              &lt;li&gt;Too good to be true? Nah, It gets better:&lt;/li&gt;
+            &lt;/ol&gt;
+            &lt;ul&gt;
+              &lt;li&gt;Bleeding edge indicators (github.com stats) reveal Rust is highly competitive or even beating Go (Google’s hot-newish language)
+                &lt;ul&gt;
+                  &lt;li&gt;About 4K More Stars than Go (currently around 12,200)&lt;/li&gt;
+                  &lt;li&gt;More total Contributors ( 2x! - 1,071 vs. Go’s 479 )&lt;/li&gt;
+                  &lt;li&gt;More forks ( 3X! - 2,343 vs. 765 )&lt;/li&gt;
+                  &lt;li&gt;Number of Open Issues, Loses by a hair ( 2,000 vs 1,730 from Go )&lt;/li&gt;
+                  &lt;li&gt;Pull Requests (Rust 70+ vs. Go’s 1)&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;I had to triple check the numbers too.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Other libraries are very stable due to the constructs &amp;amp; rules of rust.&lt;/li&gt;
+      &lt;li&gt;Threading model usable by mere mortals&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Cons&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Decent &lt;strong&gt;web frameworks&lt;/strong&gt; are relatively new, untested, and usually undocumented (though they are &lt;strong&gt;getting&lt;/strong&gt; very impressive - as of March 2015).&lt;/li&gt;
+      &lt;li&gt;Lots of early pre-1.0 breaking changes&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;python&quot;&gt;Python&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Pros&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Overwhelmingly complete assortment of algorithms are already implemented in Python ( see: scilearnkit, numpy, matplotlib, pil/pillow, etc. )&lt;/li&gt;
+      &lt;li&gt;Very Fun to write! Comprehensions and Decomposition are great features and make other languages seem just bloated!&lt;/li&gt;
+      &lt;li&gt;Arrays, ‘Sequences’, Tuples etc. are relatively simple&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# dummy code: defines a color + pixel-coord -&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;pixel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Create a new pixel object and apply to set of vars&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pixel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Now we can call pixel&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Cons&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Annoyingly, Python 2.x and 3.x are incompatible. The Great Schism continues, so many years later.&lt;/li&gt;
+      &lt;li&gt;Some essential libraries are not nessacerily understood by some devs (numpy)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;haskell&quot;&gt;Haskell&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Pros&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Very rewarding when you finally memorize enough syntax to whip up comprehensions-based expressive patterns&lt;/li&gt;
+      &lt;li&gt;You will learn mind-bending code patterns - often somewhat applicable to other languages.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Cons&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Syntax &amp;amp; Patterns can be hard to get used to.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;anigif end&quot;&gt;
+  &lt;img alt=&quot;endless loop&quot; src=&quot;http://res.cloudinary.com/ddd/image/upload/v1441143881/endless-loop.gif&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;smalltalk-80&quot;&gt;SmallTalk-80&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Pros&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Incredibly simple compilers (original especially)&lt;/li&gt;
+      &lt;li&gt;Great resources: &lt;a href=&quot;http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript&quot;&gt;Smalltalk MVC Translated to JavaScript&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Cons&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;You will likely never use this language for anything. Zero projects. However it will have more of an impact on your coding style, faster than other functional languages… This should be in the pros list)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;work-in-progress-updated-dec-2015&quot;&gt;&lt;em&gt;Work-in-progress (updated Dec. 2015)&lt;/em&gt;&lt;/h3&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/06/12/polyglot-redux/&quot;&gt;Polyglot Redux&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 12, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Docker rocks. Boot2docker just sucks.]]></title>
+ <link rel="alternate" type="text/html" href="/2015/06/10/docker-great-though-boot2docker-sucks/" />
+  <id>/2015/06/10/docker-great-though-boot2docker-sucks</id>
+  <updated>2015-06-15 04:00:01 -0600T00:00:00-00:00</updated>
+  <published>2015-06-10T23:00:12-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+
+&lt;h2 id=&quot;updates-november-2015&quot;&gt;Updates November 2015&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Boot2Docker&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;to-everyone-on-osx-or-windows-dont-let-boot2docker-leave-you-with-the-impression-that-docker-sucks-its-really-just-your-antique-os&quot;&gt;To everyone on OSX or Windows: Don’t let Boot2docker leave you with the impression that Docker sucks! It’s really just your antique OS.&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Docker is amazing, period.&lt;/li&gt;
+  &lt;li&gt;However it’s rough-around-the-edges, hackey utility, boot2docker - for OS X, Windows and old Linux Kernels - leaves a &lt;strong&gt;lot&lt;/strong&gt; to be desired.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;issues&quot;&gt;Issues&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Boot2docker causes 99/100 headaches compared with using a native docker install locally.
+I should concede that it wraps several other complicated/flakey technologies:
+VirtualBox, x-platform Folder Sharing, and also the docker cli command runs in a network-client mode so,
+file copying, builds etc take a long time  vs. running a native docker server.
+=============
+Docker can currently only run natively on a Linux Kernel 3.4+ - and the current boot2docker vm actually runs v4.
+Bottom Line: Install the Latest Debian (w/ xfce or MATE) on your Mac/Windows box,
+… c’mon those games aren’t helping your code…&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;boot2docker-key-commands&quot;&gt;Boot2docker Key Commands&lt;/h1&gt;
+
+&lt;h2 id=&quot;when-you-get-error-fata0000&quot;&gt;When you get error: ‘FATA[0000]’&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Full error message:
+    &lt;ul&gt;
+      &lt;li&gt;FATA[0000] Get http:///var/run/docker.sock/v1.18/info: dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Solution: You need some info from boot2docker
+    &lt;ul&gt;
+      &lt;li&gt;Run this to get the 3 needed shell environment variables:&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;boot2docker shellinit
+&lt;span class=&quot;c&quot;&gt;# Copy &amp;amp; paste the exports into the current shell, &amp;amp; retry $(docker info)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;get-docker-server-ip-address&quot;&gt;Get Docker Server IP Address&lt;/h2&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;boot2docker ip
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Now your app on port 3000 is available at something like: http://$(boot2docker ip):3000/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;boot2docker-quick-start-for-os-x&quot;&gt;Boot2Docker Quick Start for OS X&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;In a terminal on your &lt;code class=&quot;highlighter-rouge&quot;&gt;brew&lt;/code&gt; able Mac:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install boot2docker
+boot2docker init
+boot2docker up
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/06/10/docker-great-though-boot2docker-sucks/&quot;&gt;Docker rocks. Boot2docker just sucks.&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 10, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[JavaScript Magic]]></title>
+ <link rel="alternate" type="text/html" href="/2015/06/06/javascript-scope-magic/" />
+  <id>/2015/06/06/javascript-scope-magic</id>
+  <updated>2015-09-24T00:00:00-00:00</updated>
+  <published>2015-06-06T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h3 id=&quot;-work-in-progress-includes-future-javascript-article-ideas-&quot;&gt;[ Work-in-progress, Includes Future JavaScript Article Ideas ]&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This post is geared to modern browsers and Node.JS/iojs.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;imperative-vs-recursive-vs-functional&quot;&gt;Imperative vs. Recursive vs. Functional&lt;/h1&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;// Imperative: The Fastest ( + very simple, no new pointers or excess allocs ):&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Recursive: (FIREFOX or BABELJS Only) ES6 function definition with&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//  parameter defaults used to set initial (internal/recursive) values&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Text-book-Bad Example - poor function scope w/ multiple mutable external values&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// Bad&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;===-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;proc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Bad: inner recursive function not needed, hint: variables used are from parent function scope&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;promises-awesome&quot;&gt;Promises: Awesome!&lt;/h1&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;// Example Using bluebird Promises and it's&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bluebird'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;fs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;promisifyAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'fs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;less&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;promisifyAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'less'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;writeFileData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;writeFileAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/tmp/output.css'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Bluebird makes something like this perhaps uncomfortably simple and succinct:&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;readFileAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./style.less'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Call promisified readFile()&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;less&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;renderAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;// Hand off to less.render&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;writeFileData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;// Function to recieve the css contents (1st parameter)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ol&gt;
+  &lt;li&gt;While, native ES6 Promises are great, I prefer the robust &lt;a href=&quot;https://github.com/petkaantonov/bluebird/blob/master/API.md&quot;&gt;Bluebird Promise Library&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Library or not, modern browsers have supported Promise for years.&lt;/li&gt;
+  &lt;li&gt;Promises can be utilized without crazy patterns - implicit &lt;code class=&quot;highlighter-rouge&quot;&gt;deferred&lt;/code&gt; is preferable.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;$q just sucks&lt;/strong&gt; just use bluebird, see above.&lt;/li&gt;
+  &lt;li&gt;Worth mentioning: Bluebirds Benchmarks are best-case tests, so take note if doing crazy fancy promise chains&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;java-vs-javascript&quot;&gt;Java vs JavaScript&lt;/h1&gt;
+
+&lt;h2 id=&quot;rate-limiting--debouncing--throttling&quot;&gt;Rate Limiting / Debouncing / Throttling&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;In JavaScript &lt;a href=&quot;http://davidwalsh.name/essential-javascript-functions&quot;&gt;David Walsh implemented debounce&lt;/a&gt; in less than 20 lines!&lt;/li&gt;
+  &lt;li&gt;In Java, JDebounce, an library which is a lot more complicated, at ~500+ lines.&lt;/li&gt;
+  &lt;li&gt;_ Comparing the two: _&lt;/li&gt;
+  &lt;li&gt;The JavaScript is fast &amp;amp; uses first-class functions to achieve brilliant simplicity.&lt;/li&gt;
+  &lt;li&gt;Whereas the Java has many more moving parts, annotations are used to apply behaviour at compile-time, and there’s a ton of XML, just for funsies!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;inversion-of-control-techniques&quot;&gt;Inversion of Control Techniques&lt;/h1&gt;
+
+&lt;p&gt;Work-in-progress&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/06/06/javascript-scope-magic/&quot;&gt;JavaScript Magic&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Docker Firewall Setup]]></title>
+ <link rel="alternate" type="text/html" href="/2015/06/06/docker-firewall-setup/" />
+  <id>/2015/06/06/docker-firewall-setup</id>
+  <updated>2015-11-08T00:00:00-00:00</updated>
+  <published>2015-06-06T00:00:00-06:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;setup-docker-host-firewall&quot;&gt;Setup Docker Host Firewall&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Debian/Ubuntu Server is assumed&lt;/li&gt;
+  &lt;li&gt;Designed to run on Docker Host Server&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;install-requirements&quot;&gt;Install Requirements&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Ultimate Firewall Needed&lt;/span&gt;
+apt-get update &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get install -y ufw nmap curl
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;get-your-internal--external-ip-addresses&quot;&gt;Get your Internal &amp;amp; External IP Addresses&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Get your IP Addresses, simple output:&lt;/span&gt;
+hostname --all-ip-addresses
+
+&lt;span class=&quot;c&quot;&gt;# OR use ip tool, example:&lt;/span&gt;
+ip addr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;firtewall-ufw-setup---example-cmds&quot;&gt;Firtewall (UFW) Setup - Example Cmds&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ufw logging on &lt;span class=&quot;c&quot;&gt;# on=low - medium might be better for diagnostics&lt;/span&gt;
+ufw logging medium
+&lt;span class=&quot;c&quot;&gt;# First, block all the things&lt;/span&gt;
+ufw default deny incoming
+
+&lt;span class=&quot;c&quot;&gt;# REQUIRED: CHOOSE *ONE* OF THE FOLLOWING DEFAULT OUTBOUND RULES:&lt;/span&gt;
+ufw default deny outgoing
+ufw default allow outgoing
+
+
+&lt;span class=&quot;c&quot;&gt;# Allow and log all new ssh connections,&lt;/span&gt;
+ufw allow log proto tcp from any to any port 22
+&lt;span class=&quot;c&quot;&gt;## Allow http traffic (w/o explicit logging)&lt;/span&gt;
+ufw allow out on docker0 53/udp to 172.17.0.1/16
+ufw allow out on eth0 to any port 53
+ufw allow out on eth0 from 0.0.0.0/0 to any port 80 proto tcp
+ufw allow out on eth0 from 0.0.0.0/0 to any port 443 proto tcp
+
+&lt;span class=&quot;c&quot;&gt;# Verbose: ufw allow proto tcp from any to any port 80&lt;/span&gt;
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow log 22/tcp
+ufw limit ssh &lt;span class=&quot;c&quot;&gt;# Basic Rate limit 4 SSH brute force mitigation&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Set your ext IP&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;EXTERNAL_IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;123.123.123.123
+&lt;span class=&quot;c&quot;&gt;# Update docker IP if needed&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;172.17.42.1
+&lt;span class=&quot;c&quot;&gt;# Forward tcp 8080 traffic to  Dockerized App&lt;/span&gt;
+ufw allow proto tcp from &lt;span class=&quot;nv&quot;&gt;$EXTERNAL_IP&lt;/span&gt; port 8080 to &lt;span class=&quot;nv&quot;&gt;$DOCKER_IP&lt;/span&gt; port 3000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;enable--start-firewall&quot;&gt;Enable / Start Firewall&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Be Careful, Don’t Lock out your SSH port (sshd defaults to 22)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ufw --force &lt;span class=&quot;nb&quot;&gt;enable
+
+&lt;/span&gt;ufw reset
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;test-your-firewall&quot;&gt;Test Your Firewall&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Important: USE A REMOTE IP ADDR/LOCATION&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Verify dependency&lt;/span&gt;
+apt-get update &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get install -y nmap
+
+&lt;span class=&quot;c&quot;&gt;# Set scan target&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TARGET_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;123.123.123.123
+
+&lt;span class=&quot;c&quot;&gt;# Example Scan Commands:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Fast open port check&lt;/span&gt;
+nmap -p 1-10240,27017 -T5 &lt;span class=&quot;nv&quot;&gt;$TARGET_HOST&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Thorough scan&lt;/span&gt;
+nmap -p 1-10240,27017 --open -v -APN &lt;span class=&quot;nv&quot;&gt;$TARGET_HOST&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Svc Inspection&lt;/span&gt;
+nmap -p 1-10240,27017 -O --osscan-guess &lt;span class=&quot;nv&quot;&gt;$TARGET_HOST&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;done-now-you-should-see-only-the-ports-you-configured&quot;&gt;DONE! Now you should see ONLY the ports you configured!&lt;/h4&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/06/06/docker-firewall-setup/&quot;&gt;Docker Firewall Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on June 06, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Docker server Setup]]></title>
+ <link rel="alternate" type="text/html" href="/2015/04/05/docker-server-setup-notes/" />
+  <id>/2015/04/05/docker-server-setup-notes</id>
+  <published>2015-04-05T19:00:59-06:00</published>
+  <updated>2015-04-05T19:00:59-06:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;docker-host-server-setup&quot;&gt;Docker &lt;strong&gt;Host Server&lt;/strong&gt; Setup&lt;/h1&gt;
+
+&lt;h2 id=&quot;basic-monitoring-tools&quot;&gt;Basic Monitoring Tools&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Debian/BSD Requirements / Updates + monitoring tools: atop &amp;amp; htop&lt;/span&gt;
+apt-get update &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get install -y vim-nox git-core curl atop htop build-essential libssl-dev linux-image-amd64 linux-headers-amd64 sudo
+
+&lt;span class=&quot;c&quot;&gt;# OSX, Debian &amp;amp; RHEL: Host OS Tuning&lt;/span&gt;
+sysctl -w vm.max_map_count&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;262144
+
+&lt;span class=&quot;c&quot;&gt;# Updates Profile init scripts before appending new scripts below&lt;/span&gt;
+mkdir ~/backups
+cp ~/.bash&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; ~/backups/
+
+&lt;span class=&quot;c&quot;&gt;# Debian/BSD:  Append Shell Environment Shortcuts + XTERM Colors&lt;/span&gt;
+curl -o- https://raw.githubusercontent.com/justsml/system-setup-tools/master/modules/vim-update.sh | bash
+
+curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bashrc &amp;gt;&amp;gt; ~/.bashrc
+curl -sSL https://raw.githubusercontent.com/justsml/system-setup-tools/master/home-scripts/.bash_aliases &amp;gt;&amp;gt; ~/.bash_aliases
+&lt;span class=&quot;c&quot;&gt;# Read into current shell (login steps already missed the aliases file)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bashrc
+
+&lt;span class=&quot;c&quot;&gt;# Docker pre reqs&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# sudo apt-get install -y linux-image-virtual linux-image-extra-virtual&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Install Docker, straight from the horses mouth&lt;/span&gt;
+curl -sSL https://get.docker.com/ | sh
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Only for SELinux Enabled Systems&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# SELinux fixes (optional)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# chcon -Rt svirt_sandbox_file_t /mongodb&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# chcon -Rt svirt_sandbox_file_t /elastic&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;simple-database-setupstartup&quot;&gt;Simple Database Setup/Startup&lt;/h1&gt;
+
+&lt;h2 id=&quot;mongodb-v3-server&quot;&gt;MongoDB v3 Server&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir /mongodb
+docker run --name mongo -p 27017:27017 -v /mongodb:/data -d mongo:latest bash -c &lt;span class=&quot;s1&quot;&gt;'mongod --logpath /data/mongodb.log --logappend --dbpath /data/data --storageEngine=wiredTiger'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;elastic-search&quot;&gt;Elastic Search&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir /elastic
+docker run --name elastic -d -p 9200:9200 -p 9300:9300 -v /elastic:/data elasticsearch bash -c &lt;span class=&quot;s1&quot;&gt;'elasticsearch --cluster.name elastic_cluster --node.name elastic01 --path.data /data/elastic-data --path.logs /data/elastic-logs '&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;You just lit up 2 database docker instances!!!
+If it were any easier, I’m pretty sure you couldn’t invoice for it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;package-up-your-nodejsrubypythonweb-app&quot;&gt;Package up your NodeJS/Ruby/Python/Web App&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Add a blank file named &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt; in your project root.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;(Optional, Recommended)&lt;/em&gt; Add a &lt;code class=&quot;highlighter-rouge&quot;&gt;.dockerignore&lt;/code&gt; using .gitignore rules to exclude large non-essential paths. By default all project files are included.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;create-a-dockerfile&quot;&gt;Create a &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt;&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-dockerfile&quot;&gt;# Example for NodeJS
+FROM node:0.12
+EXPOSE [3000]
+COPY . /app/
+WORKDIR /app
+RUN apt-get update \
+	&amp;amp;&amp;amp; apt-get dist-upgrade -y
+RUN [&quot;npm&quot;, &quot;install&quot;]
+# Overridable Command
+CMD [&quot;npm&quot;, &quot;start&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It’s easier to show how to start using the Dockerfile and demonstrate the results via console (see commands below).&lt;/p&gt;
+
+&lt;p&gt;In terminal, &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; to your project folder and run the following &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; command &lt;em&gt;everytime&lt;/em&gt; you deploy changes - or want to change/upgrade OS or Env config)&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker build -t app-name-here .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;docker-commands-to-learn&quot;&gt;Docker Commands to Learn&lt;/h1&gt;
+
+&lt;h2 id=&quot;build-docker-image-every-deploychange&quot;&gt;Build Docker Image Every Deploy/Change&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker build -t app-name-here .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;createrun-web-app-w-links-to-db-servers&quot;&gt;Create/Run Web App w/ Links to DB Servers&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;run-interactively-non-daemon-in-terminal&quot;&gt;Run Interactively (non-daemon, in terminal)&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -it --name webapp01 -p 3000:3000 --link mongo:mongo --link elastic:elastic app-name-here bash
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;delete-container-instance-or-image&quot;&gt;Delete Container Instance or Image&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Important: Any data not stored on the mounted volume path will be lost!!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Delete Image&lt;/span&gt;
+docker rmi -f app-name-here
+docker rm -f webapp01
+&lt;span class=&quot;c&quot;&gt;# now re-run your `docker run...` from ^^^&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# So for example, let's kill your db instances above, run: ( start with something like `docker stop {mongo,elastic}` )&lt;/span&gt;
+docker rm -f mongo elastic
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/04/05/docker-server-setup-notes/&quot;&gt;Docker server Setup&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on April 05, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Winning Design Resource]]></title>
+ <link rel="alternate" type="text/html" href="/2015/02/26/amazing-resources/" />
+  <id>/2015/02/26/amazing-resources</id>
+  <updated>2015-06-12 19:00:01 -0600T00:00:00-00:00</updated>
+  <published>2015-02-26T04:42:21-07:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;solve-2-ui-challenges&quot;&gt;Solve 2 UI challenges&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Your Prototype Apps Suck: So sprinkle some awesome in there&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;beautiful-sliding-menus&quot;&gt;Beautiful Sliding Menus&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://tympanus.net/Development/OffCanvasMenuEffects/cornerbox_nested.html&quot;&gt;Side-Menu Demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: Not my code, however I’ve evaluated it and I have to say I &lt;strong&gt;rarely find code at this level&lt;/strong&gt;. Like, &lt;em&gt;never&lt;/em&gt;, folks.
+The &lt;a href=&quot;http://tympanus.net/codrops/author/crnacura/&quot;&gt;author, Mary Lou&lt;/a&gt; is just incredibly talented.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;impressive-tooltips&quot;&gt;Impressive Tooltips&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://tympanus.net/codrops/2014/10/07/tooltip-styles-inspiration/&quot;&gt;View demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Wow! … Am I Right?&lt;/p&gt;
+
+&lt;h3 id=&quot;misc&quot;&gt;Misc&lt;/h3&gt;
+
+&lt;p&gt;I know I said it, but let me emphasize: All the &lt;strong&gt;code is extraordinarily well done&lt;/strong&gt;…  &lt;em&gt;I never say that, most devs rarely bother to be this meticulous&lt;/em&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Btw, I say ‘prototype apps’ merely because the examples need a few accessability/usability tweaks (which are described in Mary’s articles).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here’s where I found this stuff: &lt;a href=&quot;https://twitter.com/codrops&quot;&gt;follow codrops at https://twitter.com/codrops&lt;/a&gt;&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/02/26/amazing-resources/&quot;&gt;Winning Design Resource&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[AngularJS Tricks]]></title>
+ <link rel="alternate" type="text/html" href="/2015/02/26/stop-the-angularjs-hate/" />
+  <id>/2015/02/26/stop-the-angularjs-hate</id>
+  <published>2015-02-26T04:22:33-07:00</published>
+  <updated>2015-02-26T04:22:33-07:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;angularjs-can-be-fast&quot;&gt;AngularJS CAN BE Fast!&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;AngularJS Developers quickly discover that their med-large apps are buckling under the weight of scattered &lt;code class=&quot;highlighter-rouge&quot;&gt;$watch's&lt;/code&gt; and the often bloated crutch known as &lt;code class=&quot;highlighter-rouge&quot;&gt;$scope&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Keep your &lt;code class=&quot;highlighter-rouge&quot;&gt;$scope&lt;/code&gt; free of excess UI state, try limit the size &amp;amp; depth of your overall hierarchy.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;2-way-data-binding-2-way-sword&quot;&gt;2-way data binding: 2-way Sword&lt;/h2&gt;
+
+&lt;p&gt;2-way binding alone makes coming from other frameworks like Backbone, well, &lt;strong&gt;frickin amazeballs&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The problem is: many sites &lt;strong&gt;chronically overuse&lt;/strong&gt; Angular’s design patterns.
+This leads to directive sprawl and a &lt;code class=&quot;highlighter-rouge&quot;&gt;$scope/rootScope&lt;/code&gt; which easily has 1000’s of instances, and can cling to huge objects preventing any hope of effective garbage collection.&lt;/p&gt;
+
+&lt;p&gt;You know where this is going: an exhausted browser! Forever doomed to work at a &lt;strong&gt;frantic pace&lt;/strong&gt; executing endless and redundant UI/DOM re-compiles.&lt;/p&gt;
+
+&lt;h2 id=&quot;stop-over-angularjsification&quot;&gt;Stop OVER-Angular.JSification&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“If your only tool is a hammer, then every problem looks like a nail.”&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;old adage&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Does your app have a problem with directives?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-jade&quot;&gt;current-user-status-label
+  div(ng-if='loggedIn')
+    view-user-surplusage(ng-if='!editMode')
+      .head: contact-details(user='user')
+      .tool: contact-buttons(loggedIn='loggedIn')
+      a.edit-icon(ng-click='editMode = true')
+    edit-user-surplusage(ng-if='editMode')
+      .head: avatar-edit(user='user')
+      .body: edit-contact-details(user='user')
+      a.save-icon(ng-click='editMode = false')
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s design a flexible user-widget which helps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Versatile componentization w/ DRY Angular code&lt;/li&gt;
+  &lt;li&gt;Understandable directives, with minimal directive size/depth (mind your ng-repeats)&lt;/li&gt;
+  &lt;li&gt;Simple Service Layer&lt;/li&gt;
+  &lt;li&gt;Little actual coding to implement - just HTML/View Code&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-jade&quot;&gt;// jade
+user-widget
+  div(ng-if='loggedIn')
+    div.edit(ng-if='editMode')
+      h4.email-icon: input(type='email', ng-model='user.email')
+      h4.phone-icon: input(type='email', ng-model='user.phone')
+      a.save-icon(ng-click='editMode = false')
+    div.show(ng-if='!editMode')
+      h1.users-icon 
+      h4.email-icon 
+      h4.phone-icon 
+      a.edit-icon(ng-click='editMode = true')
+  div(ng-if='!loggedIn')
+    h5: i Welcome User
+    a.btn(href='/login') Login
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;solutions&quot;&gt;Solutions&lt;/h1&gt;
+
+&lt;h2 id=&quot;angular-tips&quot;&gt;Angular Tips&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Use 1-way binding ( e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; )&lt;/li&gt;
+  &lt;li&gt;Limit recursive nesting of directives&lt;/li&gt;
+  &lt;li&gt;And if you must nest directives, &lt;em&gt;NEVER&lt;/em&gt; do so inside an &lt;code class=&quot;highlighter-rouge&quot;&gt;ng-repeat&lt;/code&gt; - Performance will start to inversely mirror something like &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n^2)^3&lt;/code&gt; ;)
+I. Use native JS/DOM code in a factory pattern to create basic DOM/UI fragments, examples: Modal msg box, status bar. Call UI factories from either directives or controllers.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Bonus:&lt;/em&gt; Understand cost and triggers of &lt;a href=&quot;https://developers.google.com/web/fundamentals/performance/rendering/index?hl=en&quot;&gt;browser render lifecycle&lt;/a&gt;: animation, composite rendering, reflows&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;use-browserify-to-organize-project&quot;&gt;Use Browserify to Organize Project&lt;/h2&gt;
+
+&lt;p&gt;Not specifically for Angular per-se, but essential for simple dependency resolution.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports&quot;&gt;Browserify&lt;/a&gt; makes JS projects managable with virtually no added code overhead (ok, a few 100 chars).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/substack/browserify-handbook/blob/master/readme.markdown#exports&quot;&gt;Just read this section&lt;/a&gt; of the &lt;a href=&quot;https://github.com/substack/browserify-handbook/&quot;&gt;Browserify Handbook&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;alternatives&quot;&gt;Alternatives&lt;/h1&gt;
+
+&lt;h2 id=&quot;reactjs-from-facebook&quot;&gt;&lt;a href=&quot;https://facebook.github.io/react/&quot;&gt;ReactJS&lt;/a&gt; from Facebook&lt;/h2&gt;
+
+&lt;p&gt;For views which need minimal description:
+If you have tons of small reusable UI components - ReactJS might be a better choice:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If your project…?:
+    &lt;ul&gt;
+      &lt;li&gt;Has a different philosophy to UI/DOM implementation than Angular&lt;/li&gt;
+      &lt;li&gt;Already has some kind of ‘framework’ - You can &lt;strong&gt;use ReactJS alongside&lt;/strong&gt; AngularJS, Ember, Backbone.&lt;/li&gt;
+      &lt;li&gt;Handles frequent data model changes in it’s own code, you’ll benefit by avoiding the ADHD digest/loop pattern of Angular&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;polymer-project-from-google&quot;&gt;&lt;a href=&quot;http://www.Polymer-Project.org/&quot;&gt;Polymer Project&lt;/a&gt; from Google&lt;/h2&gt;
+
+&lt;h2 id=&quot;pure-er-js-approach&quot;&gt;Pure-er JS Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;By the way, here’s where I try create framework agnostic code (+1 testability, +1 reuse)
+    &lt;ol&gt;
+      &lt;li&gt;Use plain javascript class to load data (AJAX/JSONP/Embedded in page, et al.)&lt;/li&gt;
+      &lt;li&gt;Use mustache templating to create HTML strings (or DOM directly)&lt;/li&gt;
+      &lt;li&gt;Cache rendered content in localStorage if you can&lt;/li&gt;
+      &lt;li&gt;(Optional) Now add an event listener to re-render the content. I have standardized on the event name &lt;code class=&quot;highlighter-rouge&quot;&gt;refresh.&amp;lt;class-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/02/26/stop-the-angularjs-hate/&quot;&gt;AngularJS Tricks&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Docker === Love]]></title>
+ <link rel="alternate" type="text/html" href="/2015/02/26/docker-makes-everything-better/" />
+  <id>/2015/02/26/docker-makes-everything-better</id>
+  <updated>2015-09-23T00:00:00-00:00</updated>
+  <published>2015-02-26T00:00:00-07:00</published>
+  
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;docker-can-do-everything&quot;&gt;Docker Can Do Everything!*&lt;/h1&gt;
+
+&lt;p&gt;Improve your process for:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Testing Dev Tools &amp;amp; Servers WITH VIRTUALLY ZERO risk of messing up dependencies on your PC&lt;/li&gt;
+  &lt;li&gt;Testing your software&lt;/li&gt;
+  &lt;li&gt;Makes you write more idempotent, modular code… (I’ll write how to actually realize this in a follow up)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;There may seem like a huge volume of new stuff to learn, &lt;strong&gt;don’t let that stop you&lt;/strong&gt; from getting started.&lt;/p&gt;
+
+&lt;h4 id=&quot;notes&quot;&gt;Notes&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If you see a &lt;code class=&quot;highlighter-rouge&quot;&gt;docker run&lt;/code&gt; command with either options &lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;-it&lt;/code&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-it&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;-i -t&lt;/code&gt; will run the configured command interactively&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt; will start the docker container as a ‘daemon’ aka background service.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;examples&quot;&gt;EXAMPLES&lt;/h1&gt;
+
+&lt;h2 id=&quot;nginx&quot;&gt;nginx&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+	&lt;span class=&quot;c&quot;&gt;# Note: using host-based, shared folders&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;#(shared folders are not possible with the VOLUME Dockerfile cmd)&lt;/span&gt;
+	sudo docker run --name web01 -d -p 8181:80 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+		-v &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;NGINX_DIR&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;/etc:/etc/nginx &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+		-v &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;NGINX_DIR&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;/log:/var/log/nginx &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+		-v &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;NGINX_DIR&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;/www:/var/www/html &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+		nginx:latest
+
+	&lt;span class=&quot;c&quot;&gt;# Local data, isolated within instance&lt;/span&gt;
+	sudo docker run --name web01 -d -p 8181:80 nginx:latest
+
+	&lt;span class=&quot;c&quot;&gt;# nodejs&lt;/span&gt;
+	sudo docker run --name nodejs01 -d -p 3300:3300 -p 4433:4433 nodejs:latest
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Credits: &lt;a href=&quot;https://dockerfile.github.io/#/nginx&quot;&gt;https://dockerfile.github.io/#/nginx&lt;/a&gt;
+Docker will make your life easier throughout the &lt;em&gt;entire&lt;/em&gt; SDLC.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Pretty close&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/02/26/docker-makes-everything-better/&quot;&gt;Docker === Love&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 26, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Security Notes: RegEx]]></title>
+ <link rel="alternate" type="text/html" href="/2015/02/23/security-notes-regex/" />
+  <id>/2015/02/23/security-notes-regex</id>
+  <published>2015-02-23T22:42:21-07:00</published>
+  <updated>2015-02-23T22:42:21-07:00</updated>
+  <author>
+    <name>Dan Levy</name>
+    <uri></uri>
+    <email>Dan@DanLevy.net</email>
+  </author>
+  <content type="html">
+    &lt;h1 id=&quot;denial-of-service-regex-vulnerability&quot;&gt;Denial-of-Service Regex Vulnerability&lt;/h1&gt;
+
+&lt;p&gt;One of the most common, and yet hard-to-spot vulnerabilities I encounter relate to regular expressions.
+Either poorly written or poorly implemented.&lt;/p&gt;
+
+&lt;h2 id=&quot;warning-signs&quot;&gt;Warning Signs&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You have multiple capture groups&lt;/li&gt;
+  &lt;li&gt;Global matching&lt;/li&gt;
+  &lt;li&gt;Expression is used with un-checked user input&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;mitigation--resolution&quot;&gt;Mitigation / Resolution&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;RegEx is hard
+    &lt;ol&gt;
+      &lt;li&gt;For example, here is how the really smart folks at &lt;a href=&quot;https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository&quot;&gt;OWASP recommend handling IP validation&lt;/a&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;That’s longer than a tweet, for a 4-byte IP Address!!!&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Make sure user input isn’t unduly long, when I know input data is reliably less than 40 chars, I’ll make sure I prevent anything over 64 - otherwise, an attacker could overwhelm my system with a flood of 4Kb requests.&lt;/li&gt;
+  &lt;li&gt;This affects almost every language and platform .NET/Node/Python/PERL/Java&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.liftsecurity.io/2014/11/03/regular-expression-dos-and-node.js?utm_source=nodeweekly&amp;amp;utm_medium=email&quot;&gt;Regular Expression DoS and Node.js&lt;/a&gt;&lt;/p&gt;
+
+
+    &lt;p&gt;&lt;a href=&quot;/2015/02/23/security-notes-regex/&quot;&gt;Security Notes: RegEx&lt;/a&gt; was originally published by Dan Levy at &lt;a href=&quot;&quot;&gt;www.DanLevy.net&lt;/a&gt; on February 23, 2015.&lt;/p&gt;
+  </content>
+</entry>
+
+</feed>
