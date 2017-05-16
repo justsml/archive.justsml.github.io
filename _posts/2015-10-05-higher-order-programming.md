@@ -2,7 +2,7 @@
 layout: post
 title:  "Higher Order Programming"
 date:   2015-09-22
-modified:   2015-11-13
+modified:   2017-05-13
 categories: programming
 tags: [programming, patterns, models, source code, organization]
 image:
@@ -10,7 +10,7 @@ image:
   credit:
 ---
 
-# Array- or Set-based Coding Style
+# Array- and Set-based Coding Techniques
 
 ## An Anti-Pattern?
 
@@ -20,8 +20,8 @@ Here's some guiding principles:
 
 1. All input is array-like. Even if an array of 1.
 1. Higher level functions should generally accept AND return arrays. (Except for callback methods for loops: map/reduce/each/filter)
-1. 99 out of 100 devs code suffers from what I call `acute schema surplusage` syndrome -based models.
-1. Yes, beware `fat clASS-backed models` - with all the predictable trappings: fragile `instance state` - so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic `property getter/setters`, and your `public/private/final/etc` usage is solid, right?
+1. 99 out of 100 devs code suffers from what I call `acute schema surplusage` syndrome.
+1. Beware bloated `class-backed models` - with all the predictable trappings: fragile `instance state` w/ so many levers and knobs to mess with, DB transactions, sql locks, async/mutexing (that always works first time), using idiomatic `property getter/setters`, and your `public/private/final/etc` usage is solid, right?
 
 1. So let me take a common problem and *shoehorn* ~~~add~~~ some set-based musings.
   1. A hypothetical Blog Site has lots of Articles, and has even more Posts (Comments).
@@ -62,10 +62,6 @@ public class Post {
 
 > Forgive me if my Java is a little rusty.
 
-
-
-
-### _Work-in-progress (updated Nov. 2015)_
 
 
 
