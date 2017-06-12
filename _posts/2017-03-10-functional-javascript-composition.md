@@ -24,7 +24,7 @@ image:
 
 
 ## Part 1
-### 4 Rules For Single Purpose Functions
+### Code Nirvana through 4 Key Rules 
 
 One of the most important ideas in software development is: keep it simple.
 
