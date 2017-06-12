@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Under 5 Minutes: Functional JavaScript and Composition in 4 Steps"
+title:  "Guide 2017: Write Better JavaScript, Faster"
 date:       2017-03-10
 modified:   2017-06-02
 categories: programming
@@ -9,8 +9,6 @@ image:
   feature: abstract-6.jpg
   credit:
 ---
-
-# Write Faster JavaScript, Faster
 
 ### A 4-part Crash Course in Composable JavaScript
 
