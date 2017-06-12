@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Functional Promises in JavaScript Crash Course"
-date:       2017-05-10
+date:       2017-06-10
 modified:   2017-06-12
 categories: programming
 tags: [programming, patterns, source code, functional-river, functional-js]
@@ -12,7 +12,8 @@ image:
 
 # Functional Promises in JavaScript Crash Course
 
-[![Build Status](https://travis-ci.org/justsml/escape-from-callback-mountain.svg?branch=master)](https://travis-ci.org/justsml/escape-from-callback-mountain)
+> See the companion project to this article: [`escape-from-callback-mountain`](https://github.com/justsml/escape-from-callback-mountain/)
+> [![Build Status](https://travis-ci.org/justsml/escape-from-callback-mountain.svg?branch=master)](https://travis-ci.org/justsml/escape-from-callback-mountain)
 
 ## Refactoring NodeJS/JavaScript - a 2017 Guide
 
