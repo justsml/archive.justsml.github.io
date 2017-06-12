@@ -17,6 +17,7 @@ image:
 #### Disclaimer: includes Dan Levy's ~~heretical musings~~ thought-leadering.
 
 > If you want more complete examples, see my project [`escape-from-callback-mountain`](https://github.com/justsml/escape-from-callback-mountain/).
+> [![Build Status](https://travis-ci.org/justsml/escape-from-callback-mountain.svg?branch=master)](https://travis-ci.org/justsml/escape-from-callback-mountain)
 
 ------------------
 
