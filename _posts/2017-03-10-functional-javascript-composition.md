@@ -30,24 +30,27 @@ One of the most important ideas in software development is: keep it simple.
 
 The funny thing is, every developer believes: **they write simple & beautiful** code, the **real problem** is _those other developers_.
 
-... I'm going to avoid wading into the tarpit of defining "Simple Code."
+Don't worry, I'm not wading into the tarpit defining "Simple Code."
 
 Instead I'll list 4 general rules, each which have helped me write more **readable, testable & adaptable** code.
 
+1. Restrict functions to single-purpose. See [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
+1. Restrict functions to single-argument (or 2 when using NodeJS/Express callback (err, value) style). So, your 3 parameter function `(a, b, c) => {}` should instead accept `([a, b, c]) => {}`. Helps you with [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle), [Interface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle).
 1. Never use `prototype` if possible. (Confession: I only used once, by necessity, in [`escape-from-callback-mountain`](https://github.com/justsml/escape-from-callback-mountain/) errors module.) Composition is a pure embrace of the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
 1. Build functions without nesting/variable hoisting. Mitigate with ImmutableJS, else you can [pass needed values]() as arguments. (Factory patterns are ok if state sharing is avoided or centralized. Examples in `callback-mountain` project.)
-1. Restrict functions to single-purpose. (see [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).)
-1. Restrict functions to single-argument (or 2 when using NodeJS/Express callback (err, value) style). So, your 3 parameter function `(a, b, c) => {}` should instead accept `([a, b, c]) => {}`. Helps you with [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle), [Interface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle).
 
-Let me emphasize one point: **Single parameter functions are not limiting** - use an Array or Object for your function argument.
+
+Let me emphasize: **Single parameter functions are not restricting** - simply use an Array or Object for your function argument.
 
 If you are wondering how single-purpose functions ever amount to anything except code sprawl, well, let me introduce you to my friend, **Higher Order Components**, or HOCs. Which is really a fancy way of saying `Function`, `Controller`, `Class`, etc. 
 The goal is to have your code feel like using LEGO™ building blocks. 
 
+#### Let's look at some code...
+
 ----------
 
 ## Part 2
-### Four Composition Techniques with Examples
+### Four JavaScript Composition Examples
 
 Let's wire up a few functions to do some simple math.
 
@@ -123,14 +126,16 @@ const square = n => {
 With this technique, you **no longer have to fight the Framework Wars**. I don't have time for it.
 
 #### Hip to Lodash? 
-Great, use `_.flow`. 
+Great, use `_.flow`, or `.chain()`. 
 
-#### Using Promises? 
-Cool, **it's just another plugable pattern.**
+#### Using Promises?
+Cool, **it's just another pluggable pattern.**
 
 
-There are so many choices for gluing your functions together! Stick to my 4 rules (above) and keep reading for more real-world examples.
+There are so many choices for gluing your functions together! Insulate yourself by sticking to my 4 rules (above).
 
+
+#### Let's look at a more real-world example...
 
 
 ## Part 3
@@ -177,18 +182,19 @@ Namely - **coupled code** - see those anonymous arrow functions in `.then(fn)`? 
 ---------------
 
 
+#### Let's look at a refactored example...
 
 ## Part 4
 ### Summary with Further Optimized Code
 
-Let's discuss 2 guiding principles which have helped me WRITE LESS CRAP(TM).
+Here's how I applied rules #1 and #2 to refactor:
 
-1. Avoid nested logic - it's a sign you are mixing 2+ different things. It's also a sign of untestable/high dimensionality.
-2. More than 2 lines per function? Stop and think, or ask yourself/nearest dev: "Is it really related? Why is this together? Is there a better order to chain methods?"
+* Avoid nested logic - it's a sign you are mixing 2+ different things. It's also a sign of untestable/high dimensionality.
+* More than 2 lines per function? Stop and think, or ask yourself/nearest dev: "Is it really related? Why is this together? Is there a better order to chain methods?"
 
-Ok, I'm being a bit of a troll about the 'absolute 2 line limit.' 
+Ok, I'm being a bit of a troll about an 'absolute 2 line limit.' 
 
-Here is what I'm getting at - we can gain more testable code if we refactor like so:
+Here is what I'm getting at: **separate your code into distinct logical functions.**
 
 ```js
 chatApp.getUserData = user => {
@@ -217,7 +223,7 @@ Errors can be **filtered by type** with Bluebirds `.catch(<type>, <error>)` inte
 
 My goal is code which reads like a story.
 
-> **Bluebird Promises Pro Tip**: Structure your Promises so you can capture/intercept different `Errors` - i.e. form field validation (user) vs. network down (temporary) vs. corrupt data (hard fail). The techniques can seem very different from what you are used to, [see my example using a Finite State Machine with `Error` handling in Bluebird Promises](https://github.com/justsml/escape-from-callback-mountain/blob/master/examples/typed-errors/auth.js#L29-L33).
+> **Bluebird Promises Pro Tip**: Structure your Promises so you can capture/intercept different `Errors` - i.e. form field validation (user) vs. network down (temporary) vs. corrupt data (hard fail). The techniques can seem very different from what you are used to, [see my example pattern of a 'Finite State Machine' using the `Error` handling in Bluebird Promises](https://github.com/justsml/escape-from-callback-mountain/blob/master/examples/typed-errors/auth.js#L29-L33).
 
 
 -------------
@@ -242,4 +248,4 @@ I'm discovering what it *really* means. At a more deeper & more holistic level.
 
 
 
-If I forgot to give credit, please send a PR, or let me know twitter.com/@justsml
+If I forgot to give credit, please [send a PR](https://github.com/justsml/escape-from-callback-mountain/pulls), or let me know twitter.com/justsml
