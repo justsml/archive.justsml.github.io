@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Functional JavaScript with Bluebird Promises"
+title:  "Functional Promises in JavaScript Crash Course"
 date:       2017-05-10
-modified:   2017-06-11
+modified:   2017-06-12
 categories: programming
 tags: [programming, patterns, source code, functional-river, functional-js]
 image:
@@ -10,7 +10,7 @@ image:
   credit:
 ---
 
-# Escape from Callback Mountain!
+# Functional Promises in JavaScript Crash Course
 
 [![Build Status](https://travis-ci.org/justsml/escape-from-callback-mountain.svg?branch=master)](https://travis-ci.org/justsml/escape-from-callback-mountain)
 
