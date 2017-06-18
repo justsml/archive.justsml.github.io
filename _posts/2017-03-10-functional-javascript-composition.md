@@ -38,6 +38,7 @@ Instead I'll list 4 general rules, each which have helped me write more **readab
 1. Never use `prototype` if possible. (Confession: I only used once, by necessity, in [`escape-from-callback-mountain`](https://github.com/justsml/escape-from-callback-mountain/) errors module.) Composition is a pure embrace of the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
 1. Build functions without nesting/variable hoisting. Mitigate with ImmutableJS, else you can [pass needed values]() as arguments. (Factory patterns are ok if state sharing is avoided or centralized. Examples in `callback-mountain` project.)
 
+> See [Competing Theories](#competing-theories) for a worthy counter-argument.
 
 Let me emphasize: **Single parameter functions are not restricting** - simply use an Array or Object for your function argument.
 
@@ -72,7 +73,7 @@ const test = require('tape')
 
 test('Pure JS/ES6: math functions', t => {
   // compose accepts a list of functions, to be executed in order when the returned function (_run) is called with a value.
-  const compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x)
+  const compose = (...fns) => x => fns.reduce((v, f) => f(v), x)
   const add5HalfSquare = compose(add5, half, square)
   t.equals(add5HalfSquare(5), '25.00', 'I can caz maths?')
   t.end()
@@ -109,15 +110,15 @@ test('Array.reduce: math functions', t => {
 // Example/Util Math Methods:
 // Pure-at-heart functions (https://en.wikipedia.org/wiki/Pure_function)
 const add5 = n => {
-  n = parseInt(n) + 5  
+  n = parseFloat(n) + 5  
   return n // required
 }
 const half = n => {
-  n = (parseInt(n) * 0.5).toFixed(2)
+  n = (parseFloat(n) * 0.5).toFixed(2)
   return n
 }
 const square = n => {
-  n = parseInt(n * n).toFixed(2)
+  n = parseFloat(n * n).toFixed(2)
   return n
 }
 ```
@@ -131,7 +132,7 @@ Great, use `_.flow`, or `.chain()`.
 Cool, **it's just another pluggable pattern.**
 
 
-There are so many choices for gluing your functions together! Insulate yourself by sticking to my 4 rules (above).
+There are so many choices for gluing your functions together! Just make sure to insulate yourself by [sticking to my 4 rules](#part-1) (in Part 1).
 
 
 #### Let's look at a more real-world example...
@@ -223,6 +224,12 @@ Errors can be **filtered by type** with Bluebirds `.catch(<type>, <error>)` inte
 My goal is code which reads like a story.
 
 > **Bluebird Promises Pro Tip**: Structure your Promises so you can capture/intercept different `Errors` - i.e. form field validation (user) vs. network down (temporary) vs. corrupt data (hard fail). The techniques can seem very different from what you are used to, [see my example pattern of a 'Finite State Machine' using the `Error` handling in Bluebird Promises](https://github.com/justsml/escape-from-callback-mountain/blob/master/examples/typed-errors/auth.js#L29-L33).
+
+
+## Competing Theories
+While I differ in approach & reasoning, I highly recommend reading [Best practices for JavaScript function parameters
+](https://codeutopia.net/blog/2016/11/24/best-practices-for-javascript-function-parameters/) on [codeutopia.net](https://codeutopia.net).
+
 
 
 -------------
