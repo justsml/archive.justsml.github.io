@@ -38,12 +38,12 @@ Instead I'll list 4 general rules, each which have helped me write more **readab
 1. Never use `prototype` if possible. (Confession: I only used once, by necessity, in [`escape-from-callback-mountain`](https://github.com/justsml/escape-from-callback-mountain/) errors module.) Composition is a pure embrace of the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
 1. Build functions without nesting/variable hoisting. Mitigate with ImmutableJS, else you can [pass needed values]() as arguments. (Factory patterns are ok if state sharing is avoided or centralized. Examples in `callback-mountain` project.)
 
-> See [Competing Theories](#competing-theories) for a worthy counter-argument.
-
 Let me emphasize: **Single parameter functions are not restricting** - simply use an Array or Object for your function argument.
 
 If you are wondering how single-purpose functions ever amount to anything except code sprawl, well, let me introduce you to my friend, **Higher Order Components**, or HOCs. Which is really a fancy way of saying `Function`, `Controller`, `Class`, etc. 
 The goal is to have your code feel like using LEGO™ building blocks. 
+
+> Side note: See [Alternative Theories](#alternative-theories) for an interesting alternative approach.
 
 #### Let's look at some code...
 
