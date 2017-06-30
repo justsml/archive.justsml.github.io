@@ -212,9 +212,6 @@ chatApp.login = () => openLoginModal()
     .catch(err => showUserMessage({message: 'Something truly unexpected happened, congratulations.'}))
 ```
 
-
-## Conclusion 
-
 Here's why it's better: it's flatter & therefore more (unit) testable.
 
 `chatApp.getUserData` is testable because it's not hidden inside the `login()` and tied to the status update.
