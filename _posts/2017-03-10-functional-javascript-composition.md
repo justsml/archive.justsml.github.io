@@ -145,11 +145,11 @@ Let's say we're given requirements:
 
 1. User clicks [login] button.
 2. Modal opens, prompts for fields `user` and `pass`.
-    2a. User submits form.
-    2b. User clicks 'forgot password'.
+    * User submits form.
+    * User clicks 'forgot password'.
 3. Upon success, load app+msg data for logged-in user.
-    3a. Cache ajax data for offline use.
-    3b. Update user status to 'online'
+    * Cache ajax data for offline use.
+    * Update user status to 'online'
 4. Upon failure, plunge into fire pit.
 5. Show appropriate UI messaging
 
