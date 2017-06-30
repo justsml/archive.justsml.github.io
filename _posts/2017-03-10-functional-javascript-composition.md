@@ -226,31 +226,20 @@ My goal is code which reads like a story.
 > **Bluebird Promises Pro Tip**: Structure your Promises so you can capture/intercept different `Errors` - i.e. form field validation (user) vs. network down (temporary) vs. corrupt data (hard fail). The techniques can seem very different from what you are used to, [see my example pattern of a 'Finite State Machine' using the `Error` handling in Bluebird Promises](https://github.com/justsml/escape-from-callback-mountain/blob/master/examples/typed-errors/auth.js#L29-L33).
 
 
-## Competing Theories
+## Alternative Theories
+
 While I differ in approach & reasoning, I highly recommend reading [Best practices for JavaScript function parameters
 ](https://codeutopia.net/blog/2016/11/24/best-practices-for-javascript-function-parameters/) on [codeutopia.net](https://codeutopia.net).
 
-
-
 -------------
-
-> In university I had been taught "code reuse" simply means liberally copy & pasting.
-I'm discovering what it *really* means. At a more deeper & more holistic level.
-
-
-#### Soon you'll see your Code (almost) organizing itself.
-
-
--------------
-
 
 ### CREDITS & LINKS
 
 * [Eric Elliot](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
 * [Promises Concept](http://www.2ality.com/2016/10/understanding-promises.html)
 * [Super Promises/Bluebird](http://bluebirdjs.com/docs/api-reference.html)
-* https://medium.com/@_ericelliott/there-are-a-few-simple-rules-that-make-mixins-safer-a6ffd82c1d8e
-* http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript
+* [Simple rules that make mixins safer](https://medium.com/@_ericelliott/there-are-a-few-simple-rules-that-make-mixins-safer-a6ffd82c1d8e)
+* [Smalltalk translated to JavaScript](http://peter.michaux.ca/articles/smalltalk-mvc-translated-to-javascript)
 
 
 
