@@ -216,12 +216,9 @@ Here's why it's better: it's flatter & therefore more (unit) testable.
 
 `chatApp.getUserData` is testable because it's not hidden inside the `login()` and tied to the status update.
 "Partitioned" into 2 "flows" - `.then/.tap`, and then `.catch()`'s. 
-Errors can be **filtered by type** with Bluebirds `.catch(<type>, <error>)` interface.
+Errors can be **filtered by type** with Bluebirds `.catch(<type>, <error>)` interface. [See my example pattern of a 'Finite State Machine' using the `Error` handling in Bluebird Promises](https://github.com/justsml/escape-from-callback-mountain/blob/master/examples/typed-errors/auth.js#L29-L33)
 
 My goal is code which reads like a story.
-
-> **Bluebird Promises Pro Tip**: Structure your Promises so you can capture/intercept different `Errors` - i.e. form field validation (user) vs. network down (temporary) vs. corrupt data (hard fail). The techniques can seem very different from what you are used to, [see my example pattern of a 'Finite State Machine' using the `Error` handling in Bluebird Promises](https://github.com/justsml/escape-from-callback-mountain/blob/master/examples/typed-errors/auth.js#L29-L33).
-
 
 ## Alternative Theories
 
