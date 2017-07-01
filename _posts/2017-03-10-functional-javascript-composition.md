@@ -70,10 +70,10 @@ const test = require('tape')
 
 // Demo of 4 techniques to 'glue' functions together (Higher Order Components)
 // we'll do some simple math:  5+5==10,  half(10)==5,  5*5==25.0
-
 test('Pure JS/ES6: math functions', t => {
-  // compose accepts a list of functions, to be executed in order when the returned function (_run) is called with a value.
+  // `compose([functions])` accepts a list of functions, to be executed in order, starting with the value passed in
   const compose = (...fns) => x => fns.reduce((v, f) => f(v), x)
+
   const add5HalfSquare = compose(add5, half, square)
   t.equals(add5HalfSquare(5), '25.00', 'I can caz maths?')
   t.end()
