@@ -2,7 +2,7 @@
 layout: post
 title:  "Guide 2017: Write Better JavaScript, Faster"
 date:       2017-03-10
-modified:   2017-06-02
+modified:   2017-07-02
 categories: programming
 tags: [programming, patterns, source-code, functional-js]
 image:
@@ -34,16 +34,19 @@ Don't worry, I'm not wading into the tarpit defining "Simple Code."
 Instead I'll list 4 general rules, each which have helped me write more **readable, testable & adaptable** code.
 
 1. Restrict functions to single-purpose. See [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
-1. Restrict functions to single-argument (or 2 when using NodeJS/Express callback (err, value) style). So, your 3 parameter function `(a, b, c) => {}` should instead accept `([a, b, c]) => {}`. Helps you with [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle), [Interface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle).
+1. Restrict functions to single-argument (or 2 when using NodeJS/Express callback (err, value) style). So, your 3 parameter function `(a, b, c) => {}` should instead accept `({a, b, c}) => {}`. Helps with [Dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle), [Interface segregation](https://en.wikipedia.org/wiki/Interface_segregation_principle).
 1. Never use `prototype` if possible. (Confession: I only used once, by necessity, in [`escape-from-callback-mountain`](https://github.com/justsml/escape-from-callback-mountain/) errors module.) Composition is a pure embrace of the [Open/closed principle](https://en.wikipedia.org/wiki/Open/closed_principle).
 1. Build functions without nesting/variable hoisting. Mitigate with ImmutableJS, else you can [pass needed values]() as arguments. (Factory patterns are ok if state sharing is avoided or centralized. Examples in `callback-mountain` project.)
 
 Let me emphasize: **Single parameter functions are not restricting** - simply use an Array or Object for your function argument.
 
+Now, you may be thinking "hold on, is there a real difference between multiple arguments and wrapping everything in a single-arg object/array?"
+**Great critical thinking** (and thanks to Jani Hartikainen for bringing this up). **The answer is yes**, it's a huge difference.
+
+Essentially, parameter limiting can make your code compatible with **many pre-existing patterns & tools**: Promises, Array.[map,find,forEach,filter], RxJS, etc. **This feels like an advantage to me.**
+
 If you are wondering how single-purpose functions ever amount to anything except code sprawl, well, let me introduce you to my friend, **Higher Order Components**, or HOCs. Which is really a fancy way of saying `Function`, `Controller`, `Class`, etc. 
 The goal is to have your code feel like using LEGO™ building blocks. 
-
-> Side note: See [Alternative Theories](#alternative-theories) for an interesting alternative approach.
 
 #### Let's look at some code...
 
@@ -69,7 +72,23 @@ Twittering: @justsml
 const test = require('tape')
 
 // Demo of 4 techniques to 'glue' functions together (Higher Order Components)
-// we'll do some simple math:  5+5==10,  half(10)==5,  5*5==25.0
+// we'll do some simple math:  add5(5)==10,  half(10)==5,  square(5)==25.0
+
+// Example/Util Math Methods:
+// Pure-ish functions (https://en.wikipedia.org/wiki/Pure_function)
+const add5 = n => {
+  n = parseFloat(n) + 5  
+  return n // required
+}
+const half = n => {
+  n = (parseFloat(n) * 0.5).toFixed(2)
+  return n
+}
+const square = n => {
+  n = parseFloat(n * n).toFixed(2)
+  return n
+}
+
 test('Pure JS/ES6: math functions', t => {
   // `compose([functions])` accepts a list of functions, to be executed in order, starting with the value passed in
   const compose = (...fns) => x => fns.reduce((v, f) => f(v), x)
@@ -106,21 +125,6 @@ test('Array.reduce: math functions', t => {
   t.end();
 })
 
-
-// Example/Util Math Methods:
-// Pure-at-heart functions (https://en.wikipedia.org/wiki/Pure_function)
-const add5 = n => {
-  n = parseFloat(n) + 5  
-  return n // required
-}
-const half = n => {
-  n = (parseFloat(n) * 0.5).toFixed(2)
-  return n
-}
-const square = n => {
-  n = parseFloat(n * n).toFixed(2)
-  return n
-}
 ```
 
 With this technique, you **no longer have to fight the Framework Wars**. I don't have time for it.
@@ -137,7 +141,6 @@ There are so many choices for gluing your functions together! Just make sure to 
 
 #### Let's look at a more real-world example...
 
-
 ## Part 3
 ### Example Login Pattern
 
@@ -152,7 +155,6 @@ Let's say we're given requirements:
     * Update user status to 'online'
 4. Upon failure, plunge into fire pit.
 5. Show appropriate UI messaging
-
 
 Using bluebird's unique take on "Promises," I'll show the code in *almost* as many lines as the (terse) requirements above.
 
@@ -215,10 +217,10 @@ chatApp.login = () => openLoginModal()
 Here's why it's better: it's flatter & therefore more (unit) testable.
 
 `chatApp.getUserData` is testable because it's not hidden inside the `login()` and tied to the status update.
-"Partitioned" into 2 "flows" - `.then/.tap`, and then `.catch()`'s. 
-Errors can be **filtered by type** with Bluebirds `.catch(<type>, <error>)` interface. [See my example pattern of a 'Finite State Machine' using the `Error` handling in Bluebird Promises](https://github.com/justsml/escape-from-callback-mountain/blob/master/examples/typed-errors/auth.js#L29-L33)
+Previously, the nested `.then`'s which called ad-hoc background functions are now explicitly not affecting the control flow of the chain (using `tap`).
+And as an added bonus, the decision tree of a function is easier to understand when using custom errors and **filtering by Error type** with Bluebirds' `.catch(<type>, <error>)` interface. [See my example pattern of a 'Finite State Machine' using the `Error` handling in Bluebird Promises](https://github.com/justsml/escape-from-callback-mountain/blob/master/examples/typed-errors/auth.js#L29-L33)
 
-My goal is code which reads like a story.
+Ultimately my goal is **code which reads like a story.**
 
 ## Alternative Theories
 
