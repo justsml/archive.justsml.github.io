@@ -89,7 +89,7 @@ const square = n => {
   return n
 }
 
-test('Pure JS/ES6: math functions', t => {
+test('Method #1: Pure JS/ES6: math functions', t => {
   // `compose([functions])` accepts a list of functions, to be executed in order, starting with the value passed in
   const compose = (...fns) => x => fns.reduce((v, f) => f(v), x)
 
@@ -98,14 +98,14 @@ test('Pure JS/ES6: math functions', t => {
   t.end()
 })
 
-test('Lodash: math functions', t => {
+test('Method #2: Lodash: math functions', t => {
   const {flow} = require('lodash');
   const add5HalfSquare = flow(add5, half, square);
   t.equals(add5HalfSquare(5), '25.00', 'I can caz maths?');
   t.end();
 })
 
-test('Promises Chain: math functions', t => {
+test('Method #3: Promises Chain: math functions', t => {
   const add5HalfSquare = n => Promise
     .resolve(n)
     .then(add5)
@@ -118,7 +118,7 @@ test('Promises Chain: math functions', t => {
   });
 })
 
-test('Array.reduce: math functions', t => {
+test('Method #4: Array.reduce: math functions', t => {
   const add5HalfSquare = n => [add5, half, square]
     .reduce((val, fn) => fn && fn(val), n);
   t.equals(add5HalfSquare(5), '25.00', 'I can reduce maths?');
@@ -133,7 +133,7 @@ With this technique, you **no longer have to fight the Framework Wars**. I don't
 Great, use `_.flow`, or `.chain()`. 
 
 #### Using Promises?
-Cool, **it's just another pluggable pattern.**
+Cool, **Promises are just another pluggable pattern.**
 
 
 There are so many choices for gluing your functions together! Just make sure to insulate yourself by [sticking to my 4 rules](#part-1) (in Part 1).
