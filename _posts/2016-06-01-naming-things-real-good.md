@@ -2,7 +2,7 @@
 layout: post
 title:  "Naming things real good"
 date:   2016-06-01
-modified:   2017-04-29
+modified:   2017-07-22
 categories: programming
 tags: [programming, patterns, naming, source code, organization]
 image:
@@ -54,21 +54,24 @@ If this is familiar to you, I'll bet you:
 
 ## The Cost of Bad (Naming) Habits
 
-Why is naming a field `agentEmailPrimary` _the worst_?
+Why is naming a field `User.agentEmailPrimary` _the worst_?
 
-For starters, you are **not** creating an entirely new object unto the universe. Over-specificity has some traps:
+For starters, you are **not** creating an entirely new object unto the universe. I hope you meant something like `agent.emails[0]` or `user.displayEmail`...
 
-1. Strong hint some bad object design/seperation is afoot.
-1. 'Locked' into highly specific name, means `agentEmailPrimary` probably make your views and related code **0% reusable**, and featuring annoyingly recurring bugs like:
-  - Data not syncing between tables (not obvious if `user.email` needs to propagate to `agent.agentEmail` or vice-versa - nevermind complexity of manually implementing where & how to enforce this 'logic' ...)
-  - Validation rules/logic are likely duplicated & inconsitent.
-  - Increasingly, your project will resemble a shaky Jenga tower.
-  - Fragility piles up with every single new file, as an extremely high attention to detail is required for even trivial changes
+Over-specificity & entangled code has some consequences:
+
+1. Strong hint there's some bad schemas, modular design or seperation of logical objects.
+1. When you are commited to highly specific name, it means way less reusable code, with annoyingly recurring bugs like:
+  - Mismatched names can occur frequently in templates and code, leading to a frustrating team experience.
+  - Awkward 3-part names are a strong red flag that fields may have been arbitrarily added to tables/schemas.
+  - Validation rules/logic somehow manage to be used both repetitivly and inconsitently.
+  - Fragility piles up with every single new file, as an extremely high attention to detail is required for trivial changes.
 1. `agentEmailPrimary` could mean a few different things. Avoid ambiguity with **shorter names**.
   * Watch out for silly excess wording. `Primary`? Just leads to more questions: Is there a Secondary? Is it for their Primary Next-of-kin?
+  * Use a new object `agent`, so something like `agent.emails[0]`. Or give more meaning in the context of a `user` with `user.displayEmail`
 
 
-Hang in there, we're almost to the solution...
+Hang in there, we're almost to a suggested solution...
 
 
 ## A Solution
