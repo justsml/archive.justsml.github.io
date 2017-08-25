@@ -13,7 +13,7 @@ words_per_minute: 100 #was 200, 50 is better for code
 # Owner/author information
 owner:
   name:           Dan Levy
-  avatar:         avatar.jpg
+  avatar:         DANIMATION-256.gif
   bio:            "Devout Programmer"
   email:          Dan@DanLevy.net
   # Social networking links used in footer. Update and remove as you like.
